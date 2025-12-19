@@ -11,6 +11,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { NavigationContainer } from '@react-navigation/native';
 // Screeens
 import { Main } from './src/screens/Main';
+import { Login } from './src/screens/Login';
 // Types
 import { NavRoot } from './src/navigation/types';
 
@@ -24,6 +25,7 @@ function MyMain() {
         headerTransparent: true,
       }}
     >
+      <Stack.Screen name="Login" component={Login} />
       <Stack.Screen name="Main" component={Main} />
     </Stack.Navigator>
   );

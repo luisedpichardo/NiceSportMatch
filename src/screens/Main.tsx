@@ -16,9 +16,9 @@ export const Main = ({ navigation }: Props) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'black',
-		justifyContent: 'center',
-		alignItems: 'center',
+    backgroundColor: 'green',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   txt: {
     color: 'white',
