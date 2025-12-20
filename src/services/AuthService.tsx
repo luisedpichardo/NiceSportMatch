@@ -4,6 +4,7 @@ import {
   signInWithEmailAndPassword,
   signOut,
 } from '@react-native-firebase/auth';
+import firestore from '@react-native-firebase/firestore';
 
 export const createUserWithEmailAndPasswordService = async (
   firstName: string,
@@ -19,8 +20,13 @@ export const createUserWithEmailAndPasswordService = async (
       email,
       password,
     );
-    console.log(userCredential.user);
+    const user: any = userCredential.user;
     // Get user credentials to save into firestore
+    await firestore().collection('users').doc(user.email).set({
+      email,
+      firstName,
+      lastName,
+    });
 
   } catch (error: any) {
     if (error.code === 'auth/email-already-in-use') {
