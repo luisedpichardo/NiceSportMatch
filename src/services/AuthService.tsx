@@ -12,7 +12,6 @@ export const createUserWithEmailAndPasswordService = async (
   email: string,
   password: string,
 ) => {
-  console.log('creating user');
   try {
     // get response for create user
     const userCredential = await createUserWithEmailAndPassword(

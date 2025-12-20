@@ -13,15 +13,15 @@ import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { getAuth } from '@react-native-firebase/auth';
 // Components
 import { RightHdrBtn } from '../components/RightHdrBtn';
+import { ImageProfile } from '../components/ImageProfile';
 // Types
 import { NavRoot } from '../navigation/types';
 // Services
-import { signOutService } from '../services/AuthService'; 
+import { signOutService } from '../services/AuthService';
 
 type Props = NativeStackScreenProps<NavRoot, 'Settings'>;
 
 export const Settings = ({ navigation }: Props) => {
-
   useEffect(() => {
     navigation.setOptions({
       headerTintColor: 'white',
@@ -51,7 +51,7 @@ export const Settings = ({ navigation }: Props) => {
   return (
     <View style={styles.container}>
       <View style={styles.form}>
-
+        <ImageProfile />
       </View>
     </View>
   );
