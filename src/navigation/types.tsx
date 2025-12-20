@@ -9,5 +9,7 @@ export type NavAuthStack = {
 }
 
 export type NavHomeTab = {
-  Main: undefined;
+  Map: undefined;
+  Matches: undefined;
+  Chat: undefined;
 }

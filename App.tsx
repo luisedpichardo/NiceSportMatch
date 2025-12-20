@@ -16,10 +16,13 @@ import { createNativeBottomTabNavigator } from '@react-navigation/bottom-tabs/un
 import { Main } from './src/screens/Main';
 import { Login } from './src/screens/Login';
 import { SignUp } from './src/screens/SignUp';
+import { Matches } from './src/screens/Matches';
 // Types
 import { NavRoot, NavAuthStack, NavHomeTab } from './src/navigation/types';
 import { Settings } from './src/screens/Settings';
 import { RightHdrBtn } from './src/components/RightHdrBtn';
+import { Chat } from './src/screens/Chat';
+import { OpenSettings } from './src/components/OpenSettings';
 
 const Stack = createNativeStackNavigator<NavRoot>();
 const NavAuthS = createNativeStackNavigator<NavAuthStack>();
@@ -42,7 +45,9 @@ function AuthStack() {
 function HomeTabs() {
   return (
     <TabHome.Navigator>
-      <TabHome.Screen name="Main" component={Main} />
+      <TabHome.Screen name="Map" component={Main} />
+      <TabHome.Screen name="Matches" component={Matches} />
+      <TabHome.Screen name="Chat" component={Chat} />
     </TabHome.Navigator>
   );
 }
@@ -68,13 +73,7 @@ function MyMain() {
 }
 
 const rightHeader = () => {
-  const navigation = useNavigation();
-  return (
-    <RightHdrBtn
-      text="Settings"
-      onPress={() => navigation.navigate('Settings')}
-    />
-  );
+  return <OpenSettings />;
 };
 
 function App() {

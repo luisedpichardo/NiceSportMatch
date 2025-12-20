@@ -6,7 +6,7 @@ import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { NavHomeTab, NavRoot } from '../navigation/types';
 
 type Props = CompositeScreenProps<
-  BottomTabScreenProps<NavHomeTab, 'Main'>,
+  BottomTabScreenProps<NavHomeTab, 'Map'>,
   NativeStackScreenProps<NavRoot>
 >;
 
@@ -14,7 +14,7 @@ export const Main = ({ navigation }: Props) => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.txt}>Main</Text>
+      <Text style={styles.txt}>Map</Text>
     </View>
   );
 };
