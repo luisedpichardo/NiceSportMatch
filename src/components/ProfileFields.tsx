@@ -1,6 +1,6 @@
 import { getAuth } from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import {
   Alert,
   StyleSheet,
@@ -19,6 +19,20 @@ export const ProfileFields = () => {
   const [age, setAge] = useState('');
   const [newAge, setNewAge] = useState('');
 
+  useEffect(() => {
+    const user: any = getAuth().currentUser;
+    if (!user) noUserDetected();
+    firestore()
+      .collection('users')
+      .doc(user.email)
+      .get()
+      .then((userData: any) => {
+        setFirstName(userData.data().firstName);
+        setLastName(userData.data().lastName);
+        if (userData.data().age) setAge(userData.data().age);
+      });
+  });
+
   const updateAccount = async () => {
     const user: any = getAuth().currentUser;
     if (!user) noUserDetected();
@@ -33,7 +47,6 @@ export const ProfileFields = () => {
     try {
       await userRef.update(updatedData);
       Alert.alert('Success', 'Account info updated!');
-      // navigation.goBack();
     } catch (err: any) {
       Alert.alert('Failed to update account info.', err.message);
     }
