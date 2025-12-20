@@ -1,4 +1,3 @@
-import { useEffect, useState } from 'react';
 import {
   View,
   StyleSheet,
@@ -10,48 +9,29 @@ import {
   Switch,
 } from 'react-native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { getAuth } from '@react-native-firebase/auth';
-// Components
-import { RightHdrBtn } from '../components/RightHdrBtn';
-import { ImageProfile } from '../components/ImageProfile';
 // Types
 import { NavRoot } from '../navigation/types';
-// Services
-import { signOutService } from '../services/AuthService';
+import { SettingsOptions } from '../components/SettingsOptions';
 
 type Props = NativeStackScreenProps<NavRoot, 'Settings'>;
 
 export const Settings = ({ navigation }: Props) => {
-  useEffect(() => {
-    navigation.setOptions({
-      headerTintColor: 'white',
-      headerRight: () => headerRight(),
-    });
-    const user: any = getAuth().currentUser;
-    if (!user) noUserDetected();
-  }, [navigation]);
-
-  const headerRight = () => {
-    return <RightHdrBtn onPress={signOut} text="Log Out" />;
-  };
-
-  const signOut = async () => {
-    // Remove
-    const user: any = getAuth().currentUser;
-    signOutService(user.email).catch((err: any) => {
-      Alert.alert('Error', err);
-    });
-  };
-
-  const noUserDetected = async () => {
-    signOut();
-    Alert.alert('Error', 'No valid user');
-  };
-
   return (
     <View style={styles.container}>
+      <Text style={styles.titleStyle}>Settings</Text>
       <View style={styles.form}>
-        <ImageProfile />
+        <SettingsOptions
+          onPress={() => navigation.navigate('ProfileInfo')}
+          text="Profile Info"
+        />
+        <SettingsOptions
+          onPress={() => console.log('selecting Languages')}
+          text="Select Language"
+        />
+        <SettingsOptions
+          onPress={() => console.log('going to theme')}
+          text="Profile Info"
+        />
       </View>
     </View>
   );
@@ -65,10 +45,20 @@ const styles = StyleSheet.create({
     paddingTop: '30%',
     paddingBottom: '30%',
   },
+  titleStyle: {
+    flex: 1,
+    paddingTop: 80,
+    paddingLeft: 30,
+    paddingBottom: 10,
+    fontSize: 40,
+    fontWeight: '600',
+    color: 'white',
+  },
   form: {
-    flex: 3,
+    flex: 4,
     backgroundColor: 'gray',
     borderRadius: 25,
     padding: 30,
+    justifyContent: 'center',
   },
 });

@@ -1,10 +1,10 @@
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 // Types
-import { NavRoot } from '../navigation/types';
+import { NavAuthStack } from '../navigation/types';
 import { SignUpForm } from '../components/SignUpForm';
 
-type Props = NativeStackScreenProps<NavRoot, 'SignUp'>;
+type Props = NativeStackScreenProps<NavAuthStack, 'SignUp'>;
 
 export const SignUp = ({ navigation }: Props) => {
   return (

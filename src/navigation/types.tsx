@@ -1,6 +1,7 @@
 export type NavRoot = {
   Home: NavHomeTab;
   Settings: undefined;
+  ProfileInfo: undefined;
 };
 
 export type NavAuthStack = {

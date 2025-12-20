@@ -2,15 +2,80 @@ import { useState } from 'react';
 import {
   Alert,
   Image,
+  Platform,
   StyleSheet,
   Text,
   TouchableOpacity,
   View,
 } from 'react-native';
 import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
+import RNFS from 'react-native-fs';
+import firestore from '@react-native-firebase/firestore';
+import { getAuth, signOut } from '@react-native-firebase/auth';
+import ImageResizer from 'react-native-image-resizer';
 
 export const ImageProfile = () => {
   const [imageUri, setImageUri] = useState();
+
+  const updateImage = async () => {
+    console.log('updating');
+    const user: any = getAuth().currentUser;
+    if (!user) noUserDetected();
+    // Assign data accordingly
+    const updatedData: any = {};
+
+    const userRef: any = firestore().collection('users').doc(user.email);
+
+    if (imageUri) {
+      const compressedBase64 = await compressImage(imageUri);
+      if (compressedBase64) {
+        updatedData.profileImage = compressedBase64;
+      }
+    }
+
+    console.log('updated data: ', updatedData);
+    // Send the update
+    try {
+      await userRef.update(updatedData);
+      Alert.alert('Success', 'Account updated!');
+      // navigation.goBack();
+    } catch (err: any) {
+      console.log(err);
+      Alert.alert('Failed to update account.', err.message);
+    }
+  };
+
+  const compressImage = async (uri: string) => {
+    try {
+      const resizedImage = await ImageResizer.createResizedImage(
+        uri,
+        512,
+        512,
+        'JPEG',
+        60,
+        0,
+        undefined,
+        false,
+        { mode: 'contain' },
+      );
+      // Convert to base64
+      const base64 = await RNFS.readFile(
+        Platform.OS === 'ios'
+          ? resizedImage.uri.replace('file://', '')
+          : resizedImage.uri,
+        'base64',
+      );
+      return base64;
+    } catch (err) {
+      console.log('Image compression failed', err);
+      return null;
+    }
+  };
+
+  const noUserDetected = async () => {
+    signOut(getAuth());
+    Alert.alert('Error', 'No valid user');
+  };
 
   const openLibrary = async () => {
     try {
@@ -56,7 +121,6 @@ export const ImageProfile = () => {
         }
         style={styles.imgStyle}
       />
-      <Text style={styles.txt}>Update Image</Text>
       <View style={styles.btnsOpt}>
         <TouchableOpacity onPress={openLibrary} style={styles.btn}>
           <Text>Choose from library</Text>
@@ -65,6 +129,9 @@ export const ImageProfile = () => {
           <Text>Take Picture</Text>
         </TouchableOpacity>
       </View>
+      <TouchableOpacity onPress={() => updateImage()}>
+        <Text style={styles.txt}>Update Image</Text>
+      </TouchableOpacity>
     </View>
   );
 };
@@ -84,7 +151,6 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
     paddingHorizontal: 20,
     borderRadius: 20,
-    marginTop: 10,
   },
   btnsOpt: {
     flexDirection: 'row',

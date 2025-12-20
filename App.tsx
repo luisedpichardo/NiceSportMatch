@@ -8,7 +8,7 @@
 import { StatusBar, StyleSheet, useColorScheme } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { NavigationContainer, useNavigation } from '@react-navigation/native';
+import { NavigationContainer } from '@react-navigation/native';
 import { getAuth, onAuthStateChanged } from '@react-native-firebase/auth';
 import { useEffect, useState } from 'react';
 import { createNativeBottomTabNavigator } from '@react-navigation/bottom-tabs/unstable';
@@ -20,9 +20,9 @@ import { Matches } from './src/screens/Matches';
 // Types
 import { NavRoot, NavAuthStack, NavHomeTab } from './src/navigation/types';
 import { Settings } from './src/screens/Settings';
-import { RightHdrBtn } from './src/components/RightHdrBtn';
 import { Chat } from './src/screens/Chat';
 import { OpenSettings } from './src/components/OpenSettings';
+import { ProfileInfo } from './src/screens/ProfileInfo';
 
 const Stack = createNativeStackNavigator<NavRoot>();
 const NavAuthS = createNativeStackNavigator<NavAuthStack>();
@@ -68,6 +68,7 @@ function MyMain() {
         }}
       />
       <Stack.Screen name="Settings" component={Settings} />
+      <Stack.Screen name="ProfileInfo" component={ProfileInfo} />
     </Stack.Navigator>
   );
 }
