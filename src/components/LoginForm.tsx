@@ -1,13 +1,21 @@
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, Alert } from 'react-native';
 import { Formik } from 'formik';
+import { getAuth, signOut } from '@react-native-firebase/auth';
 // Components
 import { SignUpLoginInput } from '../components/SignUpLoginInput';
 // Schemas
 import { loginValidation } from '../schemas/LoginValidation';
+// Services
+import { signInWithEmailAndPasswordService } from '../services/AuthService';
 
 export const LoginForm = () => {
   const onLoginPressed = (email: string, password: string) => {
-    console.log('login pressed');
+    signInWithEmailAndPasswordService(email, password)
+      .then(() => Alert.alert('Welcome'))
+      .catch(err => {
+        Alert.alert('Error', err.message);
+        signOut(getAuth());
+      });
   };
 
   return (
@@ -49,7 +57,7 @@ export const LoginForm = () => {
             )}
             <TouchableOpacity
               onPress={handleSubmit}
-              style={{ alignItems: 'flex-end' }}
+              style={styles.btn}
               disabled={!isValid}
             >
               <Text>Log In</Text>
@@ -63,4 +71,11 @@ export const LoginForm = () => {
 
 const styles = StyleSheet.create({
   errorSty: { fontSize: 10, color: 'red' },
+  btn: {
+    backgroundColor: 'lightgreen',
+    borderRadius: 20,
+    paddingVertical: 5,
+    paddingHorizontal: 20,
+    alignSelf: 'flex-end',
+  },
 });

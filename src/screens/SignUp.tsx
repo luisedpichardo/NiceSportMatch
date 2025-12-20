@@ -16,12 +16,7 @@ export const SignUp = ({ navigation }: Props) => {
         <View style={{ flex: 1, justifyContent: 'flex-end' }}>
           <TouchableOpacity
             onPress={() => navigation.goBack()}
-            style={{
-              alignItems: 'center',
-              backgroundColor: 'lightgreen',
-              borderRadius: 20,
-              paddingVertical: 5,
-            }}
+            style={styles.btn}
           >
             <Text>Have an account?</Text>
             <Text>Log in instead!</Text>
@@ -53,5 +48,11 @@ const styles = StyleSheet.create({
     marginBottom: '30%',
     borderRadius: 25,
     padding: 30,
+  },
+  btn: {
+    alignItems: 'center',
+    backgroundColor: 'lightgreen',
+    borderRadius: 20,
+    paddingVertical: 5,
   },
 });

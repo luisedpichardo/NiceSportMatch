@@ -1,9 +1,11 @@
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, Alert } from 'react-native';
 import { Formik } from 'formik';
 // Components
 import { SignUpLoginInput } from '../components/SignUpLoginInput';
 // Schemas
 import { signUpValidation } from '../schemas/SignUpValidation';
+// Services
+import { createUserWithEmailAndPasswordService } from '../services/AuthService';
 
 export const SignUpForm = () => {
   const onSignUpPressed = (
@@ -12,7 +14,13 @@ export const SignUpForm = () => {
     email: string,
     password: string,
   ) => {
-    console.log('SignUp pressed');
+    createUserWithEmailAndPasswordService(firstName, lastName, email, password)
+      .then(() => {
+        Alert.alert('Succes');
+      })
+      .catch((err: any) => {
+        Alert.alert('Error', err.message);
+      });
   };
 
   return (
@@ -45,8 +53,8 @@ export const SignUpForm = () => {
               secureTextEntry={false}
               keyboardType="default"
             />
-            {errors.email && (
-              <Text style={styles.errorSty}>{errors.email}</Text>
+            {errors.firstName && (
+              <Text style={styles.errorSty}>{errors.firstName}</Text>
             )}
             <SignUpLoginInput
               title="Last Name"
@@ -56,8 +64,8 @@ export const SignUpForm = () => {
               secureTextEntry={false}
               keyboardType="default"
             />
-            {errors.email && (
-              <Text style={styles.errorSty}>{errors.email}</Text>
+            {errors.lastName && (
+              <Text style={styles.errorSty}>{errors.lastName}</Text>
             )}
             <SignUpLoginInput
               title="Email"
@@ -83,7 +91,7 @@ export const SignUpForm = () => {
             )}
             <TouchableOpacity
               onPress={handleSubmit}
-              style={{ alignItems: 'flex-end' }}
+              style={styles.btn}
               disabled={!isValid}
             >
               <Text>Sign Up</Text>
@@ -97,4 +105,11 @@ export const SignUpForm = () => {
 
 const styles = StyleSheet.create({
   errorSty: { fontSize: 10, color: 'red' },
+  btn: {
+    backgroundColor: 'lightgreen',
+    borderRadius: 20,
+    paddingVertical: 5,
+    paddingHorizontal: 20,
+    alignSelf: 'flex-end',
+  },
 });

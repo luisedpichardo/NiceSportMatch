@@ -19,9 +19,8 @@ export const SignUpLoginInput = ({
 }: SignUpInput) => {
   return (
     <View>
-      <Text testID="title">{title}</Text>
+      <Text>{title}</Text>
       <TextInput
-        testID="input"
         placeholder={placeholder}
         value={value}
         onChangeText={onChangeText}
@@ -35,7 +34,7 @@ export const SignUpLoginInput = ({
 
 const styles = StyleSheet.create({
   inputField: {
-    borderWidth: 2,
+    borderWidth: 3,
     borderRadius: 10,
     borderColor: 'green',
     padding: 10,
