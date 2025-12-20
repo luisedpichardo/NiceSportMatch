@@ -56,7 +56,7 @@ export const Settings = ({ navigation }: Props) => {
         />
         <SettingsOptions
           onPress={() => console.log('going to theme')}
-          text="Profile Info"
+          text="Select Theme"
         />
       </View>
     </View>

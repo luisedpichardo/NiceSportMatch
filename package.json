@@ -25,7 +25,8 @@
     "react-native-image-resizer": "^1.4.5",
     "react-native-safe-area-context": "^5.5.2",
     "react-native-screens": "^4.19.0",
-    "yup": "^1.7.1"
+    "yup": "^1.7.1",
+    "zustand": "^5.0.9"
   },
   "devDependencies": {
     "@babel/core": "^7.25.2",

@@ -5,89 +5,23 @@
  * @format
  */
 
-import { StatusBar, StyleSheet, useColorScheme } from 'react-native';
+import { StatusBar, useColorScheme } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { NavigationContainer } from '@react-navigation/native';
 import { getAuth, onAuthStateChanged } from '@react-native-firebase/auth';
-import { useEffect, useState } from 'react';
-import { createNativeBottomTabNavigator } from '@react-navigation/bottom-tabs/unstable';
-// Screeens
-import { Main } from './src/screens/Main';
-import { Login } from './src/screens/Login';
-import { SignUp } from './src/screens/SignUp';
-import { Matches } from './src/screens/Matches';
-// Types
-import { NavRoot, NavAuthStack, NavHomeTab } from './src/navigation/types';
-import { Settings } from './src/screens/Settings';
-import { Chat } from './src/screens/Chat';
-import { OpenSettings } from './src/components/OpenSettings';
-import { ProfileInfo } from './src/screens/ProfileInfo';
-
-const Stack = createNativeStackNavigator<NavRoot>();
-const NavAuthS = createNativeStackNavigator<NavAuthStack>();
-const TabHome = createNativeBottomTabNavigator<NavHomeTab>();
-
-function AuthStack() {
-  return (
-    <NavAuthS.Navigator
-      screenOptions={{
-        headerTitle: '',
-        headerTransparent: true,
-      }}
-    >
-      <NavAuthS.Screen name="Login" component={Login} />
-      <NavAuthS.Screen name="SignUp" component={SignUp} />
-    </NavAuthS.Navigator>
-  );
-}
-
-function HomeTabs() {
-  return (
-    <TabHome.Navigator>
-      <TabHome.Screen name="Map" component={Main} />
-      <TabHome.Screen name="Matches" component={Matches} />
-      <TabHome.Screen name="Chat" component={Chat} />
-    </TabHome.Navigator>
-  );
-}
-
-function MyMain() {
-  return (
-    <Stack.Navigator
-      screenOptions={{
-        headerTitle: '',
-        headerTransparent: true,
-      }}
-    >
-      <Stack.Screen
-        name="Home"
-        component={HomeTabs}
-        options={{
-          headerRight: () => rightHeader(),
-        }}
-      />
-      <Stack.Screen name="Settings" component={Settings} />
-      <Stack.Screen name="ProfileInfo" component={ProfileInfo} />
-    </Stack.Navigator>
-  );
-}
-
-const rightHeader = () => {
-  return <OpenSettings />;
-};
+import { useEffect } from 'react';
+// Navigation
+import { Navigation } from './src/navigation/navigation';
+// Store
+import { useUserStore } from './src/stores/userStore';
 
 function App() {
   const isDarkMode = useColorScheme() === 'dark';
-  const [user, setUser] = useState(null);
-
-  // Handle user state changes
-  const handleAuthStateChanged = (user: any) => {
-    setUser(user);
-  };
 
   useEffect(() => {
-    const subscriber = onAuthStateChanged(getAuth(), handleAuthStateChanged);
+    const subscriber = onAuthStateChanged(getAuth(), user => {
+      useUserStore.getState().setUser(user);
+    });
     return subscriber; // unsubscribe on unmount
   }, []);
 
@@ -95,16 +29,10 @@ function App() {
     <SafeAreaProvider>
       <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
       <NavigationContainer>
-        {user ? <MyMain /> : <AuthStack />}
+        <Navigation />
       </NavigationContainer>
     </SafeAreaProvider>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-});
 
 export default App;
