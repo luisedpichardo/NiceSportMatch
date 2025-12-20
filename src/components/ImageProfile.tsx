@@ -52,11 +52,11 @@ export const ImageProfile = () => {
     // Send the update
     try {
       await userRef.update(updatedData);
-      Alert.alert('Success', 'Account updated!');
+      Alert.alert('Success', 'Image updated!');
       // navigation.goBack();
     } catch (err: any) {
       console.log(err);
-      Alert.alert('Failed to update account.', err.message);
+      Alert.alert('Failed to update image.', err.message);
     }
   };
 

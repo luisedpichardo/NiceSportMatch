@@ -1,12 +1,15 @@
 import { Alert, StyleSheet, View } from 'react-native';
 import { ImageProfile } from '../components/ImageProfile';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-// Types
-import { NavRoot } from '../navigation/types';
 import { useEffect } from 'react';
 import { getAuth } from '@react-native-firebase/auth';
+// Components
 import { RightHdrBtn } from '../components/RightHdrBtn';
+import { ProfileFields } from '../components/ProfileFields';
+// Services
 import { signOutService } from '../services/AuthService';
+// Types
+import { NavRoot } from '../navigation/types';
 
 type Props = NativeStackScreenProps<NavRoot, 'ProfileInfo'>;
 
@@ -42,15 +45,17 @@ export const ProfileInfo = ({ navigation }: Props) => {
       <View style={styles.form}>
         <View>
           <ImageProfile />
+          {/* Rating */}
+          {/* Profile info */}
+          <ProfileFields />
         </View>
       </View>
     </View>
   );
 };
 
-
 const styles = StyleSheet.create({
-	container: {
+  container: {
     flex: 1,
     backgroundColor: 'green',
     padding: 30,
@@ -63,4 +68,4 @@ const styles = StyleSheet.create({
     borderRadius: 25,
     padding: 30,
   },
-})
+});
