@@ -12,6 +12,7 @@ import { NavigationContainer } from '@react-navigation/native';
 // Screeens
 import { Main } from './src/screens/Main';
 import { Login } from './src/screens/Login';
+import { SignUp } from './src/screens/SignUp';
 // Types
 import { NavRoot } from './src/navigation/types';
 
@@ -26,6 +27,7 @@ function MyMain() {
       }}
     >
       <Stack.Screen name="Login" component={Login} />
+      <Stack.Screen name="SignUp" component={SignUp} />
       <Stack.Screen name="Main" component={Main} />
     </Stack.Navigator>
   );

@@ -2,20 +2,20 @@ import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 // Types
 import { NavRoot } from '../navigation/types';
-import { LoginForm } from '../components/LoginForm';
+import { SignUpForm } from '../components/SignUpForm';
 
-type Props = NativeStackScreenProps<NavRoot, 'Login'>;
+type Props = NativeStackScreenProps<NavRoot, 'SignUp'>;
 
-export const Login = ({ navigation }: Props) => {
+export const SignUp = ({ navigation }: Props) => {
   return (
     <View style={styles.container}>
-      <Text style={styles.titleStyle}>Login</Text>
+      <Text style={styles.titleStyle}>SignUp</Text>
       <View style={styles.formContatiner}>
-        <LoginForm />
+        <SignUpForm />
 
         <View style={{ flex: 1, justifyContent: 'flex-end' }}>
           <TouchableOpacity
-            onPress={() => navigation.navigate('SignUp')}
+            onPress={() => navigation.goBack()}
             style={{
               alignItems: 'center',
               backgroundColor: 'lightgreen',
@@ -23,8 +23,8 @@ export const Login = ({ navigation }: Props) => {
               paddingVertical: 5,
             }}
           >
-            <Text>No account yet?</Text>
-            <Text>Sign up instead!</Text>
+            <Text>Have an account?</Text>
+            <Text>Log in instead!</Text>
           </TouchableOpacity>
         </View>
       </View>

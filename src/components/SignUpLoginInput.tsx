@@ -37,6 +37,8 @@ const styles = StyleSheet.create({
   inputField: {
     borderWidth: 2,
     borderRadius: 10,
+    borderColor: 'green',
     padding: 10,
+    marginVertical: 5,
   },
 });
