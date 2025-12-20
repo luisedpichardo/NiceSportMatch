@@ -1,6 +1,13 @@
 export type NavRoot = {
-  Main: undefined;
-  Login: undefined;
-  SignUp: undefined;
+  Home: NavHomeTab;
   Settings: undefined;
 };
+
+export type NavAuthStack = {
+  Login: undefined;
+  SignUp: undefined;
+}
+
+export type NavHomeTab = {
+  Main: undefined;
+}

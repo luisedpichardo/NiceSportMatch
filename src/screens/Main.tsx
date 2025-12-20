@@ -1,28 +1,16 @@
 import { StyleSheet, Text, View } from 'react-native';
+import { CompositeScreenProps } from '@react-navigation/native';
+import { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { useEffect } from 'react';
-// Components
-import { RightHdrBtn } from '../components/RightHdrBtn';
 // Types
-import { NavRoot } from '../navigation/types';
+import { NavHomeTab, NavRoot } from '../navigation/types';
 
-type Props = NativeStackScreenProps<NavRoot, 'Main'>;
+type Props = CompositeScreenProps<
+  BottomTabScreenProps<NavHomeTab, 'Main'>,
+  NativeStackScreenProps<NavRoot>
+>;
 
 export const Main = ({ navigation }: Props) => {
-  useEffect(() => {
-    navigation.setOptions({
-      headerRight: () => headerRight(),
-    });
-  });
-
-  const headerRight = () => {
-    return (
-      <RightHdrBtn
-        onPress={() => navigation.navigate('Settings')}
-        text="Settings"
-      />
-    );
-  };
 
   return (
     <View style={styles.container}>
