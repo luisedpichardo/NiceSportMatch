@@ -1,10 +1,10 @@
-import { Alert, StyleSheet, Text, View } from 'react-native';
+import { Alert, StyleSheet, View } from 'react-native';
 import { useEffect, useRef, useState } from 'react';
 import { CompositeScreenProps } from '@react-navigation/native';
 import { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import Geolocation from '@react-native-community/geolocation';
-import MapView from 'react-native-maps';
+import MapView, { PROVIDER_DEFAULT } from 'react-native-maps';
 // Types
 import { NavHomeTab, NavRoot } from '../navigation/types';
 import { useUserStore } from '../stores/userStore';
@@ -55,7 +55,22 @@ export const Main = ({ navigation }: Props) => {
 
   return (
     <View style={styles.container}>
-      {loading ? <Loading /> : <Text style={styles.txt}>Map</Text>}
+      {loading ? (
+        <Loading />
+      ) : (
+        <MapView
+          provider={PROVIDER_DEFAULT}
+          style={{ flex: 1 }}
+          ref={mapRef}
+          showsUserLocation={true}
+          initialRegion={{
+            latitude: currPosition.lat,
+            longitude: currPosition.long,
+            latitudeDelta: 0.0322,
+            longitudeDelta: 0.0161,
+          }}
+        />
+      )}
     </View>
   );
 };
@@ -64,8 +79,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: 'green',
-    justifyContent: 'center',
-    alignItems: 'center',
   },
   txt: {
     color: 'white',
