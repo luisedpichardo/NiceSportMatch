@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import {
   Alert,
   Image,
@@ -17,23 +17,38 @@ import ImageResizer from 'react-native-image-resizer';
 export const ImageProfile = () => {
   const [imageUri, setImageUri] = useState();
 
+  useEffect(() => {
+    const user: any = getAuth().currentUser;
+    if (!user) noUserDetected();
+    firestore()
+      .collection('users')
+      .doc(user.email)
+      .get()
+      .then((userData: any) => {
+        const image = userData.data().profileImage;
+        if (image) {
+          const imageWithPrefix = image.startsWith('data:image')
+            ? image
+            : `data:image/jpeg;base64,${image}`;
+          setImageUri(imageWithPrefix);
+        }
+      });
+  });
+
   const updateImage = async () => {
     console.log('updating');
     const user: any = getAuth().currentUser;
     if (!user) noUserDetected();
-    // Assign data accordingly
+    // Assign data
     const updatedData: any = {};
-
-    const userRef: any = firestore().collection('users').doc(user.email);
-
     if (imageUri) {
       const compressedBase64 = await compressImage(imageUri);
       if (compressedBase64) {
         updatedData.profileImage = compressedBase64;
       }
     }
-
-    console.log('updated data: ', updatedData);
+    // Get reference for the user
+    const userRef: any = firestore().collection('users').doc(user.email);
     // Send the update
     try {
       await userRef.update(updatedData);
