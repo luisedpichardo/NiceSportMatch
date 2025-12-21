@@ -1,10 +1,14 @@
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
+import { useUserStore } from '../stores/userStore';
+import { MatchCardOptions } from './MatchCardOptions';
 
 type Match = {
   match: any;
 };
 
 export const MatchPrev = ({ match }: Match) => {
+  const username = useUserStore.getState().username;
+
   return (
     <View style={styles.container}>
       <View style={styles.matchInfo}>
@@ -18,14 +22,11 @@ export const MatchPrev = ({ match }: Match) => {
           <Text>{match.time} 🕐</Text>
         </View>
       </View>
-      <TouchableOpacity
-        onPress={() =>
-          console.log('openning chat with publisher', match.publisher)
-        }
-        style={styles.btn}
-      >
-        <Text>Open Chat</Text>
-      </TouchableOpacity>
+      {username === match.publisher ? (
+        <></>
+      ) : (
+        <MatchCardOptions publisher={match.publisher} />
+      )}
     </View>
   );
 };
@@ -41,11 +42,5 @@ const styles = StyleSheet.create({
   matchInfo: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-  },
-  btn: {
-    alignSelf: 'flex-end',
-    backgroundColor: 'lightgreen',
-    paddingHorizontal: 10,
-    borderRadius: 20,
   },
 });

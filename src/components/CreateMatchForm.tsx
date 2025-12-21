@@ -4,16 +4,16 @@ import { Formik } from 'formik';
 import { CustomInput } from './CustomInput';
 // Schemas
 import { matchValidation } from '../schemas/MatchValidation';
+// Stores
+import { useUserStore } from '../stores/userStore';
 
 export const CreateMatchForm = () => {
-  // address: '123 abc street',
-  //   publisher: 'username',
-  //   day: '01/31/2025',
-  //   time: '14:00',
-  //   status: 'confirmed',
+  const username = useUserStore.getState().username;
 
   const onCreateMatch = (address: string, day: string, time: string) => {
     console.log('creating match');
+    const match = { publisher: username, address, day, time };
+    console.log('nmatch: ', match);
   };
 
   return (
