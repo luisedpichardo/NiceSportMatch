@@ -11,10 +11,11 @@ export const SignUpForm = () => {
   const onSignUpPressed = (
     firstName: string,
     lastName: string,
+    username: string,
     email: string,
     password: string,
   ) => {
-    createUserWithEmailAndPasswordService(firstName, lastName, email, password)
+    createUserWithEmailAndPasswordService(firstName, lastName, username, email, password)
       .then(() => {
         Alert.alert('Succes');
       })
@@ -31,6 +32,7 @@ export const SignUpForm = () => {
         initialValues={{
           firstName: '',
           lastName: '',
+          username: '',
           email: '',
           password: '',
         }}
@@ -38,12 +40,13 @@ export const SignUpForm = () => {
           onSignUpPressed(
             values.firstName,
             values.lastName,
+            values.username,
             values.email,
             values.password,
           );
         }}
       >
-        {({ handleChange, handleSubmit, values, errors, isValid }) => (
+        {({ handleChange, handleSubmit, handleBlur, values, errors, isValid }) => (
           <>
             <SignUpLoginInput
               title="First Name"
@@ -66,6 +69,17 @@ export const SignUpForm = () => {
             />
             {errors.lastName && (
               <Text style={styles.errorSty}>{errors.lastName}</Text>
+            )}
+            <SignUpLoginInput
+              title="Username"
+              placeholder="Username"
+              value={values.username}
+              onChangeText={handleChange('username')}
+              secureTextEntry={false}
+              keyboardType="default"
+            />
+            {errors.username && (
+              <Text style={styles.errorSty}>{errors.username}</Text>
             )}
             <SignUpLoginInput
               title="Email"

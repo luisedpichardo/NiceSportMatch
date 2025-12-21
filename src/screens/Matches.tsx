@@ -45,6 +45,8 @@ export const Matches = () => {
           flexDirection: 'row',
           justifyContent: 'space-between',
           paddingHorizontal: 30,
+          marginTop: '30%',
+          marginBottom: '5%'
         }}
       >
         <Text style={styles.titleStyle}>Matches</Text>
@@ -67,7 +69,6 @@ const styles = StyleSheet.create({
     backgroundColor: 'green',
   },
   titleStyle: {
-    marginTop: '30%',
     fontSize: 40,
     fontWeight: '600',
     color: 'white',

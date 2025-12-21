@@ -1,4 +1,9 @@
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+} from 'react-native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 // Types
 import { NavAuthStack } from '../navigation/types';
@@ -44,8 +49,8 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: 'white',
     margin: 30,
-    marginTop: '30%',
-    marginBottom: '30%',
+    marginTop: '20%',
+    marginBottom: '20%',
     borderRadius: 25,
     padding: 30,
   },
