@@ -5,6 +5,11 @@ import {
   signOut,
 } from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
+// Helpers
+import {
+  assignUsernameToStore,
+  removeUsernameFromStore,
+} from '../utils/AuthHelpers';
 
 export const createUserWithEmailAndPasswordService = async (
   firstName: string,
@@ -49,6 +54,7 @@ export const signInWithEmailAndPasswordService = async (
   try {
     // Log in
     await signInWithEmailAndPassword(getAuth(), email, password);
+    assignUsernameToStore();
     // Create token for push notifications
   } catch (e: any) {
     if (e.code === 'auth/invalid-credential') {
@@ -63,4 +69,15 @@ export const signInWithEmailAndPasswordService = async (
 export const signOutService = async (email: string) => {
   // Remove device token for the notificatinos
   signOut(getAuth());
+  removeUsernameFromStore();
+};
+
+// Read users
+export const readUsersService = async () => {
+  try {
+    const users = (await firestore().collection('users').get()).docs;
+    return users;
+  } catch (e: any) {
+    throw new Error(e.message);
+  }
 };
