@@ -10,14 +10,16 @@ import { Matches } from '../screens/Matches';
 import { SignUp } from '../screens/SignUp';
 import { ProfileInfo } from '../screens/ProfileInfo';
 import { Settings } from '../screens/Settings';
+import { CreateMatch } from '../screens/CreateMatch';
 // Stores
 import { useUserStore } from '../stores/userStore';
 // Types
-import { NavAuthStack, NavHomeTab, NavRoot } from './types';
+import { MatchNavStack, NavAuthStack, NavHomeTab, NavRoot } from './types';
 
 const Stack = createNativeStackNavigator<NavRoot>();
 const NavAuthS = createNativeStackNavigator<NavAuthStack>();
 const TabHome = createNativeBottomTabNavigator<NavHomeTab>();
+const MatchSta = createNativeStackNavigator<MatchNavStack>();
 
 function AuthStack() {
   return (
@@ -33,11 +35,25 @@ function AuthStack() {
   );
 }
 
+function MatchSatck() {
+  return (
+    <MatchSta.Navigator
+      screenOptions={{
+        headerTitle: '',
+        headerTransparent: true,
+      }}
+    >
+      <MatchSta.Screen name="Matches" component={Matches} />
+      <MatchSta.Screen name="CreateMatch" component={CreateMatch} />
+    </MatchSta.Navigator>
+  );
+}
+
 function HomeTabs() {
   return (
     <TabHome.Navigator>
       <TabHome.Screen name="Map" component={Main} />
-      <TabHome.Screen name="Matches" component={Matches} />
+      <TabHome.Screen name="Matches" component={MatchSatck} />
       <TabHome.Screen name="Chat" component={Chat} />
     </TabHome.Navigator>
   );

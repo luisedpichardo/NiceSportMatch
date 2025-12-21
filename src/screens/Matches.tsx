@@ -6,9 +6,25 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
+import { CompositeScreenProps } from '@react-navigation/native';
+import { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
+// Components
 import { MatchPrev } from '../components/MatchPrev';
+// Types
+import { MatchNavStack, NavHomeTab } from '../navigation/types';
 
-export const Matches = () => {
+type Props = CompositeScreenProps<
+  NativeStackScreenProps<MatchNavStack, 'Matches'>,
+  BottomTabScreenProps<NavHomeTab>
+>;
+
+export const Matches = ({ navigation }: Props) => {
+  const matchStackNavigation = navigation as NativeStackScreenProps<
+    MatchNavStack,
+    'Matches'
+  >['navigation'];
+
   // Start Dummy Data
   const matches = [
     {
@@ -46,11 +62,11 @@ export const Matches = () => {
           justifyContent: 'space-between',
           paddingHorizontal: 30,
           marginTop: '30%',
-          marginBottom: '5%'
+          marginBottom: '5%',
         }}
       >
         <Text style={styles.titleStyle}>Matches</Text>
-        <TouchableOpacity style={styles.addBtn}>
+        <TouchableOpacity style={styles.addBtn} onPress={() => matchStackNavigation.navigate('CreateMatch')}>
           <Image source={require('../../assets/add.png')} style={styles.img} />
         </TouchableOpacity>
       </View>

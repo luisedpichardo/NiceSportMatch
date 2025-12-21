@@ -7,10 +7,15 @@ export type NavRoot = {
 export type NavAuthStack = {
   Login: undefined;
   SignUp: undefined;
-}
+};
 
 export type NavHomeTab = {
   Map: undefined;
-  Matches: undefined;
+  Matches: MatchNavStack;
   Chat: undefined;
-}
+};
+
+export type MatchNavStack = {
+  Matches: undefined;
+  CreateMatch: undefined;
+};
