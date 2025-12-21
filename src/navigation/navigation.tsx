@@ -43,7 +43,13 @@ function MatchSatck() {
         headerTransparent: true,
       }}
     >
-      <MatchSta.Screen name="Matches" component={Matches} />
+      <MatchSta.Screen
+        name="Matches"
+        component={Matches}
+        options={{
+          headerRight: () => rightHeader(),
+        }}
+      />
       <MatchSta.Screen name="CreateMatch" component={CreateMatch} />
     </MatchSta.Navigator>
   );
@@ -70,9 +76,7 @@ function MyMain() {
       <Stack.Screen
         name="Home"
         component={HomeTabs}
-        options={{
-          headerRight: () => rightHeader(),
-        }}
+        options={{ headerShown: false }}
       />
       <Stack.Screen name="Settings" component={Settings} />
       <Stack.Screen name="ProfileInfo" component={ProfileInfo} />

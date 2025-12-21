@@ -56,17 +56,12 @@ export const Matches = ({ navigation }: Props) => {
 
   return (
     <View style={styles.container}>
-      <View
-        style={{
-          flexDirection: 'row',
-          justifyContent: 'space-between',
-          paddingHorizontal: 30,
-          marginTop: '30%',
-          marginBottom: '5%',
-        }}
-      >
+      <View style={styles.topCont}>
         <Text style={styles.titleStyle}>Matches</Text>
-        <TouchableOpacity style={styles.addBtn} onPress={() => matchStackNavigation.navigate('CreateMatch')}>
+        <TouchableOpacity
+          style={styles.addBtn}
+          onPress={() => matchStackNavigation.navigate('CreateMatch')}
+        >
           <Image source={require('../../assets/add.png')} style={styles.img} />
         </TouchableOpacity>
       </View>
@@ -83,6 +78,13 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: 'green',
+  },
+  topCont: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    paddingHorizontal: 30,
+    marginTop: '30%',
+    marginBottom: '5%',
   },
   titleStyle: {
     fontSize: 40,

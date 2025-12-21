@@ -2,7 +2,7 @@ import { View, Text, TouchableOpacity, StyleSheet, Alert } from 'react-native';
 import { Formik } from 'formik';
 import { getAuth, signOut } from '@react-native-firebase/auth';
 // Components
-import { SignUpLoginInput } from '../components/SignUpLoginInput';
+import { CustomInput } from './CustomInput';
 // Schemas
 import { loginValidation } from '../schemas/LoginValidation';
 // Services
@@ -33,28 +33,26 @@ export const LoginForm = () => {
       >
         {({ handleChange, handleSubmit, values, errors, isValid }) => (
           <>
-            <SignUpLoginInput
+            <CustomInput
               title="Email"
               placeholder="Email"
               value={values.email}
               onChangeText={handleChange('email')}
               secureTextEntry={false}
               keyboardType="email-address"
+              error={errors}
+              errorMessage={errors.email}
             />
-            {errors.email && (
-              <Text style={styles.errorSty}>{errors.email}</Text>
-            )}
-            <SignUpLoginInput
+            <CustomInput
               title="Password"
               placeholder="Password"
               value={values.password}
               onChangeText={handleChange('password')}
               secureTextEntry={true}
               keyboardType="default"
+              error={errors}
+              errorMessage={errors.password}
             />
-            {errors.password && (
-              <Text style={styles.errorSty}>{errors.password}</Text>
-            )}
             <TouchableOpacity
               onPress={handleSubmit}
               style={styles.btn}
@@ -70,7 +68,6 @@ export const LoginForm = () => {
 };
 
 const styles = StyleSheet.create({
-  errorSty: { fontSize: 10, color: 'red' },
   btn: {
     backgroundColor: 'lightgreen',
     borderRadius: 20,

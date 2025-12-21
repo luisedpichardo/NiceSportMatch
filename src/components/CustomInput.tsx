@@ -7,15 +7,19 @@ type SignUpInput = {
   onChangeText: any;
   secureTextEntry: boolean;
   keyboardType: any;
+  error: any;
+  errorMessage: any;
 };
 
-export const SignUpLoginInput = ({
+export const CustomInput = ({
   title,
   placeholder,
   value,
   onChangeText,
   secureTextEntry,
   keyboardType,
+  error,
+  errorMessage,
 }: SignUpInput) => {
   return (
     <View>
@@ -28,6 +32,7 @@ export const SignUpLoginInput = ({
         secureTextEntry={secureTextEntry}
         keyboardType={keyboardType}
       />
+      {error && <Text style={styles.errorSty}>{errorMessage}</Text>}
     </View>
   );
 };
@@ -39,5 +44,9 @@ const styles = StyleSheet.create({
     borderColor: 'green',
     padding: 10,
     marginVertical: 5,
+  },
+  errorSty: {
+    fontSize: 10,
+    color: 'red',
   },
 });
