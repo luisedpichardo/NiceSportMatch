@@ -1,6 +1,6 @@
 import {
+  FlatList,
   Image,
-  ScrollView,
   StyleSheet,
   Text,
   TouchableOpacity,
@@ -70,17 +70,18 @@ export const Matches = ({ navigation }: Props) => {
           <Image source={require('../../assets/add.png')} style={styles.img} />
         </TouchableOpacity>
       </View>
-      <ScrollView style={styles.formContatiner}>
+      <View style={styles.formContatiner}>
         {username ? (
-          <>
-            {matches.map(elem => {
-              return <MatchPrev key={elem.id} match={elem} />;
-            })}
-          </>
+          <FlatList
+            data={matches}
+            renderItem={({ item }) => {
+              return <MatchPrev key={item.id} match={item} />;
+            }}
+          />
         ) : (
           <Loading />
         )}
-      </ScrollView>
+      </View>
     </View>
   );
 };
@@ -104,6 +105,7 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end',
   },
   formContatiner: {
+    flex: 1,
     backgroundColor: 'gray',
     marginHorizontal: 30,
     marginBottom: '30%',
