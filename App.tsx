@@ -14,13 +14,23 @@ import { useEffect } from 'react';
 import { Navigation } from './src/navigation/navigation';
 // Store
 import { useUserStore } from './src/stores/userStore';
+import {
+  assignUsernameToStore,
+  removeUsernameFromStore,
+} from './src/utils/AuthHelpers';
 
 function App() {
   const isDarkMode = useColorScheme() === 'dark';
 
   useEffect(() => {
     const subscriber = onAuthStateChanged(getAuth(), user => {
-      useUserStore.getState().setUser(user);
+      if (user) {
+        useUserStore.getState().setUser(user);
+        assignUsernameToStore();
+      } else {
+        useUserStore.getState().setUser(null);
+        removeUsernameFromStore();
+      }
     });
     return subscriber; // unsubscribe on unmount
   }, []);

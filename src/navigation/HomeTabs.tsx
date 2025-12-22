@@ -10,65 +10,54 @@ import { NavHomeTab } from './types';
 
 const TabHome = createNativeBottomTabNavigator<NavHomeTab>();
 
+function nativeTabIcon(
+  ios: { focused?: string; unfocused: string },
+  android: string,
+) {
+  if (Platform.OS === 'ios') {
+    return ({ focused }: { focused: boolean }) => ({
+      type: 'sfSymbol' as const,
+      name: focused && ios.focused ? ios.focused : ios.unfocused,
+    });
+  }
+  return () => ({
+    type: 'drawableResource' as const,
+    name: android,
+  });
+}
+
 export function HomeTabs() {
   return (
     <TabHome.Navigator>
       <TabHome.Screen
-        name="Matches"
+        name="MatchesNav"
         component={MatchSatck}
-        options={
-          Platform.OS === 'ios'
-            ? {
-                tabBarIcon: ({ focused }) => ({
-                  type: 'sfSymbol',
-                  name: focused ? 'trophy.fill' : 'trophy',
-                }),
-              }
-            : {
-                tabBarIcon: () => ({
-                  type: 'material',
-                  name: 'emoji-events', // Material equivalent of trophy
-                }),
-              }
-        }
+        options={{
+          tabBarIcon: nativeTabIcon(
+            { focused: 'trophy.fill', unfocused: 'trophy' },
+            'ic_trophy',
+          ),
+        }}
       />
       <TabHome.Screen
         name="Map"
         component={Main}
-        options={
-          Platform.OS === 'ios'
-            ? {
-                tabBarIcon: ({ focused }) => ({
-                  type: 'sfSymbol',
-                  name: focused ? 'map.fill' : 'map',
-                }),
-              }
-            : {
-                tabBarIcon: () => ({
-                  type: 'material',
-                  name: 'map',
-                }),
-              }
-        }
+        options={{
+          tabBarIcon: nativeTabIcon(
+            { focused: 'map.fill', unfocused: 'map' },
+            'ic_map',
+          ),
+        }}
       />
       <TabHome.Screen
         name="Chat"
         component={Chat}
-        options={
-          Platform.OS === 'ios'
-            ? {
-                tabBarIcon: ({ focused }) => ({
-                  type: 'sfSymbol',
-                  name: focused ? 'message.fill' : 'message',
-                }),
-              }
-            : {
-                tabBarIcon: () => ({
-                  type: 'material',
-                  name: 'chat',
-                }),
-              }
-        }
+        options={{
+          tabBarIcon: nativeTabIcon(
+            { focused: 'message.fill', unfocused: 'message' },
+            'ic_chat',
+          ),
+        }}
       />
     </TabHome.Navigator>
   );

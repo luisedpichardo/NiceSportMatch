@@ -6,23 +6,20 @@ type UserState = {
   user: any;
   username: string | null;
   setUser: (user: any) => void;
-  setUsername: (username: string | null) => void;
+  setUsername: (username: string) => void;
 };
 
 export const useUserStore = create<UserState>()(
   persist(
-    set => ({
+    (set, get) => ({
       user: null,
-      username: null,
+      username: '',
       setUser: user => set({ user }),
       setUsername: username => set({ username }),
     }),
     {
-      name: 'Nice-Sport-Match-username', // key in AsyncStorage
+      name: 'Nice-Sport-Match-info',
       storage: createJSONStorage(() => AsyncStorage),
-      partialize: state => ({
-        username: state.username,
-      }),
-    }
-  )
+    },
+  ),
 );

@@ -11,6 +11,9 @@ import { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 // Components
 import { MatchPrev } from '../components/MatchPrev';
+import { Loading } from '../components/Loading';
+// Stores
+import { useUserStore } from '../stores/userStore';
 // Types
 import { MatchNavStack, NavHomeTab } from '../navigation/types';
 
@@ -25,12 +28,14 @@ export const Matches = ({ navigation }: Props) => {
     'Matches'
   >['navigation'];
 
+  const { username } = useUserStore.getState();
+
   // Start Dummy Data
   const matches = [
     {
       id: 123,
       address: '123 abc street',
-      publisher: 'username',
+      publisher: 'Testone',
       day: '01/31/2025',
       time: '14:00',
       status: 'confirmed',
@@ -66,9 +71,15 @@ export const Matches = ({ navigation }: Props) => {
         </TouchableOpacity>
       </View>
       <ScrollView style={styles.formContatiner}>
-        {matches.map(elem => {
-          return <MatchPrev key={elem.id} match={elem} />;
-        })}
+        {username ? (
+          <>
+            {matches.map(elem => {
+              return <MatchPrev key={elem.id} match={elem} />;
+            })}
+          </>
+        ) : (
+          <Loading />
+        )}
       </ScrollView>
     </View>
   );

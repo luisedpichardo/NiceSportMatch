@@ -18,5 +18,5 @@ export const assignUsernameToStore = () => {
 };
 
 export const removeUsernameFromStore = () => {
-  useUserStore.getState().setUsername(null);
+  useUserStore.getState().setUsername('');
 };
