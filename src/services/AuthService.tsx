@@ -5,6 +5,7 @@ import {
   signOut,
 } from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
+import { Image } from 'react-native';
 
 export const createUserWithEmailAndPasswordService = async (
   firstName: string,
@@ -14,20 +15,28 @@ export const createUserWithEmailAndPasswordService = async (
   password: string,
 ) => {
   try {
+    // Use lowercase for username
     const lowUsername = username.toLowerCase();
+    // Check if the username is valid
     const invalidUsername = (
       await firestore().collection('users').doc(lowUsername).get()
     ).exists();
     // If username in use
+    console.log(lowUsername, invalidUsername);
     if (invalidUsername) throw new Error('Username must be unique');
+    // Assing default picture and compress it
+    const imageUri = Image.resolveAssetSource(
+      require('../../assets/account_pp_default.jpg'),
+    ).uri;
     // Create user with email and password
     await createUserWithEmailAndPassword(getAuth(), email, password);
     // Save user info into firestore
     await firestore().collection('users').doc(lowUsername).set({
       email,
-      username,
+      username: lowUsername,
       firstName,
       lastName,
+      imageUri,
     });
     signOut(getAuth());
   } catch (error: any) {
@@ -53,6 +62,8 @@ export const signInWithEmailAndPasswordService = async (
   } catch (e: any) {
     if (e.code === 'auth/invalid-credential') {
       throw new Error('This does not match our records!');
+    } else if (e.code === 'auth/network-request-failed') {
+      throw new Error('Seems that there is no internet, try again later!');
     } else {
       throw new Error(e.message ?? String(e));
     }

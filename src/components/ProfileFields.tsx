@@ -1,5 +1,3 @@
-import { getAuth } from '@react-native-firebase/auth';
-import firestore from '@react-native-firebase/firestore';
 import { useEffect, useState } from 'react';
 import {
   Alert,
@@ -9,9 +7,17 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import { signOutService } from '../services/AuthService';
+// Services
+import {
+  getUserRefService,
+  readFieldsToUpdateUserService,
+} from '../services/UserService';
+// Stores
+import { useUserStore } from '../stores/userStore';
 
 export const ProfileFields = () => {
+  // Get current username
+  const username = useUserStore.getState().username;
   const [firstName, setFirstName] = useState('');
   const [newFirstName, setNewFirstName] = useState('');
   const [lastName, setLastName] = useState('');
@@ -20,49 +26,35 @@ export const ProfileFields = () => {
   const [newAge, setNewAge] = useState('');
 
   useEffect(() => {
-    const user: any = getAuth().currentUser;
-    if (!user) noUserDetected();
-    firestore()
-      .collection('users')
-      .doc(user.email)
-      .get()
-      .then((userData: any) => {
-        setFirstName(userData.data().firstName);
-        setLastName(userData.data().lastName);
-        if (userData.data().age) setAge(userData.data().age);
+    // Find respective fields for username
+    if (username) {
+      readFieldsToUpdateUserService(username).then(res => {
+        setFirstName(res.firstName);
+        setLastName(res.lastName);
+        if (res.age) setAge(res.age);
       });
+    } else {
+      throw new Error('Could not get username');
+    }
   });
 
   const updateAccount = async () => {
-    const user: any = getAuth().currentUser;
-    if (!user) noUserDetected();
-    // Get reference for user
-    const userRef: any = firestore().collection('users').doc(user.email);
-    // Assign data accordingly
-    const updatedData: any = {};
-    if (newFirstName) updatedData.firstName = newFirstName;
-    if (newLastName) updatedData.lastName = newLastName;
-    if (newAge) updatedData.age = newAge;
-    // Send the update
-    try {
-      await userRef.update(updatedData);
-      Alert.alert('Success', 'Account info updated!');
-    } catch (err: any) {
-      Alert.alert('Failed to update account info.', err.message);
+    if (username) {
+      // Get reference for user
+      const userRef: any = getUserRefService(username);
+      // Assign data accordingly
+      const updatedData: any = {};
+      if (newFirstName) updatedData.firstName = newFirstName;
+      if (newLastName) updatedData.lastName = newLastName;
+      if (newAge) updatedData.age = newAge;
+      // Send the update
+      try {
+        await userRef.update(updatedData);
+        Alert.alert('Success', 'Account info updated!');
+      } catch (err: any) {
+        Alert.alert('Failed to update account info.', err.message);
+      }
     }
-  };
-
-  const signOut = async () => {
-    // Remove
-    const user: any = getAuth().currentUser;
-    signOutService(user.email).catch(err => {
-      Alert.alert('Error', err);
-    });
-  };
-
-  const noUserDetected = async () => {
-    signOut();
-    Alert.alert('Error', 'No valid user');
   };
 
   return (

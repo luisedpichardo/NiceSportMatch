@@ -35,7 +35,7 @@ export const Matches = ({ navigation }: Props) => {
     {
       id: 123,
       address: '123 abc street',
-      publisher: 'Testone',
+      publisher: 'testone',
       day: '01/31/2025',
       time: '14:00',
       status: 'confirmed',
