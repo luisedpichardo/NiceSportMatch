@@ -2,9 +2,9 @@ import { createNativeBottomTabNavigator } from '@react-navigation/bottom-tabs/un
 import { Platform } from 'react-native';
 // Navigation
 import { MatchSatck } from './MatchStack';
+import { MessageStack } from './MessageStack';
 // Screens
 import { Main } from '../screens/Main';
-import { Chat } from '../screens/Chat';
 // Types
 import { NavHomeTab } from './types';
 
@@ -50,8 +50,8 @@ export function HomeTabs() {
         }}
       />
       <TabHome.Screen
-        name="Chat"
-        component={Chat}
+        name="ChatNav"
+        component={MessageStack}
         options={{
           tabBarIcon: nativeTabIcon(
             { focused: 'message.fill', unfocused: 'message' },

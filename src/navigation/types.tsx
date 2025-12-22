@@ -12,10 +12,15 @@ export type NavAuthStack = {
 export type NavHomeTab = {
   Map: undefined;
   MatchesNav: MatchNavStack;
-  Chat: undefined;
+  ChatNav: ChatNavStack;
 };
 
 export type MatchNavStack = {
   Matches: undefined;
   CreateMatch: undefined;
+};
+
+export type ChatNavStack = {
+  Chat: undefined;
+  Messages: undefined;
 };
