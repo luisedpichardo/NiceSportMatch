@@ -42,17 +42,9 @@ const styles = StyleSheet.create({
   },
   formContatiner: {
     flex: 1,
-    backgroundColor: 'white',
     margin: 30,
-    marginTop: '30%',
-    marginBottom: '30%',
+    marginTop: '20%',
     borderRadius: 25,
-    padding: 30,
-  },
-  btn: {
-    alignItems: 'center',
-    backgroundColor: 'lightgreen',
-    borderRadius: 20,
-    paddingVertical: 5,
+    padding: 20,
   },
 });

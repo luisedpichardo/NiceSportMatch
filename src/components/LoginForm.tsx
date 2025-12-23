@@ -58,7 +58,7 @@ export const LoginForm = () => {
               style={styles.btn}
               disabled={!isValid}
             >
-              <Text>Log In</Text>
+              <Text style={{ color: 'white', fontSize: 20 }}>Log In</Text>
             </TouchableOpacity>
           </>
         )}
@@ -69,10 +69,10 @@ export const LoginForm = () => {
 
 const styles = StyleSheet.create({
   btn: {
-    backgroundColor: 'lightgreen',
-    borderRadius: 20,
-    paddingVertical: 5,
+    backgroundColor: 'green',
+    borderRadius: 25,
+    paddingVertical: 15,
     paddingHorizontal: 20,
-    alignSelf: 'flex-end',
+    alignItems: 'center',
   },
 });

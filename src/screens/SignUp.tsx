@@ -33,7 +33,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     paddingHorizontal: 30,
     marginTop: '30%',
-    marginBottom: '5%',
   },
   titleStyle: {
     fontSize: 40,
@@ -42,11 +41,9 @@ const styles = StyleSheet.create({
   },
   formContatiner: {
     flex: 1,
-    backgroundColor: 'white',
     margin: 30,
-    marginTop: '20%',
     marginBottom: '20%',
     borderRadius: 25,
-    padding: 30,
+    padding: 20,
   },
 });

@@ -1,9 +1,12 @@
 import { Image, StyleSheet, Text, View } from 'react-native';
+// Components 
+import { WelcomeSubtitle } from './WelcomeSubtitle';
 
 export const WelcomeImg = () => {
   return (
     <View style={styles.topCont}>
       <Text style={styles.titleStyle}>Welcome</Text>
+      <WelcomeSubtitle />
       <Image
         source={require('../../assets/team.png')}
         style={styles.imgStyle}

@@ -116,7 +116,7 @@ export const SignUpForm = () => {
               style={styles.btn}
               disabled={!isValid}
             >
-              <Text>Sign Up</Text>
+              <Text style={{ color: 'white', fontSize: 20 }}>Sign Up</Text>
             </TouchableOpacity>
           </>
         )}
@@ -127,10 +127,10 @@ export const SignUpForm = () => {
 
 const styles = StyleSheet.create({
   btn: {
-    backgroundColor: 'lightgreen',
-    borderRadius: 20,
-    paddingVertical: 5,
+    backgroundColor: 'green',
+    borderRadius: 25,
+    paddingVertical: 15,
     paddingHorizontal: 20,
-    alignSelf: 'flex-end',
+    alignItems: 'center',
   },
 });
