@@ -1,49 +1,44 @@
-import {
-  View,
-  Text,
-  StyleSheet,
-  TouchableOpacity,
-} from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 // Types
 import { NavAuthStack } from '../navigation/types';
 import { SignUpForm } from '../components/SignUpForm';
+import LinearGradient from 'react-native-linear-gradient';
 
 type Props = NativeStackScreenProps<NavAuthStack, 'SignUp'>;
 
 export const SignUp = ({ navigation }: Props) => {
   return (
-    <View style={styles.container}>
-      <Text style={styles.titleStyle}>SignUp</Text>
+    <LinearGradient
+      colors={['white', 'lightgreen', 'green']}
+      style={styles.container}
+      useAngle={true}
+      angle={155}
+    >
+      <View style={styles.topCont}>
+        <Text style={styles.titleStyle}>Sign Up</Text>
+      </View>
       <View style={styles.formContatiner}>
         <SignUpForm />
-
-        <View style={{ flex: 1, justifyContent: 'flex-end' }}>
-          <TouchableOpacity
-            onPress={() => navigation.goBack()}
-            style={styles.btn}
-          >
-            <Text>Have an account?</Text>
-            <Text>Log in instead!</Text>
-          </TouchableOpacity>
-        </View>
       </View>
-    </View>
+    </LinearGradient>
   );
 };
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'green',
-    paddingTop: 30,
+  },
+  topCont: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    paddingHorizontal: 30,
+    marginTop: '30%',
+    marginBottom: '5%',
   },
   titleStyle: {
-    paddingTop: 80,
-    paddingLeft: 30,
-    paddingBottom: 10,
     fontSize: 40,
-    fontWeight: '600',
-    color: 'white',
+    fontWeight: '900',
+    justifyContent: 'flex-end',
   },
   formContatiner: {
     flex: 1,
@@ -53,11 +48,5 @@ const styles = StyleSheet.create({
     marginBottom: '20%',
     borderRadius: 25,
     padding: 30,
-  },
-  btn: {
-    alignItems: 'center',
-    backgroundColor: 'lightgreen',
-    borderRadius: 20,
-    paddingVertical: 5,
   },
 });

@@ -1,5 +1,6 @@
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import LinearGradient from 'react-native-linear-gradient';
 // Types
 import { NavAuthStack } from '../navigation/types';
 import { LoginForm } from '../components/LoginForm';
@@ -8,37 +9,36 @@ type Props = NativeStackScreenProps<NavAuthStack, 'Login'>;
 
 export const Login = ({ navigation }: Props) => {
   return (
-    <View style={styles.container}>
-      <Text style={styles.titleStyle}>Login</Text>
+    <LinearGradient
+      colors={['white', 'lightgreen', 'green']}
+      style={styles.container}
+      useAngle={true}
+      angle={115}
+    >
+      <View style={styles.topCont}>
+        <Text style={styles.titleStyle}>Welcome</Text>
+      </View>
       <View style={styles.formContatiner}>
         <LoginForm />
-
-        <View style={{ flex: 1, justifyContent: 'flex-end' }}>
-          <TouchableOpacity
-            onPress={() => navigation.navigate('SignUp')}
-            style={styles.btn}
-          >
-            <Text>No account yet?</Text>
-            <Text>Sign up instead!</Text>
-          </TouchableOpacity>
-        </View>
       </View>
-    </View>
+    </LinearGradient>
   );
 };
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'green',
-    paddingTop: 30,
+  },
+  topCont: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    paddingHorizontal: 30,
+    marginTop: '30%',
+    marginBottom: '5%',
   },
   titleStyle: {
-    paddingTop: 80,
-    paddingLeft: 30,
-    paddingBottom: 10,
     fontSize: 40,
-    fontWeight: '600',
-    color: 'white',
+    fontWeight: '900',
+    justifyContent: 'flex-end',
   },
   formContatiner: {
     flex: 1,
