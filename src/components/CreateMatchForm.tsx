@@ -4,6 +4,8 @@ import { Formik } from 'formik';
 import { CustomInput } from './CustomInput';
 // Schemas
 import { matchValidation } from '../schemas/MatchValidation';
+// Services
+import { createMatchService } from '../services/MatchService';
 // Stores
 import { useUserStore } from '../stores/userStore';
 
@@ -11,9 +13,7 @@ export const CreateMatchForm = () => {
   const username = useUserStore.getState().username;
 
   const onCreateMatch = (address: string, day: string, time: string) => {
-    console.log('creating match');
-    const match = { publisher: username, address, day, time };
-    console.log('nmatch: ', match);
+    createMatchService(address, day, time, username);
   };
 
   return (

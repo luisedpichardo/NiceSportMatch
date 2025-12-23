@@ -1,34 +1,4 @@
-import { Platform } from 'react-native';
-import ImageResizer from 'react-native-image-resizer';
-import RNFS from 'react-native-fs';
 import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
-
-export const compressImage = async (uri: string) => {
-  try {
-    const resizedImage = await ImageResizer.createResizedImage(
-      uri,
-      512,
-      512,
-      'JPEG',
-      60,
-      0,
-      undefined,
-      false,
-      { mode: 'contain' },
-    );
-    // Convert to base64
-    const base64 = await RNFS.readFile(
-      Platform.OS === 'ios'
-        ? resizedImage.uri.replace('file://', '')
-        : resizedImage.uri,
-      'base64',
-    );
-    return base64;
-  } catch (err) {
-    console.log('Image compression failed', err);
-    return null;
-  }
-};
 
 export const openCameraHelper = async () => {
   try {

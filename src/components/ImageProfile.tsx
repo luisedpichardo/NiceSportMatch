@@ -7,16 +7,18 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import { useUserStore } from '../stores/userStore';
+// Helpers
+import {
+  openCameraHelper,
+  openLibraryHelper,
+} from '../utils/ImageHelpers';
+// Service
 import {
   getUserRefService,
   readImageUriService,
 } from '../services/UserService';
-import {
-  compressImage,
-  openCameraHelper,
-  openLibraryHelper,
-} from '../utils/ImageHelpers';
+// Stores
+import { useUserStore } from '../stores/userStore';
 
 export const ImageProfile = () => {
   const [imageUri, setImageUri] = useState();
@@ -31,15 +33,10 @@ export const ImageProfile = () => {
   }, []);
 
   const updateImage = async () => {
-    console.log('updating');
     const username = useUserStore.getState().username;
     const updatedData: any = {};
     if (imageUri) {
-      // console.log('uri image: ', imageUri)
-      const compressedBase64 = await compressImage(imageUri);
-      if (compressedBase64) {
-        updatedData.profileImage = compressedBase64;
-      }
+      updatedData.imageUri = imageUri;
     }
     // Send the update
     if (username) {
