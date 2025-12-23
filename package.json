@@ -28,6 +28,7 @@
     "react-native-maps": "^1.26.20",
     "react-native-safe-area-context": "^5.5.2",
     "react-native-screens": "^4.19.0",
+    "react-native-uuid": "^2.0.3",
     "yup": "^1.7.1",
     "zustand": "^5.0.9"
   },

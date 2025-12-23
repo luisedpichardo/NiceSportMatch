@@ -7,6 +7,7 @@ export type NavRoot = {
 export type NavAuthStack = {
   Login: undefined;
   SignUp: undefined;
+  Welcome: undefined;
 };
 
 export type NavHomeTab = {

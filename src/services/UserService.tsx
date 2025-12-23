@@ -43,3 +43,23 @@ export const readImageUriService = async (username: string) => {
     throw new Error(e.message);
   }
 };
+
+export const addMatchIdToUserService = async (username: string,_id: string) => {
+  try {
+    const user = (await getUserRefService(username).get()).data()
+    if(user){
+      if (user.matchesIds){
+        const matchesIds = [...user.matchesIds, _id]
+        await getUserRefService(username).update({ matchesIds,});
+      } else {
+        await getUserRefService(username).update({ matchesIds: [_id],})
+      }
+    }
+    else {
+      throw new Error('No user found')
+    }
+  }
+  catch (e:any) {
+    throw new Error(e.message)
+  }
+}
