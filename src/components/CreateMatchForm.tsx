@@ -10,7 +10,7 @@ import { createMatchService } from '../services/MatchService';
 import { useUserStore } from '../stores/userStore';
 
 export const CreateMatchForm = () => {
-  const username = useUserStore.getState().username;
+  const username = useUserStore(state => state.username);
 
   const onCreateMatch = (address: string, day: string, time: string) => {
     createMatchService(address, day, time, username);

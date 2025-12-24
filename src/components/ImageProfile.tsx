@@ -8,10 +8,7 @@ import {
   View,
 } from 'react-native';
 // Helpers
-import {
-  openCameraHelper,
-  openLibraryHelper,
-} from '../utils/ImageHelpers';
+import { openCameraHelper, openLibraryHelper } from '../utils/ImageHelpers';
 // Service
 import {
   getUserRefService,
@@ -22,9 +19,9 @@ import { useUserStore } from '../stores/userStore';
 
 export const ImageProfile = () => {
   const [imageUri, setImageUri] = useState();
+  const username = useUserStore(state => state.username);
 
   useEffect(() => {
-    const username = useUserStore.getState().username;
     if (username) {
       readImageUriService(username).then(res => {
         setImageUri(res);
@@ -33,7 +30,6 @@ export const ImageProfile = () => {
   }, []);
 
   const updateImage = async () => {
-    const username = useUserStore.getState().username;
     const updatedData: any = {};
     if (imageUri) {
       updatedData.imageUri = imageUri;

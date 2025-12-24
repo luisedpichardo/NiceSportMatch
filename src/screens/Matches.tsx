@@ -9,7 +9,7 @@ import {
 import { CompositeScreenProps, useFocusEffect } from '@react-navigation/native';
 import { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 // Components
 import { MatchPrev } from '../components/MatchPrev';
 import { Loading } from '../components/Loading';
@@ -27,25 +27,23 @@ type Props = CompositeScreenProps<
 >;
 
 export const Matches = ({ navigation }: Props) => {
-  const matchStackNavigation = navigation as NativeStackScreenProps<
-    MatchNavStack,
-    'Matches'
-  >['navigation'];
+  const username = useUserStore(state => state.username);
+  const [matches, setMatches] = useState<any[]>([]);
 
-  const { username } = useUserStore.getState();
-  const [matches, setMatches] = useState<any>();
-
-  useFocusEffect(() => {
-    if (username) {
-      fetchMatches(username);
-    }
-  });
-
-  const fetchMatches = (user: string) => {
-    readOwnUsersMatchesService(user).then(res => {
-      setMatches(res);
-    });
-  };
+  useFocusEffect(
+    useCallback(() => {
+      let isActive = true;
+      if (username) {
+        readOwnUsersMatchesService(username).then(res => {
+          if (isActive) setMatches(res);
+        });
+      }
+      // Do not keep assigning matches
+      return () => {
+        isActive = false;
+      };
+    }, [username]),
+  );
 
   return (
     <Background
@@ -58,7 +56,7 @@ export const Matches = ({ navigation }: Props) => {
         <Text style={styles.titleStyle}>Matches</Text>
         <TouchableOpacity
           style={styles.addBtn}
-          onPress={() => matchStackNavigation.navigate('CreateMatch')}
+          onPress={() => navigation.navigate('CreateMatch')}
         >
           <Image source={require('../../assets/add.png')} style={styles.img} />
         </TouchableOpacity>
@@ -67,8 +65,9 @@ export const Matches = ({ navigation }: Props) => {
         {username ? (
           <FlatList
             data={matches}
+            keyExtractor={item => item._id}
             renderItem={({ item }) => {
-              return <MatchPrev key={item.id} match={item} />;
+              return <MatchPrev match={item} />;
             }}
           />
         ) : (
@@ -108,7 +107,7 @@ const styles = StyleSheet.create({
   addBtn: {
     alignSelf: 'flex-end',
     backgroundColor: 'lightgreen',
-    borderRadius: '50%',
+    borderRadius: 25,
   },
   img: {
     height: 50,

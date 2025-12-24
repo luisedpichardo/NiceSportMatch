@@ -9,7 +9,7 @@ type Match = {
 };
 
 export const MatchPrev = ({ match }: Match) => {
-  const username = useUserStore.getState().username;
+  const username = useUserStore(state => state.username);
 
   return (
     <View style={styles.container}>

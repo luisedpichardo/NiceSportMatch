@@ -28,7 +28,10 @@ function nativeTabIcon(
 
 export function HomeTabs() {
   return (
-    <TabHome.Navigator>
+    <TabHome.Navigator
+      screenOptions={{ tabBarActiveTintColor: 'green' }}
+      initialRouteName="Map"
+    >
       <TabHome.Screen
         name="MatchesNav"
         component={MatchSatck}
