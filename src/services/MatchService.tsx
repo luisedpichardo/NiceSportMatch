@@ -1,6 +1,7 @@
 import firestore from '@react-native-firebase/firestore';
 import uuid from 'react-native-uuid';
-import { addMatchIdToUserService } from './UserService';
+// Services
+import { addMatchIdToUserService, getMatchesIdsService } from './UserService';
 
 export const createMatchService = async (
   address: string,
@@ -15,13 +16,35 @@ export const createMatchService = async (
       day,
       time,
       publisher,
+      status: 'Upcoming'
     };
-    console.log(match);
 
     await firestore().collection('matches').doc(match._id).set(match);
     // Add id to array of matches inside user
-    addMatchIdToUserService(publisher, match._id)
+    addMatchIdToUserService(publisher, match._id);
+  } catch (e: any) {
+    throw new Error(e.message);
+  }
+};
 
+export const readAllMatchesService = async () => {
+  try {
+    const matchesData = (await firestore().collection('matches').get()).docs;
+    const matches = matchesData.map(elem => elem.data());
+    return matches;
+  } catch (e: any) {
+    throw new Error(e.message);
+  }
+};
+
+export const readOwnUsersMatchesService = async (username: string) => {
+  try {
+    const matchesIds = await getMatchesIdsService(username);
+    const allMatches = await readAllMatchesService();
+    const userMatches = allMatches.filter(elem => {
+      if (matchesIds.includes(elem._id)) return elem;
+    });
+    return userMatches;
   } catch (e: any) {
     throw new Error(e.message);
   }

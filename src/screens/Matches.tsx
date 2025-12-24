@@ -12,11 +12,14 @@ import { NativeStackScreenProps } from '@react-navigation/native-stack';
 // Components
 import { MatchPrev } from '../components/MatchPrev';
 import { Loading } from '../components/Loading';
+// Services
+import { readOwnUsersMatchesService } from '../services/MatchService';
 // Stores
 import { useUserStore } from '../stores/userStore';
 // Types
 import { MatchNavStack, NavHomeTab } from '../navigation/types';
 import { Background } from '../components/Background';
+import { useEffect, useState } from 'react';
 
 type Props = CompositeScreenProps<
   NativeStackScreenProps<MatchNavStack, 'Matches'>,
@@ -30,35 +33,19 @@ export const Matches = ({ navigation }: Props) => {
   >['navigation'];
 
   const { username } = useUserStore.getState();
+  const [matches, setMatches] = useState<any>();
 
-  // Start Dummy Data
-  const matches = [
-    {
-      id: 123,
-      address: '123 abc street',
-      publisher: 'testone',
-      day: '01/31/2025',
-      time: '14:00',
-      status: 'confirmed',
-    },
-    {
-      id: 124,
-      address: '123 abc street',
-      publisher: 'username',
-      day: '01/31/2025',
-      time: '14:00',
-      status: 'confirmed',
-    },
-    {
-      id: 125,
-      address: '123 abc street',
-      publisher: 'username',
-      day: '01/21/2025',
-      time: '15:00',
-      status: 'pending',
-    },
-  ];
-  // End Dummy Data
+  useEffect(() => {
+    if (username) {
+      fetchMatches(username);
+    }
+  }, [username]);
+
+  const fetchMatches = (user: string) => {
+    readOwnUsersMatchesService(user).then(res => {
+      setMatches(res)
+    })
+  };
 
   return (
     <Background

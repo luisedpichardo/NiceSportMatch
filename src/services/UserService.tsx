@@ -44,22 +44,33 @@ export const readImageUriService = async (username: string) => {
   }
 };
 
-export const addMatchIdToUserService = async (username: string,_id: string) => {
+export const addMatchIdToUserService = async (
+  username: string,
+  _id: string,
+) => {
   try {
-    const user = (await getUserRefService(username).get()).data()
-    if(user){
-      if (user.matchesIds){
-        const matchesIds = [...user.matchesIds, _id]
-        await getUserRefService(username).update({ matchesIds,});
+    const userRef = getUserRefService(username);
+    const user = (await userRef.get()).data();
+    if (user) {
+      if (user.matchesIds) {
+        const matchesIds = [...user.matchesIds, _id];
+        await userRef.update({ matchesIds });
       } else {
-        await getUserRefService(username).update({ matchesIds: [_id],})
+        await userRef.update({ matchesIds: [_id] });
       }
+    } else {
+      throw new Error('No user found');
     }
-    else {
-      throw new Error('No user found')
-    }
+  } catch (e: any) {
+    throw new Error(e.message);
   }
-  catch (e:any) {
-    throw new Error(e.message)
+};
+
+export const getMatchesIdsService = async (username: string) => {
+  try {
+    const userData: any = (await getUserRefService(username).get()).data();
+    return userData.matchesIds;
+  } catch (e: any) {
+    throw new Error(e.message);
   }
-}
+};
