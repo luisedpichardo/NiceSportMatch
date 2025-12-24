@@ -22,11 +22,10 @@ export const MatchPrev = ({ match }: Match) => {
           <Text>{match.time} 🕐</Text>
         </View>
       </View>
-      {username === match.publisher ? (
-        <></>
-      ) : (
-        <MatchCardOptions publisher={match.publisher} />
-      )}
+      <MatchCardOptions
+        publisher={match.publisher}
+        own={username === match.publisher}
+      />
     </View>
   );
 };
