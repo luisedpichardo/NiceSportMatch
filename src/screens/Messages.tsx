@@ -6,6 +6,7 @@ import { FlatList, StyleSheet, Text, View } from 'react-native';
 import { ChatPrev } from '../components/ChatPrev';
 // Types
 import { ChatNavStack, NavHomeTab } from '../navigation/types';
+import { Background } from '../components/Background';
 
 type Props = CompositeScreenProps<
   NativeStackScreenProps<ChatNavStack, 'Messages'>,
@@ -35,7 +36,12 @@ export const Messages = ({ navigation }: Props) => {
   ];
 
   return (
-    <View style={styles.container}>
+    <Background
+      colors={['white', 'lightgreen', 'green']}
+      style={styles.container}
+      useAngle={true}
+      angle={55}
+    >
       <View style={styles.topCont}>
         <Text style={styles.titleStyle}>Messages</Text>
       </View>
@@ -45,7 +51,7 @@ export const Messages = ({ navigation }: Props) => {
           return <ChatPrev key={item.id} />;
         }}
       />
-    </View>
+    </Background>
   );
 };
 

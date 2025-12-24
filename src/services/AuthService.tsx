@@ -22,7 +22,6 @@ export const createUserWithEmailAndPasswordService = async (
       await firestore().collection('users').doc(lowUsername).get()
     ).exists();
     // If username in use
-    console.log(lowUsername, invalidUsername);
     if (invalidUsername) throw new Error('Username must be unique');
     // Assing default picture and compress it
     const imageUri = Image.resolveAssetSource(

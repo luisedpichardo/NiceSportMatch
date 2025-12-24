@@ -1,15 +1,16 @@
 import { View, Text, StyleSheet } from 'react-native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
+// Components
+import { Background } from '../components/Background';
+import { SignUpForm } from '../components/SignUpForm';
 // Types
 import { NavAuthStack } from '../navigation/types';
-import { SignUpForm } from '../components/SignUpForm';
-import LinearGradient from 'react-native-linear-gradient';
 
 type Props = NativeStackScreenProps<NavAuthStack, 'SignUp'>;
 
 export const SignUp = ({ navigation }: Props) => {
   return (
-    <LinearGradient
+    <Background
       colors={['white', 'lightgreen', 'green']}
       style={styles.container}
       useAngle={true}
@@ -21,7 +22,7 @@ export const SignUp = ({ navigation }: Props) => {
       <View style={styles.formContatiner}>
         <SignUpForm />
       </View>
-    </LinearGradient>
+    </Background>
   );
 };
 const styles = StyleSheet.create({

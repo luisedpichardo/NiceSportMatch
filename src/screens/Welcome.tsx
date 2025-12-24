@@ -1,15 +1,15 @@
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { NavAuthStack } from '../navigation/types';
-import LinearGradient from 'react-native-linear-gradient';
 // Components
+import { Background } from '../components/Background';
 import { WelcomeImg } from '../components/WelcomeImg';
 
 type Props = NativeStackScreenProps<NavAuthStack, 'Welcome'>;
 
 export const Welcome = ({ navigation }: Props) => {
   return (
-    <LinearGradient
+    <Background
       colors={['white', 'lightgreen', 'green']}
       style={styles.container}
       useAngle={true}
@@ -30,7 +30,7 @@ export const Welcome = ({ navigation }: Props) => {
           <Text style={styles.textStyle}>Sign Up</Text>
         </TouchableOpacity>
       </View>
-    </LinearGradient>
+    </Background>
   );
 };
 

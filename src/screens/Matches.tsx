@@ -16,6 +16,7 @@ import { Loading } from '../components/Loading';
 import { useUserStore } from '../stores/userStore';
 // Types
 import { MatchNavStack, NavHomeTab } from '../navigation/types';
+import { Background } from '../components/Background';
 
 type Props = CompositeScreenProps<
   NativeStackScreenProps<MatchNavStack, 'Matches'>,
@@ -60,7 +61,12 @@ export const Matches = ({ navigation }: Props) => {
   // End Dummy Data
 
   return (
-    <View style={styles.container}>
+    <Background
+      colors={['white', 'lightgreen', 'green']}
+      style={styles.container}
+      useAngle={true}
+      angle={55}
+    >
       <View style={styles.topCont}>
         <Text style={styles.titleStyle}>Matches</Text>
         <TouchableOpacity
@@ -82,7 +88,7 @@ export const Matches = ({ navigation }: Props) => {
           <Loading />
         )}
       </View>
-    </View>
+    </Background>
   );
 };
 
