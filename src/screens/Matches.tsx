@@ -6,9 +6,10 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import { CompositeScreenProps } from '@react-navigation/native';
+import { CompositeScreenProps, useFocusEffect } from '@react-navigation/native';
 import { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import { useState } from 'react';
 // Components
 import { MatchPrev } from '../components/MatchPrev';
 import { Loading } from '../components/Loading';
@@ -19,7 +20,6 @@ import { useUserStore } from '../stores/userStore';
 // Types
 import { MatchNavStack, NavHomeTab } from '../navigation/types';
 import { Background } from '../components/Background';
-import { useEffect, useState } from 'react';
 
 type Props = CompositeScreenProps<
   NativeStackScreenProps<MatchNavStack, 'Matches'>,
@@ -35,16 +35,16 @@ export const Matches = ({ navigation }: Props) => {
   const { username } = useUserStore.getState();
   const [matches, setMatches] = useState<any>();
 
-  useEffect(() => {
+  useFocusEffect(() => {
     if (username) {
       fetchMatches(username);
     }
-  }, [username]);
+  });
 
   const fetchMatches = (user: string) => {
     readOwnUsersMatchesService(user).then(res => {
-      setMatches(res)
-    })
+      setMatches(res);
+    });
   };
 
   return (

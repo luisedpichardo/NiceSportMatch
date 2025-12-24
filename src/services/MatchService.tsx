@@ -16,7 +16,7 @@ export const createMatchService = async (
       day,
       time,
       publisher,
-      status: 'Upcoming'
+      status: 'Upcoming',
     };
 
     await firestore().collection('matches').doc(match._id).set(match);
@@ -45,6 +45,22 @@ export const readOwnUsersMatchesService = async (username: string) => {
       if (matchesIds.includes(elem._id)) return elem;
     });
     return userMatches;
+  } catch (e: any) {
+    throw new Error(e.message);
+  }
+};
+
+export const updateMatchService = async (match: any) => {
+  try {
+    await getMatchRefService(match._id).update(match);
+  } catch (err: any) {
+    throw new Error(err.message);
+  }
+};
+
+export const getMatchRefService = (_id: string) => {
+  try {
+    return firestore().collection('matches').doc(_id);
   } catch (e: any) {
     throw new Error(e.message);
   }

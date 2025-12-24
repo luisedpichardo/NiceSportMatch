@@ -1,6 +1,8 @@
 import { StyleSheet, Text, View } from 'react-native';
-import { useUserStore } from '../stores/userStore';
+// Components
 import { MatchCardOptions } from './MatchCardOptions';
+// Stores
+import { useUserStore } from '../stores/userStore';
 
 type Match = {
   match: any;
@@ -25,6 +27,7 @@ export const MatchPrev = ({ match }: Match) => {
       <MatchCardOptions
         publisher={match.publisher}
         own={username === match.publisher}
+        match={match}
       />
     </View>
   );

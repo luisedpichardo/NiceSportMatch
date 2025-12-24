@@ -4,6 +4,7 @@ import { OpenSettings } from '../components/OpenSettings';
 // Screens
 import { Matches } from '../screens/Matches';
 import { CreateMatch } from '../screens/CreateMatch';
+import { UpdateMatch } from '../screens/UpdateMatch';
 // Types
 import { MatchNavStack } from './types';
 
@@ -25,6 +26,7 @@ export function MatchSatck() {
         }}
       />
       <MatchSta.Screen name="CreateMatch" component={CreateMatch} />
+      <MatchSta.Screen name="UpdateMatch" component={UpdateMatch} />
     </MatchSta.Navigator>
   );
 }

@@ -19,6 +19,7 @@ export type NavHomeTab = {
 export type MatchNavStack = {
   Matches: undefined;
   CreateMatch: undefined;
+  UpdateMatch: any;
 };
 
 export type ChatNavStack = {
