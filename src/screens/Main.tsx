@@ -32,10 +32,10 @@ export const Main = ({ navigation }: Props) => {
 
   // Watch current position
   const watchLocation = () => {
-    console.log('getting lat')
+    console.log('getting lat');
     const watchID = Geolocation.watchPosition(
       async (data: any) => {
-        console.log('data',data)
+        console.log('data', data);
         // const loc: Location = {
         const loc: any = {
           lat: data.coords.latitude,
@@ -59,13 +59,7 @@ export const Main = ({ navigation }: Props) => {
   };
 
   return (
-    <View style={styles.container}>
-      {loading ? (
-        <Loading />
-      ) : (
-        <Maps/>
-      )}
-    </View>
+    <View style={styles.container}>{loading ? <Loading /> : <Maps />}</View>
   );
 };
 

@@ -4,7 +4,8 @@ import uuid from 'react-native-uuid';
 import { addMatchIdToUserService, getMatchesIdsService } from './UserService';
 
 export const createMatchService = async (
-  address: string,
+  lat: number,
+  long: number,
   day: string,
   time: string,
   publisher: any,
@@ -12,7 +13,10 @@ export const createMatchService = async (
   try {
     const match = {
       _id: uuid.v4(),
-      address,
+      address: {
+        lat,
+        long,
+      },
       day,
       time,
       publisher,

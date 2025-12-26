@@ -1,5 +1,5 @@
 import { Image, StyleSheet, Text, View } from 'react-native';
-// Components 
+// Components
 import { WelcomeSubtitle } from './WelcomeSubtitle';
 
 export const WelcomeImg = () => {

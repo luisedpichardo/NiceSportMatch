@@ -16,7 +16,6 @@ export const MatchPrev = ({ match }: Match) => {
       <View style={styles.matchInfo}>
         <View>
           <Text>Publisher: {match.publisher}</Text>
-          <Text>Place: {match.address}</Text>
           <Text>Status: {match.status}</Text>
         </View>
         <View style={{ justifyContent: 'center' }}>

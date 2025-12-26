@@ -1,7 +1,9 @@
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, Alert } from 'react-native';
 import { Formik } from 'formik';
+import { useRef, useState } from 'react';
 // Components
 import { CustomInput } from './CustomInput';
+import { LocationPicker, MapLocationPickerRef } from './LocationPicker';
 // Schemas
 import { matchValidation } from '../schemas/MatchValidation';
 // Services
@@ -11,37 +13,51 @@ import { useUserStore } from '../stores/userStore';
 
 export const CreateMatchForm = () => {
   const username = useUserStore(state => state.username);
+  const [validating, setValidating] = useState(false);
+  const mapRef = useRef<MapLocationPickerRef>(null);
 
-  const onCreateMatch = (address: string, day: string, time: string) => {
-    createMatchService(address, day, time, username);
+  const onCreateMatch = async (day: string, time: string) => {
+    setValidating(true);
+
+    const location = mapRef.current?.getLocation();
+    if (!location) {
+      Alert.alert('Please select a location');
+      return;
+    }
+    console.log('Selected location:', location);
+
+    try {
+      console.log('checking');
+      createMatchService(
+        location.latitude,
+        location.longitude,
+        day,
+        time,
+        username,
+      );
+      setValidating(false);
+    } catch (e: any) {
+      Alert.alert('Error', e);
+    }
   };
 
   return (
-    <View>
+    <View style={styles.container}>
+      <LocationPicker ref={mapRef} />
+
       <Formik
         validationSchema={matchValidation}
-        style={{ flex: 3 }}
         initialValues={{
-          address: '',
           day: '',
           time: '',
         }}
         onSubmit={values => {
-          onCreateMatch(values.address, values.day, values.time);
+          console.log(values);
+          onCreateMatch(values.day, values.time);
         }}
       >
         {({ handleChange, handleSubmit, values, errors, isValid }) => (
           <>
-            <CustomInput
-              title="Address"
-              placeholder="Address"
-              value={values.address}
-              onChangeText={handleChange('address')}
-              secureTextEntry={false}
-              keyboardType="default"
-              error={errors}
-              errorMessage={errors.address}
-            />
             <CustomInput
               title="Day"
               placeholder="Day"
@@ -67,7 +83,7 @@ export const CreateMatchForm = () => {
               style={styles.btn}
               disabled={!isValid}
             >
-              <Text>Create Match</Text>
+              <Text>{validating ? 'Validating...' : 'Create Match'}</Text>
             </TouchableOpacity>
           </>
         )}
@@ -77,6 +93,9 @@ export const CreateMatchForm = () => {
 };
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
   btn: {
     backgroundColor: 'lightgreen',
     borderRadius: 20,

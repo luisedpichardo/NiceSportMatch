@@ -1,9 +1,4 @@
-import {
-  View,
-  StyleSheet,
-  Text,
-  Alert,
-} from 'react-native';
+import { View, StyleSheet, Text, Alert } from 'react-native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 // Types
 import { NavRoot } from '../navigation/types';
