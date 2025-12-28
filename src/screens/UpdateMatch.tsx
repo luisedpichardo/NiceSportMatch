@@ -41,6 +41,7 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end',
   },
   formContatiner: {
+    flex: 1,
     backgroundColor: 'white',
     marginHorizontal: 30,
     marginBottom: '30%',

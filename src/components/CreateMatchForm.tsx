@@ -36,6 +36,7 @@ export const CreateMatchForm = () => {
         username,
       );
       setValidating(false);
+      Alert.alert('Succes','Match was created!')
     } catch (e: any) {
       Alert.alert('Error', e);
     }

@@ -6,7 +6,9 @@ import {
   TextInput,
   Alert,
 } from 'react-native';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
+// Components
+import { LocationUpdater, MapLocationUpdaterRef } from './LocationUpdater';
 // Services
 import { updateMatchService } from '../services/MatchService';
 
@@ -15,17 +17,22 @@ type Props = {
 };
 
 export const UpdateMatchForm = ({ match }: Props) => {
-  const [newAddress, setNewAddress] = useState('');
   const [newDay, setNewDay] = useState('');
   const [newTime, setNewTime] = useState('');
   const [newStatus, setNewStatus] = useState('');
+  const mapRef = useRef<MapLocationUpdaterRef>(null);
 
   const onUpdateMatch = async () => {
     // Assign data accordingly
     const updatedData: any = {
       _id: match._id,
     };
-    if (newAddress) updatedData.address = newAddress;
+    if (mapRef.current?.getLocation()) {
+      updatedData.address = {
+        lat: mapRef.current.getLocation().latitude,
+        long: mapRef.current.getLocation().longitude,
+      };
+    }
     if (newDay) updatedData.day = newDay;
     if (newTime) updatedData.time = newTime;
     if (newStatus) updatedData.status = newStatus;
@@ -40,14 +47,9 @@ export const UpdateMatchForm = ({ match }: Props) => {
   };
 
   return (
-    <View>
-      <Text style={styles.txt}>Address</Text>
-      <TextInput
-        placeholder={match.address}
-        value={newAddress}
-        onChangeText={setNewAddress}
-        style={styles.input}
-      />
+    <View style={styles.container}>
+      <LocationUpdater ref={mapRef} initialLoc={match.address} />
+
       <Text style={styles.txt}>Day</Text>
       <TextInput
         placeholder={match.day}
@@ -72,13 +74,16 @@ export const UpdateMatchForm = ({ match }: Props) => {
         style={styles.input}
       />
       <TouchableOpacity onPress={() => onUpdateMatch()}>
-        <Text style={styles.btn}>Update Match</Text>
+        <Text style={styles.btn}>Update Match Info</Text>
       </TouchableOpacity>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
   btn: {
     backgroundColor: 'lightgreen',
     borderRadius: 20,
@@ -87,13 +92,13 @@ const styles = StyleSheet.create({
     alignSelf: 'flex-end',
   },
   txt: {
-    color: 'white',
-    marginVertical: 5,
+    color: 'green',
+    fontWeight: 'bold',
   },
   input: {
     borderBottomWidth: 3,
-    borderColor: 'lightgreen',
+    borderColor: 'green',
     padding: 10,
-    marginBottom: 10,
+    marginVertical: 5,
   },
 });

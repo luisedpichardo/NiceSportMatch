@@ -39,9 +39,7 @@ export const CustomInput = ({
 
 const styles = StyleSheet.create({
   inputField: {
-    // borderWidth: 3,
     borderBottomWidth:2,
-    // borderRadius: 10,
     borderColor: 'green',
     padding: 10,
     marginVertical: 5,
