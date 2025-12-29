@@ -36,7 +36,7 @@ export const CreateMatchForm = () => {
         username,
       );
       setValidating(false);
-      Alert.alert('Succes','Match was created!')
+      Alert.alert('Succes', 'Match was created!');
     } catch (e: any) {
       Alert.alert('Error', e);
     }
@@ -46,49 +46,51 @@ export const CreateMatchForm = () => {
     <View style={styles.container}>
       <LocationPicker ref={mapRef} />
 
-      <Formik
-        validationSchema={matchValidation}
-        initialValues={{
-          day: '',
-          time: '',
-        }}
-        onSubmit={values => {
-          console.log(values);
-          onCreateMatch(values.day, values.time);
-        }}
-      >
-        {({ handleChange, handleSubmit, values, errors, isValid }) => (
-          <>
-            <CustomInput
-              title="Day"
-              placeholder="Day"
-              value={values.day}
-              onChangeText={handleChange('day')}
-              secureTextEntry={false}
-              keyboardType="default"
-              error={errors}
-              errorMessage={errors.day}
-            />
-            <CustomInput
-              title="Time"
-              placeholder="Time"
-              value={values.time}
-              onChangeText={handleChange('time')}
-              secureTextEntry={false}
-              keyboardType="default"
-              error={errors}
-              errorMessage={errors.time}
-            />
-            <TouchableOpacity
-              onPress={handleSubmit}
-              style={styles.btn}
-              disabled={!isValid}
-            >
-              <Text>{validating ? 'Validating...' : 'Create Match'}</Text>
-            </TouchableOpacity>
-          </>
-        )}
-      </Formik>
+      <View style={{ marginTop: 20 }}>
+        <Formik
+          validationSchema={matchValidation}
+          initialValues={{
+            day: '',
+            time: '',
+          }}
+          onSubmit={values => {
+            console.log(values);
+            onCreateMatch(values.day, values.time);
+          }}
+        >
+          {({ handleChange, handleSubmit, values, errors, isValid }) => (
+            <>
+              <CustomInput
+                title="Day"
+                placeholder="Day"
+                value={values.day}
+                onChangeText={handleChange('day')}
+                secureTextEntry={false}
+                keyboardType="default"
+                error={errors}
+                errorMessage={errors.day}
+              />
+              <CustomInput
+                title="Time"
+                placeholder="Time"
+                value={values.time}
+                onChangeText={handleChange('time')}
+                secureTextEntry={false}
+                keyboardType="default"
+                error={errors}
+                errorMessage={errors.time}
+              />
+              <TouchableOpacity
+                onPress={handleSubmit}
+                style={styles.btn}
+                disabled={!isValid}
+              >
+                <Text>{validating ? 'Validating...' : 'Create Match'}</Text>
+              </TouchableOpacity>
+            </>
+          )}
+        </Formik>
+      </View>
     </View>
   );
 };
@@ -99,6 +101,8 @@ const styles = StyleSheet.create({
   },
   btn: {
     backgroundColor: 'lightgreen',
+    borderWidth: 1,
+    borderColor: 'green',
     borderRadius: 20,
     paddingVertical: 5,
     paddingHorizontal: 20,

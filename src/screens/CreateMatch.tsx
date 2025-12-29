@@ -4,26 +4,31 @@ import { StyleSheet, Text, View } from 'react-native';
 import { CreateMatchForm } from '../components/CreateMatchForm';
 // Types
 import { MatchNavStack } from '../navigation/types';
+import { Background } from '../components/Background';
 
 type Props = NativeStackScreenProps<MatchNavStack, 'CreateMatch'>;
 
 export const CreateMatch = ({ navigation }: Props) => {
   return (
-    <View style={styles.container}>
+    <Background
+      colors={['white', 'lightgreen', 'green']}
+      style={styles.container}
+      useAngle={true}
+      angle={75}
+    >
       <View style={styles.topCont}>
         <Text style={styles.titleStyle}>Create match</Text>
       </View>
       <View style={styles.formContatiner}>
         <CreateMatchForm />
       </View>
-    </View>
+    </Background>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'green',
   },
   topCont: {
     flexDirection: 'row',
@@ -35,15 +40,11 @@ const styles = StyleSheet.create({
   titleStyle: {
     fontSize: 40,
     fontWeight: '600',
-    color: 'white',
     justifyContent: 'flex-end',
   },
   formContatiner: {
     flex: 1,
-    backgroundColor: 'white',
-    marginHorizontal: 30,
     marginBottom: '30%',
-    borderRadius: 25,
     padding: 30,
   },
 });

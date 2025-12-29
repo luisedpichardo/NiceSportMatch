@@ -54,10 +54,7 @@ export const Matches = ({ navigation }: Props) => {
     >
       <View style={styles.topCont}>
         <Text style={styles.titleStyle}>Matches</Text>
-        <TouchableOpacity
-          style={styles.addBtn}
-          onPress={() => navigation.navigate('CreateMatch')}
-        >
+        <TouchableOpacity onPress={() => navigation.navigate('CreateMatch')}>
           <Image source={require('../../assets/add.png')} style={styles.img} />
         </TouchableOpacity>
       </View>
@@ -93,24 +90,17 @@ const styles = StyleSheet.create({
   titleStyle: {
     fontSize: 40,
     fontWeight: '600',
-    color: 'white',
     justifyContent: 'flex-end',
   },
   formContatiner: {
     flex: 1,
-    backgroundColor: 'gray',
-    marginHorizontal: 30,
     marginBottom: '30%',
     borderRadius: 25,
-    padding: 30,
-  },
-  addBtn: {
-    alignSelf: 'flex-end',
-    backgroundColor: 'lightgreen',
-    borderRadius: 25,
+    padding: 20,
+    paddingVertical: 30,
   },
   img: {
-    height: 50,
-    width: 50,
+    height: 40,
+    width: 40,
   },
 });

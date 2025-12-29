@@ -15,7 +15,11 @@ export const MatchPrev = ({ match }: Match) => {
     <View style={styles.container}>
       <View style={styles.matchInfo}>
         <View>
-          <Text>Publisher: {match.publisher}</Text>
+          {username === match.publisher ? (
+            <Text>Publisher: You</Text>
+          ) : (
+            <Text>Publisher: {match.publisher}</Text>
+          )}
           <Text>Status: {match.status}</Text>
         </View>
         <View style={{ justifyContent: 'center' }}>
@@ -34,7 +38,7 @@ export const MatchPrev = ({ match }: Match) => {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: 'white',
+    backgroundColor: 'rgba(255, 255, 255, 0.7)',
     padding: 10,
     paddingVertical: 15,
     marginVertical: 5,
@@ -43,5 +47,6 @@ const styles = StyleSheet.create({
   matchInfo: {
     flexDirection: 'row',
     justifyContent: 'space-between',
+    marginBottom: 5,
   },
 });
