@@ -3,7 +3,7 @@ import { NativeStackScreenProps } from '@react-navigation/native-stack';
 // Components
 import { Background } from '../components/Background';
 import { LoginForm } from '../components/LoginForm';
-// Types
+// Navigation
 import { NavAuthStack } from '../navigation/types';
 
 type Props = NativeStackScreenProps<NavAuthStack, 'Login'>;

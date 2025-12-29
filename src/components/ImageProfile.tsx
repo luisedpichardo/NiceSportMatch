@@ -7,8 +7,6 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-// Helpers
-import { openCameraHelper, openLibraryHelper } from '../utils/ImageHelpers';
 // Service
 import {
   getUserRefService,
@@ -16,6 +14,8 @@ import {
 } from '../services/UserService';
 // Stores
 import { useUserStore } from '../stores/userStore';
+// Utils
+import { openCameraHelper, openLibraryHelper } from '../utils/ImageHelpers';
 
 export const ImageProfile = () => {
   const [imageUri, setImageUri] = useState();

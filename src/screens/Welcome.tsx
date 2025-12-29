@@ -1,9 +1,10 @@
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import { NavAuthStack } from '../navigation/types';
 // Components
 import { Background } from '../components/Background';
 import { WelcomeImg } from '../components/WelcomeImg';
+// Types
+import { NavAuthStack } from '../navigation/types';
 
 type Props = NativeStackScreenProps<NavAuthStack, 'Welcome'>;
 

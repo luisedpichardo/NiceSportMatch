@@ -5,10 +5,11 @@ import { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 // Components
 import { Loading } from '../components/Loading';
+import { Maps } from '../components/Maps';
+// Services
+import { readAllMatchesService } from '../services/MatchService';
 // Types
 import { NavHomeTab, NavRoot } from '../navigation/types';
-import { Maps } from '../components/Maps';
-import { readAllMatchesService } from '../services/MatchService';
 
 type Props = CompositeScreenProps<
   BottomTabScreenProps<NavHomeTab, 'Map'>,

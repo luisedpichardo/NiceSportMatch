@@ -1,7 +1,7 @@
 import { StyleSheet, View } from 'react-native';
-import { ImageProfile } from '../components/ImageProfile';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 // Components
+import { ImageProfile } from '../components/ImageProfile';
 import { ProfileFields } from '../components/ProfileFields';
 // Types
 import { NavRoot } from '../navigation/types';

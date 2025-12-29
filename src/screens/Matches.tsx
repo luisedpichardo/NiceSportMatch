@@ -13,13 +13,13 @@ import { useCallback, useState } from 'react';
 // Components
 import { MatchPrev } from '../components/MatchPrev';
 import { Loading } from '../components/Loading';
+import { Background } from '../components/Background';
 // Services
 import { readOwnUsersMatchesService } from '../services/MatchService';
 // Stores
 import { useUserStore } from '../stores/userStore';
-// Types
+// Nav Types
 import { MatchNavStack, NavHomeTab } from '../navigation/types';
-import { Background } from '../components/Background';
 
 type Props = CompositeScreenProps<
   NativeStackScreenProps<MatchNavStack, 'Matches'>,

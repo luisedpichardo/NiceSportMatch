@@ -4,9 +4,9 @@ import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { FlatList, StyleSheet, Text, View } from 'react-native';
 // Components
 import { ChatPrev } from '../components/ChatPrev';
+import { Background } from '../components/Background';
 // Types
 import { ChatNavStack, NavHomeTab } from '../navigation/types';
-import { Background } from '../components/Background';
 
 type Props = CompositeScreenProps<
   NativeStackScreenProps<ChatNavStack, 'Messages'>,
@@ -80,5 +80,5 @@ const styles = StyleSheet.create({
     borderRadius: 25,
     padding: 20,
     paddingVertical: 30,
-  }
+  },
 });

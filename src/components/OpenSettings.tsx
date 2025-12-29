@@ -1,6 +1,7 @@
 import { useNavigation } from '@react-navigation/native';
 import { RightHdrBtn } from './RightHdrBtn';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+// Navigation
 import { NavRoot } from '../navigation/types';
 
 export const OpenSettings = () => {

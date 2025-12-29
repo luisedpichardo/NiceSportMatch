@@ -1,12 +1,14 @@
 import { View, StyleSheet, Text, Alert } from 'react-native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-// Types
-import { NavRoot } from '../navigation/types';
-import { SettingsOptions } from '../components/SettingsOptions';
 import { useEffect } from 'react';
 import { getAuth } from '@react-native-firebase/auth';
+// Components
+import { SettingsOptions } from '../components/SettingsOptions';
 import { RightHdrBtn } from '../components/RightHdrBtn';
+// Services
 import { signOutService } from '../services/AuthService';
+// Types
+import { NavRoot } from '../navigation/types';
 
 type Props = NativeStackScreenProps<NavRoot, 'Settings'>;
 

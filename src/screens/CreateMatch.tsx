@@ -2,9 +2,9 @@ import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { StyleSheet, Text, View } from 'react-native';
 // Components
 import { CreateMatchForm } from '../components/CreateMatchForm';
+import { Background } from '../components/Background';
 // Types
 import { MatchNavStack } from '../navigation/types';
-import { Background } from '../components/Background';
 
 type Props = NativeStackScreenProps<MatchNavStack, 'CreateMatch'>;
 
