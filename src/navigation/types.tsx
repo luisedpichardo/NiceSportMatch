@@ -23,6 +23,6 @@ export type MatchNavStack = {
 };
 
 export type ChatNavStack = {
-  Chat: undefined;
+  Chat: any;
   Messages: undefined;
 };

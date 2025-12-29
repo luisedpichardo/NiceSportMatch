@@ -1,4 +1,5 @@
-import { Image, StyleSheet, Text, View } from 'react-native';
+import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 // Stores
 import { useUserStore } from '../stores/userStore';
 
@@ -7,10 +8,16 @@ type Props = {
 };
 
 export const ChatPrev = ({ sender }: Props) => {
+  const chatNav = useNavigation();
   const username = useUserStore(state => state.username);
 
+  const onOpenChat = () => {
+    console.log('username: ', username, ' chatting with: ', sender);
+    chatNav.navigate('Chat', { someone: sender });
+  };
+
   return (
-    <View style={styles.container}>
+    <TouchableOpacity style={styles.container} onPress={() => onOpenChat()}>
       <View style={styles.chat}>
         <View style={{ flexDirection: 'row' }}>
           <Image
@@ -23,10 +30,10 @@ export const ChatPrev = ({ sender }: Props) => {
           </View>
         </View>
         <View style={{ justifyContent: 'center' }}>
-          <Text>day 📅</Text>
+          <Text>day</Text>
         </View>
       </View>
-    </View>
+    </TouchableOpacity>
   );
 };
 

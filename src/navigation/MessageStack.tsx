@@ -1,6 +1,9 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { ChatNavStack } from './types';
+// Screens
 import { Messages } from '../screens/Messages';
+import { Chat } from '../screens/Chat';
+// Types
+import { ChatNavStack } from './types';
 
 const ChatStack = createNativeStackNavigator<ChatNavStack>();
 
@@ -13,8 +16,7 @@ export function MessageStack() {
       }}
     >
       <ChatStack.Screen name="Messages" component={Messages} />
-      {/* Next create screen for actual chat */}
-      {/* <ChatStack.Screen name="Chat" component={CreateMatch} /> */}
+      <ChatStack.Screen name="Chat" component={Chat} />
     </ChatStack.Navigator>
   );
 }

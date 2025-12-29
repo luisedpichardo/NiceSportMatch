@@ -1,4 +1,5 @@
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 // Services
 import { removeMatchFromUserService } from '../services/UserService';
 // Stores
@@ -11,6 +12,7 @@ type Props = {
 
 export const MatchNotOwnOpt = ({ publisher, _id }: Props) => {
   const username = useUserStore(state => state.username);
+  const chatNav = useNavigation();
   const removeMatchFromUser = async () => {
     if (!username) {
       throw new Error('Could not get acces to username');
@@ -29,7 +31,12 @@ export const MatchNotOwnOpt = ({ publisher, _id }: Props) => {
         </Text>
       </TouchableOpacity>
       <TouchableOpacity
-        onPress={() => console.log('openning chat with publisher', publisher)}
+        onPress={() =>
+          chatNav.navigate('ChatNav', {
+            screen: 'Chat',
+            params: { someone: publisher },
+          })
+        }
         style={{ ...styles.btn, ...styles.openChatBtn }}
       >
         <Text style={{ fontWeight: 'bold' }}>Open Chat</Text>
