@@ -58,7 +58,7 @@ export const Matches = ({ navigation }: Props) => {
           <Image source={require('../../assets/add.png')} style={styles.img} />
         </TouchableOpacity>
       </View>
-      <View style={styles.formContatiner}>
+      <View style={styles.matchesContatiner}>
         {username ? (
           <FlatList
             data={matches}
@@ -92,7 +92,7 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     justifyContent: 'flex-end',
   },
-  formContatiner: {
+  matchesContatiner: {
     flex: 1,
     marginBottom: '30%',
     borderRadius: 25,

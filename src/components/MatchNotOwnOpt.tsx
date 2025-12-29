@@ -25,7 +25,7 @@ export const MatchNotOwnOpt = ({ publisher, _id }: Props) => {
         style={{ ...styles.btn, backgroundColor: 'red' }}
       >
         <Text style={{ color: 'white', fontWeight: 'bold' }}>
-          Not interested
+          Not interested anymore
         </Text>
       </TouchableOpacity>
       <TouchableOpacity

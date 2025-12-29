@@ -45,12 +45,14 @@ export const Messages = ({ navigation }: Props) => {
       <View style={styles.topCont}>
         <Text style={styles.titleStyle}>Messages</Text>
       </View>
-      <FlatList
-        data={chats}
-        renderItem={({ item }) => {
-          return <ChatPrev key={item.id} />;
-        }}
-      />
+      <View style={styles.messagesCont}>
+        <FlatList
+          data={chats}
+          renderItem={({ item }) => {
+            return <ChatPrev key={item.id} sender={item.sender} />;
+          }}
+        />
+      </View>
     </Background>
   );
 };
@@ -58,7 +60,6 @@ export const Messages = ({ navigation }: Props) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'green',
   },
   topCont: {
     flexDirection: 'row',
@@ -73,4 +74,11 @@ const styles = StyleSheet.create({
     color: 'white',
     justifyContent: 'flex-end',
   },
+  messagesCont: {
+    flex: 1,
+    marginBottom: '30%',
+    borderRadius: 25,
+    padding: 20,
+    paddingVertical: 30,
+  }
 });
