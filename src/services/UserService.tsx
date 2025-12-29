@@ -74,3 +74,29 @@ export const getMatchesIdsService = async (username: string) => {
     throw new Error(e.message);
   }
 };
+
+export const removeMatchFromUserService = async (
+  _id: string,
+  username: string,
+) => {
+  try {
+    await firestore()
+      .collection('users')
+      .doc(username)
+      .get()
+      .then(async userData => {
+        if (!userData.data()) {
+          throw new Error('Could not get data');
+        }
+        const matchesIds = userData.data().matchesIds;
+        const newIds = matchesIds.filter((elem: any) => elem !== _id);
+        // Update ids in firebase
+        await getUserRefService(username).update({ matchesIds: newIds });
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  } catch (e: any) {
+    throw new Error(e.message);
+  }
+};

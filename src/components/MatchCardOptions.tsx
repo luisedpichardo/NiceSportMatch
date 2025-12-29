@@ -29,7 +29,7 @@ export const MatchCardOptions = ({ publisher, own, match }: Props) => {
           <Text style={styles.txt}>Modify</Text>
         </TouchableOpacity>
       ) : (
-        <MatchNotOwnOpt publisher={publisher} />
+        <MatchNotOwnOpt _id={match._id} publisher={publisher} />
       )}
     </>
   );

@@ -40,7 +40,6 @@ export const MatchDetailsModal = ({
     }
     await getMatchesIdsService(username)
       .then(res => {
-        console.log(res);
         setMatchesIDs(res);
       })
       .catch(err => {
@@ -53,9 +52,9 @@ export const MatchDetailsModal = ({
       Alert.alert('Error', 'Could not get username.');
       return;
     }
-    await addMatchIdToUserService(username, match._id).catch(err =>
-      console.log('error: ', err),
-    );
+    await addMatchIdToUserService(username, match._id)
+      .then(() => setModalVisible(!modalVisible))
+      .catch(err => console.log('error: ', err));
   };
 
   return (
