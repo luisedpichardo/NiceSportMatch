@@ -1,17 +1,14 @@
 import { Alert, StyleSheet, View } from 'react-native';
-import { useCallback, useEffect, useRef, useState } from 'react';
-import { CompositeScreenProps, useFocusEffect } from '@react-navigation/native';
+import { useEffect, useState } from 'react';
+import { CompositeScreenProps } from '@react-navigation/native';
 import { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import Geolocation from '@react-native-community/geolocation';
-import MapView, { PROVIDER_DEFAULT, PROVIDER_GOOGLE } from 'react-native-maps';
 // Components
 import { Loading } from '../components/Loading';
-// Stores
-import { useUserStore } from '../stores/userStore';
 // Types
 import { NavHomeTab, NavRoot } from '../navigation/types';
 import { Maps } from '../components/Maps';
+import { readAllMatchesService } from '../services/MatchService';
 
 type Props = CompositeScreenProps<
   BottomTabScreenProps<NavHomeTab, 'Map'>,
@@ -19,47 +16,29 @@ type Props = CompositeScreenProps<
 >;
 
 export const Main = ({ navigation }: Props) => {
-  const user = useUserStore(state => state.user);
-  const [currPosition, setCurrPosition] = useState({ lat: 0, long: 0 });
   const [loading, setLoading] = useState(true);
-  const mapRef = useRef<MapView | null>(null);
+  const [matches, setMatches] = useState({});
 
   // Set to load current positon
   useEffect(() => {
-    const watchId = watchLocation();
-    return () => Geolocation.clearWatch(watchId);
+    fetchMatches();
   }, []);
 
-  // Watch current position
-  const watchLocation = () => {
-    console.log('getting lat');
-    const watchID = Geolocation.watchPosition(
-      async (data: any) => {
-        console.log('data', data);
-        // const loc: Location = {
-        const loc: any = {
-          lat: data.coords.latitude,
-          long: data.coords.longitude,
-          email: user.email,
-          timestamp: data.timestamp,
-        };
-        setCurrPosition({
-          lat: data.coords.latitude,
-          long: data.coords.longitude,
-        });
-        console.log(loc);
-        // await setMyLocationService(loc);
+  const fetchMatches = () => {
+    readAllMatchesService()
+      .then(res => {
+        setMatches(res);
         setLoading(false);
-      },
-      (err: any) => {
-        Alert.alert(err.message);
-      },
-    );
-    return watchID;
+      })
+      .catch(err => {
+        Alert.alert('Error', err.message);
+      });
   };
 
   return (
-    <View style={styles.container}>{loading ? <Loading /> : <Maps />}</View>
+    <View style={styles.container}>
+      {loading ? <Loading /> : <Maps matches={matches} />}
+    </View>
   );
 };
 
