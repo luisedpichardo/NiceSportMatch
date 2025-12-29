@@ -1,5 +1,5 @@
 import { Alert, Platform, Text } from 'react-native';
-import { useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import Geolocation from '@react-native-community/geolocation';
 import MapView, {
   Callout,
@@ -7,22 +7,24 @@ import MapView, {
   PROVIDER_DEFAULT,
   PROVIDER_GOOGLE,
 } from 'react-native-maps';
-// Stores
-import { useUserStore } from '../stores/userStore';
+import { useFocusEffect } from '@react-navigation/native';
+// Components
+import { MatchDetailsModal } from './MatchDetailsModal';
+// Services
+import { readAllMatchesService } from '../services/MatchService';
 // Utils
 import { requestLocationPermission } from '../utils/PermissionsHelpers';
-import { MatchDetailsModal } from './MatchDetailsModal';
 
 type Props = {
   matches: Array<any>;
 };
 
-export const Maps = ({ matches }: Props) => {
-  const user = useUserStore(state => state.user);
+export const Maps = () => {
   const [currPosition, setCurrPosition] = useState({ lat: 0, long: 0 });
   const mapRef = useRef<MapView | null>(null);
   const [modalVisible, setModalVisible] = useState(false);
   const [selectedMatch, setSelectedMatch] = useState(null);
+  const [matches, setMatches] = useState<Array<any>>([]);
 
   // Set to load current positon
   useEffect(() => {
@@ -42,6 +44,27 @@ export const Maps = ({ matches }: Props) => {
     };
   }, []);
 
+  // Focus Effect to Read Matches everytime the map focuses
+  useFocusEffect(
+    useCallback(() => {
+      let isActive = true;
+      const fetchMatches = async () => {
+        try {
+          const res = await readAllMatchesService();
+          if (isActive) {
+            setMatches(res);
+          }
+        } catch (err) {
+          console.error(err);
+        }
+      };
+      fetchMatches();
+      return () => {
+        isActive = false;
+      };
+    }, []),
+  );
+
   // Watch current position
   const watchLocation = () => {
     //Initial position
@@ -58,21 +81,10 @@ export const Maps = ({ matches }: Props) => {
 
     return Geolocation.watchPosition(
       async (data: any) => {
-        console.log('reading data');
-        console.log('data', data);
-        // const loc: Location = {
-        const loc: any = {
-          lat: data.coords.latitude,
-          long: data.coords.longitude,
-          email: user.email,
-          timestamp: data.timestamp,
-        };
         setCurrPosition({
           lat: data.coords.latitude,
           long: data.coords.longitude,
         });
-        console.log(loc);
-        // await setMyLocationService(loc);
       },
       (err: any) => {
         Alert.alert(err.message);

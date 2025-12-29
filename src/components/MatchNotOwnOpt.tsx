@@ -11,13 +11,15 @@ export const MatchNotOwnOpt = ({ publisher }: Props) => {
         onPress={() => console.log('stopped showing interest')}
         style={{ ...styles.btn, backgroundColor: 'red' }}
       >
-        <Text>Not interested</Text>
+        <Text style={{ color: 'white', fontWeight: 'bold' }}>
+          Not interested
+        </Text>
       </TouchableOpacity>
       <TouchableOpacity
         onPress={() => console.log('openning chat with publisher', publisher)}
-        style={{ ...styles.btn, backgroundColor: 'lightgreen' }}
+        style={{ ...styles.btn, ...styles.openChatBtn }}
       >
-        <Text>Open Chat</Text>
+        <Text style={{ fontWeight: 'bold' }}>Open Chat</Text>
       </TouchableOpacity>
     </View>
   );
@@ -29,5 +31,10 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     paddingVertical: 5,
     borderRadius: 20,
+  },
+  openChatBtn: {
+    backgroundColor: 'lightgreen',
+    borderWidth: 1,
+    borderColor: 'green',
   },
 });

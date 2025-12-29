@@ -6,9 +6,14 @@ import {
   StyleSheet,
   Alert,
 } from 'react-native';
-import { useUserStore } from '../stores/userStore';
 import { useEffect, useState } from 'react';
-import { getMatchesIdsService } from '../services/UserService';
+// Services
+import {
+  addMatchIdToUserService,
+  getMatchesIdsService,
+} from '../services/UserService';
+// Stores
+import { useUserStore } from '../stores/userStore';
 
 type MatchDetailsModalProps = {
   modalVisible: any;
@@ -22,7 +27,7 @@ export const MatchDetailsModal = ({
   match,
 }: MatchDetailsModalProps) => {
   const username = useUserStore(state => state.username);
-  const [matchesIDs, setMatchesIDs] = useState([]);
+  const [matchesIDs, setMatchesIDs] = useState<string[]>([]);
 
   useEffect(() => {
     fetchMatchesIds();
@@ -43,11 +48,26 @@ export const MatchDetailsModal = ({
       });
   };
 
+  const addIDToMatches = async () => {
+    if (!username) {
+      Alert.alert('Error', 'Could not get username.');
+      return;
+    }
+    await addMatchIdToUserService(username, match._id).catch(err =>
+      console.log('error: ', err),
+    );
+  };
+
   return (
     <View>
       <Modal animationType="slide" transparent={true} visible={modalVisible}>
         <View style={styles.centeredView}>
           <View style={styles.modalView}>
+            {username === match.publisher ? (
+              <Text style={styles.modalText}>Publisher: You</Text>
+            ) : (
+              <Text style={styles.modalText}>Publisher: {match.publisher}</Text>
+            )}
             <Text style={styles.modalText}>Day: {match.day}</Text>
             <Text style={styles.modalText}>Time: {match.time}</Text>
             <>
@@ -56,9 +76,7 @@ export const MatchDetailsModal = ({
               ) : (
                 <TouchableOpacity
                   style={styles.button}
-                  onPress={() => {
-                    console.log('adding to matches');
-                  }}
+                  onPress={() => addIDToMatches()}
                 >
                   <Text style={styles.textStyle}>Add to my matches</Text>
                 </TouchableOpacity>
