@@ -27,3 +27,26 @@ export const sendMessageService = async (
     throw new Error(e.message);
   }
 };
+
+export const getMessagesForUserChat = async (
+  username: string,
+  someone: string,
+) => {
+  try {
+    // Get reference for messages
+    const allMessages = (await firestore().collection('messages').get()).docs;
+    // Get actual mesages that only involve username and someone
+    const actualMessages = allMessages
+      .filter(item => {
+        return (
+          (item.data().sender === username &&
+            item.data().receiver === someone) ||
+          (item.data().sender === someone && item.data().receiver === username)
+        );
+      })
+      .map(item => item.data());
+    return actualMessages;
+  } catch (e: any) {
+    throw new Error(e.message);
+  }
+};

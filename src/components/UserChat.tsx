@@ -1,4 +1,5 @@
 import { FlatList, StyleSheet, Text, View } from 'react-native';
+// Stores
 import { useUserStore } from '../stores/userStore';
 
 type Props = {
@@ -15,14 +16,14 @@ export const UserChat = ({ messages }: Props) => {
         return (
           <View key={item.time} style={{ margin: 10 }}>
             {item.sender === username ? (
-              <View style={styles.yourMessage}>
-                <Text style={styles.yourTxt}>{item.text}</Text>
+              <View style={{ ...styles.messageCont, ...styles.yourMessage }}>
+                <Text style={styles.yourTxt}>{item.message}</Text>
               </View>
             ) : (
               <View>
                 <Text>{item.sender}</Text>
                 <View style={styles.messageCont}>
-                  <Text>{item.text}</Text>
+                  <Text style={styles.notYourTxt}>{item.message}</Text>
                 </View>
               </View>
             )}
@@ -36,14 +37,14 @@ export const UserChat = ({ messages }: Props) => {
 const styles = StyleSheet.create({
   messageCont: {
     borderRadius: 10,
-    padding: 15,
+    padding: 10,
     width: '50%',
     backgroundColor: 'gray',
   },
+  notYourTxt: {
+    color: 'white',
+  },
   yourMessage: {
-    borderRadius: 10,
-    padding: 15,
-    width: '50%',
     backgroundColor: 'white',
     alignSelf: 'flex-end',
   },
