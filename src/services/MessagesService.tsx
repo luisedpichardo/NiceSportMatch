@@ -1,5 +1,8 @@
 import uuid from 'react-native-uuid';
-import firestore, { serverTimestamp } from '@react-native-firebase/firestore';
+import firestore, {
+  Filter,
+  serverTimestamp,
+} from '@react-native-firebase/firestore';
 // Services
 import { addReferenceForUserChatService } from './UserService';
 
@@ -33,19 +36,26 @@ export const getMessagesForUserChat = async (
   someone: string,
 ) => {
   try {
-    // Get reference for messages
-    const allMessages = (await firestore().collection('messages').get()).docs;
-    // Get actual mesages that only involve username and someone
-    const actualMessages = allMessages
-      .filter(item => {
-        return (
-          (item.data().sender === username &&
-            item.data().receiver === someone) ||
-          (item.data().sender === someone && item.data().receiver === username)
-        );
-      })
-      .map(item => item.data());
-    return actualMessages;
+    // fetch from firestore
+    const snapShot = await firestore()
+      .collection('messages')
+      .where(
+        Filter.or(
+          Filter.and(
+            Filter('sender', '==', username),
+            Filter('receiver', '==', someone),
+          ),
+          Filter.and(
+            Filter('sender', '==', someone),
+            Filter('receiver', '==', username),
+          ),
+        ),
+      )
+      .get()
+      .then(res => {
+        return res.docs.map(item => item.data());
+      });
+    return snapShot;
   } catch (e: any) {
     throw new Error(e.message);
   }
