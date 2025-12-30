@@ -51,6 +51,7 @@ export const getMessagesForUserChat = async (
           ),
         ),
       )
+      .orderBy('time')
       .get()
       .then(res => {
         return res.docs.map(item => item.data());

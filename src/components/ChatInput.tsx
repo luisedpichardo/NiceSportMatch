@@ -24,7 +24,7 @@ export const ChatInput = ({ receiver }: Props) => {
     if (!username) return;
     sendMessageService(username, receiver, message)
       .then(() => {
-        Alert.alert('Sucess', 'Message sent');
+        setMessage('');
       })
       .catch(err => {
         Alert.alert('Error', err);
@@ -50,7 +50,7 @@ export const ChatInput = ({ receiver }: Props) => {
 const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
-    marginVertical: '25%',
+    marginVertical: '5%',
     marginHorizontal: '10%',
   },
   input: {
