@@ -20,7 +20,7 @@ export const UpdateMatch = ({ navigation, route }: Props) => {
   return (
     <View style={styles.container}>
       <View style={styles.formContatiner}>
-        <UpdateMatchForm match={match} />
+        <UpdateMatchForm match={match} navigation={navigation} />
       </View>
     </View>
   );

@@ -16,9 +16,10 @@ import { updateMatchService } from '../services/MatchService';
 
 type Props = {
   match: any;
+  navigation: any;
 };
 
-export const UpdateMatchForm = ({ match }: Props) => {
+export const UpdateMatchForm = ({ match, navigation }: Props) => {
   const [newDay, setNewDay] = useState('');
   const [newTime, setNewTime] = useState('');
   const [newStatus, setNewStatus] = useState('');
@@ -41,7 +42,7 @@ export const UpdateMatchForm = ({ match }: Props) => {
     // Send the update
     await updateMatchService(updatedData)
       .then(() => {
-        Alert.alert('Success', 'Match info has been updated!');
+        navigation.goBack();
       })
       .catch(err => {
         Alert.alert('Error', err);
