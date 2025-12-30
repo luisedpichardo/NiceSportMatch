@@ -23,7 +23,7 @@ export const Chat = ({ navigation, route }: Props) => {
 
   const messages: any = [
     // {
-    //   sender: someone,3
+    //   sender: someone,
     //   receiver: username,
     //   text: 'helloooo',
     //   time: '12313212',
@@ -63,5 +63,6 @@ const styles = StyleSheet.create({
   },
   messageCont: {
     flex: 1,
+    marginTop: '40%'
   },
 });
