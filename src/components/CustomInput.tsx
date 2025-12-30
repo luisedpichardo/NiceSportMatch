@@ -23,7 +23,7 @@ export const CustomInput = ({
 }: SignUpInput) => {
   return (
     <View>
-      <Text style={{color: 'green', fontWeight:'bold'}}>{title}</Text>
+      <Text style={{ color: 'green', fontWeight: 'bold' }}>{title}</Text>
       <TextInput
         placeholder={placeholder}
         value={value}
@@ -39,7 +39,7 @@ export const CustomInput = ({
 
 const styles = StyleSheet.create({
   inputField: {
-    borderBottomWidth:2,
+    borderBottomWidth: 2,
     borderColor: 'green',
     padding: 10,
     marginVertical: 5,

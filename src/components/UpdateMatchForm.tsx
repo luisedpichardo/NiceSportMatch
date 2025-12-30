@@ -1,11 +1,11 @@
 import { useRef, useState } from 'react';
 import {
-  View,
   Text,
   TouchableOpacity,
   StyleSheet,
   TextInput,
   Alert,
+  KeyboardAvoidingView,
 } from 'react-native';
 // Components
 import { LocationUpdater, MapLocationUpdaterRef } from './LocationUpdater';
@@ -47,7 +47,7 @@ export const UpdateMatchForm = ({ match }: Props) => {
   };
 
   return (
-    <View style={styles.container}>
+    <KeyboardAvoidingView style={styles.container}>
       <LocationUpdater ref={mapRef} initialLoc={match.address} />
 
       <Text style={styles.txt}>Day</Text>
@@ -70,13 +70,12 @@ export const UpdateMatchForm = ({ match }: Props) => {
         placeholder={match.status}
         value={newStatus}
         onChangeText={setNewStatus}
-        keyboardType="numeric"
         style={styles.input}
       />
       <TouchableOpacity onPress={() => onUpdateMatch()} style={styles.btn}>
         <Text style={styles.btnTxt}>Update Match Info</Text>
       </TouchableOpacity>
-    </View>
+    </KeyboardAvoidingView>
   );
 };
 

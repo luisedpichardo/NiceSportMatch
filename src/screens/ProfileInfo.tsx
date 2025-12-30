@@ -10,22 +10,17 @@ import { NavRoot } from '../navigation/types';
 type Props = NativeStackScreenProps<NavRoot, 'ProfileInfo'>;
 
 export const ProfileInfo = ({ navigation }: Props) => {
-
   useEffect(() => {
     navigation.setOptions({
-      headerTitle:'Profile Info',
-    })
-  })
+      headerTitle: 'Profile Info',
+    });
+  });
 
   return (
     <View style={styles.container}>
-      <View style={styles.form}>
-        <View>
-          <ImageProfile />
-          {/* Rating */}
-          <ProfileFields />
-        </View>
-      </View>
+      <ImageProfile />
+      {/* Rating */}
+      <ProfileFields />
     </View>
   );
 };
@@ -36,10 +31,6 @@ const styles = StyleSheet.create({
     backgroundColor: 'lightgreen',
     paddingTop: '30%',
     paddingBottom: '30%',
-  },
-  form: {
-    flex: 3,
-    borderRadius: 25,
-    margin: 30,
+    padding: 30,
   },
 });

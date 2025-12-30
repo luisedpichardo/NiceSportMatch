@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react';
 import {
   Alert,
+  KeyboardAvoidingView,
   StyleSheet,
   Text,
   TextInput,
   TouchableOpacity,
-  View,
 } from 'react-native';
 // Services
 import {
@@ -17,7 +17,9 @@ import { useUserStore } from '../stores/userStore';
 
 export const ProfileFields = () => {
   // Get current username
+  console.log('getting user');
   const username = useUserStore(state => state.username);
+  console.log('after getting user', username);
   const [firstName, setFirstName] = useState('');
   const [newFirstName, setNewFirstName] = useState('');
   const [lastName, setLastName] = useState('');
@@ -26,17 +28,13 @@ export const ProfileFields = () => {
   const [newAge, setNewAge] = useState('');
 
   useEffect(() => {
-    // Find respective fields for username
-    if (username) {
-      readFieldsToUpdateUserService(username).then(res => {
-        setFirstName(res.firstName);
-        setLastName(res.lastName);
-        if (res.age) setAge(res.age);
-      });
-    } else {
-      throw new Error('Could not get username');
-    }
-  });
+    if (!username) return;
+    readFieldsToUpdateUserService(username).then(res => {
+      setFirstName(res.firstName ?? '');
+      setLastName(res.lastName ?? '');
+      if (res.age) setAge(res.age);
+    });
+  }, [username]);
 
   const updateAccount = async () => {
     if (username) {
@@ -47,6 +45,11 @@ export const ProfileFields = () => {
       if (newFirstName) updatedData.firstName = newFirstName;
       if (newLastName) updatedData.lastName = newLastName;
       if (newAge) updatedData.age = newAge;
+      // Check that the update is not empty
+      if (Object.keys(updatedData).length === 0) {
+        Alert.alert('Nothing to update');
+        return;
+      }
       // Send the update
       try {
         await userRef.update(updatedData);
@@ -58,7 +61,7 @@ export const ProfileFields = () => {
   };
 
   return (
-    <View>
+    <KeyboardAvoidingView style={{ flex: 1 }}>
       <Text style={styles.txt}>First Name</Text>
       <TextInput
         placeholder={firstName}
@@ -85,7 +88,7 @@ export const ProfileFields = () => {
       <TouchableOpacity onPress={updateAccount} style={styles.btnStyle}>
         <Text style={{ fontWeight: 'bold' }}>Update account</Text>
       </TouchableOpacity>
-    </View>
+    </KeyboardAvoidingView>
   );
 };
 
