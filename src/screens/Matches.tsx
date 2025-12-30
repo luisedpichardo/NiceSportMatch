@@ -1,4 +1,3 @@
-import { useCallback, useState } from 'react';
 import {
   FlatList,
   StyleSheet,
@@ -7,13 +6,14 @@ import {
   View,
 } from 'react-native';
 import { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
-import { CompositeScreenProps, useFocusEffect } from '@react-navigation/native';
+import { CompositeScreenProps } from '@react-navigation/native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 // Components
 import { MatchPrev } from '../components/MatchPrev';
 import { Loading } from '../components/Loading';
-// Services
-import { readOwnUsersMatchesService } from '../services/MatchService';
+import { NoMatches } from '../components/NoMatches';
+// Hooks
+import { useUserMatches } from '../hooks/useUserMatches';
 // Stores
 import { useUserStore } from '../stores/userStore';
 // Nav Types
@@ -26,22 +26,8 @@ type Props = CompositeScreenProps<
 
 export const Matches = ({ navigation }: Props) => {
   const username = useUserStore(state => state.username);
-  const [matches, setMatches] = useState<any[]>([]);
 
-  useFocusEffect(
-    useCallback(() => {
-      let isActive = true;
-      if (username) {
-        readOwnUsersMatchesService(username).then(res => {
-          if (isActive) setMatches(res);
-        });
-      }
-      // Do not keep assigning matches
-      return () => {
-        isActive = false;
-      };
-    }, [username]),
-  );
+  const { matches, loading } = useUserMatches();
 
   return (
     <View style={styles.container}>
@@ -52,16 +38,22 @@ export const Matches = ({ navigation }: Props) => {
         <Text style={styles.btnTxt}>Create Match</Text>
       </TouchableOpacity>
       <View style={styles.matchesContatiner}>
-        {username ? (
-          <FlatList
-            data={matches}
-            keyExtractor={item => item._id}
-            renderItem={({ item }) => {
-              return <MatchPrev match={item} />;
-            }}
-          />
-        ) : (
+        {loading ? (
           <Loading />
+        ) : (
+          <>
+            {username && matches.length > 0 ? (
+              <FlatList
+                data={matches}
+                keyExtractor={item => item._id}
+                renderItem={({ item }) => {
+                  return <MatchPrev match={item} />;
+                }}
+              />
+            ) : (
+              <NoMatches />
+            )}
+          </>
         )}
       </View>
     </View>

@@ -18,7 +18,7 @@ export const CreateMatch = ({ navigation }: Props) => {
   return (
     <View style={styles.container}>
       <View style={styles.formContatiner}>
-        <CreateMatchForm />
+        <CreateMatchForm navigation={navigation}/>
       </View>
     </View>
   );

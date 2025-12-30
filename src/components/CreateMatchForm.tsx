@@ -1,5 +1,13 @@
 import { useRef, useState } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, Alert } from 'react-native';
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  StyleSheet,
+  Alert,
+  KeyboardAvoidingView,
+  Platform,
+} from 'react-native';
 import { Formik } from 'formik';
 // Components
 import { CustomInput } from './CustomInput';
@@ -11,7 +19,11 @@ import { createMatchService } from '../services/MatchService';
 // Stores
 import { useUserStore } from '../stores/userStore';
 
-export const CreateMatchForm = () => {
+type Props = {
+  navigation: any;
+};
+
+export const CreateMatchForm = ({ navigation }: Props) => {
   const username = useUserStore(state => state.username);
   const [validating, setValidating] = useState(false);
   const mapRef = useRef<MapLocationPickerRef>(null);
@@ -37,16 +49,20 @@ export const CreateMatchForm = () => {
       );
       setValidating(false);
       Alert.alert('Succes', 'Match was created!');
+      navigation.goBack();
     } catch (e: any) {
       Alert.alert('Error', e);
     }
   };
 
   return (
-    <View style={styles.container}>
+    <KeyboardAvoidingView
+      style={styles.container}
+      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+    >
       <LocationPicker ref={mapRef} />
 
-      <View style={{ marginTop: 20 }}>
+      <View style={styles.formStyle}>
         <Formik
           validationSchema={matchValidation}
           initialValues={{
@@ -93,7 +109,7 @@ export const CreateMatchForm = () => {
           )}
         </Formik>
       </View>
-    </View>
+    </KeyboardAvoidingView>
   );
 };
 
@@ -111,5 +127,8 @@ const styles = StyleSheet.create({
   btnTxt: {
     color: 'white',
     fontWeight: 'bold',
+  },
+  formStyle: {
+    marginTop: 20,
   },
 });
