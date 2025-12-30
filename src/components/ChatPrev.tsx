@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 // Stores
 import { useUserStore } from '../stores/userStore';
@@ -9,10 +10,20 @@ type Props = {
 
 export const ChatPrev = ({ sender, navigation }: Props) => {
   const username = useUserStore(state => state.username);
+  const [lastMessage, setLastMessage] = useState();
 
   const onOpenChat = () => {
     console.log('username: ', username, ' chatting with: ', sender);
     navigation.navigate('Chat', { someone: sender });
+  };
+
+  useEffect(() => {
+    fetchLastMessage();
+  }, []);
+
+  const fetchLastMessage = () => {
+    // getLastMessage();
+    console.log('getting last message')
   };
 
   return (

@@ -20,13 +20,11 @@ const styles = StyleSheet.create({
   noChatsTitl: {
     fontSize: 20,
     fontWeight: '600',
-    color: '#1F3D1A',
     marginBottom: 8,
     textAlign: 'center',
   },
   noChatSubT: {
     fontSize: 15,
-    color: '#2E5E2A',
     textAlign: 'center',
     opacity: 0.85,
   },

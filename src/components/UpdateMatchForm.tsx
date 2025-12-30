@@ -6,6 +6,8 @@ import {
   TextInput,
   Alert,
   KeyboardAvoidingView,
+  Platform,
+  ScrollView,
 } from 'react-native';
 // Components
 import { LocationUpdater, MapLocationUpdaterRef } from './LocationUpdater';
@@ -47,34 +49,38 @@ export const UpdateMatchForm = ({ match }: Props) => {
   };
 
   return (
-    <KeyboardAvoidingView style={styles.container}>
+    <KeyboardAvoidingView
+      style={styles.container}
+      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+    >
       <LocationUpdater ref={mapRef} initialLoc={match.address} />
-
-      <Text style={styles.txt}>Day</Text>
-      <TextInput
-        placeholder={match.day}
-        value={newDay}
-        onChangeText={setNewDay}
-        style={styles.input}
-      />
-      <Text style={styles.txt}>Time</Text>
-      <TextInput
-        placeholder={match.time}
-        value={newTime}
-        onChangeText={setNewTime}
-        keyboardType="numeric"
-        style={styles.input}
-      />
-      <Text style={styles.txt}>Status</Text>
-      <TextInput
-        placeholder={match.status}
-        value={newStatus}
-        onChangeText={setNewStatus}
-        style={styles.input}
-      />
-      <TouchableOpacity onPress={() => onUpdateMatch()} style={styles.btn}>
-        <Text style={styles.btnTxt}>Update Match Info</Text>
-      </TouchableOpacity>
+      <ScrollView>
+        <Text style={styles.txt}>Day</Text>
+        <TextInput
+          placeholder={match.day}
+          value={newDay}
+          onChangeText={setNewDay}
+          style={styles.input}
+        />
+        <Text style={styles.txt}>Time</Text>
+        <TextInput
+          placeholder={match.time}
+          value={newTime}
+          onChangeText={setNewTime}
+          keyboardType="numeric"
+          style={styles.input}
+        />
+        <Text style={styles.txt}>Status</Text>
+        <TextInput
+          placeholder={match.status}
+          value={newStatus}
+          onChangeText={setNewStatus}
+          style={styles.input}
+        />
+        <TouchableOpacity onPress={() => onUpdateMatch()} style={styles.btn}>
+          <Text style={styles.btnTxt}>Update Match Info</Text>
+        </TouchableOpacity>
+      </ScrollView>
     </KeyboardAvoidingView>
   );
 };

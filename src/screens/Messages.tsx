@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { FlatList, StyleSheet, View } from 'react-native';
+import { Alert, FlatList, StyleSheet, View } from 'react-native';
 import { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
 import { CompositeScreenProps } from '@react-navigation/native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
@@ -9,6 +9,10 @@ import { RedirectModal } from '../components/RedirectModal';
 import { NoChats } from '../components/NoChats';
 // Types
 import { ChatNavStack, NavHomeTab } from '../navigation/types';
+// Services
+import { getChatsForUsersService } from '../services/UserService';
+// Stores
+import { useUserStore } from '../stores/userStore';
 
 type Props = CompositeScreenProps<
   NativeStackScreenProps<ChatNavStack, 'Messages'>,
@@ -17,34 +21,30 @@ type Props = CompositeScreenProps<
 
 export const Messages = ({ navigation, route }: Props) => {
   const [visibleModal, setVisibleModal] = useState(false);
+  const username = useUserStore(state => state.username);
   const someone = route.params?.someone;
-
-  const chats: any = [
-    // {
-    //   id: 12,
-    //   sender: 'username',
-    //   lastMessage: 'you down?',
-    //   timeOfLast: '14:00',
-    // },
-    // {
-    //   id: 34,
-    //   sender: 'username2',
-    //   lastMessage: 'you down?',
-    //   timeOfLast: '14:00',
-    // },
-    // {
-    //   id: 54,
-    //   sender: 'username3',
-    //   lastMessage: 'you down?',
-    //   timeOfLast: '14:00',
-    // },
-  ];
+  const [chats, setChats] = useState([]);
 
   useEffect(() => {
     if (someone) {
       setVisibleModal(true);
     }
   }, [route.params]);
+
+  useEffect(() => {
+    fetchChats();
+  }, []);
+
+  const fetchChats = () => {
+    if (!username) return;
+    getChatsForUsersService(username)
+      .then(res => {
+        setChats(res);
+      })
+      .catch(err => {
+        Alert.alert('Error', err);
+      });
+  };
 
   return (
     <View style={styles.container}>
@@ -61,13 +61,9 @@ export const Messages = ({ navigation, route }: Props) => {
         ) : (
           <FlatList
             data={chats}
-            renderItem={({ item }) => {
+            renderItem={({ item, index }) => {
               return (
-                <ChatPrev
-                  key={item.id}
-                  sender={item.sender}
-                  navigation={navigation}
-                />
+                <ChatPrev key={index} sender={item} navigation={navigation} />
               );
             }}
           />

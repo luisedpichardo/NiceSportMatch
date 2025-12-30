@@ -123,3 +123,15 @@ export const addReferenceForUserChatService = async (
     throw new Error(e.message);
   }
 };
+
+export const getChatsForUsersService = async (username: string) => {
+  try {
+    const userRef = getUserRefService(username);
+    const user = (await userRef.get()).data();
+    if (user?.chatsRef) {
+      return user.chatsRef;
+    }
+  } catch (e: any) {
+    throw new Error(e.message);
+  }
+};
