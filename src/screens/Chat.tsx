@@ -11,8 +11,6 @@ import { UserChat } from '../components/UserChat';
 import { useChatMessages } from '../hooks/useChatMessages';
 // Navigation Types
 import { ChatNavStack, NavHomeTab } from '../navigation/types';
-// Stores
-import { useUserStore } from '../stores/userStore';
 
 type Props = CompositeScreenProps<
   NativeStackScreenProps<ChatNavStack, 'Chat'>,
@@ -21,8 +19,7 @@ type Props = CompositeScreenProps<
 
 export const Chat = ({ navigation, route }: Props) => {
   const someone: string = route.params?.someone;
-  const username = useUserStore(state => state.username);
-  const { messages, loading } = useChatMessages(username?.toString(), someone);
+  const { messages, loading } = useChatMessages(someone);
 
   useEffect(() => {
     navigation.setOptions({

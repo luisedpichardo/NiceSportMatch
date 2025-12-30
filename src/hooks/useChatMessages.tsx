@@ -1,17 +1,13 @@
 import { useEffect, useState } from 'react';
+import { Alert } from 'react-native';
 import firestore, { Filter } from '@react-native-firebase/firestore';
+// Stores
+import { useUserStore } from '../stores/userStore';
 
-export type ChatMessage = {
-  id: string;
-  sender: string;
-  receiver: string;
-  text: string;
-  time: any;
-};
-
-export const useChatMessages = (username?: string, someone?: string) => {
-  const [messages, setMessages] = useState<ChatMessage[]>([]);
+export const useChatMessages = (someone: string) => {
+  const [messages, setMessages] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
+  const username = useUserStore(state => state.username);
 
   useEffect(() => {
     if (!username || !someone) {
@@ -42,13 +38,12 @@ export const useChatMessages = (username?: string, someone?: string) => {
           const data = snapshot.docs.map(doc => ({
             id: doc.id,
             ...doc.data(),
-          })) as ChatMessage[];
-
+          }));
           setMessages(data);
           setLoading(false);
         },
-        error => {
-          console.error('useChatMessages error:', error);
+        e => {
+          Alert.alert(e.message);
           setLoading(false);
         },
       );
