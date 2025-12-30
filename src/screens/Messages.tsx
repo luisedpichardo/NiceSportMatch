@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { FlatList, StyleSheet, Text, View } from 'react-native';
+import { FlatList, StyleSheet, View } from 'react-native';
 import { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
 import { CompositeScreenProps } from '@react-navigation/native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
@@ -8,6 +8,7 @@ import { ChatPrev } from '../components/ChatPrev';
 import { RedirectModal } from '../components/RedirectModal';
 // Types
 import { ChatNavStack, NavHomeTab } from '../navigation/types';
+import { NoChats } from '../components/NoChats';
 
 type Props = CompositeScreenProps<
   NativeStackScreenProps<ChatNavStack, 'Messages'>,
@@ -18,7 +19,7 @@ export const Messages = ({ navigation, route }: Props) => {
   const [visibleModal, setVisibleModal] = useState(false);
   const someone = route.params?.someone;
 
-  const chats = [
+  const chats: any = [
     {
       id: 12,
       sender: 'username',
@@ -56,9 +57,7 @@ export const Messages = ({ navigation, route }: Props) => {
 
       <View style={styles.messagesCont}>
         {chats.length === 0 ? (
-          <View>
-            <Text>No chats yet</Text>
-          </View>
+          <NoChats />
         ) : (
           <FlatList
             data={chats}

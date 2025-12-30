@@ -15,7 +15,7 @@ export const RedirectModal = ({
 }: Props) => {
   const onRedirectToChat = () => {
     setModalVisible(!modalVisible);
-    navigation.navigate('Chat', { sender: someone });
+    navigation.navigate('Chat', { someone });
   };
 
   const cancelChat = () => {
