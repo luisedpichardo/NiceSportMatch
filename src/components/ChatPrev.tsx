@@ -1,19 +1,18 @@
 import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
 // Stores
 import { useUserStore } from '../stores/userStore';
 
 type Props = {
   sender: string;
+  navigation: any;
 };
 
-export const ChatPrev = ({ sender }: Props) => {
-  const chatNav = useNavigation();
+export const ChatPrev = ({ sender, navigation }: Props) => {
   const username = useUserStore(state => state.username);
 
   const onOpenChat = () => {
     console.log('username: ', username, ' chatting with: ', sender);
-    chatNav.navigate('Chat', { someone: sender });
+    navigation.navigate('Chat', { someone: sender });
   };
 
   return (

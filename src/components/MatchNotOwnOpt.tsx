@@ -1,23 +1,34 @@
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { Alert, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 // Services
 import { removeMatchFromUserService } from '../services/UserService';
 // Stores
 import { useUserStore } from '../stores/userStore';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 
 type Props = {
   publisher: string;
   _id: string;
 };
 
+type ChatStackParamList = {
+  ChatNav: {
+    screen: 'Messages';
+    params: { someone: string };
+  };
+};
+
 export const MatchNotOwnOpt = ({ publisher, _id }: Props) => {
   const username = useUserStore(state => state.username);
-  const chatNav = useNavigation();
+  const chatNav =
+    useNavigation<NativeStackNavigationProp<ChatStackParamList>>();
   const removeMatchFromUser = async () => {
-    if (!username) {
-      throw new Error('Could not get acces to username');
+    if (!username) return;
+    try {
+      await removeMatchFromUserService(_id, username);
+    } catch (e: any) {
+      Alert.alert('Error', e.message);
     }
-    await removeMatchFromUserService(_id, username);
   };
 
   return (
@@ -33,7 +44,7 @@ export const MatchNotOwnOpt = ({ publisher, _id }: Props) => {
       <TouchableOpacity
         onPress={() =>
           chatNav.navigate('ChatNav', {
-            screen: 'Chat',
+            screen: 'Messages',
             params: { someone: publisher },
           })
         }
