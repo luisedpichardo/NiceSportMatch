@@ -1,17 +1,46 @@
+import { useState } from 'react';
 import {
+  Alert,
   StyleSheet,
   Text,
   TextInput,
   TouchableOpacity,
   View,
 } from 'react-native';
+// Services
+import { sendMessageService } from '../services/MessagesService';
+// Stores
+import { useUserStore } from '../stores/userStore';
 
-export const ChatInput = () => {
+type Props = {
+  receiver: string;
+};
+
+export const ChatInput = ({ receiver }: Props) => {
+  const username = useUserStore(state => state.username);
+  const [message, setMessage] = useState('');
+
+  const onSendMessage = () => {
+    if (!username) return;
+    sendMessageService(username, receiver, message)
+      .then(() => {
+        Alert.alert('Sucess', 'Message sent');
+      })
+      .catch(err => {
+        Alert.alert('Error', err);
+      });
+  };
+
   return (
     <View style={styles.container}>
-      <TextInput style={styles.input} />
+      <TextInput
+        style={styles.input}
+        placeholder="Type text"
+        value={message}
+        onChangeText={setMessage}
+      />
       <View style={{ flex: 1 }}></View>
-      <TouchableOpacity style={styles.btn}>
+      <TouchableOpacity style={styles.btn} onPress={() => onSendMessage()}>
         <Text style={styles.btnTxt}>Send</Text>
       </TouchableOpacity>
     </View>

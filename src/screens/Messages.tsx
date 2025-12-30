@@ -6,9 +6,9 @@ import { NativeStackScreenProps } from '@react-navigation/native-stack';
 // Components
 import { ChatPrev } from '../components/ChatPrev';
 import { RedirectModal } from '../components/RedirectModal';
+import { NoChats } from '../components/NoChats';
 // Types
 import { ChatNavStack, NavHomeTab } from '../navigation/types';
-import { NoChats } from '../components/NoChats';
 
 type Props = CompositeScreenProps<
   NativeStackScreenProps<ChatNavStack, 'Messages'>,
@@ -20,24 +20,24 @@ export const Messages = ({ navigation, route }: Props) => {
   const someone = route.params?.someone;
 
   const chats: any = [
-    {
-      id: 12,
-      sender: 'username',
-      lastMessage: 'you down?',
-      timeOfLast: '14:00',
-    },
-    {
-      id: 34,
-      sender: 'username2',
-      lastMessage: 'you down?',
-      timeOfLast: '14:00',
-    },
-    {
-      id: 54,
-      sender: 'username3',
-      lastMessage: 'you down?',
-      timeOfLast: '14:00',
-    },
+    // {
+    //   id: 12,
+    //   sender: 'username',
+    //   lastMessage: 'you down?',
+    //   timeOfLast: '14:00',
+    // },
+    // {
+    //   id: 34,
+    //   sender: 'username2',
+    //   lastMessage: 'you down?',
+    //   timeOfLast: '14:00',
+    // },
+    // {
+    //   id: 54,
+    //   sender: 'username3',
+    //   lastMessage: 'you down?',
+    //   timeOfLast: '14:00',
+    // },
   ];
 
   useEffect(() => {

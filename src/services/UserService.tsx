@@ -88,7 +88,7 @@ export const removeMatchFromUserService = async (
         if (!userData.data()) {
           throw new Error('Could not get data');
         }
-        const matchesIds = userData.data().matchesIds;
+        const matchesIds = userData.data()?.matchesIds;
         const newIds = matchesIds.filter((elem: any) => elem !== _id);
         // Update ids in firebase
         await getUserRefService(username).update({ matchesIds: newIds });
@@ -96,6 +96,29 @@ export const removeMatchFromUserService = async (
       .catch(err => {
         console.log(err);
       });
+  } catch (e: any) {
+    throw new Error(e.message);
+  }
+};
+
+export const addReferenceForUserChatService = async (
+  username: string,
+  usernameToAdd: string,
+) => {
+  try {
+    const userRef = getUserRefService(username);
+    const user = (await userRef.get()).data();
+    if (user) {
+      if (user.chatsRef) {
+        if (user.chatsRef.includes(usernameToAdd)) return;
+        const chatsRef = [...user.chatsRef, usernameToAdd];
+        await userRef.update({ chatsRef });
+      } else {
+        await userRef.update({ chatsRef: [usernameToAdd] });
+      }
+    } else {
+      throw new Error('No user found');
+    }
   } catch (e: any) {
     throw new Error(e.message);
   }

@@ -51,7 +51,7 @@ export const Chat = ({ navigation, route }: Props) => {
           <UserChat messages={messages} />
         )}
       </View>
-      <ChatInput />
+      <ChatInput receiver={someone} />
     </View>
   );
 };
@@ -63,6 +63,5 @@ const styles = StyleSheet.create({
   },
   messageCont: {
     flex: 1,
-    marginTop: '40%'
   },
 });
