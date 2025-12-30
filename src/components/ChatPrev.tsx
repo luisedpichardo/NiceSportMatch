@@ -1,7 +1,13 @@
-import { useEffect, useState } from 'react';
-import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-// Stores
-import { useUserStore } from '../stores/userStore';
+import {
+  ActivityIndicator,
+  Image,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
+// Hooks
+import { useLastChatMessages } from '../hooks/useLastChatMessage';
 
 type Props = {
   sender: string;
@@ -9,39 +15,32 @@ type Props = {
 };
 
 export const ChatPrev = ({ sender, navigation }: Props) => {
-  const username = useUserStore(state => state.username);
-  const [lastMessage, setLastMessage] = useState();
-
-  const onOpenChat = () => {
-    console.log('username: ', username, ' chatting with: ', sender);
-    navigation.navigate('Chat', { someone: sender });
-  };
-
-  useEffect(() => {
-    fetchLastMessage();
-  }, []);
-
-  const fetchLastMessage = () => {
-    // getLastMessage();
-    console.log('getting last message')
-  };
+  const { lastMessage, loading } = useLastChatMessages(sender);
 
   return (
-    <TouchableOpacity style={styles.container} onPress={() => onOpenChat()}>
+    <TouchableOpacity
+      style={styles.container}
+      onPress={() => navigation.navigate('Chat', { someone: sender })}
+    >
       <View style={styles.chat}>
-        <View style={{ flexDirection: 'row' }}>
-          <Image
-            source={require('../../assets/account_pp_default.jpg')}
-            style={styles.imgStyle}
-          />
-          <View style={{ marginLeft: 10, justifyContent: 'center' }}>
-            <Text>{sender}</Text>
-            <Text>Message: last message</Text>
+        {loading && lastMessage ? (
+          <ActivityIndicator size="large" />
+        ) : (
+          <View style={{ flexDirection: 'row' }}>
+            <Image
+              source={require('../../assets/account_pp_default.jpg')}
+              style={styles.imgStyle}
+            />
+            <View style={{ marginLeft: 10, justifyContent: 'center' }}>
+              <Text>{sender}</Text>
+              {sender === lastMessage.sender ? (
+                <Text>{lastMessage.message}</Text>
+              ) : (
+                <Text>You: {lastMessage.message}</Text>
+              )}
+            </View>
           </View>
-        </View>
-        <View style={{ justifyContent: 'center' }}>
-          <Text>day</Text>
-        </View>
+        )}
       </View>
     </TouchableOpacity>
   );
