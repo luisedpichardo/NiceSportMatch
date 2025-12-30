@@ -1,4 +1,3 @@
-import { useNavigation } from '@react-navigation/native';
 import { Modal, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
 type Props = {
