@@ -1,6 +1,6 @@
+import { useRef, useState } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, Alert } from 'react-native';
 import { Formik } from 'formik';
-import { useRef, useState } from 'react';
 // Components
 import { CustomInput } from './CustomInput';
 import { LocationPicker, MapLocationPickerRef } from './LocationPicker';
@@ -85,7 +85,9 @@ export const CreateMatchForm = () => {
                 style={styles.btn}
                 disabled={!isValid}
               >
-                <Text>{validating ? 'Validating...' : 'Create Match'}</Text>
+                <Text style={styles.btnTxt}>
+                  {validating ? 'Validating...' : 'Create Match'}
+                </Text>
               </TouchableOpacity>
             </>
           )}
@@ -100,12 +102,14 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   btn: {
-    backgroundColor: 'lightgreen',
-    borderWidth: 1,
-    borderColor: 'green',
+    backgroundColor: 'green',
     borderRadius: 20,
-    paddingVertical: 5,
-    paddingHorizontal: 20,
+    paddingVertical: 10,
+    paddingHorizontal: 30,
     alignSelf: 'flex-end',
+  },
+  btnTxt: {
+    color: 'white',
+    fontWeight: 'bold',
   },
 });

@@ -1,4 +1,6 @@
+// Services
 import { readUsersService } from '../services/AuthService';
+// Stores
 import { useUserStore } from '../stores/userStore';
 
 // Find the username of current

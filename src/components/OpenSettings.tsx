@@ -1,6 +1,7 @@
 import { useNavigation } from '@react-navigation/native';
-import { RightHdrBtn } from './RightHdrBtn';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+// Components
+import { RightHdrBtn } from './RightHdrBtn';
 // Navigation
 import { NavRoot } from '../navigation/types';
 
@@ -9,6 +10,7 @@ export const OpenSettings = () => {
   return (
     <RightHdrBtn
       text="Settings"
+      color="black"
       onPress={() => navigation.navigate('Settings')}
     />
   );

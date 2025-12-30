@@ -1,6 +1,5 @@
-import { Alert, Platform, Text } from 'react-native';
 import { useCallback, useEffect, useRef, useState } from 'react';
-import Geolocation from '@react-native-community/geolocation';
+import { Alert, Platform, Text } from 'react-native';
 import MapView, {
   Callout,
   Marker,
@@ -8,6 +7,7 @@ import MapView, {
   PROVIDER_GOOGLE,
 } from 'react-native-maps';
 import { useFocusEffect } from '@react-navigation/native';
+import Geolocation from '@react-native-community/geolocation';
 // Components
 import { MatchDetailsModal } from './MatchDetailsModal';
 // Services

@@ -1,13 +1,14 @@
+import { useEffect } from 'react';
+import { StyleSheet, View } from 'react-native';
+import { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
 import { CompositeScreenProps } from '@react-navigation/native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { StyleSheet, View } from 'react-native';
-import { ChatNavStack, NavHomeTab } from '../navigation/types';
-import { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
-import { useEffect } from 'react';
 // Components
 import { ChatInput } from '../components/ChatInput';
 import { NoMessagesInChat } from '../components/NoMessagesInChat';
 import { UserChat } from '../components/UserChat';
+// Navigation Types
+import { ChatNavStack, NavHomeTab } from '../navigation/types';
 // Stores
 import { useUserStore } from '../stores/userStore';
 
@@ -22,7 +23,7 @@ export const Chat = ({ navigation, route }: Props) => {
 
   const messages: any = [
     // {
-    //   sender: someone,
+    //   sender: someone,3
     //   receiver: username,
     //   text: 'helloooo',
     //   time: '12313212',

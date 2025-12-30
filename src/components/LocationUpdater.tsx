@@ -59,11 +59,8 @@ export const LocationUpdater = forwardRef<MapLocationUpdaterRef, Props>(
             />
           )}
         </MapView>
-        <TouchableOpacity
-          style={{ marginVertical: 5 }}
-          onPress={() => setLocation(null)}
-        >
-          <Text style={styles.btn}>Remove New Marker</Text>
+        <TouchableOpacity style={styles.btn} onPress={() => setLocation(null)}>
+          <Text style={styles.btnTxt}>Remove New Marker</Text>
         </TouchableOpacity>
       </>
     );
@@ -72,10 +69,15 @@ export const LocationUpdater = forwardRef<MapLocationUpdaterRef, Props>(
 
 const styles = StyleSheet.create({
   btn: {
-    backgroundColor: 'lightgreen',
+    backgroundColor: 'green',
     borderRadius: 20,
     paddingVertical: 5,
     paddingHorizontal: 20,
+    marginVertical: 5,
     alignSelf: 'flex-end',
+  },
+  btnTxt: {
+    color: 'white',
+    fontWeight: 'bold',
   },
 });

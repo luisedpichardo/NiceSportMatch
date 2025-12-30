@@ -1,5 +1,5 @@
-import firestore from '@react-native-firebase/firestore';
 import uuid from 'react-native-uuid';
+import firestore from '@react-native-firebase/firestore';
 // Services
 import { addMatchIdToUserService, getMatchesIdsService } from './UserService';
 

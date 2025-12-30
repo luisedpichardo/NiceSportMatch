@@ -57,20 +57,20 @@ export const ImageProfile = () => {
   };
 
   return (
-    <View>
+    <>
       <Image source={{ uri: imageUri }} style={styles.imgStyle} />
       <View style={styles.btnsOpt}>
         <TouchableOpacity onPress={openLibrary} style={styles.btn}>
-          <Text>Choose from library</Text>
+          <Text style={styles.btnTxt}>Choose from library</Text>
         </TouchableOpacity>
         <TouchableOpacity onPress={openCamera} style={styles.btn}>
-          <Text>Take Picture</Text>
+          <Text style={styles.btnTxt}>Take Picture</Text>
         </TouchableOpacity>
       </View>
-      <TouchableOpacity onPress={() => updateImage()}>
-        <Text style={styles.txt}>Update Image</Text>
+      <TouchableOpacity onPress={() => updateImage()} style={styles.btnConf}>
+        <Text style={{ fontWeight: 'bold' }}>Update Image</Text>
       </TouchableOpacity>
-    </View>
+    </>
   );
 };
 
@@ -82,23 +82,27 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
     alignSelf: 'center',
   },
-  txt: {
-    alignSelf: 'center',
-    backgroundColor: 'white',
-    color: 'black',
-    paddingVertical: 10,
-    paddingHorizontal: 20,
-    borderRadius: 20,
-  },
   btnsOpt: {
     flexDirection: 'row',
     justifyContent: 'space-evenly',
     marginVertical: 10,
   },
   btn: {
-    backgroundColor: 'lightgreen',
+    backgroundColor: 'green',
     paddingVertical: 8,
     paddingHorizontal: 15,
+    borderRadius: 20,
+  },
+  btnTxt: {
+    fontWeight: 'bold',
+    color: 'white',
+  },
+  btnConf: {
+    alignSelf: 'center',
+    backgroundColor: 'white',
+    color: 'black',
+    paddingVertical: 10,
+    paddingHorizontal: 20,
     borderRadius: 20,
   },
 });

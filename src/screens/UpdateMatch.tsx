@@ -1,5 +1,6 @@
+import { useEffect } from 'react';
+import { StyleSheet, View } from 'react-native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { StyleSheet, Text, View } from 'react-native';
 // Components
 import { UpdateMatchForm } from '../components/UpdateMatchForm';
 // Types
@@ -8,13 +9,16 @@ import { MatchNavStack } from '../navigation/types';
 type Props = NativeStackScreenProps<MatchNavStack, 'UpdateMatch'>;
 
 export const UpdateMatch = ({ navigation, route }: Props) => {
-  const { match } = route.params;
+  const match = route.params?.match;
+
+  useEffect(() => {
+    navigation.setOptions({
+      headerTitle: 'Update Match',
+    });
+  });
 
   return (
     <View style={styles.container}>
-      <View style={styles.topCont}>
-        <Text style={styles.titleStyle}>Update match</Text>
-      </View>
       <View style={styles.formContatiner}>
         <UpdateMatchForm match={match} />
       </View>
@@ -25,27 +29,13 @@ export const UpdateMatch = ({ navigation, route }: Props) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'green',
-  },
-  topCont: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    paddingHorizontal: 30,
-    marginTop: '30%',
-    marginBottom: '5%',
-  },
-  titleStyle: {
-    fontSize: 40,
-    fontWeight: '600',
-    color: 'white',
-    justifyContent: 'flex-end',
+    backgroundColor: 'lightgreen',
   },
   formContatiner: {
     flex: 1,
-    backgroundColor: 'white',
     marginHorizontal: 30,
-    marginBottom: '30%',
+    marginVertical: '30%',
     borderRadius: 25,
-    padding: 30,
+    margin: 30,
   },
 });

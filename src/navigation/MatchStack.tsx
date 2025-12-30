@@ -14,8 +14,8 @@ export function MatchSatck() {
   return (
     <MatchSta.Navigator
       screenOptions={{
-        headerTitle: '',
         headerTransparent: true,
+        headerBackButtonDisplayMode: 'minimal',
       }}
     >
       <MatchSta.Screen

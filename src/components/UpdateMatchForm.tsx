@@ -1,3 +1,4 @@
+import { useRef, useState } from 'react';
 import {
   View,
   Text,
@@ -6,7 +7,6 @@ import {
   TextInput,
   Alert,
 } from 'react-native';
-import { useRef, useState } from 'react';
 // Components
 import { LocationUpdater, MapLocationUpdaterRef } from './LocationUpdater';
 // Services
@@ -73,8 +73,8 @@ export const UpdateMatchForm = ({ match }: Props) => {
         keyboardType="numeric"
         style={styles.input}
       />
-      <TouchableOpacity onPress={() => onUpdateMatch()}>
-        <Text style={styles.btn}>Update Match Info</Text>
+      <TouchableOpacity onPress={() => onUpdateMatch()} style={styles.btn}>
+        <Text style={styles.btnTxt}>Update Match Info</Text>
       </TouchableOpacity>
     </View>
   );
@@ -85,11 +85,15 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   btn: {
-    backgroundColor: 'lightgreen',
+    backgroundColor: 'green',
     borderRadius: 20,
-    paddingVertical: 5,
-    paddingHorizontal: 20,
+    paddingVertical: 10,
+    paddingHorizontal: 30,
     alignSelf: 'flex-end',
+  },
+  btnTxt: {
+    color: 'white',
+    fontWeight: 'bold',
   },
   txt: {
     color: 'green',

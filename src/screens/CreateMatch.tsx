@@ -1,50 +1,37 @@
+import { useEffect } from 'react';
+import { StyleSheet, View } from 'react-native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { StyleSheet, Text, View } from 'react-native';
 // Components
 import { CreateMatchForm } from '../components/CreateMatchForm';
-import { Background } from '../components/Background';
 // Types
 import { MatchNavStack } from '../navigation/types';
 
 type Props = NativeStackScreenProps<MatchNavStack, 'CreateMatch'>;
 
 export const CreateMatch = ({ navigation }: Props) => {
+  useEffect(() => {
+    navigation.setOptions({
+      headerTitle:'Create Match',
+    });
+  });
+
   return (
-    <Background
-      colors={['white', 'lightgreen', 'green']}
-      style={styles.container}
-      useAngle={true}
-      angle={75}
-    >
-      <View style={styles.topCont}>
-        <Text style={styles.titleStyle}>Create match</Text>
-      </View>
+    <View style={styles.container}>
       <View style={styles.formContatiner}>
         <CreateMatchForm />
       </View>
-    </Background>
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-  },
-  topCont: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    paddingHorizontal: 30,
-    marginTop: '30%',
-    marginBottom: '5%',
-  },
-  titleStyle: {
-    fontSize: 40,
-    fontWeight: '600',
-    justifyContent: 'flex-end',
+    backgroundColor: 'lightgreen',
   },
   formContatiner: {
     flex: 1,
-    marginBottom: '30%',
+    marginVertical: '25%',
     padding: 30,
   },
 });

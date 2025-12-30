@@ -58,7 +58,7 @@ export const ProfileFields = () => {
   };
 
   return (
-    <View style={styles.fields}>
+    <View>
       <Text style={styles.txt}>First Name</Text>
       <TextInput
         placeholder={firstName}
@@ -82,23 +82,19 @@ export const ProfileFields = () => {
         style={styles.input}
       />
 
-      <TouchableOpacity onPress={updateAccount}>
-        <Text style={styles.btnStyle}>Update account</Text>
+      <TouchableOpacity onPress={updateAccount} style={styles.btnStyle}>
+        <Text style={{ fontWeight: 'bold' }}>Update account</Text>
       </TouchableOpacity>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  fields: {
-    justifyContent: 'center',
-  },
   input: {
-    borderWidth: 3,
-    borderColor: 'lightgreen',
-    borderRadius: 10,
+    borderBottomWidth: 3,
+    borderColor: 'green',
     padding: 10,
-    marginBottom: 10,
+    marginVertical: 5,
   },
   btnStyle: {
     alignSelf: 'flex-end',
@@ -109,7 +105,7 @@ const styles = StyleSheet.create({
     borderRadius: 20,
   },
   txt: {
-    color: 'white',
-    marginVertical: 5,
+    color: 'green',
+    fontWeight: 'bold',
   },
 });

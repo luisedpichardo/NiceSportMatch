@@ -1,4 +1,6 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+// Components
+import { OpenSettings } from '../components/OpenSettings';
 // Screens
 import { Messages } from '../screens/Messages';
 import { Chat } from '../screens/Chat';
@@ -11,12 +13,22 @@ export function MessageStack() {
   return (
     <ChatStack.Navigator
       screenOptions={{
-        headerTitle: '',
         headerTransparent: true,
+        headerBackButtonDisplayMode: 'minimal',
       }}
     >
-      <ChatStack.Screen name="Messages" component={Messages} />
+      <ChatStack.Screen
+        name="Messages"
+        component={Messages}
+        options={{
+          headerRight: () => rightHeader(),
+        }}
+      />
       <ChatStack.Screen name="Chat" component={Chat} />
     </ChatStack.Navigator>
   );
 }
+
+const rightHeader = () => {
+  return <OpenSettings />;
+};

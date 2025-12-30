@@ -13,8 +13,8 @@ export function MyMain() {
   return (
     <Stack.Navigator
       screenOptions={{
-        headerTitle: '',
         headerTransparent: true,
+        headerBackButtonDisplayMode: 'minimal',
       }}
     >
       <Stack.Screen

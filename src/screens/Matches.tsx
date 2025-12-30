@@ -1,19 +1,17 @@
+import { useCallback, useState } from 'react';
 import {
   FlatList,
-  Image,
   StyleSheet,
   Text,
   TouchableOpacity,
   View,
 } from 'react-native';
-import { CompositeScreenProps, useFocusEffect } from '@react-navigation/native';
 import { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
+import { CompositeScreenProps, useFocusEffect } from '@react-navigation/native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { useCallback, useState } from 'react';
 // Components
 import { MatchPrev } from '../components/MatchPrev';
 import { Loading } from '../components/Loading';
-import { Background } from '../components/Background';
 // Services
 import { readOwnUsersMatchesService } from '../services/MatchService';
 // Stores
@@ -46,18 +44,13 @@ export const Matches = ({ navigation }: Props) => {
   );
 
   return (
-    <Background
-      colors={['white', 'lightgreen', 'green']}
-      style={styles.container}
-      useAngle={true}
-      angle={55}
-    >
-      <View style={styles.topCont}>
-        <Text style={styles.titleStyle}>Matches</Text>
-        <TouchableOpacity onPress={() => navigation.navigate('CreateMatch')}>
-          <Image source={require('../../assets/add.png')} style={styles.img} />
-        </TouchableOpacity>
-      </View>
+    <View style={styles.container}>
+      <TouchableOpacity
+        onPress={() => navigation.navigate('CreateMatch')}
+        style={styles.btn}
+      >
+        <Text style={styles.btnTxt}>Create Match</Text>
+      </TouchableOpacity>
       <View style={styles.matchesContatiner}>
         {username ? (
           <FlatList
@@ -71,36 +64,33 @@ export const Matches = ({ navigation }: Props) => {
           <Loading />
         )}
       </View>
-    </Background>
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'green',
+    backgroundColor: 'lightgreen',
   },
-  topCont: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
+  btn: {
+    marginHorizontal: 20,
+    padding: 10,
     paddingHorizontal: 30,
     marginTop: '30%',
-    marginBottom: '5%',
+    backgroundColor: 'green',
+    alignSelf: 'flex-start',
+    borderRadius: 10,
   },
-  titleStyle: {
-    fontSize: 40,
-    fontWeight: '600',
-    justifyContent: 'flex-end',
+  btnTxt: {
+    color: 'white',
+    fontWeight: 'bold',
   },
   matchesContatiner: {
     flex: 1,
-    marginBottom: '30%',
+    marginBottom: '25%',
     borderRadius: 25,
-    padding: 20,
-    paddingVertical: 30,
-  },
-  img: {
-    height: 40,
-    width: 40,
+    margin: 20,
+    marginVertical: 30,
   },
 });

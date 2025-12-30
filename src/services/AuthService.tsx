@@ -1,3 +1,4 @@
+import { Image } from 'react-native';
 import {
   createUserWithEmailAndPassword,
   getAuth,
@@ -5,7 +6,6 @@ import {
   signOut,
 } from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
-import { Image } from 'react-native';
 
 export const createUserWithEmailAndPasswordService = async (
   firstName: string,

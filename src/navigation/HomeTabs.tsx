@@ -1,5 +1,5 @@
-import { createNativeBottomTabNavigator } from '@react-navigation/bottom-tabs/unstable';
 import { Platform } from 'react-native';
+import { createNativeBottomTabNavigator } from '@react-navigation/bottom-tabs/unstable';
 // Navigation
 import { MatchSatck } from './MatchStack';
 import { MessageStack } from './MessageStack';
@@ -36,6 +36,7 @@ export function HomeTabs() {
         name="MatchesNav"
         component={MatchSatck}
         options={{
+          title: 'Matches',
           tabBarIcon: nativeTabIcon(
             { focused: 'trophy.fill', unfocused: 'trophy' },
             'ic_trophy',
@@ -56,6 +57,7 @@ export function HomeTabs() {
         name="ChatNav"
         component={MessageStack}
         options={{
+          title: 'Messages',
           tabBarIcon: nativeTabIcon(
             { focused: 'message.fill', unfocused: 'message' },
             'ic_chat',

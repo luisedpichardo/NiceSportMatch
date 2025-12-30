@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import {
   Modal,
   Text,
@@ -6,7 +7,6 @@ import {
   StyleSheet,
   Alert,
 } from 'react-native';
-import { useEffect, useState } from 'react';
 // Services
 import {
   addMatchIdToUserService,

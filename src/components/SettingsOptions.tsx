@@ -16,10 +16,10 @@ export const SettingsOptions = ({ onPress, text }: Props) => {
 const styles = StyleSheet.create({
   btn: {
     alignItems: 'center',
-    backgroundColor: 'lightgreen',
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
     borderRadius: 20,
     paddingVertical: 25,
-    marginVertical: 15,
+    marginVertical: 10,
   },
   txt: {
     fontSize: 25,

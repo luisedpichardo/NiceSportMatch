@@ -1,6 +1,6 @@
-import { View, StyleSheet, Text, Alert } from 'react-native';
-import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { useEffect } from 'react';
+import { View, StyleSheet, Alert } from 'react-native';
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { getAuth } from '@react-native-firebase/auth';
 // Components
 import { SettingsOptions } from '../components/SettingsOptions';
@@ -15,7 +15,6 @@ type Props = NativeStackScreenProps<NavRoot, 'Settings'>;
 export const Settings = ({ navigation }: Props) => {
   useEffect(() => {
     navigation.setOptions({
-      headerTintColor: 'white',
       headerRight: () => headerRight(),
     });
     const user: any = getAuth().currentUser;
@@ -23,7 +22,7 @@ export const Settings = ({ navigation }: Props) => {
   }, [navigation]);
 
   const headerRight = () => {
-    return <RightHdrBtn onPress={signOut} text="Log Out" />;
+    return <RightHdrBtn onPress={signOut} text="Log Out" color="black" />;
   };
 
   const signOut = async () => {
@@ -41,8 +40,7 @@ export const Settings = ({ navigation }: Props) => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.titleStyle}>Settings</Text>
-      <View style={styles.form}>
+      <View style={styles.settCont}>
         <SettingsOptions
           onPress={() => navigation.navigate('ProfileInfo')}
           text="Profile Info"
@@ -63,25 +61,13 @@ export const Settings = ({ navigation }: Props) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'green',
-    padding: 30,
+    backgroundColor: 'lightgreen',
     paddingTop: '30%',
     paddingBottom: '30%',
   },
-  titleStyle: {
-    flex: 1,
-    paddingTop: 80,
-    paddingLeft: 30,
-    paddingBottom: 10,
-    fontSize: 40,
-    fontWeight: '600',
-    color: 'white',
-  },
-  form: {
+  settCont: {
     flex: 4,
-    backgroundColor: 'gray',
-    borderRadius: 25,
-    padding: 30,
+    margin: 30,
     justifyContent: 'center',
   },
 });
