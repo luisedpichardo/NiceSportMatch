@@ -16,9 +16,7 @@ export const useGetMatchesIds = () => {
       .doc(username)
       .onSnapshot(doc => {
         const ids = doc.data()?.matchesIds ?? [];
-        console.log('ids:', ids);
         setMatchesIds(ids);
-
         setLoading(false);
       });
 

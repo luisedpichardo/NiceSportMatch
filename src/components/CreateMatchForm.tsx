@@ -36,10 +36,8 @@ export const CreateMatchForm = ({ navigation }: Props) => {
       Alert.alert('Please select a location');
       return;
     }
-    console.log('Selected location:', location);
 
     try {
-      console.log('checking');
       createMatchService(
         location.latitude,
         location.longitude,
@@ -69,10 +67,7 @@ export const CreateMatchForm = ({ navigation }: Props) => {
             day: '',
             time: '',
           }}
-          onSubmit={values => {
-            console.log(values);
-            onCreateMatch(values.day, values.time);
-          }}
+          onSubmit={values => onCreateMatch(values.day, values.time)}
         >
           {({ handleChange, handleSubmit, values, errors, isValid }) => (
             <>

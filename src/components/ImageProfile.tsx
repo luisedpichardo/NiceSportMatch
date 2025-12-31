@@ -40,7 +40,6 @@ export const ImageProfile = () => {
         await getUserRefService(username).update(updatedData);
         Alert.alert('Success', 'Image updated!');
       } catch (err: any) {
-        console.log(err);
         Alert.alert('Failed to update image.', err.message);
       }
     }

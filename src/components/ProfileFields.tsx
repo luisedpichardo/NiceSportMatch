@@ -17,9 +17,7 @@ import { useUserStore } from '../stores/userStore';
 
 export const ProfileFields = () => {
   // Get current username
-  console.log('getting user');
   const username = useUserStore(state => state.username);
-  console.log('after getting user', username);
   const [firstName, setFirstName] = useState('');
   const [newFirstName, setNewFirstName] = useState('');
   const [lastName, setLastName] = useState('');

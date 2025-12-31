@@ -35,7 +35,7 @@ export const useCurrPosition = () => {
           long: pos.coords.longitude,
         });
       },
-      err => console.log('initial error', err),
+      err => Alert.alert('initial error', err.message),
       { enableHighAccuracy: true },
     );
 

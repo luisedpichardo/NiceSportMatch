@@ -56,7 +56,7 @@ export const MatchDetailsModal = ({
     }
     await addMatchIdToUserService(username, match._id)
       .then(() => setModalVisible(!modalVisible))
-      .catch(err => console.log('error: ', err));
+      .catch(err => Alert.alert('error: ', err));
   };
 
   return (
