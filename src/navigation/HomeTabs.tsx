@@ -1,4 +1,4 @@
-import { Image, Platform } from 'react-native';
+import { Image } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 // Navigation
 import { MatchSatck } from './MatchStack';
@@ -13,11 +13,11 @@ const TabHome = createBottomTabNavigator<NavHomeTab>();
 function tabIcon(focused: any, uri: any) {
   return (
     <Image
-      source={uri} // same icon for both iOS and Android
+      source={uri}
       style={{
         width: 30,
         height: 30,
-        tintColor: focused ? 'green' : 'gray', // optional: change color when focused
+        tintColor: focused ? 'green' : 'gray', 
       }}
     />
   );

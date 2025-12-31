@@ -82,7 +82,6 @@ const styles = StyleSheet.create({
     flex: 1,
     marginBottom: '25%',
     borderRadius: 25,
-    margin: 20,
     marginVertical: 30,
   },
 });
