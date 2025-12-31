@@ -1,5 +1,5 @@
-import { Platform } from 'react-native';
-import { createNativeBottomTabNavigator } from '@react-navigation/bottom-tabs/unstable';
+import { Image, Platform } from 'react-native';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 // Navigation
 import { MatchSatck } from './MatchStack';
 import { MessageStack } from './MessageStack';
@@ -8,28 +8,25 @@ import { Main } from '../screens/Main';
 // Types
 import { NavHomeTab } from './types';
 
-const TabHome = createNativeBottomTabNavigator<NavHomeTab>();
+const TabHome = createBottomTabNavigator<NavHomeTab>();
 
-function nativeTabIcon(
-  ios: { focused?: string; unfocused: string },
-  android: string,
-) {
-  if (Platform.OS === 'ios') {
-    return ({ focused }: { focused: boolean }) => ({
-      type: 'sfSymbol' as const,
-      name: focused && ios.focused ? ios.focused : ios.unfocused,
-    });
-  }
-  return () => ({
-    type: 'drawableResource' as const,
-    name: android,
-  });
+function tabIcon(focused: any, uri: any) {
+  return (
+    <Image
+      source={uri} // same icon for both iOS and Android
+      style={{
+        width: 30,
+        height: 30,
+        tintColor: focused ? 'green' : 'gray', // optional: change color when focused
+      }}
+    />
+  );
 }
 
 export function HomeTabs() {
   return (
     <TabHome.Navigator
-      screenOptions={{ tabBarActiveTintColor: 'green' }}
+      screenOptions={{ tabBarActiveTintColor: 'green', headerShown: false }}
       initialRouteName="Map"
     >
       <TabHome.Screen
@@ -37,20 +34,16 @@ export function HomeTabs() {
         component={MatchSatck}
         options={{
           title: 'Matches',
-          tabBarIcon: nativeTabIcon(
-            { focused: 'trophy.fill', unfocused: 'trophy' },
-            'ic_trophy',
-          ),
+          tabBarIcon: ({ focused }) =>
+            tabIcon(focused, require('../../assets/trophy.png')),
         }}
       />
       <TabHome.Screen
         name="Map"
         component={Main}
         options={{
-          tabBarIcon: nativeTabIcon(
-            { focused: 'map.fill', unfocused: 'map' },
-            'ic_map',
-          ),
+          tabBarIcon: ({ focused }) =>
+            tabIcon(focused, require('../../assets/map.png')),
         }}
       />
       <TabHome.Screen
@@ -58,10 +51,8 @@ export function HomeTabs() {
         component={MessageStack}
         options={{
           title: 'Messages',
-          tabBarIcon: nativeTabIcon(
-            { focused: 'message.fill', unfocused: 'message' },
-            'ic_chat',
-          ),
+          tabBarIcon: ({ focused }) =>
+            tabIcon(focused, require('../../assets/message-circle.png')),
         }}
       />
     </TabHome.Navigator>
