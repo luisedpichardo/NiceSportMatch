@@ -7,7 +7,7 @@ import { useUserStore } from '../stores/userStore';
 
 export const useUserChats = () => {
   const username = useUserStore(state => state.username);
-  const [chats, setChats] = useState();
+  const [chats, setChats] = useState([]);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {

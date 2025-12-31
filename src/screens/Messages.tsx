@@ -44,7 +44,7 @@ export const Messages = ({ navigation, route }: Props) => {
             <Loading />
           ) : (
             <>
-              {chats ? (
+              {chats.length > 0 ? (
                 <FlatList
                   data={chats}
                   renderItem={({ item, index }) => {

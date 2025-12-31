@@ -5,7 +5,7 @@ export const NoChats = () => {
     <View style={styles.noChatsCont}>
       <Text style={styles.noChatsTitl}>This feels kind of empty</Text>
       <Text style={styles.noChatSubT}>
-        Start looking for matches to send messages!
+        Start a converstion with a publisher of a match!
       </Text>
     </View>
   );
