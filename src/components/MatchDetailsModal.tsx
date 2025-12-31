@@ -14,6 +14,7 @@ import {
 } from '../services/UserService';
 // Stores
 import { useUserStore } from '../stores/userStore';
+import { Loading } from './Loading';
 
 type MatchDetailsModalProps = {
   modalVisible: any;
@@ -40,7 +41,7 @@ export const MatchDetailsModal = ({
     }
     await getMatchesIdsService(username)
       .then(res => {
-        setMatchesIDs(res);
+        setMatchesIDs(res ?? []);
       })
       .catch(err => {
         Alert.alert(err.message);
@@ -58,17 +59,17 @@ export const MatchDetailsModal = ({
   };
 
   return (
-    <View>
-      <Modal animationType="slide" transparent={true} visible={modalVisible}>
-        <View style={styles.centeredView}>
-          <View style={styles.modalView}>
-            {username === match.publisher ? (
-              <Text style={styles.modalText}>Publisher: You</Text>
-            ) : (
-              <Text style={styles.modalText}>Publisher: {match.publisher}</Text>
-            )}
-            <Text style={styles.modalText}>Day: {match.day}</Text>
-            <Text style={styles.modalText}>Time: {match.time}</Text>
+    <Modal animationType="slide" transparent={true} visible={modalVisible}>
+      <View style={styles.centeredView}>
+        <View style={styles.modalView}>
+          {username === match.publisher ? (
+            <Text style={styles.modalText}>Publisher: You</Text>
+          ) : (
+            <Text style={styles.modalText}>Publisher: {match.publisher}</Text>
+          )}
+          <Text style={styles.modalText}>Day: {match.day}</Text>
+          <Text style={styles.modalText}>Time: {match.time}</Text>
+          {matchesIDs ? (
             <>
               {matchesIDs.includes(match._id) ? (
                 <Text>Modify or Remove under list of Matches</Text>
@@ -90,10 +91,12 @@ export const MatchDetailsModal = ({
                 </Text>
               </TouchableOpacity>
             </>
-          </View>
+          ) : (
+            <Loading />
+          )}
         </View>
-      </Modal>
-    </View>
+      </View>
+    </Modal>
   );
 };
 
