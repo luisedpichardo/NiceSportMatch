@@ -12,10 +12,6 @@ import { MatchDetailsModal } from './MatchDetailsModal';
 import { useAllMatches } from '../hooks/useAllMatches';
 import { useCurrPosition } from '../hooks/useCurrPosition';
 
-type Props = {
-  matches: Array<any>;
-};
-
 export const Maps = () => {
   const mapRef = useRef<MapView | null>(null);
   const [modalVisible, setModalVisible] = useState(false);

@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Alert, FlatList, StyleSheet, View } from 'react-native';
+import { FlatList, StyleSheet, View } from 'react-native';
 import { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
 import { CompositeScreenProps } from '@react-navigation/native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
@@ -7,12 +7,11 @@ import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { ChatPrev } from '../components/ChatPrev';
 import { RedirectModal } from '../components/RedirectModal';
 import { NoChats } from '../components/NoChats';
+import { Loading } from '../components/Loading';
+// Hooks
+import { useUserChats } from '../hooks/useUserChats';
 // Types
 import { ChatNavStack, NavHomeTab } from '../navigation/types';
-// Services
-import { getChatsForUsersService } from '../services/UserService';
-// Stores
-import { useUserStore } from '../stores/userStore';
 
 type Props = CompositeScreenProps<
   NativeStackScreenProps<ChatNavStack, 'Messages'>,
@@ -21,30 +20,14 @@ type Props = CompositeScreenProps<
 
 export const Messages = ({ navigation, route }: Props) => {
   const [visibleModal, setVisibleModal] = useState(false);
-  const username = useUserStore(state => state.username);
   const someone = route.params?.someone;
-  const [chats, setChats] = useState([]);
+  const { chats, loading } = useUserChats();
 
   useEffect(() => {
     if (someone) {
       setVisibleModal(true);
     }
   }, [route.params]);
-
-  useEffect(() => {
-    fetchChats();
-  }, []);
-
-  const fetchChats = () => {
-    if (!username) return;
-    getChatsForUsersService(username)
-      .then(res => {
-        setChats(res);
-      })
-      .catch(err => {
-        Alert.alert('Error', err);
-      });
-  };
 
   return (
     <View style={styles.container}>
@@ -56,18 +39,30 @@ export const Messages = ({ navigation, route }: Props) => {
       />
 
       <View style={styles.messagesCont}>
-        {chats.length === 0 ? (
-          <NoChats />
-        ) : (
-          <FlatList
-            data={chats}
-            renderItem={({ item, index }) => {
-              return (
-                <ChatPrev key={index} sender={item} navigation={navigation} />
-              );
-            }}
-          />
-        )}
+        <>
+          {loading ? (
+            <Loading />
+          ) : (
+            <>
+              {chats ? (
+                <FlatList
+                  data={chats}
+                  renderItem={({ item, index }) => {
+                    return (
+                      <ChatPrev
+                        key={index}
+                        sender={item}
+                        navigation={navigation}
+                      />
+                    );
+                  }}
+                />
+              ) : (
+                <NoChats />
+              )}
+            </>
+          )}
+        </>
       </View>
     </View>
   );
