@@ -94,7 +94,7 @@ export const removeMatchFromUserService = async (
         await getUserRefService(username).update({ matchesIds: newIds });
       })
       .catch(err => {
-        console.log(err);
+        throw new Error(err.message);
       });
   } catch (e: any) {
     throw new Error(e.message);

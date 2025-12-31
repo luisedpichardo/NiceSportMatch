@@ -1,10 +1,10 @@
 import { Alert, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 // Services
 import { removeMatchFromUserService } from '../services/UserService';
 // Stores
 import { useUserStore } from '../stores/userStore';
-import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 
 type Props = {
   publisher: string;

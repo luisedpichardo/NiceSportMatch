@@ -40,7 +40,6 @@ export const useLastChatMessages = (someone: string) => {
             id: doc.id,
             ...doc.data(),
           }));
-          console.log('data',data)
           setLastMessages(data[0]);
           setLoading(false);
         },

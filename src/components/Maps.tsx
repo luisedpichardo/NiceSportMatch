@@ -11,8 +11,11 @@ import { MatchDetailsModal } from './MatchDetailsModal';
 // Hooks
 import { useAllMatches } from '../hooks/useAllMatches';
 import { useCurrPosition } from '../hooks/useCurrPosition';
+// Stores
+import { useUserStore } from '../stores/userStore';
 
 export const Maps = () => {
+  const username = useUserStore(state => state.username);
   const mapRef = useRef<MapView | null>(null);
   const [modalVisible, setModalVisible] = useState(false);
   const [selectedMatch, setSelectedMatch] = useState(null);
@@ -42,7 +45,7 @@ export const Maps = () => {
           longitudeDelta: 0.0121,
         }}
       >
-        {matches ? (
+        {matches && username ? (
           <>
             {matches.map((elem: any) => {
               return (
@@ -52,6 +55,7 @@ export const Maps = () => {
                     latitude: elem.address.lat,
                     longitude: elem.address.long,
                   }}
+                  pinColor={elem.publisher === username ? 'green' : 'red'}
                 >
                   <Callout
                     onPress={() => {

@@ -1,7 +1,9 @@
 import { useEffect, useState } from 'react';
-import { getChatsForUsersService } from '../services/UserService';
-import { useUserStore } from '../stores/userStore';
 import { Alert } from 'react-native';
+// Services
+import { getChatsForUsersService } from '../services/UserService';
+// Stores
+import { useUserStore } from '../stores/userStore';
 
 export const useUserChats = () => {
   const username = useUserStore(state => state.username);

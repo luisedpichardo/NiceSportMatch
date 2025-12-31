@@ -7,6 +7,8 @@ import {
   StyleSheet,
   Alert,
 } from 'react-native';
+// Components
+import { Loading } from './Loading';
 // Services
 import {
   addMatchIdToUserService,
@@ -14,7 +16,6 @@ import {
 } from '../services/UserService';
 // Stores
 import { useUserStore } from '../stores/userStore';
-import { Loading } from './Loading';
 
 type MatchDetailsModalProps = {
   modalVisible: any;
@@ -32,7 +33,7 @@ export const MatchDetailsModal = ({
 
   useEffect(() => {
     fetchMatchesIds();
-  }, []);
+  }, [modalVisible]);
 
   const fetchMatchesIds = async () => {
     if (!username) {

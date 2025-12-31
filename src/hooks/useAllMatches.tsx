@@ -1,30 +1,29 @@
-import { useFocusEffect } from '@react-navigation/native';
-import { useCallback, useState } from 'react';
-import { readAllMatchesService } from '../services/MatchService';
+import { useEffect, useState } from 'react';
+import { Alert } from 'react-native';
+import firestore from '@react-native-firebase/firestore';
 
 export const useAllMatches = () => {
   const [matches, setMatches] = useState<any>();
 
-  // Focus Effect to Read Matches everytime the map focuses
-  useFocusEffect(
-    useCallback(() => {
-      let isActive = true;
-      const fetchMatches = async () => {
-        try {
-          const res = await readAllMatchesService();
-          if (isActive) {
-            setMatches(res);
-          }
-        } catch (err) {
-          console.error(err);
-        }
-      };
-      fetchMatches();
-      return () => {
-        isActive = false;
-      };
-    }, []),
-  );
+  useEffect(() => {
+    const unsub = firestore()
+      .collection('matches')
+      .onSnapshot(
+        snapshot => {
+          const data =
+            snapshot?.docs.map(doc => ({
+              id: doc.id,
+              ...doc.data(),
+            })) ?? [];
+
+          setMatches(data);
+        },
+        error => {
+          Alert.alert('Error', error.message);
+        },
+      );
+    return () => unsub();
+  }, []);
 
   return { matches };
 };
