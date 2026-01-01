@@ -9,6 +9,7 @@ import {
   Platform,
 } from 'react-native';
 import { Formik } from 'formik';
+import { useTranslation } from 'react-i18next';
 // Components
 import { CustomInput } from './CustomInput';
 import { LocationPicker, MapLocationPickerRef } from './LocationPicker';
@@ -24,6 +25,7 @@ type Props = {
 };
 
 export const CreateMatchForm = ({ navigation }: Props) => {
+  const { t } = useTranslation();
   const username = useUserStore(state => state.username);
   const [validating, setValidating] = useState(false);
   const mapRef = useRef<MapLocationPickerRef>(null);
@@ -33,7 +35,8 @@ export const CreateMatchForm = ({ navigation }: Props) => {
 
     const location = mapRef.current?.getLocation();
     if (!location) {
-      Alert.alert('Please select a location');
+      Alert.alert(t('home-tabs.match-stack.create.create-form.select-loc'));
+      setValidating(false);
       return;
     }
 
@@ -46,10 +49,13 @@ export const CreateMatchForm = ({ navigation }: Props) => {
         username,
       );
       setValidating(false);
-      Alert.alert('Succes', 'Match was created!');
+      Alert.alert(
+        t('home-tabs.match-stack.create.create-form.success'),
+        t('home-tabs.match-stack.create.create-form.success-mess'),
+      );
       navigation.goBack();
     } catch (e: any) {
-      Alert.alert('Error', e);
+      Alert.alert(t('home-tabs.match-stack.create.create-form.fail'), e);
     }
   };
 
@@ -72,8 +78,8 @@ export const CreateMatchForm = ({ navigation }: Props) => {
           {({ handleChange, handleSubmit, values, errors, isValid }) => (
             <>
               <CustomInput
-                title="Day"
-                placeholder="Day"
+                title={t('home-tabs.match-stack.create.create-form.day')}
+                placeholder={t('home-tabs.match-stack.create.create-form.day')}
                 value={values.day}
                 onChangeText={handleChange('day')}
                 secureTextEntry={false}
@@ -82,8 +88,8 @@ export const CreateMatchForm = ({ navigation }: Props) => {
                 errorMessage={errors.day}
               />
               <CustomInput
-                title="Time"
-                placeholder="Time"
+                title={t('home-tabs.match-stack.create.create-form.time')}
+                placeholder={t('home-tabs.match-stack.create.create-form.time')}
                 value={values.time}
                 onChangeText={handleChange('time')}
                 secureTextEntry={false}
@@ -97,7 +103,9 @@ export const CreateMatchForm = ({ navigation }: Props) => {
                 disabled={!isValid}
               >
                 <Text style={styles.btnTxt}>
-                  {validating ? 'Validating...' : 'Create Match'}
+                  {validating
+                    ? t('home-tabs.match-stack.create.create-form.validating')
+                    : t('home-tabs.match-stack.create.create-form.create')}
                 </Text>
               </TouchableOpacity>
             </>

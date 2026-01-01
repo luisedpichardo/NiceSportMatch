@@ -9,6 +9,7 @@ import {
   createBottomTabNavigator,
 } from '@react-navigation/bottom-tabs';
 import { getFocusedRouteNameFromRoute } from '@react-navigation/native';
+import { useTranslation } from 'react-i18next';
 // Navigation
 import { MatchSatck } from './MatchStack';
 import { MessageStack } from './MessageStack';
@@ -50,6 +51,7 @@ const MapTabButton = (props: Props) => {
 };
 
 export function HomeTabs() {
+  const { t } = useTranslation();
   return (
     <TabHome.Navigator
       screenOptions={{
@@ -67,7 +69,7 @@ export function HomeTabs() {
           // Get the current nested route inside the stack
           const routeName = getFocusedRouteNameFromRoute(route) ?? 'Matches';
           return {
-            tabBarLabel: 'MATCHES',
+            tabBarLabel: t('home-tabs.match-stack.tab-bar-label'),
             tabBarIcon: ({ focused }) =>
               tabIcon(focused, require('../../assets/trophy.png')),
             tabBarStyle:

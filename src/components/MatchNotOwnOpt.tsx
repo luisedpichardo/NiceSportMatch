@@ -1,6 +1,7 @@
 import { Alert, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { useTranslation } from 'react-i18next';
 // Services
 import { removeMatchFromUserService } from '../services/UserService';
 // Stores
@@ -19,6 +20,7 @@ type ChatStackParamList = {
 };
 
 export const MatchNotOwnOpt = ({ publisher, _id }: Props) => {
+  const { t } = useTranslation();
   const username = useUserStore(state => state.username);
   const chatNav =
     useNavigation<NativeStackNavigationProp<ChatStackParamList>>();
@@ -38,7 +40,7 @@ export const MatchNotOwnOpt = ({ publisher, _id }: Props) => {
         style={{ ...styles.btn, backgroundColor: 'red' }}
       >
         <Text style={{ color: 'white', fontWeight: 'bold' }}>
-          Not interested anymore
+          {t('home-tabs.match-stack.matches.prev.not-interested')}
         </Text>
       </TouchableOpacity>
       <TouchableOpacity
@@ -50,7 +52,9 @@ export const MatchNotOwnOpt = ({ publisher, _id }: Props) => {
         }
         style={{ ...styles.btn, ...styles.openChatBtn }}
       >
-        <Text style={{ fontWeight: 'bold' }}>Open Chat</Text>
+        <Text style={{ fontWeight: 'bold' }}>
+          {t('home-tabs.match-stack.matches.prev.open-chat')}
+        </Text>
       </TouchableOpacity>
     </View>
   );

@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import { useTranslation } from 'react-i18next';
 // Components
 import { CreateMatchForm } from '../components/CreateMatchForm';
 // Types
@@ -9,16 +10,17 @@ import { MatchNavStack } from '../navigation/types';
 type Props = NativeStackScreenProps<MatchNavStack, 'CreateMatch'>;
 
 export const CreateMatch = ({ navigation }: Props) => {
+  const { t } = useTranslation();
   useEffect(() => {
     navigation.setOptions({
-      headerTitle:'Create Match',
+      headerTitle: t('home-tabs.match-stack.create.title'),
     });
   });
 
   return (
     <View style={styles.container}>
       <View style={styles.formContatiner}>
-        <CreateMatchForm navigation={navigation}/>
+        <CreateMatchForm navigation={navigation} />
       </View>
     </View>
   );

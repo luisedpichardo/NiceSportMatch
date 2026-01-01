@@ -35,5 +35,54 @@
         "alert-fail": "Error al crear la cuenta"
       }
     }
+  },
+  "home-tabs": {
+    "match-stack": {
+      "tab-bar-label": "PARTIDOS",
+      "matches": {
+        "header-title": "Partidos",
+        "btn-txt": "Crear partido",
+        "prev": {
+          "publisher": "Creador",
+          "you": "Tú",
+          "status": "Estado",
+          "modify": "Modificar",
+          "not-interested": "Ya no me interesa",
+          "open-chat": "Abrir chat"
+        },
+        "no-matches": {
+          "title": "¡No hay partidos para mostrar!",
+          "subtitle": "Ve al mapa y agrega partidos aquí"
+        }
+      },
+      "create": {
+        "title": "Crear partido",
+        "create-form": {
+          "day": "Día",
+          "time": "Hora",
+          "validating": "Validando...",
+          "create": "Crear partido",
+          "success": "Éxito",
+          "success-mess": "¡El partido fue creado!",
+          "fail": "Error",
+          "select-loc": "Por favor selecciona una ubicación"
+        }
+      },
+      "update": {
+        "title": "Actualizar partido",
+        "form": {
+          "fail": "Error",
+          "day": "Día",
+          "time": "Hora",
+          "status": "Estado",
+          "update-info": "Actualizar información del partido",
+          "map": {
+            "old": "Ubicación actual",
+            "new": "Nueva ubicación",
+            "remove": "Eliminar nuevo marcador"
+          }
+        }
+      }
+    }
   }
 }

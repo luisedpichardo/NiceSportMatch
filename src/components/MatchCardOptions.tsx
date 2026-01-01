@@ -1,6 +1,7 @@
 import { StyleSheet, Text, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import { useTranslation } from 'react-i18next';
 // Components
 import { MatchNotOwnOpt } from './MatchNotOwnOpt';
 // Types
@@ -13,6 +14,7 @@ type Props = {
 };
 
 export const MatchCardOptions = ({ publisher, own, match }: Props) => {
+  const { t } = useTranslation();
   const navigation = useNavigation();
   const nav = navigation as NativeStackScreenProps<
     MatchNavStack,
@@ -26,7 +28,9 @@ export const MatchCardOptions = ({ publisher, own, match }: Props) => {
           onPress={() => nav.navigate('UpdateMatch', { match })}
           style={styles.btn}
         >
-          <Text style={styles.txt}>Modify</Text>
+          <Text style={styles.txt}>
+            {t('home-tabs.match-stack.matches.prev.modify')}
+          </Text>
         </TouchableOpacity>
       ) : (
         <MatchNotOwnOpt _id={match._id} publisher={publisher} />

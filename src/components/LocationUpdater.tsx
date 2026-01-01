@@ -1,4 +1,5 @@
 import { forwardRef, useImperativeHandle, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { StyleSheet, Text, TouchableOpacity } from 'react-native';
 import MapView, { Marker, MapPressEvent } from 'react-native-maps';
 
@@ -13,6 +14,7 @@ type Props = {
 
 export const LocationUpdater = forwardRef<MapLocationUpdaterRef, Props>(
   (props, ref) => {
+    const { t } = useTranslation();
     const [location, setLocation] = useState<{
       latitude: number;
       longitude: number;
@@ -42,7 +44,7 @@ export const LocationUpdater = forwardRef<MapLocationUpdaterRef, Props>(
         >
           <Marker
             key={0}
-            title="Current Location"
+            title={t('home-tabs.match-stack.update.form.map.old')}
             coordinate={{
               latitude: props.initialLoc.lat,
               longitude: props.initialLoc.long,
@@ -52,7 +54,7 @@ export const LocationUpdater = forwardRef<MapLocationUpdaterRef, Props>(
           {location && (
             <Marker
               key={1}
-              title="New Location"
+              title={t('home-tabs.match-stack.update.form.map.new')}
               coordinate={location}
               draggable
               onDragEnd={e => setLocation(e.nativeEvent.coordinate)}
@@ -60,7 +62,9 @@ export const LocationUpdater = forwardRef<MapLocationUpdaterRef, Props>(
           )}
         </MapView>
         <TouchableOpacity style={styles.btn} onPress={() => setLocation(null)}>
-          <Text style={styles.btnTxt}>Remove New Marker</Text>
+          <Text style={styles.btnTxt}>
+            {t('home-tabs.match-stack.update.form.map.remove')}
+          </Text>
         </TouchableOpacity>
       </>
     );

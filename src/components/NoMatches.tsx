@@ -1,13 +1,15 @@
 import { StyleSheet, Text, View } from 'react-native';
+import { useTranslation } from 'react-i18next';
 
 export const NoMatches = () => {
+  const { t } = useTranslation();
   return (
     <View style={styles.noMatchesCont}>
       <Text style={styles.noMatchesTitl}>
-        No matches to display!
+        {t('home-tabs.match-stack.matches.no-matches.title')}
       </Text>
       <Text style={styles.noMatchesubT}>
-        Go to the map and add matches here
+        {t('home-tabs.match-stack.matches.no-matches.subtitle')}
       </Text>
     </View>
   );

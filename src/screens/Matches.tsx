@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import {
   FlatList,
   StyleSheet,
@@ -8,6 +9,7 @@ import {
 import { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
 import { CompositeScreenProps } from '@react-navigation/native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import { useTranslation } from 'react-i18next';
 // Components
 import { MatchPrev } from '../components/MatchPrev';
 import { Loading } from '../components/Loading';
@@ -25,9 +27,14 @@ type Props = CompositeScreenProps<
 >;
 
 export const Matches = ({ navigation }: Props) => {
+  const { t } = useTranslation();
   const username = useUserStore(state => state.username);
-
   const { matches, loading } = useUserMatches();
+  useEffect(() => {
+    navigation.setOptions({
+      headerTitle: t('home-tabs.match-stack.matches.header-title'),
+    });
+  });
 
   return (
     <View style={styles.container}>
@@ -35,7 +42,9 @@ export const Matches = ({ navigation }: Props) => {
         onPress={() => navigation.navigate('CreateMatch')}
         style={styles.btn}
       >
-        <Text style={styles.btnTxt}>Create Match</Text>
+        <Text style={styles.btnTxt}>
+          {t('home-tabs.match-stack.matches.btn-txt')}
+        </Text>
       </TouchableOpacity>
       <View style={styles.matchesContatiner}>
         {loading ? (

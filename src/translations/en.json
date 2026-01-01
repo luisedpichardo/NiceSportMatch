@@ -35,5 +35,54 @@
         "alert-fail": "Error Creating Account"
       }
     }
+  },
+  "home-tabs": {
+    "match-stack": {
+      "tab-bar-label": "MATCHES",
+      "matches": {
+        "header-title": "Matches",
+        "btn-txt": "Create Match",
+        "prev": {
+          "publisher": "Publisher",
+          "you": "You",
+          "status": "Status",
+          "modify": "Modify",
+          "not-interested": "Not interested anymore",
+          "open-chat": "Open Chat"
+        },
+        "no-matches": {
+          "title": "No matches to display!",
+          "subtitle": "Go to the map and add matches here"
+        }
+      },
+      "create": {
+        "title": "Create Match",
+        "create-form": {
+          "day": "Day",
+          "time": "Time",
+          "validating": "Validating...",
+          "create": "Create Match",
+          "success": "Succes",
+          "success-mess": "Match was created!",
+          "fail": "Error",
+          "select-loc": "Please select a location"
+        }
+      },
+      "update": {
+        "title": "Update Match",
+        "form": {
+          "fail": "Error",
+          "day": "Day",
+          "time": "Time",
+          "status": "Status",
+          "update-info": "Update Match Info",
+          "map": {
+            "old": "Current Location",
+            "new": "New Location",
+            "remove": "Remove New Marker"
+          }
+        }
+      }
+    }
   }
 }

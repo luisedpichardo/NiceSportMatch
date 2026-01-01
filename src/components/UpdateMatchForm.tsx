@@ -9,6 +9,7 @@ import {
   Platform,
   ScrollView,
 } from 'react-native';
+import { useTranslation } from 'react-i18next';
 // Components
 import { LocationUpdater, MapLocationUpdaterRef } from './LocationUpdater';
 // Services
@@ -20,6 +21,7 @@ type Props = {
 };
 
 export const UpdateMatchForm = ({ match, navigation }: Props) => {
+  const { t } = useTranslation();
   const [newDay, setNewDay] = useState('');
   const [newTime, setNewTime] = useState('');
   const [newStatus, setNewStatus] = useState('');
@@ -45,7 +47,7 @@ export const UpdateMatchForm = ({ match, navigation }: Props) => {
         navigation.goBack();
       })
       .catch(err => {
-        Alert.alert('Error', err);
+        Alert.alert(t('home-tabs.match-stack.update.form.fail'), err);
       });
   };
 
@@ -56,14 +58,18 @@ export const UpdateMatchForm = ({ match, navigation }: Props) => {
     >
       <LocationUpdater ref={mapRef} initialLoc={match.address} />
       <ScrollView>
-        <Text style={styles.txt}>Day</Text>
+        <Text style={styles.txt}>
+          {t('home-tabs.match-stack.update.form.day')}
+        </Text>
         <TextInput
           placeholder={match.day}
           value={newDay}
           onChangeText={setNewDay}
           style={styles.input}
         />
-        <Text style={styles.txt}>Time</Text>
+        <Text style={styles.txt}>
+          {t('home-tabs.match-stack.update.form.time')}
+        </Text>
         <TextInput
           placeholder={match.time}
           value={newTime}
@@ -71,7 +77,9 @@ export const UpdateMatchForm = ({ match, navigation }: Props) => {
           keyboardType="numeric"
           style={styles.input}
         />
-        <Text style={styles.txt}>Status</Text>
+        <Text style={styles.txt}>
+          {t('home-tabs.match-stack.update.form.status')}
+        </Text>
         <TextInput
           placeholder={match.status}
           value={newStatus}
@@ -79,7 +87,9 @@ export const UpdateMatchForm = ({ match, navigation }: Props) => {
           style={styles.input}
         />
         <TouchableOpacity onPress={() => onUpdateMatch()} style={styles.btn}>
-          <Text style={styles.btnTxt}>Update Match Info</Text>
+          <Text style={styles.btnTxt}>
+            {t('home-tabs.match-stack.update.form.update-info')}
+          </Text>
         </TouchableOpacity>
       </ScrollView>
     </KeyboardAvoidingView>
