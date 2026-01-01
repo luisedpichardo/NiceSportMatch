@@ -23,7 +23,7 @@ export const ChatPrev = ({ sender, navigation }: Props) => {
       onPress={() => navigation.navigate('Chat', { someone: sender })}
     >
       <View style={styles.chat}>
-        {loading && lastMessage ? (
+        {loading ? (
           <ActivityIndicator size="large" />
         ) : (
           <View style={{ flexDirection: 'row' }}>
