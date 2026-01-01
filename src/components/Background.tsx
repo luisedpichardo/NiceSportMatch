@@ -4,24 +4,11 @@ type Props = {
   children: any;
   colors: Array<any>;
   style: any;
-  useAngle: boolean;
-  angle: number;
 };
 
-export const Background = ({
-  children,
-  colors,
-  style,
-  useAngle,
-  angle,
-}: Props) => {
+export const Background = ({ children, colors, style }: Props) => {
   return (
-    <LinearGradient
-      colors={colors}
-      style={style}
-      useAngle={useAngle}
-      angle={angle}
-    >
+    <LinearGradient colors={colors} style={style} useAngle={true} angle={115}>
       {children}
     </LinearGradient>
   );

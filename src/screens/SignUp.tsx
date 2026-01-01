@@ -13,8 +13,6 @@ export const SignUp = ({ navigation }: Props) => {
     <Background
       colors={['white', 'lightgreen', 'green']}
       style={styles.container}
-      useAngle={true}
-      angle={155}
     >
       <View style={styles.topCont}>
         <Text style={styles.titleStyle}>Sign Up</Text>

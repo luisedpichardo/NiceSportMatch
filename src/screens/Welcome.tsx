@@ -13,8 +13,6 @@ export const Welcome = ({ navigation }: Props) => {
     <Background
       colors={['white', 'lightgreen', 'green']}
       style={styles.container}
-      useAngle={true}
-      angle={135}
     >
       <WelcomeImg />
       <View style={styles.optCont}>

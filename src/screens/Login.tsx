@@ -13,8 +13,6 @@ export const Login = ({ navigation }: Props) => {
     <Background
       colors={['white', 'lightgreen', 'green']}
       style={styles.container}
-      useAngle={true}
-      angle={115}
     >
       <View style={styles.topCont}>
         <Text style={styles.titleStyle}>Log In</Text>
