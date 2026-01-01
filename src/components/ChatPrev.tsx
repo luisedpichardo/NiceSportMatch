@@ -8,6 +8,7 @@ import {
 } from 'react-native';
 // Hooks
 import { useLastChatMessage } from '../hooks/useLastChatMessage';
+import { useProfileImage } from '../hooks/useProfileImage';
 
 type Props = {
   sender: string;
@@ -16,6 +17,7 @@ type Props = {
 
 export const ChatPrev = ({ sender, navigation }: Props) => {
   const { lastMessage, loading } = useLastChatMessage(sender);
+  const { imageUri } = useProfileImage(sender);
 
   return (
     <TouchableOpacity
@@ -28,7 +30,11 @@ export const ChatPrev = ({ sender, navigation }: Props) => {
         ) : (
           <View style={{ flexDirection: 'row' }}>
             <Image
-              source={require('../../assets/account_pp_default.jpg')}
+              source={
+                imageUri
+                  ? { uri: imageUri }
+                  : require('../../assets/account_pp_default.jpg')
+              }
               style={styles.imgStyle}
             />
             <View style={{ marginLeft: 10, justifyContent: 'center' }}>

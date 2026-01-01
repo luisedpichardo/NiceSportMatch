@@ -37,7 +37,7 @@ export const readImageUriService = async (username: string) => {
   try {
     const imgUri = (
       await firestore().collection('users').doc(username).get()
-    ).data()?.imageUri;
+    ).data()?.profileImage;
     return imgUri;
   } catch (e: any) {
     throw new Error(e.message);

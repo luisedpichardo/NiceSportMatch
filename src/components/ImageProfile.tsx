@@ -1,4 +1,3 @@
-import { useEffect, useState } from 'react';
 import {
   Alert,
   Image,
@@ -7,37 +6,35 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
+// Hooks
+import { useProfileImage } from '../hooks/useProfileImage';
 // Service
-import {
-  getUserRefService,
-  readImageUriService,
-} from '../services/UserService';
+import { getUserRefService } from '../services/UserService';
 // Stores
 import { useUserStore } from '../stores/userStore';
 // Utils
-import { openCameraHelper, openLibraryHelper } from '../utils/ImageHelpers';
+import {
+  convertToBase64Helper,
+  openCameraHelper,
+  openLibraryHelper,
+} from '../utils/ImageHelpers';
 
 export const ImageProfile = () => {
-  const [imageUri, setImageUri] = useState();
   const username = useUserStore(state => state.username);
-
-  useEffect(() => {
-    if (username) {
-      readImageUriService(username).then(res => {
-        setImageUri(res);
-      });
-    }
-  }, []);
+  const { imageUri, setImageUri } = useProfileImage(username);
 
   const updateImage = async () => {
-    const updatedData: any = {};
-    if (imageUri) {
-      updatedData.imageUri = imageUri;
-    }
+    if (!imageUri) return;
+
+    const base64Image = await convertToBase64Helper(imageUri);
+    const base64WithPrefix = `data:image/jpeg;base64,${base64Image}`;
+
     // Send the update
     if (username) {
       try {
-        await getUserRefService(username).update(updatedData);
+        await getUserRefService(username).update({
+          profileImage: base64WithPrefix,
+        });
         Alert.alert('Success', 'Image updated!');
       } catch (err: any) {
         Alert.alert('Failed to update image.', err.message);
@@ -57,7 +54,14 @@ export const ImageProfile = () => {
 
   return (
     <>
-      <Image source={{ uri: imageUri }} style={styles.imgStyle} />
+      <Image
+        source={
+          imageUri
+            ? { uri: imageUri }
+            : require('../../assets/account_pp_default.jpg')
+        }
+        style={styles.imgStyle}
+      />
       <View style={styles.btnsOpt}>
         <TouchableOpacity onPress={openLibrary} style={styles.btn}>
           <Text style={styles.btnTxt}>Choose from library</Text>
