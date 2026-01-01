@@ -5,15 +5,15 @@ import firestore, { Filter } from '@react-native-firebase/firestore';
 import { useUserStore } from '../stores/userStore';
 import { useFocusEffect } from '@react-navigation/native';
 
-export const useLastChatMessages = (someone: string) => {
-  const [lastMessage, setLastMessages] = useState({});
+export const useLastChatMessage = (someone: string) => {
+  const [lastMessage, setLastMessage] = useState({});
   const [loading, setLoading] = useState(true);
   const username = useUserStore(state => state.username);
 
   useFocusEffect(
     useCallback(() => {
       if (!username || !someone) {
-        setLastMessages([]);
+        setLastMessage([]);
         setLoading(false);
         return;
       }
@@ -42,7 +42,7 @@ export const useLastChatMessages = (someone: string) => {
               id: doc.id,
               ...doc.data(),
             }));
-            setLastMessages(data[0]);
+            setLastMessage(data[0]);
             setLoading(false);
           },
           e => {

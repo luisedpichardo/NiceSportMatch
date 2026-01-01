@@ -7,7 +7,7 @@ import {
   View,
 } from 'react-native';
 // Hooks
-import { useLastChatMessages } from '../hooks/useLastChatMessage';
+import { useLastChatMessage } from '../hooks/useLastChatMessage';
 
 type Props = {
   sender: string;
@@ -15,7 +15,7 @@ type Props = {
 };
 
 export const ChatPrev = ({ sender, navigation }: Props) => {
-  const { lastMessage, loading } = useLastChatMessages(sender);
+  const { lastMessage, loading } = useLastChatMessage(sender);
 
   return (
     <TouchableOpacity
