@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
+import { useTranslation } from 'react-i18next';
 // Hooks
 import { useLastChatMessage } from '../hooks/useLastChatMessage';
 import { useProfileImage } from '../hooks/useProfileImage';
@@ -16,6 +17,7 @@ type Props = {
 };
 
 export const ChatPrev = ({ sender, navigation }: Props) => {
+  const { t } = useTranslation();
   const { lastMessage, loading } = useLastChatMessage(sender);
   const { imageUri } = useProfileImage(sender);
 
@@ -42,7 +44,10 @@ export const ChatPrev = ({ sender, navigation }: Props) => {
               {sender === lastMessage.sender ? (
                 <Text>{lastMessage.message}</Text>
               ) : (
-                <Text>You: {lastMessage.message}</Text>
+                <Text>
+                  {t('home-tabs.messages-stack.messages.prev.you')}:{' '}
+                  {lastMessage.message}
+                </Text>
               )}
             </View>
           </View>

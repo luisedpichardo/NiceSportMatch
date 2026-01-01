@@ -1,11 +1,15 @@
+import { useTranslation } from 'react-i18next';
 import { StyleSheet, Text, View } from 'react-native';
 
 export const NoChats = () => {
+  const { t } = useTranslation();
   return (
     <View style={styles.noChatsCont}>
-      <Text style={styles.noChatsTitl}>This feels kind of empty</Text>
+      <Text style={styles.noChatsTitl}>
+        {t('home-tabs.messages-stack.messages.no-mess.title')}
+      </Text>
       <Text style={styles.noChatSubT}>
-        Start a converstion with a publisher of a match!
+        {t('home-tabs.messages-stack.messages.no-mess.subtitle')}
       </Text>
     </View>
   );

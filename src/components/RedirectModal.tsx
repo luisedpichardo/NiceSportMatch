@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import { Modal, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
 type Props = {
@@ -13,6 +14,7 @@ export const RedirectModal = ({
   someone,
   navigation,
 }: Props) => {
+  const { t } = useTranslation();
   const onRedirectToChat = () => {
     setModalVisible(!modalVisible);
     navigation.navigate('Chat', { someone });
@@ -27,7 +29,7 @@ export const RedirectModal = ({
       <View style={styles.centeredView}>
         <View style={styles.modalView}>
           <Text style={{ fontSize: 25 }}>
-            Continue to open chat with {someone}?
+            {t('home-tabs.messages-stack.messages.modal.continue')} {someone}?
           </Text>
           <View style={{ flexDirection: 'row' }}>
             <TouchableOpacity
@@ -35,7 +37,7 @@ export const RedirectModal = ({
               onPress={() => cancelChat()}
             >
               <Text style={{ ...styles.textStyle, color: 'black' }}>
-                Cancel
+                {t('home-tabs.messages-stack.messages.modal.cancel')}
               </Text>
             </TouchableOpacity>
 
@@ -43,7 +45,9 @@ export const RedirectModal = ({
               style={styles.confirmBtn}
               onPress={() => onRedirectToChat()}
             >
-              <Text style={styles.textStyle}>Continue</Text>
+              <Text style={styles.textStyle}>
+                {t('home-tabs.messages-stack.messages.modal.accept')}
+              </Text>
             </TouchableOpacity>
           </View>
         </View>

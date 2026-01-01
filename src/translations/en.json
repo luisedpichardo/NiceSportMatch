@@ -97,6 +97,31 @@
         "add": "Add to my matches",
         "close": "Close Info"
       }
+    },
+    "messages-stack": {
+      "tab-bar-label": "MESSAGES",
+      "messages": {
+        "header-title": "Messages",
+        "modal": {
+          "continue": "Continue to open chat with",
+          "cancel": "Cancel",
+          "accept": "Continue"
+        },
+        "prev": {
+          "you": "You"
+        },
+        "no-mess": {
+          "title": "This feels kind of empty",
+          "subtitle": "Start a converstion with a publisher of a match!"
+        }
+      },
+      "chat": {
+        "no-mess-title": "Start the conversation",
+        "no-mess-subtitle": "Say hi to {{someone}} and break the ice!",
+        "input-placeholder": "Type text",
+        "fail-send": "Error",
+        "send": "Send"
+      }
     }
   }
 }

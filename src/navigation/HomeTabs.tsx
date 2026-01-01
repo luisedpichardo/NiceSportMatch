@@ -94,7 +94,7 @@ export function HomeTabs() {
           // Get the current nested route inside the stack
           const routeName = getFocusedRouteNameFromRoute(route) ?? 'Messages';
           return {
-            tabBarLabel: 'MESSAGES',
+            tabBarLabel: t('home-tabs.messages-stack.tab-bar-label'),
             tabBarIcon: ({ focused }) =>
               tabIcon(focused, require('../../assets/message-circle.png')),
             tabBarStyle:

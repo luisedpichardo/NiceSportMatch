@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import { StyleSheet, Text, View } from 'react-native';
 
 type Props = {
@@ -5,11 +6,14 @@ type Props = {
 };
 
 export const NoMessagesInChat = ({ someone }: Props) => {
+  const { t } = useTranslation();
   return (
     <View style={styles.noMessaCont}>
-      <Text style={styles.noMessaTitl}>Start the conversation</Text>
+      <Text style={styles.noMessaTitl}>
+        {t('home-tabs.messages-stack.chat.no-mess-title')}
+      </Text>
       <Text style={styles.noMessaSubT}>
-        Say hi to {someone} and break the ice!
+        {t('home-tabs.messages-stack.chat.no-mess-subtitle', { someone })}
       </Text>
     </View>
   );

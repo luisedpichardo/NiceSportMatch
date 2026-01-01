@@ -97,6 +97,31 @@
         "add": "Agregar a mis partidos",
         "close": "Cerrar información"
       }
+    },
+    "messages-stack": {
+      "tab-bar-label": "MENSAJES",
+      "messages": {
+        "header-title": "Mensajes",
+        "modal": {
+          "continue": "Continuar para abrir el chat con",
+          "cancel": "Cancelar",
+          "accept": "Continuar"
+        },
+        "prev": {
+          "you": "Tú"
+        },
+        "no-mess": {
+          "title": "Esto se siente un poco vacío",
+          "subtitle": "¡Inicia una conversación con el creador de un partido!"
+        }
+      },
+      "chat": {
+        "no-mess-title": "Inicia la conversación",
+        "no-mess-subtitle": "¡Saluda a {{someone}} y rompe el hielo!",
+        "input-placeholder": "Escribe un mensaje",
+        "fail-send": "Error",
+        "send": "Enviar"
+      }
     }
   }
 }

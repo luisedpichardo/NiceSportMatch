@@ -3,6 +3,7 @@ import { FlatList, StyleSheet, View } from 'react-native';
 import { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
 import { CompositeScreenProps } from '@react-navigation/native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import { useTranslation } from 'react-i18next';
 // Components
 import { ChatPrev } from '../components/ChatPrev';
 import { RedirectModal } from '../components/RedirectModal';
@@ -19,9 +20,16 @@ type Props = CompositeScreenProps<
 >;
 
 export const Messages = ({ navigation, route }: Props) => {
+  const { t } = useTranslation();
   const [visibleModal, setVisibleModal] = useState(false);
   const someone = route.params?.someone;
   const { chats, loading } = useUserChats();
+
+  useEffect(() => {
+    navigation.setOptions({
+      headerTitle: t('home-tabs.messages-stack.messages.header-title'),
+    });
+  });
 
   useEffect(() => {
     if (someone) {
