@@ -1,5 +1,6 @@
 import React, { forwardRef, useImperativeHandle, useState } from 'react';
 import MapView, { Marker, MapPressEvent } from 'react-native-maps';
+import { useCurrPosition } from '../hooks/useCurrPosition';
 
 export type MapLocationPickerRef = {
   getLocation: () => any;
@@ -8,6 +9,7 @@ export type MapLocationPickerRef = {
 
 export const LocationPicker = forwardRef<MapLocationPickerRef, {}>(
   (props, ref) => {
+    const { currPosition } = useCurrPosition();
     const [location, setLocation] = useState<{
       latitude: number;
       longitude: number;
@@ -27,12 +29,13 @@ export const LocationPicker = forwardRef<MapLocationPickerRef, {}>(
       <MapView
         style={{ flex: 1 }}
         initialRegion={{
-          latitude: 37.78825,
-          longitude: -122.4324,
+          latitude: currPosition.lat,
+          longitude: currPosition.long,
           latitudeDelta: 0.01,
           longitudeDelta: 0.01,
         }}
-        onPress={handleMapPress} // or onLongPress
+        onPress={handleMapPress}
+        showsUserLocation={true}
       >
         {location && (
           <Marker
