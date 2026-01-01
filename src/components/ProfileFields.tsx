@@ -14,8 +14,10 @@ import {
 } from '../services/UserService';
 // Stores
 import { useUserStore } from '../stores/userStore';
+import { useTranslation } from 'react-i18next';
 
 export const ProfileFields = () => {
+  const { t } = useTranslation();
   // Get current username
   const username = useUserStore(state => state.username);
   const [firstName, setFirstName] = useState('');
@@ -45,36 +47,39 @@ export const ProfileFields = () => {
       if (newAge) updatedData.age = newAge;
       // Check that the update is not empty
       if (Object.keys(updatedData).length === 0) {
-        Alert.alert('Nothing to update');
+        Alert.alert(t('settings.profile.info.no-change'));
         return;
       }
       // Send the update
       try {
         await userRef.update(updatedData);
-        Alert.alert('Success', 'Account info updated!');
+        Alert.alert(
+          t('settings.profile.info.alert-success'),
+          t('settings.profile.info.alert-suc-mess'),
+        );
       } catch (err: any) {
-        Alert.alert('Failed to update account info.', err.message);
+        Alert.alert(t('settings.profile.info.alert-fail'), err.message);
       }
     }
   };
 
   return (
     <KeyboardAvoidingView style={{ flex: 1 }}>
-      <Text style={styles.txt}>First Name</Text>
+      <Text style={styles.txt}>{t('settings.profile.info.first-name')}</Text>
       <TextInput
         placeholder={firstName}
         value={newFirstName}
         onChangeText={setNewFirstName}
         style={styles.input}
       />
-      <Text style={styles.txt}>Last Name</Text>
+      <Text style={styles.txt}>{t('settings.profile.info.last-name')}</Text>
       <TextInput
         placeholder={lastName}
         value={newLastName}
         onChangeText={setNewLastName}
         style={styles.input}
       />
-      <Text style={styles.txt}>Age</Text>
+      <Text style={styles.txt}>{t('settings.profile.info.age')}</Text>
       <TextInput
         placeholder={age}
         value={newAge}
@@ -84,7 +89,7 @@ export const ProfileFields = () => {
       />
 
       <TouchableOpacity onPress={updateAccount} style={styles.btnStyle}>
-        <Text style={{ fontWeight: 'bold' }}>Update account</Text>
+        <Text style={{ fontWeight: 'bold' }}>{t('settings.profile.info.update')}</Text>
       </TouchableOpacity>
     </KeyboardAvoidingView>
   );

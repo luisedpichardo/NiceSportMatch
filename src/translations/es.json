@@ -123,5 +123,35 @@
         "send": "Enviar"
       }
     }
+  },
+  "settings": {
+    "header-title": "Ajustes",
+    "log-out": "Salir",
+    "error": "Error",
+    "err-mess": "Usuario no válido",
+    "prof-info": "Información del perfil",
+    "select-lang": "Seleccionar idioma",
+    "select-theme": "Seleccionar tema",
+    "profile": {
+      "img": {
+        "choose": "Elegir de la galería",
+        "take": "Tomar foto",
+        "update": "Actualizar imagen",
+        "alert-fail": "Error al actualizar la imagen",
+        "alert-success": "Éxito",
+        "alert-suc-mess": "¡Imagen actualizada!"
+      },
+      "info": {
+        "header-title": "Información del perfil",
+        "no-change": "No hay cambios para actualizar",
+        "alert-fail": "Error al actualizar la información de la cuenta",
+        "alert-success": "Éxito",
+        "alert-suc-mess": "¡Información de la cuenta actualizada!",
+        "first-name": "Nombre",
+        "last-name": "Apellido",
+        "age": "Edad",
+        "update": "Actualizar cuenta"
+      }
+    }
   }
 }

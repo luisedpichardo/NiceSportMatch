@@ -62,7 +62,7 @@
           "time": "Time",
           "validating": "Validating...",
           "create": "Create Match",
-          "success": "Succes",
+          "success": "Success",
           "success-mess": "Match was created!",
           "fail": "Error",
           "select-loc": "Please select a location"
@@ -121,6 +121,36 @@
         "input-placeholder": "Type text",
         "fail-send": "Error",
         "send": "Send"
+      }
+    }
+  },
+  "settings": {
+    "header-title": "Settings",
+    "log-out": "Log Out",
+    "error": "Error",
+    "err-mess": "No valid user",
+    "prof-info": "Profile Info",
+    "select-lang": "Select Language",
+    "select-theme": "Select Theme",
+    "profile": {
+      "img": {
+        "choose": "Choose from library",
+        "take": "Take Picture",
+        "update": "Update Image",
+        "alert-fail": "Failed to update image",
+        "alert-success": "Success",
+        "alert-suc-mess": "Image updated!"
+      },
+      "info": {
+        "header-title": "Profile Info",
+        "no-change": "Nothing to update",
+        "alert-fail": "Failed to update account info",
+        "alert-success": "Success",
+        "alert-suc-mess": "Account info updated!",
+        "first-name": "First Name",
+        "last-name": "Last Name",
+        "age": "Age",
+        "update": "Update Acount"
       }
     }
   }

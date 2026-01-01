@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
+import { useTranslation } from 'react-i18next';
 // Hooks
 import { useProfileImage } from '../hooks/useProfileImage';
 // Service
@@ -20,6 +21,7 @@ import {
 } from '../utils/ImageHelpers';
 
 export const ImageProfile = () => {
+  const { t } = useTranslation();
   const username = useUserStore(state => state.username);
   const { imageUri, setImageUri } = useProfileImage(username);
 
@@ -35,9 +37,12 @@ export const ImageProfile = () => {
         await getUserRefService(username).update({
           profileImage: base64WithPrefix,
         });
-        Alert.alert('Success', 'Image updated!');
+        Alert.alert(
+          t('settings.profile.img.alert-success'),
+          t('settings.profile.img.alert-suc-mess'),
+        );
       } catch (err: any) {
-        Alert.alert('Failed to update image.', err.message);
+        Alert.alert(t('settings.profile.img.alert-fail'), err.message);
       }
     }
   };
@@ -64,14 +69,16 @@ export const ImageProfile = () => {
       />
       <View style={styles.btnsOpt}>
         <TouchableOpacity onPress={openLibrary} style={styles.btn}>
-          <Text style={styles.btnTxt}>Choose from library</Text>
+          <Text style={styles.btnTxt}>{t('settings.profile.img.choose')}</Text>
         </TouchableOpacity>
         <TouchableOpacity onPress={openCamera} style={styles.btn}>
-          <Text style={styles.btnTxt}>Take Picture</Text>
+          <Text style={styles.btnTxt}>{t('settings.profile.img.take')}</Text>
         </TouchableOpacity>
       </View>
       <TouchableOpacity onPress={() => updateImage()} style={styles.btnConf}>
-        <Text style={{ fontWeight: 'bold' }}>Update Image</Text>
+        <Text style={{ fontWeight: 'bold' }}>
+          {t('settings.profile.img.update')}
+        </Text>
       </TouchableOpacity>
     </>
   );
