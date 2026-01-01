@@ -83,6 +83,20 @@
           }
         }
       }
+    },
+    "map": {
+      "details": "Click Me For Details",
+      "modal": {
+        "fail": "Error",
+        "fail-mess": "Could not find username",
+        "publisher": "Publisher",
+        "you": "You",
+        "day": "Day",
+        "time": "Time",
+        "info": "Modify or Remove under list of Matches",
+        "add": "Add to my matches",
+        "close": "Close Info"
+      }
     }
   }
 }

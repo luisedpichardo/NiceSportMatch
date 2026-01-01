@@ -83,6 +83,20 @@
           }
         }
       }
+    },
+    "map": {
+      "details": "Haz clic para ver detalles",
+      "modal": {
+        "fail": "Error",
+        "fail-mess": "No se pudo encontrar el nombre de usuario",
+        "publisher": "Creador",
+        "you": "Tú",
+        "day": "Día",
+        "time": "Hora",
+        "info": "Modificar o eliminar desde la lista de partidos",
+        "add": "Agregar a mis partidos",
+        "close": "Cerrar información"
+      }
     }
   }
 }

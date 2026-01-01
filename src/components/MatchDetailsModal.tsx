@@ -7,6 +7,7 @@ import {
   StyleSheet,
   Alert,
 } from 'react-native';
+import { useTranslation } from 'react-i18next';
 // Components
 import { Loading } from './Loading';
 // Services
@@ -28,6 +29,7 @@ export const MatchDetailsModal = ({
   setModalVisible,
   match,
 }: MatchDetailsModalProps) => {
+  const { t } = useTranslation();
   const username = useUserStore(state => state.username);
   const [matchesIDs, setMatchesIDs] = useState<string[]>([]);
 
@@ -37,7 +39,10 @@ export const MatchDetailsModal = ({
 
   const fetchMatchesIds = async () => {
     if (!username) {
-      Alert.alert('Error', 'Could not find username');
+      Alert.alert(
+        t('home-tabs.map.modal.fail'),
+        t('home-tabs.map.modal.fail-mess'),
+      );
       return;
     }
     await getMatchesIdsService(username)
@@ -51,12 +56,15 @@ export const MatchDetailsModal = ({
 
   const addIDToMatches = async () => {
     if (!username) {
-      Alert.alert('Error', 'Could not get username.');
+      Alert.alert(
+        t('home-tabs.map.modal.fail'),
+        t('home-tabs.map.modal.fail-mess'),
+      );
       return;
     }
     await addMatchIdToUserService(username, match._id)
       .then(() => setModalVisible(!modalVisible))
-      .catch(err => Alert.alert('error: ', err));
+      .catch(err => Alert.alert(t('home-tabs.map.modal.fail') + ': ', err));
   };
 
   return (
@@ -64,22 +72,33 @@ export const MatchDetailsModal = ({
       <View style={styles.centeredView}>
         <View style={styles.modalView}>
           {username === match.publisher ? (
-            <Text style={styles.modalText}>Publisher: You</Text>
+            <Text style={styles.modalText}>
+              {t('home-tabs.map.modal.publisher')}:{' '}
+              {t('home-tabs.map.modal.you')}
+            </Text>
           ) : (
-            <Text style={styles.modalText}>Publisher: {match.publisher}</Text>
+            <Text style={styles.modalText}>
+              {t('home-tabs.map.modal.publisher')}: {match.publisher}
+            </Text>
           )}
-          <Text style={styles.modalText}>Day: {match.day}</Text>
-          <Text style={styles.modalText}>Time: {match.time}</Text>
+          <Text style={styles.modalText}>
+            {t('home-tabs.map.modal.day')}: {match.day}
+          </Text>
+          <Text style={styles.modalText}>
+            {t('home-tabs.map.modal.time')}: {match.time}
+          </Text>
           {matchesIDs ? (
             <>
               {matchesIDs.includes(match._id) ? (
-                <Text>Modify or Remove under list of Matches</Text>
+                <Text>{t('home-tabs.map.modal.info')}</Text>
               ) : (
                 <TouchableOpacity
                   style={styles.button}
                   onPress={() => addIDToMatches()}
                 >
-                  <Text style={styles.textStyle}>Add to my matches</Text>
+                  <Text style={styles.textStyle}>
+                    {t('home-tabs.map.modal.add')}
+                  </Text>
                 </TouchableOpacity>
               )}
 
@@ -88,7 +107,7 @@ export const MatchDetailsModal = ({
                 onPress={() => setModalVisible(!modalVisible)}
               >
                 <Text style={{ ...styles.textStyle, color: 'black' }}>
-                  Close Info
+                  {t('home-tabs.map.modal.close')}
                 </Text>
               </TouchableOpacity>
             </>

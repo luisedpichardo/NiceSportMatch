@@ -6,6 +6,7 @@ import MapView, {
   PROVIDER_DEFAULT,
   PROVIDER_GOOGLE,
 } from 'react-native-maps';
+import { useTranslation } from 'react-i18next';
 // Components
 import { MatchDetailsModal } from './MatchDetailsModal';
 // Hooks
@@ -15,6 +16,7 @@ import { useCurrPosition } from '../hooks/useCurrPosition';
 import { useUserStore } from '../stores/userStore';
 
 export const Maps = () => {
+  const { t } = useTranslation();
   const username = useUserStore(state => state.username);
   const mapRef = useRef<MapView | null>(null);
   const [modalVisible, setModalVisible] = useState(false);
@@ -63,7 +65,7 @@ export const Maps = () => {
                       setModalVisible(true);
                     }}
                   >
-                    <Text>Click Me For Details</Text>
+                    <Text>{t('home-tabs.map.details')}</Text>
                   </Callout>
                 </Marker>
               );
