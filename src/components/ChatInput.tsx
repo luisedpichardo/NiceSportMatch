@@ -21,7 +21,7 @@ export const ChatInput = ({ receiver }: Props) => {
   const [message, setMessage] = useState('');
 
   const onSendMessage = () => {
-    if (!username) return;
+    if (!username || !message) return;
     sendMessageService(username, receiver, message)
       .then(() => {
         setMessage('');

@@ -29,7 +29,7 @@ export const Chat = ({ navigation, route }: Props) => {
 
   return (
     <View style={styles.container}>
-      <View style={{ flex: 1, marginBottom: '20%' }}>
+      <View style={{ flex: 1, marginBottom: '5%' }}>
         <View style={styles.messageCont}>
           {!loading && messages.length > 0 ? (
             <UserChat messages={messages} />
