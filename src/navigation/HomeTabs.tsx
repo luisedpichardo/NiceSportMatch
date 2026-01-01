@@ -8,6 +8,7 @@ import {
   BottomTabBarButtonProps,
   createBottomTabNavigator,
 } from '@react-navigation/bottom-tabs';
+import { getFocusedRouteNameFromRoute } from '@react-navigation/native';
 // Navigation
 import { MatchSatck } from './MatchStack';
 import { MessageStack } from './MessageStack';
@@ -62,10 +63,18 @@ export function HomeTabs() {
       <TabHome.Screen
         name="MatchesNav"
         component={MatchSatck}
-        options={{
-          tabBarLabel: 'MATCHES',
-          tabBarIcon: ({ focused }) =>
-            tabIcon(focused, require('../../assets/trophy.png')),
+        options={({ route }) => {
+          // Get the current nested route inside the stack
+          const routeName = getFocusedRouteNameFromRoute(route) ?? 'Matches';
+          return {
+            tabBarLabel: 'MATCHES',
+            tabBarIcon: ({ focused }) =>
+              tabIcon(focused, require('../../assets/trophy.png')),
+            tabBarStyle:
+              routeName === 'Matches'
+                ? { ...styles.bottomTab, ...styles.shadow }
+                : { display: 'none' },
+          };
         }}
       />
       <TabHome.Screen
@@ -79,10 +88,18 @@ export function HomeTabs() {
       <TabHome.Screen
         name="ChatNav"
         component={MessageStack}
-        options={{
-          tabBarLabel: 'MESSAGES',
-          tabBarIcon: ({ focused }) =>
-            tabIcon(focused, require('../../assets/message-circle.png')),
+        options={({ route }) => {
+          // Get the current nested route inside the stack
+          const routeName = getFocusedRouteNameFromRoute(route) ?? 'Messages';
+          return {
+            tabBarLabel: 'MESSAGES',
+            tabBarIcon: ({ focused }) =>
+              tabIcon(focused, require('../../assets/message-circle.png')),
+            tabBarStyle:
+              routeName === 'Messages'
+                ? { ...styles.bottomTab, ...styles.shadow }
+                : { display: 'none' },
+          };
         }}
       />
     </TabHome.Navigator>
