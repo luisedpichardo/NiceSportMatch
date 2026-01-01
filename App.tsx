@@ -5,13 +5,16 @@
  * @format
  */
 
+import { useEffect } from 'react';
 import { StatusBar, useColorScheme } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { NavigationContainer } from '@react-navigation/native';
 import { getAuth, onAuthStateChanged } from '@react-native-firebase/auth';
-import { useEffect } from 'react';
+import i18n from './i18n';
 // Navigation
 import { Navigation } from './src/navigation/navigation';
+// Services
+import { getPersistedLang } from './src/services/LanguageService';
 // Store
 import { useUserStore } from './src/stores/userStore';
 import {
@@ -31,6 +34,9 @@ function App() {
         useUserStore.getState().setUser(null);
         removeUsernameFromStore();
       }
+    });
+    getPersistedLang().then(data => {
+      i18n.changeLanguage(data || '');
     });
     return subscriber; // unsubscribe on unmount
   }, []);

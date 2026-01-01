@@ -1,0 +1,39 @@
+{
+  "auth": {
+    "welcome": {
+      "welcome-img": {
+        "title": "Welcome",
+        "welcome-subtitle": {
+          "one": "We are here to help you look for a team",
+          "two": "or",
+          "three": "Look for a player when your team needs a player"
+        }
+      },
+      "log-in": "Log In",
+      "sign-up": "Sign Up"
+    },
+    "log-in": {
+      "title": "Log In",
+      "login-form": {
+        "email": "Email",
+        "password": "Password",
+        "log-in": "Log In",
+        "alert-succes": "Welcome",
+        "alert-fail": "Something went wrong"
+      }
+    },
+    "sign-up": {
+      "title": "Sign Up",
+      "sign-up-form": {
+        "first-name": "First Name",
+        "last-name": "Last Name",
+        "username": "Username",
+        "email": "Email",
+        "password": "Password",
+        "sign-up": "Sign Up",
+        "alert-succes": "Account Created",
+        "alert-fail": "Error Creating Account"
+      }
+    }
+  }
+}

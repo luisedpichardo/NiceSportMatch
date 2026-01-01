@@ -5,17 +5,19 @@ import { Background } from '../components/Background';
 import { SignUpForm } from '../components/SignUpForm';
 // Types
 import { NavAuthStack } from '../navigation/types';
+import { useTranslation } from 'react-i18next';
 
 type Props = NativeStackScreenProps<NavAuthStack, 'SignUp'>;
 
 export const SignUp = ({ navigation }: Props) => {
+  const { t } = useTranslation();
   return (
     <Background
       colors={['white', 'lightgreen', 'green']}
       style={styles.container}
     >
       <View style={styles.topCont}>
-        <Text style={styles.titleStyle}>Sign Up</Text>
+        <Text style={styles.titleStyle}>{t('auth.sign-up.title')}</Text>
       </View>
       <View style={styles.formContatiner}>
         <SignUpForm />

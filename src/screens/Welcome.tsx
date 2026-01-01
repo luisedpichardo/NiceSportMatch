@@ -1,5 +1,6 @@
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import { useTranslation } from 'react-i18next';
 // Components
 import { Background } from '../components/Background';
 import { WelcomeImg } from '../components/WelcomeImg';
@@ -9,6 +10,8 @@ import { NavAuthStack } from '../navigation/types';
 type Props = NativeStackScreenProps<NavAuthStack, 'Welcome'>;
 
 export const Welcome = ({ navigation }: Props) => {
+  const { t } = useTranslation();
+
   return (
     <Background
       colors={['white', 'lightgreen', 'green']}
@@ -20,13 +23,15 @@ export const Welcome = ({ navigation }: Props) => {
           onPress={() => navigation.navigate('Login')}
           style={{ ...styles.btnStyle, backgroundColor: 'green' }}
         >
-          <Text style={{ ...styles.textStyle, color: 'white' }}>Log In</Text>
+          <Text style={{ ...styles.textStyle, color: 'white' }}>
+            {t('auth.welcome.log-in')}
+          </Text>
         </TouchableOpacity>
         <TouchableOpacity
           onPress={() => navigation.navigate('SignUp')}
           style={{ ...styles.btnStyle, backgroundColor: 'white' }}
         >
-          <Text style={styles.textStyle}>Sign Up</Text>
+          <Text style={styles.textStyle}>{t('auth.welcome.sign-up')}</Text>
         </TouchableOpacity>
       </View>
     </Background>

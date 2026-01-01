@@ -1,0 +1,39 @@
+{
+  "auth": {
+    "welcome": {
+      "welcome-img": {
+        "title": "Bienvenido",
+        "welcome-subtitle": {
+          "one": "Estamos aquí para ayudarte a buscar un equipo",
+          "two": "o",
+          "three": "Buscar un jugador cuando tu equipo necesita uno"
+        }
+      },
+      "log-in": "Inicia sesión",
+      "sign-up": "Regístrate"
+    },
+    "log-in": {
+      "title": "Iniciar sesión",
+      "login-form": {
+        "email": "Correo electrónico",
+        "password": "Contraseña",
+        "log-in": "Iniciar sesión",
+        "alert-succes": "Bienvenido",
+        "alert-fail": "Algo salió mal"
+      }
+    },
+    "sign-up": {
+      "title": "Registrarse",
+      "sign-up-form": {
+        "first-name": "Nombre",
+        "last-name": "Apellido",
+        "username": "Nombre de usuario",
+        "email": "Correo electrónico",
+        "password": "Contraseña",
+        "sign-up": "Registrarse",
+        "alert-succes": "Cuenta creada",
+        "alert-fail": "Error al crear la cuenta"
+      }
+    }
+  }
+}

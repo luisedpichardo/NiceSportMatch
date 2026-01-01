@@ -7,6 +7,7 @@ import {
   ScrollView,
 } from 'react-native';
 import { Formik } from 'formik';
+import { useTranslation } from 'react-i18next';
 // Components
 import { CustomInput } from './CustomInput';
 // Schemas
@@ -15,6 +16,7 @@ import { signUpValidation } from '../schemas/SignUpValidation';
 import { createUserWithEmailAndPasswordService } from '../services/AuthService';
 
 export const SignUpForm = () => {
+  const { t } = useTranslation();
   const onSignUpPressed = (
     firstName: string,
     lastName: string,
@@ -30,10 +32,10 @@ export const SignUpForm = () => {
       password,
     )
       .then(() => {
-        Alert.alert('Succes');
+        Alert.alert(t('auth.sign-up.sign-up-form.alert-success'));
       })
       .catch((err: any) => {
-        Alert.alert('Error', err.message);
+        Alert.alert(t('auth.sign-up.sign-up-form.alert-fail'), err.message);
       });
   };
 
@@ -63,8 +65,8 @@ export const SignUpForm = () => {
           {({ handleChange, handleSubmit, values, errors, isValid }) => (
             <>
               <CustomInput
-                title="First Name"
-                placeholder="First Name"
+                title={t('auth.sign-up.sign-up-form.first-name')}
+                placeholder={t('auth.sign-up.sign-up-form.first-name')}
                 value={values.firstName}
                 onChangeText={handleChange('firstName')}
                 secureTextEntry={false}
@@ -73,8 +75,8 @@ export const SignUpForm = () => {
                 errorMessage={errors.firstName}
               />
               <CustomInput
-                title="Last Name"
-                placeholder="Last Name"
+                title={t('auth.sign-up.sign-up-form.last-name')}
+                placeholder={t('auth.sign-up.sign-up-form.last-name')}
                 value={values.lastName}
                 onChangeText={handleChange('lastName')}
                 secureTextEntry={false}
@@ -83,8 +85,8 @@ export const SignUpForm = () => {
                 errorMessage={errors.lastName}
               />
               <CustomInput
-                title="Username"
-                placeholder="Username"
+                title={t('auth.sign-up.sign-up-form.username')}
+                placeholder={t('auth.sign-up.sign-up-form.username')}
                 value={values.username}
                 onChangeText={handleChange('username')}
                 secureTextEntry={false}
@@ -93,8 +95,8 @@ export const SignUpForm = () => {
                 errorMessage={errors.username}
               />
               <CustomInput
-                title="Email"
-                placeholder="Email"
+                title={t('auth.sign-up.sign-up-form.email')}
+                placeholder={t('auth.sign-up.sign-up-form.email')}
                 value={values.email}
                 onChangeText={handleChange('email')}
                 secureTextEntry={false}
@@ -103,8 +105,8 @@ export const SignUpForm = () => {
                 errorMessage={errors.email}
               />
               <CustomInput
-                title="Password"
-                placeholder="Password"
+                title={t('auth.sign-up.sign-up-form.password')}
+                placeholder={t('auth.sign-up.sign-up-form.password')}
                 value={values.password}
                 onChangeText={handleChange('password')}
                 secureTextEntry={true}
@@ -117,7 +119,9 @@ export const SignUpForm = () => {
                 style={styles.btn}
                 disabled={!isValid}
               >
-                <Text style={{ color: 'white', fontSize: 20 }}>Sign Up</Text>
+                <Text style={{ color: 'white', fontSize: 20 }}>
+                  {t('auth.sign-up.sign-up-form.sign-up')}
+                </Text>
               </TouchableOpacity>
             </>
           )}

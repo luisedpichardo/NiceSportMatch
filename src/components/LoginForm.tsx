@@ -8,6 +8,7 @@ import {
 } from 'react-native';
 import { Formik } from 'formik';
 import { getAuth, signOut } from '@react-native-firebase/auth';
+import { useTranslation } from 'react-i18next';
 // Components
 import { CustomInput } from './CustomInput';
 // Schemas
@@ -16,11 +17,12 @@ import { loginValidation } from '../schemas/LoginValidation';
 import { signInWithEmailAndPasswordService } from '../services/AuthService';
 
 export const LoginForm = () => {
+  const {t} =useTranslation()
   const onLoginPressed = (email: string, password: string) => {
     signInWithEmailAndPasswordService(email, password)
-      .then(() => Alert.alert('Welcome'))
+      .then(() => Alert.alert(t('auth.log-in.login-form.alert-succes')))
       .catch(err => {
-        Alert.alert('Error', err.message);
+        Alert.alert(t('auth.log-in.login-form.alert-fail'), err.message);
         signOut(getAuth());
       });
   };
@@ -42,8 +44,8 @@ export const LoginForm = () => {
           {({ handleChange, handleSubmit, values, errors, isValid }) => (
             <>
               <CustomInput
-                title="Email"
-                placeholder="Email"
+                title={t('auth.log-in.login-form.email')}
+                placeholder={t('auth.log-in.login-form.email')}
                 value={values.email}
                 onChangeText={handleChange('email')}
                 secureTextEntry={false}
@@ -52,8 +54,8 @@ export const LoginForm = () => {
                 errorMessage={errors.email}
               />
               <CustomInput
-                title="Password"
-                placeholder="Password"
+                title={t('auth.log-in.login-form.password')}
+                placeholder={t('auth.log-in.login-form.password')}
                 value={values.password}
                 onChangeText={handleChange('password')}
                 secureTextEntry={true}
@@ -66,7 +68,7 @@ export const LoginForm = () => {
                 style={styles.btn}
                 disabled={!isValid}
               >
-                <Text style={{ color: 'white', fontSize: 20 }}>Log In</Text>
+                <Text style={{ color: 'white', fontSize: 20 }}>{t('auth.log-in.login-form.log-in')}</Text>
               </TouchableOpacity>
             </>
           )}
