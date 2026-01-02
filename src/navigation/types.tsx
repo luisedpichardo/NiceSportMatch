@@ -2,6 +2,7 @@ export type NavRoot = {
   Home: NavHomeTab;
   Settings: undefined;
   ProfileInfo: undefined;
+  SelectLanguage: undefined;
 };
 
 export type NavAuthStack = {

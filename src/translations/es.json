@@ -152,6 +152,11 @@
         "age": "Edad",
         "update": "Actualizar cuenta"
       }
+    },
+    "lang": {
+      "title": "Selecciona Idioma",
+      "american": "🇺🇸 Inglés (Americano)",
+      "mexican": "🇲🇽 Español (Mexicano)"
     }
   }
 }

@@ -4,6 +4,7 @@ import { HomeTabs } from './HomeTabs';
 // Screens
 import { ProfileInfo } from '../screens/ProfileInfo';
 import { Settings } from '../screens/Settings';
+import { SelectLanguage } from '../screens/SelectLanguage';
 // Types
 import { NavRoot } from './types';
 
@@ -24,6 +25,7 @@ export function MyMain() {
       />
       <Stack.Screen name="Settings" component={Settings} />
       <Stack.Screen name="ProfileInfo" component={ProfileInfo} />
+      <Stack.Screen name="SelectLanguage" component={SelectLanguage} />
     </Stack.Navigator>
   );
 }

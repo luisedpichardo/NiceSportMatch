@@ -61,7 +61,7 @@ export const Settings = ({ navigation }: Props) => {
           text={t('settings.prof-info')}
         />
         <SettingsOptions
-          onPress={() => console.log('selecting Languages')}
+          onPress={() => navigation.navigate('SelectLanguage')}
           text={t('settings.select-lang')}
         />
         <SettingsOptions
