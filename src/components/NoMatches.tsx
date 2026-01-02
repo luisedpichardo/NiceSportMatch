@@ -7,6 +7,7 @@ type Props = {
 
 export const NoMatches = ({ own }: Props) => {
   const { t } = useTranslation();
+
   return (
     <View style={styles.noMatchesCont}>
       {own ? (

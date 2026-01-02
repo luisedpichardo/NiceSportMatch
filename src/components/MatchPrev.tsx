@@ -47,7 +47,7 @@ const styles = StyleSheet.create({
   },
   matchInfo: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
+    justifyContent: 'space-around',
     marginBottom: 5,
   },
 });

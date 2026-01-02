@@ -1,5 +1,7 @@
-import { StyleSheet, Text, View } from 'react-native';
+import { Image, StyleSheet, Text, View } from 'react-native';
 import { useTranslation } from 'react-i18next';
+// Hooks
+import { useProfileImage } from '../hooks/useProfileImage';
 // Stores
 import { useUserStore } from '../stores/userStore';
 
@@ -11,14 +13,26 @@ type Props = {
 export const LeftSMatchPrev = ({ publisher, status }: Props) => {
   const { t } = useTranslation();
   const username = useUserStore(state => state.username);
+  const { imageUri } = useProfileImage(publisher);
+
   return (
     <View style={styles.container}>
       {username === publisher ? (
         <></>
       ) : (
-        <Text>
-          {t('home-tabs.match-stack.matches.prev.publisher')}: {publisher}
-        </Text>
+        <>
+          <Image
+            source={
+              imageUri
+                ? { uri: imageUri }
+                : require('../../assets/account_pp_default.jpg')
+            }
+            style={styles.imgStyle}
+          />
+          <Text>
+            {t('home-tabs.match-stack.matches.prev.publisher')}: {publisher}
+          </Text>
+        </>
       )}
       <Text>
         {t('home-tabs.match-stack.matches.prev.status')}: {status}
@@ -30,5 +44,14 @@ export const LeftSMatchPrev = ({ publisher, status }: Props) => {
 const styles = StyleSheet.create({
   container: {
     justifyContent: 'center',
+    marginVertical: 10,
+  },
+  imgStyle: {
+    width: 60,
+    height: 60,
+    borderRadius: 50,
+    overflow: 'hidden',
+    alignSelf: 'center',
+    marginVertical: 5,
   },
 });
