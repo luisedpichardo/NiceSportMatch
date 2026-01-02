@@ -1,8 +1,9 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 // Components
 import { OpenSettings } from '../components/OpenSettings';
+// Navigation
+import { MatchesTab } from './MatchesTab';
 // Screens
-import { Matches } from '../screens/Matches';
 import { CreateMatch } from '../screens/CreateMatch';
 import { UpdateMatch } from '../screens/UpdateMatch';
 // Types
@@ -20,7 +21,7 @@ export function MatchSatck() {
     >
       <MatchSta.Screen
         name="Matches"
-        component={Matches}
+        component={MatchesTab}
         options={{
           headerRight: () => rightHeader(),
         }}
