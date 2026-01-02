@@ -16,6 +16,7 @@ import { loginValidation } from '../schemas/LoginValidation';
 // Services
 import { signInWithEmailAndPasswordService } from '../services/AuthService';
 import { analyticsService, types } from '../services/AnalyticsService';
+import { crashService, onLogInService } from '../services/CrashlyticsService';
 
 export const LoginForm = () => {
   const { t } = useTranslation();
@@ -23,9 +24,11 @@ export const LoginForm = () => {
     signInWithEmailAndPasswordService(email, password)
       .then(() => {
         analyticsService(types.BUTTON, 'User successfully logged in');
+        onLogInService({ email });
         Alert.alert(t('auth.log-in.login-form.alert-succes'));
       })
       .catch(err => {
+        crashService(err);
         Alert.alert(t('auth.log-in.login-form.alert-fail'), err.message);
         signOut(getAuth());
       });

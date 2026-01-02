@@ -15,6 +15,7 @@ import { signUpValidation } from '../schemas/SignUpValidation';
 // Services
 import { createUserWithEmailAndPasswordService } from '../services/AuthService';
 import { analyticsService, types } from '../services/AnalyticsService';
+import { crashService, onSignUpService } from '../services/CrashlyticsService';
 
 export const SignUpForm = () => {
   const { t } = useTranslation();
@@ -34,9 +35,11 @@ export const SignUpForm = () => {
     )
       .then(() => {
         analyticsService(types.BUTTON, 'User successfully signed up');
+        onSignUpService({ firstName, lastName, username, email });
         Alert.alert(t('auth.sign-up.sign-up-form.alert-success'));
       })
       .catch((err: any) => {
+        crashService(err);
         Alert.alert(t('auth.sign-up.sign-up-form.alert-fail'), err.message);
       });
   };
