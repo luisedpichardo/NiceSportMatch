@@ -15,6 +15,7 @@ import {
 // Stores
 import { useUserStore } from '../stores/userStore';
 import { useTranslation } from 'react-i18next';
+import { analyticsService, types } from '../services/AnalyticsService';
 
 export const ProfileFields = () => {
   const { t } = useTranslation();
@@ -53,6 +54,7 @@ export const ProfileFields = () => {
       // Send the update
       try {
         await userRef.update(updatedData);
+        analyticsService(types.BUTTON, 'User updates profile information');
         Alert.alert(
           t('settings.profile.info.alert-success'),
           t('settings.profile.info.alert-suc-mess'),
@@ -89,7 +91,9 @@ export const ProfileFields = () => {
       />
 
       <TouchableOpacity onPress={updateAccount} style={styles.btnStyle}>
-        <Text style={{ fontWeight: 'bold' }}>{t('settings.profile.info.update')}</Text>
+        <Text style={{ fontWeight: 'bold' }}>
+          {t('settings.profile.info.update')}
+        </Text>
       </TouchableOpacity>
     </KeyboardAvoidingView>
   );

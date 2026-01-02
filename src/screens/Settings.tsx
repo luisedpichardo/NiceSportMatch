@@ -10,6 +10,7 @@ import { RightHdrBtn } from '../components/RightHdrBtn';
 import { signOutService } from '../services/AuthService';
 // Types
 import { NavRoot } from '../navigation/types';
+import { analyticsService, types } from '../services/AnalyticsService';
 
 type Props = NativeStackScreenProps<NavRoot, 'Settings'>;
 
@@ -57,11 +58,17 @@ export const Settings = ({ navigation }: Props) => {
     <View style={styles.container}>
       <View style={styles.settCont}>
         <SettingsOptions
-          onPress={() => navigation.navigate('ProfileInfo')}
+          onPress={() => {
+            analyticsService(types.BUTTON, 'User navigates to profile info');
+            navigation.navigate('ProfileInfo');
+          }}
           text={t('settings.prof-info')}
         />
         <SettingsOptions
-          onPress={() => navigation.navigate('SelectLanguage')}
+          onPress={() => {
+            analyticsService(types.BUTTON, 'User navigates to select language');
+            navigation.navigate('SelectLanguage');
+          }}
           text={t('settings.select-lang')}
         />
         <SettingsOptions

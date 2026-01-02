@@ -7,6 +7,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { LanguageOpt } from '../components/LanguageOpt';
 // Types
 import { NavRoot } from '../navigation/types';
+import { analyticsService, types } from '../services/AnalyticsService';
 
 type Props = NativeStackScreenProps<NavRoot, 'SelectLanguage'>;
 
@@ -30,11 +31,23 @@ export const SelectLanguage = ({ navigation }: Props) => {
     <View style={styles.container}>
       <View style={styles.langOpt}>
         <LanguageOpt
-          onPress={() => changeLanguage('en')}
+          onPress={() => {
+            analyticsService(
+              types.BUTTON,
+              'User selects changing language into english',
+            );
+            changeLanguage('en');
+          }}
           text={t('settings.lang.american')}
         />
         <LanguageOpt
-          onPress={() => changeLanguage('es')}
+          onPress={() => {
+            analyticsService(
+              types.BUTTON,
+              'User selects changing language into spanish',
+            );
+            changeLanguage('es');
+          }}
           text={t('settings.lang.mexican')}
         />
       </View>

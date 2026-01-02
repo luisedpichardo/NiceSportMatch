@@ -19,6 +19,7 @@ import {
   openCameraHelper,
   openLibraryHelper,
 } from '../utils/ImageHelpers';
+import { analyticsService, types } from '../services/AnalyticsService';
 
 export const ImageProfile = () => {
   const { t } = useTranslation();
@@ -37,6 +38,7 @@ export const ImageProfile = () => {
         await getUserRefService(username).update({
           profileImage: base64WithPrefix,
         });
+        analyticsService(types.BUTTON, 'User updates profile picture');
         Alert.alert(
           t('settings.profile.img.alert-success'),
           t('settings.profile.img.alert-suc-mess'),
@@ -48,11 +50,13 @@ export const ImageProfile = () => {
   };
 
   const openLibrary = async () => {
+    analyticsService(types.BUTTON, 'User opens library from profile info');
     const uri = await openLibraryHelper();
     setImageUri(uri);
   };
 
   const openCamera = async () => {
+    analyticsService(types.BUTTON, 'User opens camera from profile info');
     const uri = await openCameraHelper();
     setImageUri(uri);
   };
