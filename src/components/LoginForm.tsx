@@ -15,12 +15,16 @@ import { CustomInput } from './CustomInput';
 import { loginValidation } from '../schemas/LoginValidation';
 // Services
 import { signInWithEmailAndPasswordService } from '../services/AuthService';
+import { analyticsService, types } from '../services/AnalyticsService';
 
 export const LoginForm = () => {
-  const {t} =useTranslation()
+  const { t } = useTranslation();
   const onLoginPressed = (email: string, password: string) => {
     signInWithEmailAndPasswordService(email, password)
-      .then(() => Alert.alert(t('auth.log-in.login-form.alert-succes')))
+      .then(() => {
+        analyticsService(types.BUTTON, 'User successfully logged in');
+        Alert.alert(t('auth.log-in.login-form.alert-succes'));
+      })
       .catch(err => {
         Alert.alert(t('auth.log-in.login-form.alert-fail'), err.message);
         signOut(getAuth());
@@ -68,7 +72,9 @@ export const LoginForm = () => {
                 style={styles.btn}
                 disabled={!isValid}
               >
-                <Text style={{ color: 'white', fontSize: 20 }}>{t('auth.log-in.login-form.log-in')}</Text>
+                <Text style={{ color: 'white', fontSize: 20 }}>
+                  {t('auth.log-in.login-form.log-in')}
+                </Text>
               </TouchableOpacity>
             </>
           )}

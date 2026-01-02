@@ -14,6 +14,7 @@ import { CustomInput } from './CustomInput';
 import { signUpValidation } from '../schemas/SignUpValidation';
 // Services
 import { createUserWithEmailAndPasswordService } from '../services/AuthService';
+import { analyticsService, types } from '../services/AnalyticsService';
 
 export const SignUpForm = () => {
   const { t } = useTranslation();
@@ -32,6 +33,7 @@ export const SignUpForm = () => {
       password,
     )
       .then(() => {
+        analyticsService(types.BUTTON, 'User successfully signed up');
         Alert.alert(t('auth.sign-up.sign-up-form.alert-success'));
       })
       .catch((err: any) => {

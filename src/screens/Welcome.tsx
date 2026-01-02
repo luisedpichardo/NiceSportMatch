@@ -4,6 +4,8 @@ import { useTranslation } from 'react-i18next';
 // Components
 import { Background } from '../components/Background';
 import { WelcomeImg } from '../components/WelcomeImg';
+// Services
+import { analyticsService, types } from '../services/AnalyticsService';
 // Types
 import { NavAuthStack } from '../navigation/types';
 
@@ -20,7 +22,10 @@ export const Welcome = ({ navigation }: Props) => {
       <WelcomeImg />
       <View style={styles.optCont}>
         <TouchableOpacity
-          onPress={() => navigation.navigate('Login')}
+          onPress={() => {
+            analyticsService(types.BUTTON, 'User attemps to log in to app');
+            navigation.navigate('Login');
+          }}
           style={{ ...styles.btnStyle, backgroundColor: 'green' }}
         >
           <Text style={{ ...styles.textStyle, color: 'white' }}>
@@ -28,7 +33,10 @@ export const Welcome = ({ navigation }: Props) => {
           </Text>
         </TouchableOpacity>
         <TouchableOpacity
-          onPress={() => navigation.navigate('SignUp')}
+          onPress={() => {
+            analyticsService(types.BUTTON, 'User attemps to sign up to app');
+            navigation.navigate('SignUp');
+          }}
           style={{ ...styles.btnStyle, backgroundColor: 'white' }}
         >
           <Text style={styles.textStyle}>{t('auth.welcome.sign-up')}</Text>

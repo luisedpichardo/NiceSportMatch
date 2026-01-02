@@ -20,6 +20,8 @@ import { useMyMatches } from '../hooks/useMyMatches';
 import { useOthersMatches } from '../hooks/useOthersMatches';
 // Nav Types
 import { MatchNavStack, NavHomeTab } from '../navigation/types';
+// Services
+import { analyticsService, types } from '../services/AnalyticsService';
 
 type Props = CompositeScreenProps<
   NativeStackScreenProps<MatchNavStack, 'Matches'>,
@@ -53,7 +55,10 @@ export const Matches = ({ navigation }: Props) => {
   return (
     <View style={styles.container}>
       <TouchableOpacity
-        onPress={() => navigation.navigate('CreateMatch')}
+        onPress={() => {
+          analyticsService(types.BUTTON, 'User Attemps to create a match');
+          navigation.navigate('CreateMatch');
+        }}
         style={styles.btn}
       >
         <Text style={styles.btnTxt}>
@@ -66,7 +71,7 @@ export const Matches = ({ navigation }: Props) => {
             onPress={() => setIsMyMatches(true)}
             style={{
               ...styles.displayBtn,
-              backgroundColor: isMyMatches ? 'white' : 'rgba(0, 0, 0, 0)' ,
+              backgroundColor: isMyMatches ? 'white' : 'rgba(0, 0, 0, 0)',
             }}
           >
             <Text>My Matches</Text>
