@@ -37,6 +37,7 @@
     }
   },
   "home-tabs": {
+    "open-settings": "Settings",
     "match-stack": {
       "tab-bar-label": "MATCHES",
       "matches": {
@@ -85,7 +86,7 @@
       }
     },
     "map": {
-      "details": "Click Me For Details",
+      "details": "See Details",
       "modal": {
         "fail": "Error",
         "fail-mess": "Could not find username",
@@ -94,8 +95,8 @@
         "day": "Day",
         "time": "Time",
         "info": "Modify or Remove under list of Matches",
-        "add": "Add to my matches",
-        "close": "Close Info"
+        "add": "Add",
+        "close": "Close"
       }
     },
     "messages-stack": {

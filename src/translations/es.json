@@ -37,6 +37,7 @@
     }
   },
   "home-tabs": {
+    "open-settings": "Ajustes",
     "match-stack": {
       "tab-bar-label": "PARTIDOS",
       "matches": {
@@ -85,7 +86,7 @@
       }
     },
     "map": {
-      "details": "Haz clic para ver detalles",
+      "details": "Ver detalles",
       "modal": {
         "fail": "Error",
         "fail-mess": "No se pudo encontrar el nombre de usuario",
@@ -94,8 +95,8 @@
         "day": "Día",
         "time": "Hora",
         "info": "Modificar o eliminar desde la lista de partidos",
-        "add": "Agregar a mis partidos",
-        "close": "Cerrar información"
+        "add": "Agregar",
+        "close": "Cerrar"
       }
     },
     "messages-stack": {
