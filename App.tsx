@@ -21,6 +21,7 @@ import {
   assignUsernameToStore,
   removeUsernameFromStore,
 } from './src/utils/AuthHelpers';
+import { ErrorBoundary } from './src/screens/ErrorBoundary';
 
 function App() {
   const isDarkMode = useColorScheme() === 'dark';
@@ -44,9 +45,11 @@ function App() {
   return (
     <SafeAreaProvider>
       <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
-      <NavigationContainer>
-        <Navigation />
-      </NavigationContainer>
+      <ErrorBoundary>
+        <NavigationContainer>
+          <Navigation />
+        </NavigationContainer>
+      </ErrorBoundary>
     </SafeAreaProvider>
   );
 }

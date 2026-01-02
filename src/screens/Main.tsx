@@ -6,6 +6,7 @@ import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { Maps } from '../components/Maps';
 // Types
 import { NavHomeTab, NavRoot } from '../navigation/types';
+import { useEffect } from 'react';
 
 type Props = CompositeScreenProps<
   BottomTabScreenProps<NavHomeTab, 'Map'>,
@@ -13,6 +14,12 @@ type Props = CompositeScreenProps<
 >;
 
 export const Main = ({ navigation }: Props) => {
+
+  // useEffect(() => {
+  // // Error handling to show Error Display 
+  //   throw new Error('Error');
+  // });
+
   return (
     <View style={styles.container}>
       <Maps />
