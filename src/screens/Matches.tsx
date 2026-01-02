@@ -66,7 +66,7 @@ export const Matches = ({ navigation }: Props) => {
             onPress={() => setIsMyMatches(true)}
             style={{
               ...styles.displayBtn,
-              backgroundColor: isMyMatches ? 'white' : '',
+              backgroundColor: isMyMatches ? 'white' : 'rgba(0, 0, 0, 0)' ,
             }}
           >
             <Text>My Matches</Text>
@@ -75,7 +75,7 @@ export const Matches = ({ navigation }: Props) => {
             onPress={() => setIsMyMatches(false)}
             style={{
               ...styles.displayBtn,
-              backgroundColor: isMyMatches ? '' : 'white',
+              backgroundColor: isMyMatches ? 'rgba(0, 0, 0, 0)' : 'white',
             }}
           >
             <Text>Others Matches</Text>

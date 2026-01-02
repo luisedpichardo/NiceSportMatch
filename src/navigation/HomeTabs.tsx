@@ -35,7 +35,7 @@ function tabIcon(focused: boolean, uri: ImageSourcePropType) {
 
 type Props = BottomTabBarButtonProps;
 const MapTabButton = (props: Props) => {
-  const { delayLongPress, ref, ...rest } = props;
+  const { delayLongPress, ref, accessibilityState, ...rest } = props;
   return (
     <Pressable
       {...rest}
@@ -43,6 +43,7 @@ const MapTabButton = (props: Props) => {
         styles.custBtn,
         styles.shadow,
         pressed && { transform: [{ scale: 0.8 }] },
+        { backgroundColor: props['aria-selected'] ? 'green' : 'gray' },
       ]}
     >
       <Image source={require('../../assets/map.png')} style={styles.custImg} />
