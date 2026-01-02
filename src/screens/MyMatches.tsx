@@ -6,7 +6,7 @@ import {
   View,
 } from 'react-native';
 import { useTranslation } from 'react-i18next';
-import { CompositeScreenProps } from '@react-navigation/native';
+import { CompositeScreenProps, useNavigation } from '@react-navigation/native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
 // Components
@@ -37,8 +37,9 @@ function showMathes(matches: any) {
   );
 }
 
-export const MyMatches = ({ navigation }: Props) => {
+export const MyMatches = () => {
   const { t } = useTranslation();
+  const navigation = useNavigation();
   const { myMatches, loading } = useMyMatches();
   return (
     <View style={styles.container}>
