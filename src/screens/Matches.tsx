@@ -1,6 +1,7 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import {
   FlatList,
+  Pressable,
   StyleSheet,
   Text,
   TouchableOpacity,
@@ -15,9 +16,8 @@ import { MatchPrev } from '../components/MatchPrev';
 import { Loading } from '../components/Loading';
 import { NoMatches } from '../components/NoMatches';
 // Hooks
-import { useUserMatches } from '../hooks/useUserMatches';
-// Stores
-import { useUserStore } from '../stores/userStore';
+import { useMyMatches } from '../hooks/useMyMatches';
+import { useOthersMatches } from '../hooks/useOthersMatches';
 // Nav Types
 import { MatchNavStack, NavHomeTab } from '../navigation/types';
 
@@ -26,10 +26,24 @@ type Props = CompositeScreenProps<
   BottomTabScreenProps<NavHomeTab>
 >;
 
+function showMathes(matches: any) {
+  return (
+    <FlatList
+      data={matches}
+      keyExtractor={item => item._id}
+      renderItem={({ item }) => {
+        return <MatchPrev match={item} />;
+      }}
+    />
+  );
+}
+
 export const Matches = ({ navigation }: Props) => {
   const { t } = useTranslation();
-  const username = useUserStore(state => state.username);
-  const { matches, loading } = useUserMatches();
+  const [isMyMatches, setIsMyMatches] = useState(true);
+  const { myMatches, loading } = useMyMatches();
+  const { othersMatches, loadingOthers } = useOthersMatches();
+
   useEffect(() => {
     navigation.setOptions({
       headerTitle: t('home-tabs.match-stack.matches.header-title'),
@@ -47,20 +61,46 @@ export const Matches = ({ navigation }: Props) => {
         </Text>
       </TouchableOpacity>
       <View style={styles.matchesContatiner}>
-        {loading ? (
+        <View style={styles.btnViewCont}>
+          <Pressable
+            onPress={() => setIsMyMatches(true)}
+            style={{
+              ...styles.displayBtn,
+              backgroundColor: isMyMatches ? 'white' : '',
+            }}
+          >
+            <Text>My Matches</Text>
+          </Pressable>
+          <Pressable
+            onPress={() => setIsMyMatches(false)}
+            style={{
+              ...styles.displayBtn,
+              backgroundColor: isMyMatches ? '' : 'white',
+            }}
+          >
+            <Text>Others Matches</Text>
+          </Pressable>
+        </View>
+        {loading && loadingOthers ? (
           <Loading />
         ) : (
           <>
-            {username && matches.length > 0 ? (
-              <FlatList
-                data={matches}
-                keyExtractor={item => item._id}
-                renderItem={({ item }) => {
-                  return <MatchPrev match={item} />;
-                }}
-              />
+            {isMyMatches ? (
+              <>
+                {myMatches.length > 0 ? (
+                  showMathes(myMatches)
+                ) : (
+                  <NoMatches own={true} />
+                )}
+              </>
             ) : (
-              <NoMatches />
+              <>
+                {othersMatches.length > 0 ? (
+                  showMathes(othersMatches)
+                ) : (
+                  <NoMatches own={false} />
+                )}
+              </>
             )}
           </>
         )}
@@ -92,5 +132,14 @@ const styles = StyleSheet.create({
     marginBottom: '25%',
     borderRadius: 25,
     marginVertical: 30,
+  },
+  btnViewCont: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    marginHorizontal: 30,
+  },
+  displayBtn: {
+    padding: 10,
+    borderRadius: 10,
   },
 });

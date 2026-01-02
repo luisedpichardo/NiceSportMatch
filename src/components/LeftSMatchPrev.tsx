@@ -1,4 +1,4 @@
-import { Text, View } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 import { useTranslation } from 'react-i18next';
 // Stores
 import { useUserStore } from '../stores/userStore';
@@ -12,12 +12,9 @@ export const LeftSMatchPrev = ({ publisher, status }: Props) => {
   const { t } = useTranslation();
   const username = useUserStore(state => state.username);
   return (
-    <View>
+    <View style={styles.container}>
       {username === publisher ? (
-        <Text>
-          {t('home-tabs.match-stack.matches.prev.publisher')}:{' '}
-          {t('home-tabs.match-stack.matches.prev.you')}
-        </Text>
+        <></>
       ) : (
         <Text>
           {t('home-tabs.match-stack.matches.prev.publisher')}: {publisher}
@@ -29,3 +26,9 @@ export const LeftSMatchPrev = ({ publisher, status }: Props) => {
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    justifyContent: 'center',
+  },
+});
