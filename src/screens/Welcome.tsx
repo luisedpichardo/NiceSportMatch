@@ -1,4 +1,10 @@
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  useColorScheme,
+  View,
+} from 'react-native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { useTranslation } from 'react-i18next';
 // Components
@@ -8,15 +14,19 @@ import { WelcomeImg } from '../components/WelcomeImg';
 import { analyticsService, types } from '../services/AnalyticsService';
 // Types
 import { NavAuthStack } from '../navigation/types';
+// Utils
+import { darkTheme, lightTheme } from '../utils/Colors';
 
 type Props = NativeStackScreenProps<NavAuthStack, 'Welcome'>;
 
 export const Welcome = ({ navigation }: Props) => {
   const { t } = useTranslation();
+  const colorScheme = useColorScheme();
+  const theme = colorScheme === 'dark' ? darkTheme : lightTheme;
 
   return (
     <Background
-      colors={['white', 'lightgreen', 'green']}
+      colors={[theme.surface, theme.secondary, theme.primary]}
       style={styles.container}
     >
       <WelcomeImg />
@@ -26,9 +36,9 @@ export const Welcome = ({ navigation }: Props) => {
             analyticsService(types.BUTTON, 'User attemps to log in to app');
             navigation.navigate('Login');
           }}
-          style={{ ...styles.btnStyle, backgroundColor: 'green' }}
+          style={{ ...styles.btnStyle, backgroundColor: theme.primary }}
         >
-          <Text style={{ ...styles.textStyle, color: 'white' }}>
+          <Text style={{ ...styles.textStyle, color: theme.surface }}>
             {t('auth.welcome.log-in')}
           </Text>
         </TouchableOpacity>
@@ -37,7 +47,7 @@ export const Welcome = ({ navigation }: Props) => {
             analyticsService(types.BUTTON, 'User attemps to sign up to app');
             navigation.navigate('SignUp');
           }}
-          style={{ ...styles.btnStyle, backgroundColor: 'white' }}
+          style={{ ...styles.btnStyle, backgroundColor: theme.surface }}
         >
           <Text style={styles.textStyle}>{t('auth.welcome.sign-up')}</Text>
         </TouchableOpacity>

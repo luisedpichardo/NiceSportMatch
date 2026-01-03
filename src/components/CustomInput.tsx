@@ -1,4 +1,12 @@
-import { View, Text, TextInput, StyleSheet } from 'react-native';
+import {
+  View,
+  Text,
+  TextInput,
+  StyleSheet,
+  useColorScheme,
+} from 'react-native';
+// Utils
+import { darkTheme, lightTheme } from '../utils/Colors';
 
 type SignUpInput = {
   title: string;
@@ -21,18 +29,25 @@ export const CustomInput = ({
   error,
   errorMessage,
 }: SignUpInput) => {
+  const colorScheme = useColorScheme();
+  const theme = colorScheme === 'dark' ? darkTheme : lightTheme;
+
   return (
     <View>
-      <Text style={{ color: 'green', fontWeight: 'bold' }}>{title}</Text>
+      <Text style={{ color: theme.primary, fontWeight: 'bold' }}>{title}</Text>
       <TextInput
         placeholder={placeholder}
         value={value}
         onChangeText={onChangeText}
-        style={styles.inputField}
+        style={[styles.inputField, { borderColor: theme.primary }]}
         secureTextEntry={secureTextEntry}
         keyboardType={keyboardType}
       />
-      {error && <Text style={styles.errorSty}>{errorMessage}</Text>}
+      {error && (
+        <Text style={[styles.errorSty, { color: theme.error }]}>
+          {errorMessage}
+        </Text>
+      )}
     </View>
   );
 };
@@ -40,12 +55,10 @@ export const CustomInput = ({
 const styles = StyleSheet.create({
   inputField: {
     borderBottomWidth: 2,
-    borderColor: 'green',
     padding: 10,
     marginVertical: 5,
   },
   errorSty: {
     fontSize: 10,
-    color: 'red',
   },
 });

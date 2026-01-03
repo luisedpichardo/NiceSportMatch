@@ -5,6 +5,7 @@ import {
   Alert,
   KeyboardAvoidingView,
   ScrollView,
+  useColorScheme,
 } from 'react-native';
 import { Formik } from 'formik';
 import { getAuth, signOut } from '@react-native-firebase/auth';
@@ -17,9 +18,14 @@ import { loginValidation } from '../schemas/LoginValidation';
 import { signInWithEmailAndPasswordService } from '../services/AuthService';
 import { analyticsService, types } from '../services/AnalyticsService';
 import { crashService, onLogInService } from '../services/CrashlyticsService';
+// Utils
+import { darkTheme, lightTheme } from '../utils/Colors';
 
 export const LoginForm = () => {
   const { t } = useTranslation();
+  const colorScheme = useColorScheme();
+  const theme = colorScheme === 'dark' ? darkTheme : lightTheme;
+
   const onLoginPressed = (email: string, password: string) => {
     signInWithEmailAndPasswordService(email, password)
       .then(() => {
@@ -72,10 +78,10 @@ export const LoginForm = () => {
               />
               <TouchableOpacity
                 onPress={handleSubmit}
-                style={styles.btn}
+                style={[styles.btn, { backgroundColor: theme.primary }]}
                 disabled={!isValid}
               >
-                <Text style={{ color: 'white', fontSize: 20 }}>
+                <Text style={{ color: theme.surface, fontSize: 20 }}>
                   {t('auth.log-in.login-form.log-in')}
                 </Text>
               </TouchableOpacity>
@@ -89,7 +95,6 @@ export const LoginForm = () => {
 
 const styles = StyleSheet.create({
   btn: {
-    backgroundColor: 'green',
     borderRadius: 25,
     paddingVertical: 15,
     paddingHorizontal: 20,
