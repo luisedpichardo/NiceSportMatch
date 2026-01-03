@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { View, StyleSheet, Alert } from 'react-native';
+import { View, StyleSheet, Alert, useColorScheme } from 'react-native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { getAuth } from '@react-native-firebase/auth';
 import { useTranslation } from 'react-i18next';
@@ -11,11 +11,15 @@ import { signOutService } from '../services/AuthService';
 // Types
 import { NavRoot } from '../navigation/types';
 import { analyticsService, types } from '../services/AnalyticsService';
+// Utils
+import { darkTheme, lightTheme } from '../utils/Colors';
 
 type Props = NativeStackScreenProps<NavRoot, 'Settings'>;
 
 export const Settings = ({ navigation }: Props) => {
   const { t } = useTranslation();
+  const colorScheme = useColorScheme();
+  const theme = colorScheme === 'dark' ? darkTheme : lightTheme;
 
   useEffect(() => {
     navigation.setOptions({
@@ -36,7 +40,7 @@ export const Settings = ({ navigation }: Props) => {
       <RightHdrBtn
         onPress={signOut}
         text={t('settings.log-out')}
-        color="black"
+        color={theme.textPrimary}
       />
     );
   };
@@ -55,7 +59,7 @@ export const Settings = ({ navigation }: Props) => {
   };
 
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, { backgroundColor: theme.secondary }]}>
       <View style={styles.settCont}>
         <SettingsOptions
           onPress={() => {
@@ -83,7 +87,6 @@ export const Settings = ({ navigation }: Props) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'lightgreen',
     paddingTop: '30%',
     paddingBottom: '30%',
   },

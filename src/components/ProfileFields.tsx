@@ -6,21 +6,25 @@ import {
   Text,
   TextInput,
   TouchableOpacity,
+  useColorScheme,
 } from 'react-native';
+import { useTranslation } from 'react-i18next';
 // Services
 import {
   getUserRefService,
   readFieldsToUpdateUserService,
 } from '../services/UserService';
+import { analyticsService, types } from '../services/AnalyticsService';
 // Stores
 import { useUserStore } from '../stores/userStore';
-import { useTranslation } from 'react-i18next';
-import { analyticsService, types } from '../services/AnalyticsService';
+// Utils
+import { darkTheme, lightTheme } from '../utils/Colors';
 
 export const ProfileFields = () => {
   const { t } = useTranslation();
-  // Get current username
   const username = useUserStore(state => state.username);
+  const colorScheme = useColorScheme();
+  const theme = colorScheme === 'dark' ? darkTheme : lightTheme;
   const [firstName, setFirstName] = useState('');
   const [newFirstName, setNewFirstName] = useState('');
   const [lastName, setLastName] = useState('');
@@ -67,30 +71,39 @@ export const ProfileFields = () => {
 
   return (
     <KeyboardAvoidingView style={{ flex: 1 }}>
-      <Text style={styles.txt}>{t('settings.profile.info.first-name')}</Text>
+      <Text style={[styles.txt, { color: theme.primary }]}>
+        {t('settings.profile.info.first-name')}
+      </Text>
       <TextInput
         placeholder={firstName}
         value={newFirstName}
         onChangeText={setNewFirstName}
-        style={styles.input}
+        style={[styles.input, { borderColor: theme.primary }]}
       />
-      <Text style={styles.txt}>{t('settings.profile.info.last-name')}</Text>
+      <Text style={[styles.txt, { color: theme.primary }]}>
+        {t('settings.profile.info.last-name')}
+      </Text>
       <TextInput
         placeholder={lastName}
         value={newLastName}
         onChangeText={setNewLastName}
-        style={styles.input}
+        style={[styles.input, { borderColor: theme.primary }]}
       />
-      <Text style={styles.txt}>{t('settings.profile.info.age')}</Text>
+      <Text style={[styles.txt, { color: theme.primary }]}>
+        {t('settings.profile.info.age')}
+      </Text>
       <TextInput
         placeholder={age}
         value={newAge}
         onChangeText={setNewAge}
         keyboardType="numeric"
-        style={styles.input}
+        style={[styles.input, { borderColor: theme.primary }]}
       />
 
-      <TouchableOpacity onPress={updateAccount} style={styles.btnStyle}>
+      <TouchableOpacity
+        onPress={updateAccount}
+        style={[styles.btnStyle, { backgroundColor: theme.surface }]}
+      >
         <Text style={{ fontWeight: 'bold' }}>
           {t('settings.profile.info.update')}
         </Text>
@@ -102,20 +115,16 @@ export const ProfileFields = () => {
 const styles = StyleSheet.create({
   input: {
     borderBottomWidth: 3,
-    borderColor: 'green',
     padding: 10,
     marginVertical: 5,
   },
   btnStyle: {
     alignSelf: 'flex-end',
-    backgroundColor: 'white',
-    color: 'black',
     paddingVertical: 10,
     paddingHorizontal: 20,
     borderRadius: 20,
   },
   txt: {
-    color: 'green',
     fontWeight: 'bold',
   },
 });

@@ -1,4 +1,11 @@
-import { TouchableOpacity, Text, StyleSheet } from 'react-native';
+import {
+  TouchableOpacity,
+  Text,
+  StyleSheet,
+  useColorScheme,
+} from 'react-native';
+// Utils
+import { darkTheme, lightTheme } from '../utils/Colors';
 
 type LangOpt = {
   onPress: any;
@@ -6,23 +13,27 @@ type LangOpt = {
 };
 
 export const LanguageOpt = ({ onPress, text }: LangOpt) => {
+  const colorScheme = useColorScheme();
+  const theme = colorScheme === 'dark' ? darkTheme : lightTheme;
+
   return (
-    <TouchableOpacity style={styles.flagBtn} onPress={onPress}>
-      <Text style={styles.text}>{text}</Text>
+    <TouchableOpacity
+      style={[styles.flagBtn, { backgroundColor: theme.transparent }]}
+      onPress={onPress}
+    >
+      <Text style={[styles.text, { color: theme.border }]}>{text}</Text>
     </TouchableOpacity>
   );
 };
 
 const styles = StyleSheet.create({
   flagBtn: {
-    backgroundColor: 'rgba(0, 0, 0, 0.5)',
     borderRadius: 25,
     margin: 10,
     paddingVertical: 20,
     alignItems: 'center',
   },
   text: {
-    color: 'white',
     fontSize: 20,
   },
 });

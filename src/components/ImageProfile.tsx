@@ -4,6 +4,7 @@ import {
   StyleSheet,
   Text,
   TouchableOpacity,
+  useColorScheme,
   View,
 } from 'react-native';
 import { useTranslation } from 'react-i18next';
@@ -11,6 +12,7 @@ import { useTranslation } from 'react-i18next';
 import { useProfileImage } from '../hooks/useProfileImage';
 // Service
 import { getUserRefService } from '../services/UserService';
+import { analyticsService, types } from '../services/AnalyticsService';
 // Stores
 import { useUserStore } from '../stores/userStore';
 // Utils
@@ -19,11 +21,13 @@ import {
   openCameraHelper,
   openLibraryHelper,
 } from '../utils/ImageHelpers';
-import { analyticsService, types } from '../services/AnalyticsService';
+import { darkTheme, lightTheme } from '../utils/Colors';
 
 export const ImageProfile = () => {
   const { t } = useTranslation();
   const username = useUserStore(state => state.username);
+  const colorScheme = useColorScheme();
+  const theme = colorScheme === 'dark' ? darkTheme : lightTheme;
   const { imageUri, setImageUri } = useProfileImage(username);
 
   const updateImage = async () => {
@@ -72,14 +76,27 @@ export const ImageProfile = () => {
         style={styles.imgStyle}
       />
       <View style={styles.btnsOpt}>
-        <TouchableOpacity onPress={openLibrary} style={styles.btn}>
-          <Text style={styles.btnTxt}>{t('settings.profile.img.choose')}</Text>
+        <TouchableOpacity
+          onPress={openLibrary}
+          style={[styles.btn, { backgroundColor: theme.primary }]}
+        >
+          <Text style={[styles.btnTxt, { color: theme.border }]}>
+            {t('settings.profile.img.choose')}
+          </Text>
         </TouchableOpacity>
-        <TouchableOpacity onPress={openCamera} style={styles.btn}>
-          <Text style={styles.btnTxt}>{t('settings.profile.img.take')}</Text>
+        <TouchableOpacity
+          onPress={openCamera}
+          style={[styles.btn, { backgroundColor: theme.primary }]}
+        >
+          <Text style={[styles.btnTxt, { color: theme.border }]}>
+            {t('settings.profile.img.take')}
+          </Text>
         </TouchableOpacity>
       </View>
-      <TouchableOpacity onPress={() => updateImage()} style={styles.btnConf}>
+      <TouchableOpacity
+        onPress={() => updateImage()}
+        style={[styles.btnConf, { backgroundColor: theme.surface }]}
+      >
         <Text style={{ fontWeight: 'bold' }}>
           {t('settings.profile.img.update')}
         </Text>
@@ -102,19 +119,15 @@ const styles = StyleSheet.create({
     marginVertical: 10,
   },
   btn: {
-    backgroundColor: 'green',
     paddingVertical: 8,
     paddingHorizontal: 15,
     borderRadius: 20,
   },
   btnTxt: {
     fontWeight: 'bold',
-    color: 'white',
   },
   btnConf: {
     alignSelf: 'center',
-    backgroundColor: 'white',
-    color: 'black',
     paddingVertical: 10,
     paddingHorizontal: 20,
     borderRadius: 20,

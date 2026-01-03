@@ -1,18 +1,23 @@
 import { useEffect } from 'react';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, useColorScheme, View } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 // Components
 import { LanguageOpt } from '../components/LanguageOpt';
+// Services
+import { analyticsService, types } from '../services/AnalyticsService';
 // Types
 import { NavRoot } from '../navigation/types';
-import { analyticsService, types } from '../services/AnalyticsService';
+// Utils
+import { darkTheme, lightTheme } from '../utils/Colors';
 
 type Props = NativeStackScreenProps<NavRoot, 'SelectLanguage'>;
 
 export const SelectLanguage = ({ navigation }: Props) => {
   const { i18n, t } = useTranslation();
+  const colorScheme = useColorScheme();
+  const theme = colorScheme === 'dark' ? darkTheme : lightTheme;
 
   useEffect(() => {
     navigation.setOptions({
@@ -28,7 +33,7 @@ export const SelectLanguage = ({ navigation }: Props) => {
   };
 
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, { backgroundColor: theme.secondary }]}>
       <View style={styles.langOpt}>
         <LanguageOpt
           onPress={() => {
@@ -58,7 +63,6 @@ export const SelectLanguage = ({ navigation }: Props) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'lightgreen',
     paddingTop: '30%',
     paddingBottom: '30%',
   },
