@@ -1,4 +1,5 @@
-import { StyleSheet, View } from 'react-native';
+import { useEffect } from 'react';
+import { StyleSheet, useColorScheme, View } from 'react-native';
 import { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
 import { CompositeScreenProps } from '@react-navigation/native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
@@ -6,7 +7,8 @@ import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { Maps } from '../components/Maps';
 // Types
 import { NavHomeTab, NavRoot } from '../navigation/types';
-import { useEffect } from 'react';
+// Utils
+import { darkTheme, lightTheme } from '../utils/Colors';
 
 type Props = CompositeScreenProps<
   BottomTabScreenProps<NavHomeTab, 'Map'>,
@@ -14,14 +16,16 @@ type Props = CompositeScreenProps<
 >;
 
 export const Main = ({ navigation }: Props) => {
+  const colorScheme = useColorScheme();
+  const theme = colorScheme === 'dark' ? darkTheme : lightTheme;
 
   // useEffect(() => {
-  // // Error handling to show Error Display 
+  // // Error handling to show Error Display
   //   throw new Error('Error');
   // });
 
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, { backgroundColor: theme.secondary }]}>
       <Maps />
     </View>
   );
@@ -30,6 +34,5 @@ export const Main = ({ navigation }: Props) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'lightgreen',
   },
 });
