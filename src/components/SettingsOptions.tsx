@@ -1,4 +1,8 @@
 import { StyleSheet, Text, TouchableOpacity } from 'react-native';
+// Stores
+import { useStore } from '../stores/userStore';
+// Utils
+import { darkTheme, lightTheme } from '../utils/Colors';
 
 type Props = {
   onPress: any;
@@ -6,9 +10,15 @@ type Props = {
 };
 
 export const SettingsOptions = ({ onPress, text }: Props) => {
+  const colorScheme = useStore(state => state.theme);
+  const theme = colorScheme === 'dark' ? darkTheme : lightTheme;
+
   return (
-    <TouchableOpacity style={styles.btn} onPress={onPress}>
-      <Text style={styles.txt}>{text}</Text>
+    <TouchableOpacity
+      style={{ ...styles.btn, backgroundColor: theme.transparent }}
+      onPress={onPress}
+    >
+      <Text style={{ ...styles.txt, color: theme.border }}>{text}</Text>
     </TouchableOpacity>
   );
 };
@@ -16,13 +26,11 @@ export const SettingsOptions = ({ onPress, text }: Props) => {
 const styles = StyleSheet.create({
   btn: {
     alignItems: 'center',
-    backgroundColor: 'rgba(0, 0, 0, 0.5)',
     borderRadius: 20,
     paddingVertical: 25,
     marginVertical: 10,
   },
   txt: {
     fontSize: 25,
-    color: 'white',
   },
 });

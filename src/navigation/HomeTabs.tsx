@@ -15,10 +15,17 @@ import { MatchSatck } from './MatchStack';
 import { MessageStack } from './MessageStack';
 // Screens
 import { Main } from '../screens/Main';
+// Stores
+import { useStore } from '../stores/userStore';
 // Types
 import { NavHomeTab } from './types';
+// Utils
+import { darkTheme, lightTheme } from '../utils/Colors';
 
 const TabHome = createBottomTabNavigator<NavHomeTab>();
+
+const colorScheme = useStore(state => state.theme);
+const theme = colorScheme === 'dark' ? darkTheme : lightTheme;
 
 function tabIcon(focused: boolean, uri: ImageSourcePropType) {
   return (
@@ -27,7 +34,7 @@ function tabIcon(focused: boolean, uri: ImageSourcePropType) {
       style={{
         width: 35,
         height: 35,
-        tintColor: focused ? 'green' : 'gray',
+        tintColor: focused ? theme.primary : theme.iconSecondary,
       }}
     />
   );
@@ -42,11 +49,19 @@ const MapTabButton = (props: Props) => {
       style={({ pressed }) => [
         styles.custBtn,
         styles.shadow,
+        { shadowColor: theme.cardShadow },
         pressed && { transform: [{ scale: 0.8 }] },
-        { backgroundColor: props['aria-selected'] ? 'green' : 'gray' },
+        {
+          backgroundColor: props['aria-selected']
+            ? theme.primary
+            : theme.iconSecondary,
+        },
       ]}
     >
-      <Image source={require('../../assets/map.png')} style={styles.custImg} />
+      <Image
+        source={require('../../assets/map.png')}
+        style={{ ...styles.custImg, tintColor: theme.surface }}
+      />
     </Pressable>
   );
 };
@@ -56,9 +71,13 @@ export function HomeTabs() {
   return (
     <TabHome.Navigator
       screenOptions={{
-        tabBarActiveTintColor: 'green',
+        tabBarActiveTintColor: theme.primary,
         headerShown: false,
-        tabBarStyle: { ...styles.bottomTab, ...styles.shadow },
+        tabBarStyle: {
+          ...styles.bottomTab,
+          ...styles.shadow,
+          shadowColor: theme.cardShadow,
+        },
         tabBarLabelStyle: styles.labelStyle,
       }}
       initialRouteName="Map"
@@ -75,7 +94,11 @@ export function HomeTabs() {
               tabIcon(focused, require('../../assets/trophy.png')),
             tabBarStyle:
               routeName === 'Matches'
-                ? { ...styles.bottomTab, ...styles.shadow }
+                ? {
+                    ...styles.bottomTab,
+                    ...styles.shadow,
+                    shadowColor: theme.cardShadow,
+                  }
                 : { display: 'none' },
           };
         }}
@@ -100,7 +123,11 @@ export function HomeTabs() {
               tabIcon(focused, require('../../assets/message-circle.png')),
             tabBarStyle:
               routeName === 'Messages'
-                ? { ...styles.bottomTab, ...styles.shadow }
+                ? {
+                    ...styles.bottomTab,
+                    ...styles.shadow,
+                    shadowColor: theme.cardShadow,
+                  }
                 : { display: 'none' },
           };
         }}
@@ -116,13 +143,11 @@ const styles = StyleSheet.create({
     marginHorizontal: '10%',
     paddingTop: 10,
     marginVertical: '2%',
-    backgroundColor: 'white',
     borderRadius: 20,
     bottom: 20,
     height: 80,
   },
   shadow: {
-    shadowColor: 'black',
     shadowOffset: {
       width: 5,
       height: 10,
@@ -142,13 +167,11 @@ const styles = StyleSheet.create({
     width: 90,
     height: 90,
     borderRadius: 45,
-    backgroundColor: 'gray',
     alignSelf: 'center',
   },
   custImg: {
     width: 35,
     height: 35,
-    tintColor: 'white',
     alignSelf: 'center',
   },
 });

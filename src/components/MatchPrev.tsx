@@ -5,6 +5,8 @@ import { RigthSMatchPrev } from './RightSMatchPrev';
 import { LeftSMatchPrev } from './LeftSMatchPrev';
 // Stores
 import { useStore } from '../stores/userStore';
+// Utils
+import { darkTheme, lightTheme } from '../utils/Colors';
 
 type Match = {
   match: any;
@@ -12,9 +14,17 @@ type Match = {
 
 export const MatchPrev = ({ match }: Match) => {
   const username = useStore(state => state.username);
+  const colorScheme = useStore(state => state.theme);
+  const theme = colorScheme === 'dark' ? darkTheme : lightTheme;
 
   return (
-    <View style={styles.container}>
+    <View
+      style={{
+        ...styles.container,
+        shadowColor: theme.cardShadow,
+        backgroundColor: theme.surface,
+      }}
+    >
       <View style={styles.matchInfo}>
         <LeftSMatchPrev publisher={match.publisher} status={match.status} />
         <RigthSMatchPrev day={match.day} time={match.time} />
@@ -30,13 +40,11 @@ export const MatchPrev = ({ match }: Match) => {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: 'rgba(255, 255, 255, 1)',
     padding: 10,
     paddingVertical: 15,
     marginHorizontal: 20,
     marginVertical: 10,
     borderRadius: 20,
-    shadowColor: 'black',
     shadowOffset: {
       width: 5,
       height: 10,

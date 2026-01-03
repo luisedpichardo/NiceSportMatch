@@ -4,38 +4,10 @@ import { TabBar, TabView } from 'react-native-tab-view';
 // Screens
 import { MyMatches } from '../screens/MyMatches';
 import { OtherMatches } from '../screens/OtherMatches';
-
-const renderScene = ({ route }: any) => {
-  console.log(route);
-  switch (route.key) {
-    case 'my':
-      return (
-        <View style={styles.page}>
-          <MyMatches />
-        </View>
-      );
-    case 'other':
-      return (
-        <View style={styles.page}>
-          <OtherMatches />
-        </View>
-      );
-    default:
-      return null;
-  }
-};
-
-const renderTabBar = (props: any) => {
-  return (
-    <TabBar
-      {...props}
-      indicatorStyle={{ backgroundColor: 'green' }}
-      activeColor={'black'}
-      inactiveColor={'green'}
-      style={styles.tabSty}
-    />
-  );
-};
+// Stores
+import { useStore } from '../stores/userStore';
+// Utils
+import { darkTheme, lightTheme } from '../utils/Colors';
 
 const routes = [
   { key: 'my', title: 'My Matches' },
@@ -44,7 +16,40 @@ const routes = [
 
 export function MatchesTab() {
   const layout = useWindowDimensions();
+  const colorScheme = useStore(state => state.theme);
+  const theme = colorScheme === 'dark' ? darkTheme : lightTheme;
   const [index, setIndex] = useState(0);
+
+  const renderScene = ({ route }: any) => {
+    switch (route.key) {
+      case 'my':
+        return (
+          <View style={{ ...styles.page, backgroundColor: theme.secondary }}>
+            <MyMatches />
+          </View>
+        );
+      case 'other':
+        return (
+          <View style={{ ...styles.page, backgroundColor: theme.secondary }}>
+            <OtherMatches />
+          </View>
+        );
+      default:
+        return null;
+    }
+  };
+
+  const renderTabBar = (props: any) => {
+    return (
+      <TabBar
+        {...props}
+        indicatorStyle={{ backgroundColor: theme.primary }}
+        activeColor={theme.textPrimary}
+        inactiveColor={theme.primary}
+        style={{ ...styles.tabSty, backgroundColor: theme.secondary }}
+      />
+    );
+  };
 
   return (
     <TabView
@@ -60,10 +65,8 @@ export function MatchesTab() {
 const styles = StyleSheet.create({
   page: {
     flex: 1,
-    backgroundColor: 'lightgreen',
   },
   tabSty: {
-    backgroundColor: 'lightgreen',
     paddingTop: '30%',
   },
 });

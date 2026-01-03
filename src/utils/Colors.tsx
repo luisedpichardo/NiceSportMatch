@@ -8,6 +8,8 @@ export const lightTheme = {
   border: '#E2E8F0', // white text
   error: '#BA1A1A', // red
   cardShadow: '#000000', // black
+  iconPrimary: '#008000', // icon green
+  iconSecondary: '#808080', // icon gray
   transparent: 'rgba(0, 0, 0, 0.5)', // transparent black
   bubble: '#808080', // their chat
   ownBubble: '#FFFFFF', // own chat
@@ -30,4 +32,6 @@ export const darkTheme = {
   ownBubble: '#008000',
   chatText: '#E1E3DF',
   ownChatText: '#FFFFFF',
+  iconPrimary: '#2ECC71',
+  iconSecondary: '#2A3B2F',
 };

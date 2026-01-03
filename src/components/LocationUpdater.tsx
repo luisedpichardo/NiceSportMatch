@@ -2,6 +2,10 @@ import { forwardRef, useImperativeHandle, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { StyleSheet, Text, TouchableOpacity } from 'react-native';
 import MapView, { Marker, MapPressEvent } from 'react-native-maps';
+// Store
+import { useStore } from '../stores/userStore';
+// Utils
+import { darkTheme, lightTheme } from '../utils/Colors';
 
 export type MapLocationUpdaterRef = {
   getLocation: () => any;
@@ -15,6 +19,8 @@ type Props = {
 export const LocationUpdater = forwardRef<MapLocationUpdaterRef, Props>(
   (props, ref) => {
     const { t } = useTranslation();
+    const colorScheme = useStore(state => state.theme);
+    const theme = colorScheme === 'dark' ? darkTheme : lightTheme;
     const [location, setLocation] = useState<{
       latitude: number;
       longitude: number;
@@ -49,7 +55,7 @@ export const LocationUpdater = forwardRef<MapLocationUpdaterRef, Props>(
               latitude: props.initialLoc.lat,
               longitude: props.initialLoc.long,
             }}
-            pinColor="green"
+            pinColor={theme.primary}
           />
           {location && (
             <Marker
@@ -61,8 +67,11 @@ export const LocationUpdater = forwardRef<MapLocationUpdaterRef, Props>(
             />
           )}
         </MapView>
-        <TouchableOpacity style={styles.btn} onPress={() => setLocation(null)}>
-          <Text style={styles.btnTxt}>
+        <TouchableOpacity
+          style={{ ...styles.btn, backgroundColor: theme.primary }}
+          onPress={() => setLocation(null)}
+        >
+          <Text style={{ ...styles.btnTxt, color: theme.border }}>
             {t('home-tabs.match-stack.update.form.map.remove')}
           </Text>
         </TouchableOpacity>
@@ -73,7 +82,6 @@ export const LocationUpdater = forwardRef<MapLocationUpdaterRef, Props>(
 
 const styles = StyleSheet.create({
   btn: {
-    backgroundColor: 'green',
     borderRadius: 20,
     paddingVertical: 5,
     paddingHorizontal: 20,
@@ -81,7 +89,6 @@ const styles = StyleSheet.create({
     alignSelf: 'flex-end',
   },
   btnTxt: {
-    color: 'white',
     fontWeight: 'bold',
   },
 });

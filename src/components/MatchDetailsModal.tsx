@@ -17,6 +17,8 @@ import {
 } from '../services/UserService';
 // Stores
 import { useStore } from '../stores/userStore';
+// Utils
+import { darkTheme, lightTheme } from '../utils/Colors';
 
 type MatchDetailsModalProps = {
   modalVisible: any;
@@ -31,6 +33,8 @@ export const MatchDetailsModal = ({
 }: MatchDetailsModalProps) => {
   const { t } = useTranslation();
   const username = useStore(state => state.username);
+  const colorScheme = useStore(state => state.theme);
+  const theme = colorScheme === 'dark' ? darkTheme : lightTheme;
   const [matchesIDs, setMatchesIDs] = useState<string[]>([]);
 
   useEffect(() => {
@@ -69,8 +73,13 @@ export const MatchDetailsModal = ({
 
   return (
     <Modal animationType="slide" transparent={true} visible={modalVisible}>
-      <View style={styles.centeredView}>
-        <View style={styles.modalView}>
+      <View
+        style={{
+          ...styles.centeredView,
+          backgroundColor: theme.transparent,
+        }}
+      >
+        <View style={{ ...styles.modalView, backgroundColor: theme.surface }}>
           {username === match.publisher ? (
             <Text style={styles.modalText}>
               {t('home-tabs.map.modal.publisher')}:{' '}
@@ -93,20 +102,25 @@ export const MatchDetailsModal = ({
                 <Text>{t('home-tabs.map.modal.info')}</Text>
               ) : (
                 <TouchableOpacity
-                  style={styles.button}
+                  style={{ ...styles.button, backgroundColor: theme.primary }}
                   onPress={() => addIDToMatches()}
                 >
-                  <Text style={styles.textStyle}>
+                  <Text style={{ ...styles.textStyle, color: theme.border }}>
                     {t('home-tabs.map.modal.add')}
                   </Text>
                 </TouchableOpacity>
               )}
 
               <TouchableOpacity
-                style={[styles.button, styles.buttonClose]}
+                style={{
+                  ...styles.button,
+                  ...styles.buttonClose,
+                  borderColor: theme.primary,
+                  backgroundColor: theme.surface,
+                }}
                 onPress={() => setModalVisible(!modalVisible)}
               >
-                <Text style={{ ...styles.textStyle, color: 'black' }}>
+                <Text style={{ ...styles.textStyle, color: theme.textPrimary }}>
                   {t('home-tabs.map.modal.close')}
                 </Text>
               </TouchableOpacity>
@@ -124,12 +138,10 @@ const styles = StyleSheet.create({
   centeredView: {
     flex: 1,
     justifyContent: 'center',
-    backgroundColor: 'rgba(0, 0, 0, 0.5)',
   },
   modalView: {
     alignItems: 'center',
     margin: 20,
-    backgroundColor: 'white',
     borderRadius: 20,
     padding: 35,
   },
@@ -143,15 +155,11 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     elevation: 2,
     marginVertical: 5,
-    backgroundColor: 'green',
   },
   buttonClose: {
-    backgroundColor: 'white',
     borderWidth: 2,
-    borderColor: 'green',
   },
   textStyle: {
-    color: 'white',
     fontWeight: 'bold',
     textAlign: 'center',
   },

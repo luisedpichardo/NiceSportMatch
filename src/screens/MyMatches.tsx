@@ -6,24 +6,19 @@ import {
   View,
 } from 'react-native';
 import { useTranslation } from 'react-i18next';
-import { CompositeScreenProps, useNavigation } from '@react-navigation/native';
-import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
+import { useNavigation } from '@react-navigation/native';
 // Components
 import { NoMatches } from '../components/NoMatches';
 import { Loading } from '../components/Loading';
 import { MatchPrev } from '../components/MatchPrev';
 // Hooks
 import { useMyMatches } from '../hooks/useMyMatches';
-// Navigation
-import { MatchNavStack, NavHomeTab } from '../navigation/types';
 // Services
 import { analyticsService, types } from '../services/AnalyticsService';
-
-type Props = CompositeScreenProps<
-  NativeStackScreenProps<MatchNavStack, 'Matches'>,
-  BottomTabScreenProps<NavHomeTab>
->;
+// Stores
+import { useStore } from '../stores/userStore';
+// Utils
+import { darkTheme, lightTheme } from '../utils/Colors';
 
 function showMathes(matches: any) {
   return (
@@ -39,6 +34,8 @@ function showMathes(matches: any) {
 
 export const MyMatches = () => {
   const { t } = useTranslation();
+  const colorScheme = useStore(state => state.theme);
+  const theme = colorScheme === 'dark' ? darkTheme : lightTheme;
   const navigation = useNavigation();
   const { myMatches, loading } = useMyMatches();
   return (
@@ -61,9 +58,13 @@ export const MyMatches = () => {
           analyticsService(types.BUTTON, 'User Attemps to create a match');
           navigation.navigate('CreateMatch');
         }}
-        style={styles.btn}
+        style={{
+          ...styles.btn,
+          shadowColor: theme.cardShadow,
+          backgroundColor: theme.primary,
+        }}
       >
-        <Text style={styles.btnTxt}>
+        <Text style={{ ...styles.btnTxt, color: theme.border }}>
           {t('home-tabs.match-stack.matches.btn-txt')}
         </Text>
       </TouchableOpacity>
@@ -75,17 +76,14 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
-    backgroundColor: 'rgba(0,0,0,0)',
   },
   btn: {
     position: 'absolute',
     bottom: 160,
     padding: 10,
     paddingHorizontal: 30,
-    backgroundColor: 'green',
     alignSelf: 'center',
     borderRadius: 10,
-    shadowColor: 'black',
     shadowOffset: {
       width: 3,
       height: 5,
@@ -95,7 +93,6 @@ const styles = StyleSheet.create({
     elevation: 10,
   },
   btnTxt: {
-    color: 'white',
     fontWeight: 'bold',
   },
   matchesContatiner: {
