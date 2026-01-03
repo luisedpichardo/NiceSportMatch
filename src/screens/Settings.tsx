@@ -6,6 +6,7 @@ import { useTranslation } from 'react-i18next';
 // Components
 import { SettingsOptions } from '../components/SettingsOptions';
 import { RightHdrBtn } from '../components/RightHdrBtn';
+import { SwitchSettingsOpt } from '../components/SwitchSettingsOpt';
 // Services
 import { signOutService } from '../services/AuthService';
 // Stores
@@ -77,10 +78,7 @@ export const Settings = ({ navigation }: Props) => {
           }}
           text={t('settings.select-lang')}
         />
-        <SettingsOptions
-          onPress={() => console.log('going to theme')}
-          text={t('settings.select-theme')}
-        />
+        <SwitchSettingsOpt />
       </View>
     </View>
   );
