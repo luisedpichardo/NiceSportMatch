@@ -8,7 +8,6 @@ import {
   KeyboardAvoidingView,
   Platform,
   ScrollView,
-  useColorScheme,
 } from 'react-native';
 import { useTranslation } from 'react-i18next';
 // Components
@@ -16,6 +15,8 @@ import { LocationUpdater, MapLocationUpdaterRef } from './LocationUpdater';
 // Services
 import { updateMatchService } from '../services/MatchService';
 import { darkTheme, lightTheme } from '../utils/Colors';
+// Stores
+import { useStore } from '../stores/userStore';
 
 type Props = {
   match: any;
@@ -24,7 +25,7 @@ type Props = {
 
 export const UpdateMatchForm = ({ match, navigation }: Props) => {
   const { t } = useTranslation();
-  const colorScheme = useColorScheme();
+  const colorScheme = useStore(state => state.theme);
   const theme = colorScheme === 'dark' ? darkTheme : lightTheme;
   const [newDay, setNewDay] = useState('');
   const [newTime, setNewTime] = useState('');

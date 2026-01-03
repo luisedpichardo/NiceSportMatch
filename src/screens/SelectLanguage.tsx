@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { StyleSheet, useColorScheme, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -7,6 +7,8 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { LanguageOpt } from '../components/LanguageOpt';
 // Services
 import { analyticsService, types } from '../services/AnalyticsService';
+// Stores
+import { useStore } from '../stores/userStore';
 // Types
 import { NavRoot } from '../navigation/types';
 // Utils
@@ -16,7 +18,7 @@ type Props = NativeStackScreenProps<NavRoot, 'SelectLanguage'>;
 
 export const SelectLanguage = ({ navigation }: Props) => {
   const { i18n, t } = useTranslation();
-  const colorScheme = useColorScheme();
+  const colorScheme = useStore(state => state.theme);
   const theme = colorScheme === 'dark' ? darkTheme : lightTheme;
 
   useEffect(() => {

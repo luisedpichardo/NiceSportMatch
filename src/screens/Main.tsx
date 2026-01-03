@@ -1,10 +1,12 @@
 import { useEffect } from 'react';
-import { StyleSheet, useColorScheme, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
 import { CompositeScreenProps } from '@react-navigation/native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 // Components
 import { Maps } from '../components/Maps';
+// Stores
+import { useStore } from '../stores/userStore';
 // Types
 import { NavHomeTab, NavRoot } from '../navigation/types';
 // Utils
@@ -16,7 +18,7 @@ type Props = CompositeScreenProps<
 >;
 
 export const Main = ({ navigation }: Props) => {
-  const colorScheme = useColorScheme();
+  const colorScheme = useStore(state => state.theme);
   const theme = colorScheme === 'dark' ? darkTheme : lightTheme;
 
   // useEffect(() => {

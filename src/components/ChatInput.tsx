@@ -5,7 +5,6 @@ import {
   Text,
   TextInput,
   TouchableOpacity,
-  useColorScheme,
   View,
 } from 'react-native';
 import { useTranslation } from 'react-i18next';
@@ -23,7 +22,7 @@ type Props = {
 export const ChatInput = ({ receiver }: Props) => {
   const { t } = useTranslation();
   const username = useStore(state => state.username);
-  const colorScheme = useColorScheme();
+  const colorScheme = useStore(state => state.theme);
   const theme = colorScheme === 'dark' ? darkTheme : lightTheme;
   const [message, setMessage] = useState('');
 

@@ -7,7 +7,6 @@ import {
   Alert,
   KeyboardAvoidingView,
   Platform,
-  useColorScheme,
 } from 'react-native';
 import { Formik } from 'formik';
 import { useTranslation } from 'react-i18next';
@@ -30,7 +29,7 @@ type Props = {
 export const CreateMatchForm = ({ navigation }: Props) => {
   const { t } = useTranslation();
   const username = useStore(state => state.username);
-  const colorScheme = useColorScheme();
+  const colorScheme = useStore(state => state.theme);
   const theme = colorScheme === 'dark' ? darkTheme : lightTheme;
   const [validating, setValidating] = useState(false);
   const mapRef = useRef<MapLocationPickerRef>(null);

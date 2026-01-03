@@ -1,10 +1,5 @@
 import { useEffect } from 'react';
-import {
-  KeyboardAvoidingView,
-  StyleSheet,
-  useColorScheme,
-  View,
-} from 'react-native';
+import { KeyboardAvoidingView, StyleSheet, View } from 'react-native';
 import { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
 import { CompositeScreenProps } from '@react-navigation/native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
@@ -16,6 +11,8 @@ import { UserChat } from '../components/UserChat';
 import { useChatMessages } from '../hooks/useChatMessages';
 // Navigation Types
 import { ChatNavStack, NavHomeTab } from '../navigation/types';
+// Stores
+import { useStore } from '../stores/userStore';
 // Utils
 import { darkTheme, lightTheme } from '../utils/Colors';
 
@@ -25,7 +22,7 @@ type Props = CompositeScreenProps<
 >;
 
 export const Chat = ({ navigation, route }: Props) => {
-  const colorScheme = useColorScheme();
+  const colorScheme = useStore(state => state.theme);
   const theme = colorScheme === 'dark' ? darkTheme : lightTheme;
   const someone: string = route.params?.someone;
   const { messages, loading } = useChatMessages(someone);

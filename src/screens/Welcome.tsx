@@ -1,10 +1,4 @@
-import {
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  useColorScheme,
-  View,
-} from 'react-native';
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { useTranslation } from 'react-i18next';
 // Components
@@ -12,6 +6,8 @@ import { Background } from '../components/Background';
 import { WelcomeImg } from '../components/WelcomeImg';
 // Services
 import { analyticsService, types } from '../services/AnalyticsService';
+// Stores
+import { useStore } from '../stores/userStore';
 // Types
 import { NavAuthStack } from '../navigation/types';
 // Utils
@@ -21,7 +17,7 @@ type Props = NativeStackScreenProps<NavAuthStack, 'Welcome'>;
 
 export const Welcome = ({ navigation }: Props) => {
   const { t } = useTranslation();
-  const colorScheme = useColorScheme();
+  const colorScheme = useStore(state => state.theme);
   const theme = colorScheme === 'dark' ? darkTheme : lightTheme;
 
   return (

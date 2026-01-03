@@ -1,9 +1,11 @@
-import { View, Text, StyleSheet, useColorScheme } from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { useTranslation } from 'react-i18next';
 // Components
 import { Background } from '../components/Background';
 import { SignUpForm } from '../components/SignUpForm';
+// Stores
+import { useStore } from '../stores/userStore';
 // Types
 import { NavAuthStack } from '../navigation/types';
 // Utils
@@ -13,7 +15,7 @@ type Props = NativeStackScreenProps<NavAuthStack, 'SignUp'>;
 
 export const SignUp = ({ navigation }: Props) => {
   const { t } = useTranslation();
-  const colorScheme = useColorScheme();
+  const colorScheme = useStore(state => state.theme);
   const theme = colorScheme === 'dark' ? darkTheme : lightTheme;
 
   return (

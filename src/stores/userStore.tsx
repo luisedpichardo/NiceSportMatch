@@ -2,7 +2,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { create } from 'zustand';
 import { persist, createJSONStorage } from 'zustand/middleware';
 
-type UserState = {
+type storeState = {
   user: any;
   username: string | null;
   theme: string;
@@ -11,7 +11,7 @@ type UserState = {
   setTheme: (theme: string) => void;
 };
 
-export const useStore = create<UserState>()(
+export const useStore = create<storeState>()(
   persist(
     (set, get) => ({
       user: null,

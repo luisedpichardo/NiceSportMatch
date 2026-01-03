@@ -5,7 +5,6 @@ import {
   Alert,
   KeyboardAvoidingView,
   ScrollView,
-  useColorScheme,
 } from 'react-native';
 import { Formik } from 'formik';
 import { getAuth, signOut } from '@react-native-firebase/auth';
@@ -18,12 +17,14 @@ import { loginValidation } from '../schemas/LoginValidation';
 import { signInWithEmailAndPasswordService } from '../services/AuthService';
 import { analyticsService, types } from '../services/AnalyticsService';
 import { crashService, onLogInService } from '../services/CrashlyticsService';
+// Stores
+import { useStore } from '../stores/userStore';
 // Utils
 import { darkTheme, lightTheme } from '../utils/Colors';
 
 export const LoginForm = () => {
   const { t } = useTranslation();
-  const colorScheme = useColorScheme();
+  const colorScheme = useStore(state => state.theme);
   const theme = colorScheme === 'dark' ? darkTheme : lightTheme;
 
   const onLoginPressed = (email: string, password: string) => {

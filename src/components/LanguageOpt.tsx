@@ -1,9 +1,6 @@
-import {
-  TouchableOpacity,
-  Text,
-  StyleSheet,
-  useColorScheme,
-} from 'react-native';
+import { TouchableOpacity, Text, StyleSheet } from 'react-native';
+// Stores
+import { useStore } from '../stores/userStore';
 // Utils
 import { darkTheme, lightTheme } from '../utils/Colors';
 
@@ -13,7 +10,7 @@ type LangOpt = {
 };
 
 export const LanguageOpt = ({ onPress, text }: LangOpt) => {
-  const colorScheme = useColorScheme();
+  const colorScheme = useStore(state => state.theme);
   const theme = colorScheme === 'dark' ? darkTheme : lightTheme;
 
   return (

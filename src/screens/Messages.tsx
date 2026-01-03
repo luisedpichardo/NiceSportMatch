@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { FlatList, StyleSheet, useColorScheme, View } from 'react-native';
+import { FlatList, StyleSheet, View } from 'react-native';
 import { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
 import { CompositeScreenProps } from '@react-navigation/native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
@@ -11,6 +11,8 @@ import { NoChats } from '../components/NoChats';
 import { Loading } from '../components/Loading';
 // Hooks
 import { useUserChats } from '../hooks/useUserChats';
+// Stores
+import { useStore } from '../stores/userStore';
 // Types
 import { ChatNavStack, NavHomeTab } from '../navigation/types';
 // Utils
@@ -23,7 +25,7 @@ type Props = CompositeScreenProps<
 
 export const Messages = ({ navigation, route }: Props) => {
   const { t } = useTranslation();
-  const colorScheme = useColorScheme();
+  const colorScheme = useStore(state => state.theme);
   const theme = colorScheme === 'dark' ? darkTheme : lightTheme;
   const [visibleModal, setVisibleModal] = useState(false);
   const someone = route.params?.someone;

@@ -6,7 +6,6 @@
  */
 
 import { useEffect } from 'react';
-import { StatusBar, useColorScheme } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { NavigationContainer } from '@react-navigation/native';
 import { getAuth, onAuthStateChanged } from '@react-native-firebase/auth';
@@ -24,8 +23,6 @@ import {
 import { ErrorBoundary } from './src/screens/ErrorBoundary';
 
 function App() {
-  const isDarkMode = useColorScheme() !== 'dark';
-
   useEffect(() => {
     const subscriber = onAuthStateChanged(getAuth(), user => {
       if (user) {
@@ -44,7 +41,6 @@ function App() {
 
   return (
     <SafeAreaProvider>
-      <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
       <ErrorBoundary>
         <NavigationContainer>
           <Navigation />

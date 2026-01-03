@@ -4,13 +4,14 @@ import {
   StyleSheet,
   Text,
   TouchableOpacity,
-  useColorScheme,
   View,
 } from 'react-native';
 import { useTranslation } from 'react-i18next';
 // Hooks
 import { useLastChatMessage } from '../hooks/useLastChatMessage';
 import { useProfileImage } from '../hooks/useProfileImage';
+// Store
+import { useStore } from '../stores/userStore';
 // Utils
 import { darkTheme, lightTheme } from '../utils/Colors';
 
@@ -21,7 +22,7 @@ type Props = {
 
 export const ChatPrev = ({ sender, navigation }: Props) => {
   const { t } = useTranslation();
-  const colorScheme = useColorScheme();
+  const colorScheme = useStore(state => state.theme);
   const theme = colorScheme === 'dark' ? darkTheme : lightTheme;
   const { lastMessage, loading } = useLastChatMessage(sender);
   const { imageUri } = useProfileImage(sender);

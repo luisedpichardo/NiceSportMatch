@@ -6,7 +6,6 @@ import {
   Text,
   TextInput,
   TouchableOpacity,
-  useColorScheme,
 } from 'react-native';
 import { useTranslation } from 'react-i18next';
 // Services
@@ -23,7 +22,7 @@ import { darkTheme, lightTheme } from '../utils/Colors';
 export const ProfileFields = () => {
   const { t } = useTranslation();
   const username = useStore(state => state.username);
-  const colorScheme = useColorScheme();
+  const colorScheme = useStore(state => state.theme);
   const theme = colorScheme === 'dark' ? darkTheme : lightTheme;
   const [firstName, setFirstName] = useState('');
   const [newFirstName, setNewFirstName] = useState('');

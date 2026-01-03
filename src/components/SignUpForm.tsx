@@ -5,7 +5,6 @@ import {
   Alert,
   KeyboardAvoidingView,
   ScrollView,
-  useColorScheme,
 } from 'react-native';
 import { Formik } from 'formik';
 import { useTranslation } from 'react-i18next';
@@ -17,12 +16,14 @@ import { signUpValidation } from '../schemas/SignUpValidation';
 import { createUserWithEmailAndPasswordService } from '../services/AuthService';
 import { analyticsService, types } from '../services/AnalyticsService';
 import { crashService, onSignUpService } from '../services/CrashlyticsService';
+// Stores
+import { useStore } from '../stores/userStore';
 // Utils
 import { darkTheme, lightTheme } from '../utils/Colors';
 
 export const SignUpForm = () => {
   const { t } = useTranslation();
-  const colorScheme = useColorScheme();
+  const colorScheme = useStore(state => state.theme);
   const theme = colorScheme === 'dark' ? darkTheme : lightTheme;
 
   const onSignUpPressed = (

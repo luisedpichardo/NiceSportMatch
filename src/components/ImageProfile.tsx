@@ -4,7 +4,6 @@ import {
   StyleSheet,
   Text,
   TouchableOpacity,
-  useColorScheme,
   View,
 } from 'react-native';
 import { useTranslation } from 'react-i18next';
@@ -26,7 +25,7 @@ import { darkTheme, lightTheme } from '../utils/Colors';
 export const ImageProfile = () => {
   const { t } = useTranslation();
   const username = useStore(state => state.username);
-  const colorScheme = useColorScheme();
+  const colorScheme = useStore(state => state.theme);
   const theme = colorScheme === 'dark' ? darkTheme : lightTheme;
   const { imageUri, setImageUri } = useProfileImage(username);
 

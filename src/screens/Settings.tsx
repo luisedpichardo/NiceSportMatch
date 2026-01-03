@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { View, StyleSheet, Alert, useColorScheme } from 'react-native';
+import { View, StyleSheet, Alert } from 'react-native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { getAuth } from '@react-native-firebase/auth';
 import { useTranslation } from 'react-i18next';
@@ -8,6 +8,8 @@ import { SettingsOptions } from '../components/SettingsOptions';
 import { RightHdrBtn } from '../components/RightHdrBtn';
 // Services
 import { signOutService } from '../services/AuthService';
+// Stores
+import { useStore } from '../stores/userStore';
 // Types
 import { NavRoot } from '../navigation/types';
 import { analyticsService, types } from '../services/AnalyticsService';
@@ -18,7 +20,7 @@ type Props = NativeStackScreenProps<NavRoot, 'Settings'>;
 
 export const Settings = ({ navigation }: Props) => {
   const { t } = useTranslation();
-  const colorScheme = useColorScheme();
+  const colorScheme = useStore(state => state.theme);
   const theme = colorScheme === 'dark' ? darkTheme : lightTheme;
 
   useEffect(() => {
