@@ -8,12 +8,14 @@ import {
   KeyboardAvoidingView,
   Platform,
   ScrollView,
+  useColorScheme,
 } from 'react-native';
 import { useTranslation } from 'react-i18next';
 // Components
 import { LocationUpdater, MapLocationUpdaterRef } from './LocationUpdater';
 // Services
 import { updateMatchService } from '../services/MatchService';
+import { darkTheme, lightTheme } from '../utils/Colors';
 
 type Props = {
   match: any;
@@ -22,6 +24,8 @@ type Props = {
 
 export const UpdateMatchForm = ({ match, navigation }: Props) => {
   const { t } = useTranslation();
+  const colorScheme = useColorScheme();
+  const theme = colorScheme === 'dark' ? darkTheme : lightTheme;
   const [newDay, setNewDay] = useState('');
   const [newTime, setNewTime] = useState('');
   const [newStatus, setNewStatus] = useState('');
@@ -58,16 +62,16 @@ export const UpdateMatchForm = ({ match, navigation }: Props) => {
     >
       <LocationUpdater ref={mapRef} initialLoc={match.address} />
       <ScrollView>
-        <Text style={styles.txt}>
+        <Text style={[styles.txt, { color: theme.primary }]}>
           {t('home-tabs.match-stack.update.form.day')}
         </Text>
         <TextInput
           placeholder={match.day}
           value={newDay}
           onChangeText={setNewDay}
-          style={styles.input}
+          style={[styles.input, { borderColor: theme.primary }]}
         />
-        <Text style={styles.txt}>
+        <Text style={[styles.txt, { color: theme.primary }]}>
           {t('home-tabs.match-stack.update.form.time')}
         </Text>
         <TextInput
@@ -75,19 +79,22 @@ export const UpdateMatchForm = ({ match, navigation }: Props) => {
           value={newTime}
           onChangeText={setNewTime}
           keyboardType="numeric"
-          style={styles.input}
+          style={[styles.input, { borderColor: theme.primary }]}
         />
-        <Text style={styles.txt}>
+        <Text style={[styles.txt, { color: theme.primary }]}>
           {t('home-tabs.match-stack.update.form.status')}
         </Text>
         <TextInput
           placeholder={match.status}
           value={newStatus}
           onChangeText={setNewStatus}
-          style={styles.input}
+          style={[styles.input, { borderColor: theme.primary }]}
         />
-        <TouchableOpacity onPress={() => onUpdateMatch()} style={styles.btn}>
-          <Text style={styles.btnTxt}>
+        <TouchableOpacity
+          onPress={() => onUpdateMatch()}
+          style={[styles.btn, { backgroundColor: theme.primary }]}
+        >
+          <Text style={[styles.btnTxt, { color: theme.border }]}>
             {t('home-tabs.match-stack.update.form.update-info')}
           </Text>
         </TouchableOpacity>
@@ -101,23 +108,19 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   btn: {
-    backgroundColor: 'green',
     borderRadius: 20,
     paddingVertical: 10,
     paddingHorizontal: 30,
     alignSelf: 'flex-end',
   },
   btnTxt: {
-    color: 'white',
     fontWeight: 'bold',
   },
   txt: {
-    color: 'green',
     fontWeight: 'bold',
   },
   input: {
     borderBottomWidth: 3,
-    borderColor: 'green',
     padding: 10,
     marginVertical: 5,
   },

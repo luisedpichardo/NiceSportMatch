@@ -1,16 +1,20 @@
 import { useEffect } from 'react';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, useColorScheme, View } from 'react-native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { useTranslation } from 'react-i18next';
 // Components
 import { UpdateMatchForm } from '../components/UpdateMatchForm';
 // Types
 import { MatchNavStack } from '../navigation/types';
+// Utils
+import { darkTheme, lightTheme } from '../utils/Colors';
 
 type Props = NativeStackScreenProps<MatchNavStack, 'UpdateMatch'>;
 
 export const UpdateMatch = ({ navigation, route }: Props) => {
   const { t } = useTranslation();
+  const colorScheme = useColorScheme();
+  const theme = colorScheme === 'dark' ? darkTheme : lightTheme;
   const match = route.params?.match;
 
   useEffect(() => {
@@ -20,7 +24,7 @@ export const UpdateMatch = ({ navigation, route }: Props) => {
   });
 
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, { backgroundColor: theme.secondary }]}>
       <View style={styles.formContatiner}>
         <UpdateMatchForm match={match} navigation={navigation} />
       </View>
@@ -31,7 +35,6 @@ export const UpdateMatch = ({ navigation, route }: Props) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'lightgreen',
   },
   formContatiner: {
     flex: 1,

@@ -7,6 +7,7 @@ import {
   Alert,
   KeyboardAvoidingView,
   Platform,
+  useColorScheme,
 } from 'react-native';
 import { Formik } from 'formik';
 import { useTranslation } from 'react-i18next';
@@ -19,6 +20,8 @@ import { matchValidation } from '../schemas/MatchValidation';
 import { createMatchService } from '../services/MatchService';
 // Stores
 import { useUserStore } from '../stores/userStore';
+// Utils
+import { darkTheme, lightTheme } from '../utils/Colors';
 
 type Props = {
   navigation: any;
@@ -27,6 +30,8 @@ type Props = {
 export const CreateMatchForm = ({ navigation }: Props) => {
   const { t } = useTranslation();
   const username = useUserStore(state => state.username);
+  const colorScheme = useColorScheme();
+  const theme = colorScheme === 'dark' ? darkTheme : lightTheme;
   const [validating, setValidating] = useState(false);
   const mapRef = useRef<MapLocationPickerRef>(null);
 
@@ -99,10 +104,10 @@ export const CreateMatchForm = ({ navigation }: Props) => {
               />
               <TouchableOpacity
                 onPress={handleSubmit}
-                style={styles.btn}
+                style={[styles.btn, { backgroundColor: theme.primary }]}
                 disabled={!isValid}
               >
-                <Text style={styles.btnTxt}>
+                <Text style={[styles.btnTxt, { color: theme.border }]}>
                   {validating
                     ? t('home-tabs.match-stack.create.create-form.validating')
                     : t('home-tabs.match-stack.create.create-form.create')}
@@ -121,14 +126,12 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   btn: {
-    backgroundColor: 'green',
     borderRadius: 20,
     paddingVertical: 10,
     paddingHorizontal: 30,
     alignSelf: 'flex-end',
   },
   btnTxt: {
-    color: 'white',
     fontWeight: 'bold',
   },
   formStyle: {
