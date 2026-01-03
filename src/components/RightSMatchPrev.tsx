@@ -1,8 +1,6 @@
 import { Image, StyleSheet, Text, View } from 'react-native';
-// Stores
-import { useStore } from '../stores/userStore';
-// Utils
-import { darkTheme, lightTheme } from '../utils/Colors';
+// Hooks
+import { useTheme } from '../hooks/useTheme';
 
 type Props = {
   day: any;
@@ -10,8 +8,7 @@ type Props = {
 };
 
 export const RigthSMatchPrev = ({ day, time }: Props) => {
-  const colorScheme = useStore(state => state.theme);
-  const theme = colorScheme === 'dark' ? darkTheme : lightTheme;
+  const { theme } = useTheme();
 
   return (
     <View style={{ justifyContent: 'center' }}>

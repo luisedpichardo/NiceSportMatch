@@ -2,10 +2,8 @@ import { forwardRef, useImperativeHandle, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { StyleSheet, Text, TouchableOpacity } from 'react-native';
 import MapView, { Marker, MapPressEvent } from 'react-native-maps';
-// Store
-import { useStore } from '../stores/userStore';
-// Utils
-import { darkTheme, lightTheme } from '../utils/Colors';
+// Hooks
+import { useTheme } from '../hooks/useTheme';
 
 export type MapLocationUpdaterRef = {
   getLocation: () => any;
@@ -19,8 +17,7 @@ type Props = {
 export const LocationUpdater = forwardRef<MapLocationUpdaterRef, Props>(
   (props, ref) => {
     const { t } = useTranslation();
-    const colorScheme = useStore(state => state.theme);
-    const theme = colorScheme === 'dark' ? darkTheme : lightTheme;
+    const { theme } = useTheme();
     const [location, setLocation] = useState<{
       latitude: number;
       longitude: number;

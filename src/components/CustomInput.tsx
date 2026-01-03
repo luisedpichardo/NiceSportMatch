@@ -1,8 +1,6 @@
 import { View, Text, TextInput, StyleSheet } from 'react-native';
-// Stores
-import { useStore } from '../stores/userStore';
-// Utils
-import { darkTheme, lightTheme } from '../utils/Colors';
+// Hooks
+import { useTheme } from '../hooks/useTheme';
 
 type SignUpInput = {
   title: string;
@@ -25,8 +23,7 @@ export const CustomInput = ({
   error,
   errorMessage,
 }: SignUpInput) => {
-  const colorScheme = useStore(state => state.theme);
-  const theme = colorScheme === 'dark' ? darkTheme : lightTheme;
+  const { theme } = useTheme();
 
   return (
     <View>

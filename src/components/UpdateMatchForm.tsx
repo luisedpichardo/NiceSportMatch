@@ -12,11 +12,9 @@ import {
 import { useTranslation } from 'react-i18next';
 // Components
 import { LocationUpdater, MapLocationUpdaterRef } from './LocationUpdater';
-// Services
+// Hooks
+import { useTheme } from '../hooks/useTheme';
 import { updateMatchService } from '../services/MatchService';
-import { darkTheme, lightTheme } from '../utils/Colors';
-// Stores
-import { useStore } from '../stores/userStore';
 
 type Props = {
   match: any;
@@ -25,8 +23,7 @@ type Props = {
 
 export const UpdateMatchForm = ({ match, navigation }: Props) => {
   const { t } = useTranslation();
-  const colorScheme = useStore(state => state.theme);
-  const theme = colorScheme === 'dark' ? darkTheme : lightTheme;
+  const { theme } = useTheme();
   const [newDay, setNewDay] = useState('');
   const [newTime, setNewTime] = useState('');
   const [newStatus, setNewStatus] = useState('');

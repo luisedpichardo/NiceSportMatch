@@ -3,10 +3,10 @@ import { StyleSheet, View } from 'react-native';
 import { MatchCardOptions } from './MatchCardOptions';
 import { RigthSMatchPrev } from './RightSMatchPrev';
 import { LeftSMatchPrev } from './LeftSMatchPrev';
+// Hooks
+import { useTheme } from '../hooks/useTheme';
 // Stores
 import { useStore } from '../stores/userStore';
-// Utils
-import { darkTheme, lightTheme } from '../utils/Colors';
 
 type Match = {
   match: any;
@@ -14,8 +14,7 @@ type Match = {
 
 export const MatchPrev = ({ match }: Match) => {
   const username = useStore(state => state.username);
-  const colorScheme = useStore(state => state.theme);
-  const theme = colorScheme === 'dark' ? darkTheme : lightTheme;
+  const { theme } = useTheme();
 
   return (
     <View

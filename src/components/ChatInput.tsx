@@ -8,12 +8,12 @@ import {
   View,
 } from 'react-native';
 import { useTranslation } from 'react-i18next';
+// Hooks
+import { useTheme } from '../hooks/useTheme';
 // Services
 import { sendMessageService } from '../services/MessagesService';
 // Stores
 import { useStore } from '../stores/userStore';
-// Utils
-import { darkTheme, lightTheme } from '../utils/Colors';
 
 type Props = {
   receiver: string;
@@ -22,8 +22,7 @@ type Props = {
 export const ChatInput = ({ receiver }: Props) => {
   const { t } = useTranslation();
   const username = useStore(state => state.username);
-  const colorScheme = useStore(state => state.theme);
-  const theme = colorScheme === 'dark' ? darkTheme : lightTheme;
+  const { theme } = useTheme();
   const [message, setMessage] = useState('');
 
   const onSendMessage = () => {

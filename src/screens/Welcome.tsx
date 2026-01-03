@@ -4,21 +4,18 @@ import { useTranslation } from 'react-i18next';
 // Components
 import { Background } from '../components/Background';
 import { WelcomeImg } from '../components/WelcomeImg';
+// Hooks
+import { useTheme } from '../hooks/useTheme';
 // Services
 import { analyticsService, types } from '../services/AnalyticsService';
-// Stores
-import { useStore } from '../stores/userStore';
 // Types
 import { NavAuthStack } from '../navigation/types';
-// Utils
-import { darkTheme, lightTheme } from '../utils/Colors';
 
 type Props = NativeStackScreenProps<NavAuthStack, 'Welcome'>;
 
 export const Welcome = ({ navigation }: Props) => {
   const { t } = useTranslation();
-  const colorScheme = useStore(state => state.theme);
-  const theme = colorScheme === 'dark' ? darkTheme : lightTheme;
+  const { theme } = useTheme();
 
   return (
     <Background

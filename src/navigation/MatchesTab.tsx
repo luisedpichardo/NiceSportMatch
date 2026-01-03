@@ -1,13 +1,11 @@
 import { useState } from 'react';
 import { StyleSheet, View, useWindowDimensions } from 'react-native';
 import { TabBar, TabView } from 'react-native-tab-view';
+// Hooks
+import { useTheme } from '../hooks/useTheme';
 // Screens
 import { MyMatches } from '../screens/MyMatches';
 import { OtherMatches } from '../screens/OtherMatches';
-// Stores
-import { useStore } from '../stores/userStore';
-// Utils
-import { darkTheme, lightTheme } from '../utils/Colors';
 
 const routes = [
   { key: 'my', title: 'My Matches' },
@@ -16,8 +14,7 @@ const routes = [
 
 export function MatchesTab() {
   const layout = useWindowDimensions();
-  const colorScheme = useStore(state => state.theme);
-  const theme = colorScheme === 'dark' ? darkTheme : lightTheme;
+  const { theme } = useTheme();
   const [index, setIndex] = useState(0);
 
   const renderScene = ({ route }: any) => {

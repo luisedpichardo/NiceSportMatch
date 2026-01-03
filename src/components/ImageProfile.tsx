@@ -9,6 +9,7 @@ import {
 import { useTranslation } from 'react-i18next';
 // Hooks
 import { useProfileImage } from '../hooks/useProfileImage';
+import { useTheme } from '../hooks/useTheme';
 // Service
 import { getUserRefService } from '../services/UserService';
 import { analyticsService, types } from '../services/AnalyticsService';
@@ -20,13 +21,11 @@ import {
   openCameraHelper,
   openLibraryHelper,
 } from '../utils/ImageHelpers';
-import { darkTheme, lightTheme } from '../utils/Colors';
 
 export const ImageProfile = () => {
   const { t } = useTranslation();
   const username = useStore(state => state.username);
-  const colorScheme = useStore(state => state.theme);
-  const theme = colorScheme === 'dark' ? darkTheme : lightTheme;
+  const { theme } = useTheme();
   const { imageUri, setImageUri } = useProfileImage(username);
 
   const updateImage = async () => {

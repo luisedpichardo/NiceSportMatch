@@ -10,21 +10,18 @@ import { Formik } from 'formik';
 import { useTranslation } from 'react-i18next';
 // Components
 import { CustomInput } from './CustomInput';
+// Hooks
+import { useTheme } from '../hooks/useTheme';
 // Schemas
 import { signUpValidation } from '../schemas/SignUpValidation';
 // Services
 import { createUserWithEmailAndPasswordService } from '../services/AuthService';
 import { analyticsService, types } from '../services/AnalyticsService';
 import { crashService, onSignUpService } from '../services/CrashlyticsService';
-// Stores
-import { useStore } from '../stores/userStore';
-// Utils
-import { darkTheme, lightTheme } from '../utils/Colors';
 
 export const SignUpForm = () => {
   const { t } = useTranslation();
-  const colorScheme = useStore(state => state.theme);
-  const theme = colorScheme === 'dark' ? darkTheme : lightTheme;
+  const { theme } = useTheme();
 
   const onSignUpPressed = (
     firstName: string,

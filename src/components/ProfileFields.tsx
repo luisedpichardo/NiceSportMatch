@@ -8,6 +8,8 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import { useTranslation } from 'react-i18next';
+// Hooks
+import { useTheme } from '../hooks/useTheme';
 // Services
 import {
   getUserRefService,
@@ -16,14 +18,11 @@ import {
 import { analyticsService, types } from '../services/AnalyticsService';
 // Stores
 import { useStore } from '../stores/userStore';
-// Utils
-import { darkTheme, lightTheme } from '../utils/Colors';
 
 export const ProfileFields = () => {
   const { t } = useTranslation();
   const username = useStore(state => state.username);
-  const colorScheme = useStore(state => state.theme);
-  const theme = colorScheme === 'dark' ? darkTheme : lightTheme;
+  const { theme } = useTheme();
   const [firstName, setFirstName] = useState('');
   const [newFirstName, setNewFirstName] = useState('');
   const [lastName, setLastName] = useState('');

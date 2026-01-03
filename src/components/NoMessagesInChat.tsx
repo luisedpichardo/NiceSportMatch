@@ -1,9 +1,7 @@
 import { useTranslation } from 'react-i18next';
 import { StyleSheet, Text, View } from 'react-native';
-// Stores
-import { useStore } from '../stores/userStore';
-// Utils
-import { darkTheme, lightTheme } from '../utils/Colors';
+// Hooks
+import { useTheme } from '../hooks/useTheme';
 
 type Props = {
   someone: string;
@@ -11,8 +9,7 @@ type Props = {
 
 export const NoMessagesInChat = ({ someone }: Props) => {
   const { t } = useTranslation();
-  const colorScheme = useStore(state => state.theme);
-  const theme = colorScheme === 'dark' ? darkTheme : lightTheme;
+  const { theme } = useTheme();
 
   return (
     <View style={styles.noMessaCont}>

@@ -13,12 +13,9 @@ import { Loading } from '../components/Loading';
 import { MatchPrev } from '../components/MatchPrev';
 // Hooks
 import { useMyMatches } from '../hooks/useMyMatches';
+import { useTheme } from '../hooks/useTheme';
 // Services
 import { analyticsService, types } from '../services/AnalyticsService';
-// Stores
-import { useStore } from '../stores/userStore';
-// Utils
-import { darkTheme, lightTheme } from '../utils/Colors';
 
 function showMathes(matches: any) {
   return (
@@ -34,8 +31,7 @@ function showMathes(matches: any) {
 
 export const MyMatches = () => {
   const { t } = useTranslation();
-  const colorScheme = useStore(state => state.theme);
-  const theme = colorScheme === 'dark' ? darkTheme : lightTheme;
+  const { theme } = useTheme();
   const navigation = useNavigation();
   const { myMatches, loading } = useMyMatches();
   return (

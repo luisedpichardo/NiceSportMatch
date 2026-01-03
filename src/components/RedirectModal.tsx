@@ -1,9 +1,7 @@
 import { useTranslation } from 'react-i18next';
 import { Modal, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-// Stores
-import { useStore } from '../stores/userStore';
-// Utils
-import { darkTheme, lightTheme } from '../utils/Colors';
+// Hooks
+import { useTheme } from '../hooks/useTheme';
 
 type Props = {
   modalVisible: any;
@@ -19,8 +17,7 @@ export const RedirectModal = ({
   navigation,
 }: Props) => {
   const { t } = useTranslation();
-  const colorScheme = useStore(state => state.theme);
-  const theme = colorScheme === 'dark' ? darkTheme : lightTheme;
+  const { theme } = useTheme();
 
   const onRedirectToChat = () => {
     setModalVisible(!modalVisible);

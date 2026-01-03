@@ -2,12 +2,12 @@ import { Alert, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useTranslation } from 'react-i18next';
+// Hooks
+import { useTheme } from '../hooks/useTheme';
 // Services
 import { removeMatchFromUserService } from '../services/UserService';
 // Stores
 import { useStore } from '../stores/userStore';
-// Utils
-import { darkTheme, lightTheme } from '../utils/Colors';
 
 type Props = {
   publisher: string;
@@ -24,8 +24,7 @@ type ChatStackParamList = {
 export const MatchNotOwnOpt = ({ publisher, _id }: Props) => {
   const { t } = useTranslation();
   const username = useStore(state => state.username);
-  const colorScheme = useStore(state => state.theme);
-  const theme = colorScheme === 'dark' ? darkTheme : lightTheme;
+  const { theme } = useTheme();
   const chatNav =
     useNavigation<NativeStackNavigationProp<ChatStackParamList>>();
   const removeMatchFromUser = async () => {

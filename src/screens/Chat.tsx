@@ -9,12 +9,9 @@ import { NoMessagesInChat } from '../components/NoMessagesInChat';
 import { UserChat } from '../components/UserChat';
 // Hooks
 import { useChatMessages } from '../hooks/useChatMessages';
+import { useTheme } from '../hooks/useTheme';
 // Navigation Types
 import { ChatNavStack, NavHomeTab } from '../navigation/types';
-// Stores
-import { useStore } from '../stores/userStore';
-// Utils
-import { darkTheme, lightTheme } from '../utils/Colors';
 
 type Props = CompositeScreenProps<
   NativeStackScreenProps<ChatNavStack, 'Chat'>,
@@ -22,8 +19,7 @@ type Props = CompositeScreenProps<
 >;
 
 export const Chat = ({ navigation, route }: Props) => {
-  const colorScheme = useStore(state => state.theme);
-  const theme = colorScheme === 'dark' ? darkTheme : lightTheme;
+  const { theme } = useTheme();
   const someone: string = route.params?.someone;
   const { messages, loading } = useChatMessages(someone);
 

@@ -13,14 +13,14 @@ import { useTranslation } from 'react-i18next';
 // Components
 import { CustomInput } from './CustomInput';
 import { LocationPicker, MapLocationPickerRef } from './LocationPicker';
+// Hooks
+import { useTheme } from '../hooks/useTheme';
 // Schemas
 import { matchValidation } from '../schemas/MatchValidation';
 // Services
 import { createMatchService } from '../services/MatchService';
 // Stores
 import { useStore } from '../stores/userStore';
-// Utils
-import { darkTheme, lightTheme } from '../utils/Colors';
 
 type Props = {
   navigation: any;
@@ -29,8 +29,7 @@ type Props = {
 export const CreateMatchForm = ({ navigation }: Props) => {
   const { t } = useTranslation();
   const username = useStore(state => state.username);
-  const colorScheme = useStore(state => state.theme);
-  const theme = colorScheme === 'dark' ? darkTheme : lightTheme;
+  const { theme } = useTheme();
   const [validating, setValidating] = useState(false);
   const mapRef = useRef<MapLocationPickerRef>(null);
 

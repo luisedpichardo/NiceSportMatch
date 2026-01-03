@@ -4,19 +4,16 @@ import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { useTranslation } from 'react-i18next';
 // Components
 import { CreateMatchForm } from '../components/CreateMatchForm';
-// Stores
-import { useStore } from '../stores/userStore';
+// Hooks
+import { useTheme } from '../hooks/useTheme';
 // Types
 import { MatchNavStack } from '../navigation/types';
-// Utils
-import { darkTheme, lightTheme } from '../utils/Colors';
 
 type Props = NativeStackScreenProps<MatchNavStack, 'CreateMatch'>;
 
 export const CreateMatch = ({ navigation }: Props) => {
   const { t } = useTranslation();
-  const colorScheme = useStore(state => state.theme);
-  const theme = colorScheme === 'dark' ? darkTheme : lightTheme;
+  const { theme } = useTheme();
 
   useEffect(() => {
     navigation.setOptions({

@@ -11,21 +11,18 @@ import { getAuth, signOut } from '@react-native-firebase/auth';
 import { useTranslation } from 'react-i18next';
 // Components
 import { CustomInput } from './CustomInput';
+// Hooks
+import { useTheme } from '../hooks/useTheme';
 // Schemas
 import { loginValidation } from '../schemas/LoginValidation';
 // Services
 import { signInWithEmailAndPasswordService } from '../services/AuthService';
 import { analyticsService, types } from '../services/AnalyticsService';
 import { crashService, onLogInService } from '../services/CrashlyticsService';
-// Stores
-import { useStore } from '../stores/userStore';
-// Utils
-import { darkTheme, lightTheme } from '../utils/Colors';
 
 export const LoginForm = () => {
   const { t } = useTranslation();
-  const colorScheme = useStore(state => state.theme);
-  const theme = colorScheme === 'dark' ? darkTheme : lightTheme;
+  const { theme } = useTheme();
 
   const onLoginPressed = (email: string, password: string) => {
     signInWithEmailAndPasswordService(email, password)

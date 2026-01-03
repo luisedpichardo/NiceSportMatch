@@ -10,6 +10,8 @@ import {
 import { useTranslation } from 'react-i18next';
 // Components
 import { Loading } from './Loading';
+// Hooks
+import { useTheme } from '../hooks/useTheme';
 // Services
 import {
   addMatchIdToUserService,
@@ -17,8 +19,6 @@ import {
 } from '../services/UserService';
 // Stores
 import { useStore } from '../stores/userStore';
-// Utils
-import { darkTheme, lightTheme } from '../utils/Colors';
 
 type MatchDetailsModalProps = {
   modalVisible: any;
@@ -33,8 +33,7 @@ export const MatchDetailsModal = ({
 }: MatchDetailsModalProps) => {
   const { t } = useTranslation();
   const username = useStore(state => state.username);
-  const colorScheme = useStore(state => state.theme);
-  const theme = colorScheme === 'dark' ? darkTheme : lightTheme;
+  const { theme } = useTheme();
   const [matchesIDs, setMatchesIDs] = useState<string[]>([]);
 
   useEffect(() => {

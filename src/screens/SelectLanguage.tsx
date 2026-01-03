@@ -5,21 +5,18 @@ import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 // Components
 import { LanguageOpt } from '../components/LanguageOpt';
+// Hooks
+import { useTheme } from '../hooks/useTheme';
 // Services
 import { analyticsService, types } from '../services/AnalyticsService';
-// Stores
-import { useStore } from '../stores/userStore';
 // Types
 import { NavRoot } from '../navigation/types';
-// Utils
-import { darkTheme, lightTheme } from '../utils/Colors';
 
 type Props = NativeStackScreenProps<NavRoot, 'SelectLanguage'>;
 
 export const SelectLanguage = ({ navigation }: Props) => {
   const { i18n, t } = useTranslation();
-  const colorScheme = useStore(state => state.theme);
-  const theme = colorScheme === 'dark' ? darkTheme : lightTheme;
+  const { theme } = useTheme();
 
   useEffect(() => {
     navigation.setOptions({

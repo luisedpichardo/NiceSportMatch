@@ -1,8 +1,6 @@
 import { StyleSheet, Text, TouchableOpacity } from 'react-native';
-// Stores
-import { useStore } from '../stores/userStore';
-// Utils
-import { darkTheme, lightTheme } from '../utils/Colors';
+// Hooks
+import { useTheme } from '../hooks/useTheme';
 
 type Props = {
   onPress: any;
@@ -10,8 +8,7 @@ type Props = {
 };
 
 export const SettingsOptions = ({ onPress, text }: Props) => {
-  const colorScheme = useStore(state => state.theme);
-  const theme = colorScheme === 'dark' ? darkTheme : lightTheme;
+  const { theme } = useTheme();
 
   return (
     <TouchableOpacity

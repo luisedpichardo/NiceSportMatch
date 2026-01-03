@@ -5,12 +5,10 @@ import { CompositeScreenProps } from '@react-navigation/native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 // Components
 import { Maps } from '../components/Maps';
-// Stores
-import { useStore } from '../stores/userStore';
+// Hooks
+import { useTheme } from '../hooks/useTheme';
 // Types
 import { NavHomeTab, NavRoot } from '../navigation/types';
-// Utils
-import { darkTheme, lightTheme } from '../utils/Colors';
 
 type Props = CompositeScreenProps<
   BottomTabScreenProps<NavHomeTab, 'Map'>,
@@ -18,8 +16,7 @@ type Props = CompositeScreenProps<
 >;
 
 export const Main = ({ navigation }: Props) => {
-  const colorScheme = useStore(state => state.theme);
-  const theme = colorScheme === 'dark' ? darkTheme : lightTheme;
+  const { theme } = useTheme();
 
   // useEffect(() => {
   // // Error handling to show Error Display

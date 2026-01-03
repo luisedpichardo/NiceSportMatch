@@ -11,12 +11,9 @@ import { NoChats } from '../components/NoChats';
 import { Loading } from '../components/Loading';
 // Hooks
 import { useUserChats } from '../hooks/useUserChats';
-// Stores
-import { useStore } from '../stores/userStore';
+import { useTheme } from '../hooks/useTheme';
 // Types
 import { ChatNavStack, NavHomeTab } from '../navigation/types';
-// Utils
-import { darkTheme, lightTheme } from '../utils/Colors';
 
 type Props = CompositeScreenProps<
   NativeStackScreenProps<ChatNavStack, 'Messages'>,
@@ -25,8 +22,7 @@ type Props = CompositeScreenProps<
 
 export const Messages = ({ navigation, route }: Props) => {
   const { t } = useTranslation();
-  const colorScheme = useStore(state => state.theme);
-  const theme = colorScheme === 'dark' ? darkTheme : lightTheme;
+  const { theme } = useTheme();
   const [visibleModal, setVisibleModal] = useState(false);
   const someone = route.params?.someone;
   const { chats, loading } = useUserChats();

@@ -4,12 +4,10 @@ import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { useTranslation } from 'react-i18next';
 // Components
 import { MatchNotOwnOpt } from './MatchNotOwnOpt';
-// Stores
-import { useStore } from '../stores/userStore';
+// Hooks
+import { useTheme } from '../hooks/useTheme';
 // Types
 import { MatchNavStack } from '../navigation/types';
-// Utils
-import { darkTheme, lightTheme } from '../utils/Colors';
 
 type Props = {
   publisher: string;
@@ -19,8 +17,7 @@ type Props = {
 
 export const MatchCardOptions = ({ publisher, own, match }: Props) => {
   const { t } = useTranslation();
-  const colorScheme = useStore(state => state.theme);
-  const theme = colorScheme === 'dark' ? darkTheme : lightTheme;
+  const { theme } = useTheme();
   const navigation = useNavigation();
   const nav = navigation as NativeStackScreenProps<
     MatchNavStack,

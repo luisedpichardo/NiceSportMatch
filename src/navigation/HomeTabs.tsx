@@ -10,64 +10,61 @@ import {
 } from '@react-navigation/bottom-tabs';
 import { getFocusedRouteNameFromRoute } from '@react-navigation/native';
 import { useTranslation } from 'react-i18next';
+// Hooks
+import { useTheme } from '../hooks/useTheme';
 // Navigation
 import { MatchSatck } from './MatchStack';
 import { MessageStack } from './MessageStack';
 // Screens
 import { Main } from '../screens/Main';
-// Stores
-import { useStore } from '../stores/userStore';
 // Types
 import { NavHomeTab } from './types';
-// Utils
-import { darkTheme, lightTheme } from '../utils/Colors';
 
 const TabHome = createBottomTabNavigator<NavHomeTab>();
 
-const colorScheme = useStore(state => state.theme);
-const theme = colorScheme === 'dark' ? darkTheme : lightTheme;
-
-function tabIcon(focused: boolean, uri: ImageSourcePropType) {
-  return (
-    <Image
-      source={uri}
-      style={{
-        width: 35,
-        height: 35,
-        tintColor: focused ? theme.primary : theme.iconSecondary,
-      }}
-    />
-  );
-}
-
-type Props = BottomTabBarButtonProps;
-const MapTabButton = (props: Props) => {
-  const { delayLongPress, ref, accessibilityState, ...rest } = props;
-  return (
-    <Pressable
-      {...rest}
-      style={({ pressed }) => [
-        styles.custBtn,
-        styles.shadow,
-        { shadowColor: theme.cardShadow },
-        pressed && { transform: [{ scale: 0.8 }] },
-        {
-          backgroundColor: props['aria-selected']
-            ? theme.primary
-            : theme.iconSecondary,
-        },
-      ]}
-    >
-      <Image
-        source={require('../../assets/map.png')}
-        style={{ ...styles.custImg, tintColor: theme.surface }}
-      />
-    </Pressable>
-  );
-};
-
 export function HomeTabs() {
   const { t } = useTranslation();
+  const { theme } = useTheme();
+
+  function tabIcon(focused: boolean, uri: ImageSourcePropType) {
+    return (
+      <Image
+        source={uri}
+        style={{
+          width: 35,
+          height: 35,
+          tintColor: focused ? theme.primary : theme.iconSecondary,
+        }}
+      />
+    );
+  }
+
+  type Props = BottomTabBarButtonProps;
+  const MapTabButton = (props: Props) => {
+    const { delayLongPress, ref, accessibilityState, ...rest } = props;
+    return (
+      <Pressable
+        {...rest}
+        style={({ pressed }) => [
+          styles.custBtn,
+          styles.shadow,
+          { shadowColor: theme.cardShadow },
+          pressed && { transform: [{ scale: 0.8 }] },
+          {
+            backgroundColor: props['aria-selected']
+              ? theme.primary
+              : theme.iconSecondary,
+          },
+        ]}
+      >
+        <Image
+          source={require('../../assets/map.png')}
+          style={{ ...styles.custImg, tintColor: theme.surface }}
+        />
+      </Pressable>
+    );
+  };
+
   return (
     <TabHome.Navigator
       screenOptions={{

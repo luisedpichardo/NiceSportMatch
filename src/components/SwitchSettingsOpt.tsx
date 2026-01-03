@@ -1,38 +1,29 @@
-import { useState } from 'react';
 import { StyleSheet, Switch, Text, View } from 'react-native';
+// Hooks
+import { useTheme } from '../hooks/useTheme';
 // Stores
 import { useStore } from '../stores/userStore';
-// Utils
-import { darkTheme, lightTheme } from '../utils/Colors';
 
 export const SwitchSettingsOpt = () => {
-  const colorScheme = useStore(state => state.theme);
   const setColorScheme = useStore(state => state.setTheme);
-  const theme = colorScheme === 'dark' ? darkTheme : lightTheme;
-  const [isEnabled, setIsEnabled] = useState(false);
+  const { theme, colorScheme } = useTheme();
 
   const toggleSwitch = () => {
-    setIsEnabled(previousState => !previousState);
-    if (isEnabled) {
-      setColorScheme('light');
-    } else {
-      setColorScheme('dark');
-    }
+    const nextTheme = colorScheme === 'light' ? 'dark' : 'light';
+    setColorScheme(nextTheme);
   };
 
   return (
     <View style={{ ...styles.btn, backgroundColor: theme.transparent }}>
-      {isEnabled ? (
-        <Text style={{ ...styles.txt, color: theme.border }}>Dark Mode</Text>
-      ) : (
-        <Text style={{ ...styles.txt, color: theme.border }}>Light Mode</Text>
-      )}
+      <Text style={{ ...styles.txt, color: theme.border }}>
+        {colorScheme === 'dark' ? 'Dark Mode' : 'Light Mode'}
+      </Text>
 
       <Switch
         trackColor={{ false: theme.secondary, true: theme.secondary }}
         thumbColor={theme.primary}
         onValueChange={toggleSwitch}
-        value={isEnabled}
+        value={colorScheme === 'dark'}
       />
     </View>
   );

@@ -7,22 +7,19 @@ import { useTranslation } from 'react-i18next';
 import { SettingsOptions } from '../components/SettingsOptions';
 import { RightHdrBtn } from '../components/RightHdrBtn';
 import { SwitchSettingsOpt } from '../components/SwitchSettingsOpt';
+// Hooks
+import { useTheme } from '../hooks/useTheme';
 // Services
 import { signOutService } from '../services/AuthService';
-// Stores
-import { useStore } from '../stores/userStore';
 // Types
 import { NavRoot } from '../navigation/types';
 import { analyticsService, types } from '../services/AnalyticsService';
-// Utils
-import { darkTheme, lightTheme } from '../utils/Colors';
 
 type Props = NativeStackScreenProps<NavRoot, 'Settings'>;
 
 export const Settings = ({ navigation }: Props) => {
   const { t } = useTranslation();
-  const colorScheme = useStore(state => state.theme);
-  const theme = colorScheme === 'dark' ? darkTheme : lightTheme;
+  const { theme } = useTheme();
 
   useEffect(() => {
     navigation.setOptions({
