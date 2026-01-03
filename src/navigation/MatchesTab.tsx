@@ -29,7 +29,9 @@ const renderTabBar = (props: any) => {
   return (
     <TabBar
       {...props}
-      indicatorStyle={{ backgroundColor: 'white' }}
+      indicatorStyle={{ backgroundColor: 'green' }}
+      activeColor={'black'}
+      inactiveColor={'green'}
       style={styles.tabSty}
     />
   );

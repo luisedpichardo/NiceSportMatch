@@ -55,20 +55,18 @@ export const MyMatches = () => {
             )}
           </>
         )}
-        <View style={styles.btnContainer}>
-          <TouchableOpacity
-            onPress={() => {
-              analyticsService(types.BUTTON, 'User Attemps to create a match');
-              navigation.navigate('CreateMatch');
-            }}
-            style={styles.btn}
-          >
-            <Text style={styles.btnTxt}>
-              {t('home-tabs.match-stack.matches.btn-txt')}
-            </Text>
-          </TouchableOpacity>
-        </View>
       </View>
+      <TouchableOpacity
+        onPress={() => {
+          analyticsService(types.BUTTON, 'User Attemps to create a match');
+          navigation.navigate('CreateMatch');
+        }}
+        style={styles.btn}
+      >
+        <Text style={styles.btnTxt}>
+          {t('home-tabs.match-stack.matches.btn-txt')}
+        </Text>
+      </TouchableOpacity>
     </View>
   );
 };
@@ -79,11 +77,9 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     backgroundColor: 'rgba(0,0,0,0)',
   },
-  btnContainer: {
-    flex: 2,
-    backgroundColor: 'rgba(0,0,0,0)',
-  },
   btn: {
+    position: 'absolute',
+    bottom: 160,
     padding: 10,
     paddingHorizontal: 30,
     backgroundColor: 'green',
