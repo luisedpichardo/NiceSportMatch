@@ -1,5 +1,14 @@
 import { useTranslation } from 'react-i18next';
-import { Modal, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import {
+  Modal,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  useColorScheme,
+  View,
+} from 'react-native';
+// Utils
+import { darkTheme, lightTheme } from '../utils/Colors';
 
 type Props = {
   modalVisible: any;
@@ -15,6 +24,9 @@ export const RedirectModal = ({
   navigation,
 }: Props) => {
   const { t } = useTranslation();
+  const colorScheme = useColorScheme();
+  const theme = colorScheme === 'dark' ? darkTheme : lightTheme;
+
   const onRedirectToChat = () => {
     setModalVisible(!modalVisible);
     navigation.navigate('Chat', { someone });
@@ -26,26 +38,31 @@ export const RedirectModal = ({
 
   return (
     <Modal animationType="slide" transparent={true} visible={modalVisible}>
-      <View style={styles.centeredView}>
-        <View style={styles.modalView}>
+      <View
+        style={{
+          ...styles.centeredView,
+          backgroundColor: theme.transparent,
+        }}
+      >
+        <View style={{ ...styles.modalView, backgroundColor: theme.surface }}>
           <Text style={{ fontSize: 25 }}>
             {t('home-tabs.messages-stack.messages.modal.continue')} {someone}?
           </Text>
           <View style={{ flexDirection: 'row' }}>
             <TouchableOpacity
-              style={styles.cancelBtn}
+              style={{ ...styles.cancelBtn, borderColor: theme.primary }}
               onPress={() => cancelChat()}
             >
-              <Text style={{ ...styles.textStyle, color: 'black' }}>
+              <Text style={{ ...styles.textStyle, color: theme.textPrimary }}>
                 {t('home-tabs.messages-stack.messages.modal.cancel')}
               </Text>
             </TouchableOpacity>
 
             <TouchableOpacity
-              style={styles.confirmBtn}
+              style={{ ...styles.confirmBtn, backgroundColor: theme.primary }}
               onPress={() => onRedirectToChat()}
             >
-              <Text style={styles.textStyle}>
+              <Text style={{ ...styles.textStyle, color: theme.border }}>
                 {t('home-tabs.messages-stack.messages.modal.accept')}
               </Text>
             </TouchableOpacity>
@@ -60,12 +77,10 @@ const styles = StyleSheet.create({
   centeredView: {
     flex: 1,
     justifyContent: 'center',
-    backgroundColor: 'rgba(0, 0, 0, 0.5)',
   },
   modalView: {
     alignItems: 'center',
     margin: 15,
-    backgroundColor: 'white',
     borderRadius: 20,
     padding: 35,
   },
@@ -75,7 +90,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     elevation: 2,
     margin: 5,
-    backgroundColor: 'green',
   },
   cancelBtn: {
     borderRadius: 20,
@@ -83,11 +97,9 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     elevation: 2,
     borderWidth: 2,
-    borderColor: 'green',
     margin: 5,
   },
   textStyle: {
-    color: 'white',
     fontWeight: 'bold',
     textAlign: 'center',
   },

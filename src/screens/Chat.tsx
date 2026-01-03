@@ -1,5 +1,10 @@
 import { useEffect } from 'react';
-import { KeyboardAvoidingView, StyleSheet, View } from 'react-native';
+import {
+  KeyboardAvoidingView,
+  StyleSheet,
+  useColorScheme,
+  View,
+} from 'react-native';
 import { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
 import { CompositeScreenProps } from '@react-navigation/native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
@@ -11,6 +16,8 @@ import { UserChat } from '../components/UserChat';
 import { useChatMessages } from '../hooks/useChatMessages';
 // Navigation Types
 import { ChatNavStack, NavHomeTab } from '../navigation/types';
+// Utils
+import { darkTheme, lightTheme } from '../utils/Colors';
 
 type Props = CompositeScreenProps<
   NativeStackScreenProps<ChatNavStack, 'Chat'>,
@@ -18,6 +25,8 @@ type Props = CompositeScreenProps<
 >;
 
 export const Chat = ({ navigation, route }: Props) => {
+  const colorScheme = useColorScheme();
+  const theme = colorScheme === 'dark' ? darkTheme : lightTheme;
   const someone: string = route.params?.someone;
   const { messages, loading } = useChatMessages(someone);
 
@@ -28,7 +37,7 @@ export const Chat = ({ navigation, route }: Props) => {
   }, [navigation, someone]);
 
   return (
-    <View style={styles.container}>
+    <View style={{ ...styles.container, backgroundColor: theme.secondary }}>
       <View style={{ flex: 1, marginBottom: '5%' }}>
         <View style={styles.messageCont}>
           {!loading && messages.length > 0 ? (
@@ -48,7 +57,6 @@ export const Chat = ({ navigation, route }: Props) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'lightgreen',
   },
   messageCont: {
     flex: 1,

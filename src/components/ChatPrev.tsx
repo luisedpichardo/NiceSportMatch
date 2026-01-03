@@ -4,12 +4,15 @@ import {
   StyleSheet,
   Text,
   TouchableOpacity,
+  useColorScheme,
   View,
 } from 'react-native';
 import { useTranslation } from 'react-i18next';
 // Hooks
 import { useLastChatMessage } from '../hooks/useLastChatMessage';
 import { useProfileImage } from '../hooks/useProfileImage';
+// Utils
+import { darkTheme, lightTheme } from '../utils/Colors';
 
 type Props = {
   sender: string;
@@ -18,12 +21,14 @@ type Props = {
 
 export const ChatPrev = ({ sender, navigation }: Props) => {
   const { t } = useTranslation();
+  const colorScheme = useColorScheme();
+  const theme = colorScheme === 'dark' ? darkTheme : lightTheme;
   const { lastMessage, loading } = useLastChatMessage(sender);
   const { imageUri } = useProfileImage(sender);
 
   return (
     <TouchableOpacity
-      style={styles.container}
+      style={{ ...styles.container, backgroundColor: theme.background }}
       onPress={() => navigation.navigate('Chat', { someone: sender })}
     >
       <View style={styles.chat}>
@@ -59,7 +64,6 @@ export const ChatPrev = ({ sender, navigation }: Props) => {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: 'rgba(255, 255, 255, 0.7)',
     padding: 10,
     paddingVertical: 15,
     marginVertical: 5,

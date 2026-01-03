@@ -9,6 +9,10 @@ export const lightTheme = {
   error: '#BA1A1A', // red
   cardShadow: '#000000', // black
   transparent: 'rgba(0, 0, 0, 0.5)', // transparent black
+  bubble: '#808080', // their chat
+  ownBubble: '#FFFFFF', // own chat
+  chatText: '#FFFFFF', // ther chat text
+  ownChatText: '#000000', // own chat text
 };
 
 export const darkTheme = {
@@ -22,4 +26,8 @@ export const darkTheme = {
   error: '#FFB4AB',
   cardShadow: '#000000',
   transparent: 'rgba(46, 204, 113, 0.2)',
+  bubble: '#2A3B2F',
+  ownBubble: '#008000',
+  chatText: '#E1E3DF',
+  ownChatText: '#FFFFFF',
 };

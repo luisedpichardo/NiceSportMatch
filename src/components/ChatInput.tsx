@@ -5,6 +5,7 @@ import {
   Text,
   TextInput,
   TouchableOpacity,
+  useColorScheme,
   View,
 } from 'react-native';
 import { useTranslation } from 'react-i18next';
@@ -12,6 +13,8 @@ import { useTranslation } from 'react-i18next';
 import { sendMessageService } from '../services/MessagesService';
 // Stores
 import { useUserStore } from '../stores/userStore';
+// Utils
+import { darkTheme, lightTheme } from '../utils/Colors';
 
 type Props = {
   receiver: string;
@@ -20,6 +23,8 @@ type Props = {
 export const ChatInput = ({ receiver }: Props) => {
   const { t } = useTranslation();
   const username = useUserStore(state => state.username);
+  const colorScheme = useColorScheme();
+  const theme = colorScheme === 'dark' ? darkTheme : lightTheme;
   const [message, setMessage] = useState('');
 
   const onSendMessage = () => {
@@ -36,14 +41,17 @@ export const ChatInput = ({ receiver }: Props) => {
   return (
     <View style={styles.container}>
       <TextInput
-        style={styles.input}
+        style={{ ...styles.input, backgroundColor: theme.surface }}
         placeholder={t('home-tabs.messages-stack.chat.input-placeholder')}
         value={message}
         onChangeText={setMessage}
       />
       <View style={{ flex: 1 }}></View>
-      <TouchableOpacity style={styles.btn} onPress={() => onSendMessage()}>
-        <Text style={styles.btnTxt}>
+      <TouchableOpacity
+        style={{ ...styles.btn, backgroundColor: theme.primary }}
+        onPress={() => onSendMessage()}
+      >
+        <Text style={{ ...styles.btnTxt, color: theme.border }}>
           {t('home-tabs.messages-stack.chat.send')}
         </Text>
       </TouchableOpacity>
@@ -61,17 +69,14 @@ const styles = StyleSheet.create({
     flex: 16,
     padding: 10,
     borderRadius: 10,
-    backgroundColor: 'white',
   },
   btn: {
     flex: 4,
     justifyContent: 'center',
-    backgroundColor: 'green',
     borderRadius: 10,
   },
   btnTxt: {
     alignSelf: 'center',
-    color: 'white',
     fontWeight: 'bold',
   },
 });

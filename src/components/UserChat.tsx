@@ -1,6 +1,7 @@
-import { FlatList, StyleSheet, Text, View } from 'react-native';
+import { FlatList, StyleSheet, Text, useColorScheme, View } from 'react-native';
 // Stores
 import { useUserStore } from '../stores/userStore';
+import { darkTheme, lightTheme } from '../utils/Colors';
 
 type Props = {
   messages: any;
@@ -8,6 +9,8 @@ type Props = {
 
 export const UserChat = ({ messages }: Props) => {
   const username = useUserStore(state => state.username);
+  const colorScheme = useColorScheme();
+  const theme = colorScheme === 'dark' ? darkTheme : lightTheme;
 
   return (
     <FlatList
@@ -16,14 +19,24 @@ export const UserChat = ({ messages }: Props) => {
         return (
           <View key={item.time} style={{ margin: 10 }}>
             {item.sender === username ? (
-              <View style={{ ...styles.messageCont, ...styles.yourMessage }}>
-                <Text style={styles.yourTxt}>{item.message}</Text>
+              <View
+                style={{
+                  ...styles.yourMessage,
+                  backgroundColor: theme.ownBubble,
+                }}
+              >
+                <Text style={{ color: theme.ownChatText }}>{item.message}</Text>
               </View>
             ) : (
               <View>
                 <Text>{item.sender}</Text>
-                <View style={styles.messageCont}>
-                  <Text style={styles.notYourTxt}>{item.message}</Text>
+                <View
+                  style={{
+                    ...styles.messageCont,
+                    backgroundColor: theme.bubble,
+                  }}
+                >
+                  <Text style={{ color: theme.chatText }}>{item.message}</Text>
                 </View>
               </View>
             )}
@@ -36,19 +49,19 @@ export const UserChat = ({ messages }: Props) => {
 
 const styles = StyleSheet.create({
   messageCont: {
-    borderRadius: 10,
-    padding: 10,
-    width: '50%',
-    backgroundColor: 'gray',
-  },
-  notYourTxt: {
-    color: 'white',
+    padding: 12,
+    borderRadius: 15,
+    borderBottomLeftRadius: 2,
+    maxWidth: '80%',
+    alignSelf: 'flex-start',
+    marginVertical: 4,
   },
   yourMessage: {
-    backgroundColor: 'white',
+    padding: 12,
+    borderRadius: 15,
+    borderBottomRightRadius: 2,
+    maxWidth: '80%',
     alignSelf: 'flex-end',
-  },
-  yourTxt: {
-    alignSelf: 'flex-end',
+    marginVertical: 4,
   },
 });

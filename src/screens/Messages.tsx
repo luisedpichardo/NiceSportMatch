@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { FlatList, StyleSheet, View } from 'react-native';
+import { FlatList, StyleSheet, useColorScheme, View } from 'react-native';
 import { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
 import { CompositeScreenProps } from '@react-navigation/native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
@@ -13,6 +13,8 @@ import { Loading } from '../components/Loading';
 import { useUserChats } from '../hooks/useUserChats';
 // Types
 import { ChatNavStack, NavHomeTab } from '../navigation/types';
+// Utils
+import { darkTheme, lightTheme } from '../utils/Colors';
 
 type Props = CompositeScreenProps<
   NativeStackScreenProps<ChatNavStack, 'Messages'>,
@@ -21,6 +23,8 @@ type Props = CompositeScreenProps<
 
 export const Messages = ({ navigation, route }: Props) => {
   const { t } = useTranslation();
+  const colorScheme = useColorScheme();
+  const theme = colorScheme === 'dark' ? darkTheme : lightTheme;
   const [visibleModal, setVisibleModal] = useState(false);
   const someone = route.params?.someone;
   const { chats, loading } = useUserChats();
@@ -38,7 +42,7 @@ export const Messages = ({ navigation, route }: Props) => {
   }, [route.params]);
 
   return (
-    <View style={styles.container}>
+    <View style={{ ...styles.container, backgroundColor: theme.secondary }}>
       <RedirectModal
         modalVisible={visibleModal}
         setModalVisible={setVisibleModal}
@@ -79,7 +83,6 @@ export const Messages = ({ navigation, route }: Props) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'lightgreen',
   },
   messagesCont: {
     flex: 1,
