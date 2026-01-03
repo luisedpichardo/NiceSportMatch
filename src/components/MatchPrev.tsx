@@ -4,14 +4,14 @@ import { MatchCardOptions } from './MatchCardOptions';
 import { RigthSMatchPrev } from './RightSMatchPrev';
 import { LeftSMatchPrev } from './LeftSMatchPrev';
 // Stores
-import { useUserStore } from '../stores/userStore';
+import { useStore } from '../stores/userStore';
 
 type Match = {
   match: any;
 };
 
 export const MatchPrev = ({ match }: Match) => {
-  const username = useUserStore(state => state.username);
+  const username = useStore(state => state.username);
 
   return (
     <View style={styles.container}>

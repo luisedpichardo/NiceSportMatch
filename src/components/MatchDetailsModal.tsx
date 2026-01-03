@@ -16,7 +16,7 @@ import {
   getMatchesIdsService,
 } from '../services/UserService';
 // Stores
-import { useUserStore } from '../stores/userStore';
+import { useStore } from '../stores/userStore';
 
 type MatchDetailsModalProps = {
   modalVisible: any;
@@ -30,7 +30,7 @@ export const MatchDetailsModal = ({
   match,
 }: MatchDetailsModalProps) => {
   const { t } = useTranslation();
-  const username = useUserStore(state => state.username);
+  const username = useStore(state => state.username);
   const [matchesIDs, setMatchesIDs] = useState<string[]>([]);
 
   useEffect(() => {

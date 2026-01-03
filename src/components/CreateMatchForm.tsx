@@ -19,7 +19,7 @@ import { matchValidation } from '../schemas/MatchValidation';
 // Services
 import { createMatchService } from '../services/MatchService';
 // Stores
-import { useUserStore } from '../stores/userStore';
+import { useStore } from '../stores/userStore';
 // Utils
 import { darkTheme, lightTheme } from '../utils/Colors';
 
@@ -29,7 +29,7 @@ type Props = {
 
 export const CreateMatchForm = ({ navigation }: Props) => {
   const { t } = useTranslation();
-  const username = useUserStore(state => state.username);
+  const username = useStore(state => state.username);
   const colorScheme = useColorScheme();
   const theme = colorScheme === 'dark' ? darkTheme : lightTheme;
   const [validating, setValidating] = useState(false);

@@ -2,12 +2,12 @@ import { useEffect, useState } from 'react';
 import { Alert } from 'react-native';
 import firestore, { Filter } from '@react-native-firebase/firestore';
 // Stores
-import { useUserStore } from '../stores/userStore';
+import { useStore } from '../stores/userStore';
 
 export const useChatMessages = (someone: string) => {
   const [messages, setMessages] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
-  const username = useUserStore(state => state.username);
+  const username = useStore(state => state.username);
 
   useEffect(() => {
     if (!username || !someone) {

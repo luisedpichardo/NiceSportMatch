@@ -16,7 +16,7 @@ import { Navigation } from './src/navigation/navigation';
 // Services
 import { getPersistedLang } from './src/services/LanguageService';
 // Store
-import { useUserStore } from './src/stores/userStore';
+import { useStore } from './src/stores/userStore';
 import {
   assignUsernameToStore,
   removeUsernameFromStore,
@@ -24,15 +24,15 @@ import {
 import { ErrorBoundary } from './src/screens/ErrorBoundary';
 
 function App() {
-  const isDarkMode = useColorScheme() === 'dark';
+  const isDarkMode = useColorScheme() !== 'dark';
 
   useEffect(() => {
     const subscriber = onAuthStateChanged(getAuth(), user => {
       if (user) {
-        useUserStore.getState().setUser(user);
+        useStore.getState().setUser(user);
         assignUsernameToStore();
       } else {
-        useUserStore.getState().setUser(null);
+        useStore.getState().setUser(null);
         removeUsernameFromStore();
       }
     });

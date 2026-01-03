@@ -1,18 +1,18 @@
 // Services
 import { readUsersService } from '../services/AuthService';
 // Stores
-import { useUserStore } from '../stores/userStore';
+import { useStore } from '../stores/userStore';
 
 // Find the username of current
 export const assignUsernameToStore = () => {
   readUsersService().then(users => {
     const user = users.find(
-      elem => elem.data().email === useUserStore.getState().user.email,
+      elem => elem.data().email === useStore.getState().user.email,
     );
     if (user) {
       const username = user?.data().username;
       // Assing email to the store
-      useUserStore.getState().setUsername(username);
+      useStore.getState().setUsername(username);
     } else {
       throw new Error('Could not get username');
     }
@@ -20,5 +20,5 @@ export const assignUsernameToStore = () => {
 };
 
 export const removeUsernameFromStore = () => {
-  useUserStore.getState().setUsername('');
+  useStore.getState().setUsername('');
 };

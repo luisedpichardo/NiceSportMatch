@@ -2,9 +2,9 @@
 import { AuthStack } from './AuthStack';
 import { MyMain } from './MyMain';
 // Stores
-import { useUserStore } from '../stores/userStore';
+import { useStore } from '../stores/userStore';
 
 export const Navigation = () => {
-  const user = useUserStore(state => state.user);
+  const user = useStore(state => state.user);
   return <>{user ? <MyMain /> : <AuthStack />}</>;
 };

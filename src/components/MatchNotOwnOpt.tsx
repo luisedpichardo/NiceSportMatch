@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next';
 // Services
 import { removeMatchFromUserService } from '../services/UserService';
 // Stores
-import { useUserStore } from '../stores/userStore';
+import { useStore } from '../stores/userStore';
 
 type Props = {
   publisher: string;
@@ -21,7 +21,7 @@ type ChatStackParamList = {
 
 export const MatchNotOwnOpt = ({ publisher, _id }: Props) => {
   const { t } = useTranslation();
-  const username = useUserStore(state => state.username);
+  const username = useStore(state => state.username);
   const chatNav =
     useNavigation<NativeStackNavigationProp<ChatStackParamList>>();
   const removeMatchFromUser = async () => {

@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 // Hooks
 import { useProfileImage } from '../hooks/useProfileImage';
 // Stores
-import { useUserStore } from '../stores/userStore';
+import { useStore } from '../stores/userStore';
 
 type Props = {
   publisher: string;
@@ -12,7 +12,7 @@ type Props = {
 
 export const LeftSMatchPrev = ({ publisher, status }: Props) => {
   const { t } = useTranslation();
-  const username = useUserStore(state => state.username);
+  const username = useStore(state => state.username);
   const { imageUri } = useProfileImage(publisher);
 
   return (

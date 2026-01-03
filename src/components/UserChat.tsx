@@ -1,6 +1,6 @@
 import { FlatList, StyleSheet, Text, useColorScheme, View } from 'react-native';
 // Stores
-import { useUserStore } from '../stores/userStore';
+import { useStore } from '../stores/userStore';
 import { darkTheme, lightTheme } from '../utils/Colors';
 
 type Props = {
@@ -8,7 +8,7 @@ type Props = {
 };
 
 export const UserChat = ({ messages }: Props) => {
-  const username = useUserStore(state => state.username);
+  const username = useStore(state => state.username);
   const colorScheme = useColorScheme();
   const theme = colorScheme === 'dark' ? darkTheme : lightTheme;
 

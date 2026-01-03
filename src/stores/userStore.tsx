@@ -5,17 +5,21 @@ import { persist, createJSONStorage } from 'zustand/middleware';
 type UserState = {
   user: any;
   username: string | null;
+  theme: string;
   setUser: (user: any) => void;
   setUsername: (username: string) => void;
+  setTheme: (theme: string) => void;
 };
 
-export const useUserStore = create<UserState>()(
+export const useStore = create<UserState>()(
   persist(
     (set, get) => ({
       user: null,
       username: '',
+      theme: 'light',
       setUser: user => set({ user }),
       setUsername: username => set({ username }),
+      setTheme: theme => set({ theme }),
     }),
     {
       name: 'Nice-Sport-Match-info',

@@ -14,7 +14,7 @@ import { useProfileImage } from '../hooks/useProfileImage';
 import { getUserRefService } from '../services/UserService';
 import { analyticsService, types } from '../services/AnalyticsService';
 // Stores
-import { useUserStore } from '../stores/userStore';
+import { useStore } from '../stores/userStore';
 // Utils
 import {
   convertToBase64Helper,
@@ -25,7 +25,7 @@ import { darkTheme, lightTheme } from '../utils/Colors';
 
 export const ImageProfile = () => {
   const { t } = useTranslation();
-  const username = useUserStore(state => state.username);
+  const username = useStore(state => state.username);
   const colorScheme = useColorScheme();
   const theme = colorScheme === 'dark' ? darkTheme : lightTheme;
   const { imageUri, setImageUri } = useProfileImage(username);
