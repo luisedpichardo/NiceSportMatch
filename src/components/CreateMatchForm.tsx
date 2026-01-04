@@ -13,6 +13,7 @@ import { useTranslation } from 'react-i18next';
 // Components
 import { CustomInput } from './CustomInput';
 import { LocationPicker, MapLocationPickerRef } from './LocationPicker';
+import PickDate, { DatePickerRef } from './PickDate';
 // Hooks
 import { useTheme } from '../hooks/useTheme';
 // Schemas
@@ -32,8 +33,9 @@ export const CreateMatchForm = ({ navigation }: Props) => {
   const { theme } = useTheme();
   const [validating, setValidating] = useState(false);
   const mapRef = useRef<MapLocationPickerRef>(null);
+  const dateRef = useRef<DatePickerRef>(null);
 
-  const onCreateMatch = async (day: string, time: string) => {
+  const onCreateMatch = async (time: string) => {
     setValidating(true);
 
     const location = mapRef.current?.getLocation();
@@ -42,12 +44,19 @@ export const CreateMatchForm = ({ navigation }: Props) => {
       setValidating(false);
       return;
     }
+    const date = dateRef.current?.getDate();
+    console.log(date);
+    if (!date) {
+      Alert.alert('Missing date');
+      setValidating(false);
+      return;
+    }
 
     try {
       createMatchService(
         location.latitude,
         location.longitude,
-        day,
+        date,
         time,
         username,
       );
@@ -69,27 +78,18 @@ export const CreateMatchForm = ({ navigation }: Props) => {
     >
       <LocationPicker ref={mapRef} />
 
+      <PickDate ref={dateRef} />
+
       <View style={styles.formStyle}>
         <Formik
           validationSchema={matchValidation}
           initialValues={{
-            day: '',
             time: '',
           }}
-          onSubmit={values => onCreateMatch(values.day, values.time)}
+          onSubmit={values => onCreateMatch(values.time)}
         >
           {({ handleChange, handleSubmit, values, errors, isValid }) => (
             <>
-              <CustomInput
-                title={t('home-tabs.match-stack.create.create-form.day')}
-                placeholder={t('home-tabs.match-stack.create.create-form.day')}
-                value={values.day}
-                onChangeText={handleChange('day')}
-                secureTextEntry={false}
-                keyboardType="default"
-                error={errors}
-                errorMessage={errors.day}
-              />
               <CustomInput
                 title={t('home-tabs.match-stack.create.create-form.time')}
                 placeholder={t('home-tabs.match-stack.create.create-form.time')}
