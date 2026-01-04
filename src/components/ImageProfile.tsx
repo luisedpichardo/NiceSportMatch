@@ -14,7 +14,7 @@ import { useTheme } from '../hooks/useTheme';
 import { getUserRefService } from '../services/UserService';
 import { analyticsService, types } from '../services/AnalyticsService';
 // Stores
-import { useStore } from '../stores/userStore';
+import { userStore } from '../stores/userStore';
 // Utils
 import {
   convertToBase64Helper,
@@ -24,7 +24,7 @@ import {
 
 export const ImageProfile = () => {
   const { t } = useTranslation();
-  const username = useStore(state => state.username);
+  const username = userStore(state => state.username);
   const { theme } = useTheme();
   const { imageUri, setImageUri } = useProfileImage(username);
 

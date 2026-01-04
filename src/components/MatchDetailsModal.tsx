@@ -18,7 +18,7 @@ import {
   getMatchesIdsService,
 } from '../services/UserService';
 // Stores
-import { useStore } from '../stores/userStore';
+import { userStore } from '../stores/userStore';
 
 type MatchDetailsModalProps = {
   modalVisible: any;
@@ -32,7 +32,7 @@ export const MatchDetailsModal = ({
   match,
 }: MatchDetailsModalProps) => {
   const { t } = useTranslation();
-  const username = useStore(state => state.username);
+  const username = userStore(state => state.username);
   const { theme } = useTheme();
   const [matchesIDs, setMatchesIDs] = useState<string[]>([]);
 
@@ -65,7 +65,7 @@ export const MatchDetailsModal = ({
       );
       return;
     }
-    await addMatchIdToUserService(username, match._id)
+    await addMatchIdToUserService(username, match.publisher, match._id)
       .then(() => setModalVisible(!modalVisible))
       .catch(err => Alert.alert(t('home-tabs.map.modal.fail') + ': ', err));
   };

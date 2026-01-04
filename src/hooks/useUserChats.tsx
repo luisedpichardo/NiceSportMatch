@@ -3,10 +3,10 @@ import { Alert } from 'react-native';
 // Services
 import { getChatsForUsersService } from '../services/UserService';
 // Stores
-import { useStore } from '../stores/userStore';
+import { userStore } from '../stores/userStore';
 
 export const useUserChats = () => {
-  const username = useStore(state => state.username);
+  const username = userStore(state => state.username);
   const [chats, setChats] = useState([]);
   const [loading, setLoading] = useState(false);
 

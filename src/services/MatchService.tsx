@@ -25,7 +25,7 @@ export const createMatchService = async (
 
     await firestore().collection('matches').doc(match._id).set(match);
     // Add id to array of matches inside user
-    addMatchIdToUserService(publisher, match._id);
+    addMatchIdToUserService(publisher, publisher, match._id);
   } catch (e: any) {
     throw new Error(e.message);
   }

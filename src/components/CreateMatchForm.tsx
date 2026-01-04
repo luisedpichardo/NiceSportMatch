@@ -20,7 +20,7 @@ import { matchValidation } from '../schemas/MatchValidation';
 // Services
 import { createMatchService } from '../services/MatchService';
 // Stores
-import { useStore } from '../stores/userStore';
+import { userStore } from '../stores/userStore';
 
 type Props = {
   navigation: any;
@@ -28,7 +28,7 @@ type Props = {
 
 export const CreateMatchForm = ({ navigation }: Props) => {
   const { t } = useTranslation();
-  const username = useStore(state => state.username);
+  const username = userStore(state => state.username);
   const { theme } = useTheme();
   const [validating, setValidating] = useState(false);
   const mapRef = useRef<MapLocationPickerRef>(null);

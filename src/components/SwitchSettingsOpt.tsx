@@ -2,10 +2,10 @@ import { StyleSheet, Switch, Text, View } from 'react-native';
 // Hooks
 import { useTheme } from '../hooks/useTheme';
 // Stores
-import { useStore } from '../stores/userStore';
+import { userStore } from '../stores/userStore';
 
 export const SwitchSettingsOpt = () => {
-  const setColorScheme = useStore(state => state.setTheme);
+  const setColorScheme = userStore(state => state.setTheme);
   const { theme, colorScheme } = useTheme();
 
   const toggleSwitch = () => {

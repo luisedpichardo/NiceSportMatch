@@ -6,14 +6,14 @@ import { LeftSMatchPrev } from './LeftSMatchPrev';
 // Hooks
 import { useTheme } from '../hooks/useTheme';
 // Stores
-import { useStore } from '../stores/userStore';
+import { userStore } from '../stores/userStore';
 
 type Match = {
   match: any;
 };
 
 export const MatchPrev = ({ match }: Match) => {
-  const username = useStore(state => state.username);
+  const username = userStore(state => state.username);
   const { theme } = useTheme();
 
   return (

@@ -13,7 +13,7 @@ import { useTheme } from '../hooks/useTheme';
 // Services
 import { sendMessageService } from '../services/MessagesService';
 // Stores
-import { useStore } from '../stores/userStore';
+import { userStore } from '../stores/userStore';
 
 type Props = {
   receiver: string;
@@ -21,7 +21,7 @@ type Props = {
 
 export const ChatInput = ({ receiver }: Props) => {
   const { t } = useTranslation();
-  const username = useStore(state => state.username);
+  const username = userStore(state => state.username);
   const { theme } = useTheme();
   const [message, setMessage] = useState('');
 

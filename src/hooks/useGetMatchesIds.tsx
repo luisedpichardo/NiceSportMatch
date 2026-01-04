@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react';
 import firestore from '@react-native-firebase/firestore';
 // Stores
-import { useStore } from '../stores/userStore';
+import { userStore } from '../stores/userStore';
 
 export const useGetMatchesIds = () => {
-  const username = useStore(state => state.username);
+  const username = userStore(state => state.username);
   const [matchesIds, setMatchesIds] = useState<string[]>([]);
   const [loading, setLoading] = useState(true);
 

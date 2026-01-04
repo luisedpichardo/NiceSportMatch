@@ -16,7 +16,7 @@ import { Navigation } from './src/navigation/navigation';
 import { getPersistedLang } from './src/services/LanguageService';
 import { ErrorBoundary } from './src/screens/ErrorBoundary';
 // Store
-import { useStore } from './src/stores/userStore';
+import { userStore } from './src/stores/userStore';
 // Utils
 import {
   assignUsernameToStore,
@@ -27,10 +27,10 @@ function App() {
   useEffect(() => {
     const subscriber = onAuthStateChanged(getAuth(), user => {
       if (user) {
-        useStore.getState().setUser(user);
+        userStore.getState().setUser(user);
         assignUsernameToStore();
       } else {
-        useStore.getState().setUser(null);
+        userStore.getState().setUser(null);
         removeUsernameFromStore();
       }
     });

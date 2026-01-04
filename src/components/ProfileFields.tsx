@@ -17,11 +17,11 @@ import {
 } from '../services/UserService';
 import { analyticsService, types } from '../services/AnalyticsService';
 // Stores
-import { useStore } from '../stores/userStore';
+import { userStore } from '../stores/userStore';
 
 export const ProfileFields = () => {
   const { t } = useTranslation();
-  const username = useStore(state => state.username);
+  const username = userStore(state => state.username);
   const { theme } = useTheme();
   const [firstName, setFirstName] = useState('');
   const [newFirstName, setNewFirstName] = useState('');

@@ -2,14 +2,14 @@ import { FlatList, StyleSheet, Text, View } from 'react-native';
 // Hooks
 import { useTheme } from '../hooks/useTheme';
 // Stores
-import { useStore } from '../stores/userStore';
+import { userStore } from '../stores/userStore';
 
 type Props = {
   messages: any;
 };
 
 export const UserChat = ({ messages }: Props) => {
-  const username = useStore(state => state.username);
+  const username = userStore(state => state.username);
   const { theme } = useTheme();
 
   return (

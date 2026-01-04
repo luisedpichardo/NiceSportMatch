@@ -7,7 +7,7 @@ import { useTheme } from '../hooks/useTheme';
 // Services
 import { removeMatchFromUserService } from '../services/UserService';
 // Stores
-import { useStore } from '../stores/userStore';
+import { userStore } from '../stores/userStore';
 
 type Props = {
   publisher: string;
@@ -23,7 +23,7 @@ type ChatStackParamList = {
 
 export const MatchNotOwnOpt = ({ publisher, _id }: Props) => {
   const { t } = useTranslation();
-  const username = useStore(state => state.username);
+  const username = userStore(state => state.username);
   const { theme } = useTheme();
   const chatNav =
     useNavigation<NativeStackNavigationProp<ChatStackParamList>>();

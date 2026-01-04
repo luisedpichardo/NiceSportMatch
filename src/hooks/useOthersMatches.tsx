@@ -4,10 +4,10 @@ import firestore from '@react-native-firebase/firestore';
 // Hooks
 import { useGetMatchesIds } from './useGetMatchesIds';
 // Stores
-import { useStore } from '../stores/userStore';
+import { userStore } from '../stores/userStore';
 
 export const useOthersMatches = () => {
-  const username = useStore(state => state.username);
+  const username = userStore(state => state.username);
   const [othersMatches, setOthersMatches] = useState<any[]>([]);
   const [loadingOthers, setLoadingOthers] = useState(true);
 

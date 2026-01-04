@@ -1,4 +1,6 @@
 import firestore from '@react-native-firebase/firestore';
+// Sercices
+import { matchAddedNotificationService } from './TokenNotifService';
 
 export const readFieldsToUpdateUserService = async (username: string) => {
   try {
@@ -45,11 +47,12 @@ export const readImageUriService = async (username: string) => {
 };
 
 export const addMatchIdToUserService = async (
+  currUsername: string,
   username: string,
   _id: string,
 ) => {
   try {
-    const userRef = getUserRefService(username);
+    const userRef = getUserRefService(currUsername);
     const user = (await userRef.get()).data();
     if (user) {
       if (user.matchesIds) {
@@ -58,6 +61,7 @@ export const addMatchIdToUserService = async (
       } else {
         await userRef.update({ matchesIds: [_id] });
       }
+      matchAddedNotificationService(currUsername, username);
     } else {
       throw new Error('No user found');
     }
@@ -135,4 +139,3 @@ export const getChatsForUsersService = async (username: string) => {
     throw new Error(e.message);
   }
 };
-

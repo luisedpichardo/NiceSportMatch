@@ -2,13 +2,13 @@ import { useCallback, useState } from 'react';
 import { Alert } from 'react-native';
 import firestore, { Filter } from '@react-native-firebase/firestore';
 // Stores
-import { useStore } from '../stores/userStore';
+import { userStore } from '../stores/userStore';
 import { useFocusEffect } from '@react-navigation/native';
 
 export const useLastChatMessage = (someone: string) => {
   const [lastMessage, setLastMessage] = useState({});
   const [loading, setLoading] = useState(true);
-  const username = useStore(state => state.username);
+  const username = userStore(state => state.username);
 
   useFocusEffect(
     useCallback(() => {

@@ -11,7 +11,7 @@ type storeState = {
   setTheme: (theme: string) => void;
 };
 
-export const useStore = create<storeState>()(
+export const userStore = create<storeState>()(
   persist(
     (set, get) => ({
       user: null,

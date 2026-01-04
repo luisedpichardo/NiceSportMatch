@@ -13,11 +13,11 @@ import { MatchDetailsModal } from './MatchDetailsModal';
 import { useAllMatches } from '../hooks/useAllMatches';
 import { useCurrPosition } from '../hooks/useCurrPosition';
 // Stores
-import { useStore } from '../stores/userStore';
+import { userStore } from '../stores/userStore';
 
 export const Maps = () => {
   const { t } = useTranslation();
-  const username = useStore(state => state.username);
+  const username = userStore(state => state.username);
   const mapRef = useRef<MapView | null>(null);
   const [modalVisible, setModalVisible] = useState(false);
   const [selectedMatch, setSelectedMatch] = useState(null);
