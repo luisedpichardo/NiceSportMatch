@@ -7,12 +7,13 @@ import {
 } from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
 import DeviceInfo from 'react-native-device-info';
+// Services
+import { addDeviceToken, removeDeviceToken } from './TokenNotifService';
 // Utils
 import {
   requestNotificationAndroidPermission,
   requestNotificationIOSPermission,
 } from '../utils/PermissionsHelpers';
-import { addDeviceToken } from './UserService';
 
 export const createUserWithEmailAndPasswordService = async (
   firstName: string,
@@ -69,7 +70,6 @@ export const signInWithEmailAndPasswordService = async (
     console.log('before deailing with the token');
     const isEmulator = await DeviceInfo.isEmulator();
     if (isEmulator) {
-      // signOutService();
       Alert.alert(
         'You are not on real device so notifications will not work on you',
       );
@@ -98,7 +98,22 @@ export const signInWithEmailAndPasswordService = async (
 
 // Sign out User
 export const signOutService = async () => {
+  const email = getAuth().currentUser?.email;
   // Remove device token for the notificatinos
+  const isEmulator = await DeviceInfo.isEmulator();
+
+  if (isEmulator) {
+    Alert.alert('Thanks for trying our app using an emulator!');
+  } else {
+    let token;
+    // Create token for push notifications
+    if (Platform.OS === 'ios') {
+      token = await requestNotificationIOSPermission();
+    } else if (Platform.OS === 'android') {
+      token = await requestNotificationAndroidPermission();
+    }
+    if (token) removeDeviceToken(email, token);
+  }
   signOut(getAuth());
 };
 

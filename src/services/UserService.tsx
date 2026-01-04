@@ -136,23 +136,3 @@ export const getChatsForUsersService = async (username: string) => {
   }
 };
 
-export const addDeviceToken = async (username: string, token: string) => {
-  try {
-    let tokens;
-    let newTokens;
-    const userRef = getUserRefService(username);
-    const user = (await userRef.get()).data();
-    if (user?.deviceTokens) {
-      // Add if there are more
-      tokens = user.deviceTokens;
-      newTokens = [...tokens, token];
-      await userRef.update({ deviceTokens: newTokens });
-    } else {
-      // Create the array of tokens
-      newTokens = [token];
-      await userRef.update({ deviceTokens: newTokens });
-    }
-  } catch (e: any) {
-    throw new Error(e.message);
-  }
-};
