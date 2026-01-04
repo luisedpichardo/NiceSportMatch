@@ -82,3 +82,26 @@ export const matchAddedNotificationService = async (
     throw new Error(e.message);
   }
 };
+
+export const newMessageNotificationService = async (newMessage: any) => {
+  try {
+    const receiverRef = (
+      await getUserRefService(newMessage.receiver).get()
+    ).data();
+    if (receiverRef) {
+      const userReceiverTokens = await getTokensService(receiverRef.email);
+      if (userReceiverTokens) {
+        const notification = {
+          notification: {
+            title: newMessage.sender,
+            body: newMessage.message,
+          },
+          tokens: userReceiverTokens.deviceTokens,
+        };
+        console.log('notification to user: ', notification);
+      }
+    }
+  } catch (e: any) {
+    throw new Error(e.message);
+  }
+};
