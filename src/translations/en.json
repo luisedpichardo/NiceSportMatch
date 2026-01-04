@@ -54,8 +54,10 @@
           "open-chat": "Open Chat"
         },
         "no-matches": {
-          "title": "No matches to display!",
-          "subtitle": "Go to the map and add matches here"
+          "title": "Add Matches",
+          "subtitle": "There is nothing to display here yet!",
+          "no-title": "No matches to display!",
+          "no-subtitle": "Go to the map and add matches here"
         }
       },
       "create": {

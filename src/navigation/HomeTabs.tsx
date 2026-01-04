@@ -33,7 +33,7 @@ export function HomeTabs() {
         style={{
           width: 35,
           height: 35,
-          tintColor: focused ? theme.primary : theme.iconSecondary,
+          tintColor: focused ? theme.iconPrimary : theme.bottomTabIcon,
         }}
       />
     );
@@ -74,6 +74,7 @@ export function HomeTabs() {
           ...styles.bottomTab,
           ...styles.shadow,
           shadowColor: theme.cardShadow,
+          backgroundColor: theme.bottomTab,
         },
         tabBarLabelStyle: styles.labelStyle,
       }}
@@ -95,6 +96,7 @@ export function HomeTabs() {
                     ...styles.bottomTab,
                     ...styles.shadow,
                     shadowColor: theme.cardShadow,
+                    backgroundColor: theme.bottomTab,
                   }
                 : { display: 'none' },
           };
@@ -124,6 +126,7 @@ export function HomeTabs() {
                     ...styles.bottomTab,
                     ...styles.shadow,
                     shadowColor: theme.cardShadow,
+                    backgroundColor: theme.bottomTab,
                   }
                 : { display: 'none' },
           };

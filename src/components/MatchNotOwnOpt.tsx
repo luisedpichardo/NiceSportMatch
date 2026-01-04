@@ -42,7 +42,7 @@ export const MatchNotOwnOpt = ({ publisher, _id }: Props) => {
         onPress={() => removeMatchFromUser()}
         style={{ ...styles.btn, backgroundColor: theme.error }}
       >
-        <Text style={{ color: theme.border, fontWeight: 'bold' }}>
+        <Text style={{ ...styles.txt, color: theme.border }}>
           {t('home-tabs.match-stack.matches.prev.not-interested')}
         </Text>
       </TouchableOpacity>
@@ -60,7 +60,7 @@ export const MatchNotOwnOpt = ({ publisher, _id }: Props) => {
           backgroundColor: theme.secondary,
         }}
       >
-        <Text style={{ fontWeight: 'bold' }}>
+        <Text style={{ ...styles.txt, color: theme.textPrimary }}>
           {t('home-tabs.match-stack.matches.prev.open-chat')}
         </Text>
       </TouchableOpacity>
@@ -77,5 +77,8 @@ const styles = StyleSheet.create({
   },
   openChatBtn: {
     borderWidth: 1,
+  },
+  txt: {
+    fontWeight: 'bold',
   },
 });

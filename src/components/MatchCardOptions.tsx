@@ -35,7 +35,7 @@ export const MatchCardOptions = ({ publisher, own, match }: Props) => {
             borderColor: theme.primary,
           }}
         >
-          <Text style={styles.txt}>
+          <Text style={{ ...styles.txt, color: theme.textPrimary }}>
             {t('home-tabs.match-stack.matches.prev.modify')}
           </Text>
         </TouchableOpacity>

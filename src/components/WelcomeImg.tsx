@@ -2,12 +2,18 @@ import { Image, StyleSheet, Text, View } from 'react-native';
 import { useTranslation } from 'react-i18next';
 // Components
 import { WelcomeSubtitle } from './WelcomeSubtitle';
+// Hooks
+import { useTheme } from '../hooks/useTheme';
 
 export const WelcomeImg = () => {
   const { t } = useTranslation();
+  const { theme } = useTheme();
+
   return (
     <View style={styles.topCont}>
-      <Text style={styles.titleStyle}>{t('auth.welcome.welcome-img.title')}</Text>
+      <Text style={{ ...styles.titleStyle, color: theme.textPrimary }}>
+        {t('auth.welcome.welcome-img.title')}
+      </Text>
       <WelcomeSubtitle />
       <Image
         source={require('../../assets/team.png')}

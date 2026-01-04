@@ -80,25 +80,27 @@ export const MatchDetailsModal = ({
       >
         <View style={{ ...styles.modalView, backgroundColor: theme.surface }}>
           {username === match.publisher ? (
-            <Text style={styles.modalText}>
+            <Text style={{ ...styles.modalText, color: theme.textPrimary }}>
               {t('home-tabs.map.modal.publisher')}:{' '}
               {t('home-tabs.map.modal.you')}
             </Text>
           ) : (
-            <Text style={styles.modalText}>
+            <Text style={{ ...styles.modalText, color: theme.textPrimary }}>
               {t('home-tabs.map.modal.publisher')}: {match.publisher}
             </Text>
           )}
-          <Text style={styles.modalText}>
+          <Text style={{ ...styles.modalText, color: theme.textPrimary }}>
             {t('home-tabs.map.modal.day')}: {match.day}
           </Text>
-          <Text style={styles.modalText}>
+          <Text style={{ ...styles.modalText, color: theme.textPrimary }}>
             {t('home-tabs.map.modal.time')}: {match.time}
           </Text>
           {matchesIDs ? (
             <>
               {matchesIDs.includes(match._id) ? (
-                <Text>{t('home-tabs.map.modal.info')}</Text>
+                <Text style={{ ...styles.modalText, color: theme.textPrimary }}>
+                  {t('home-tabs.map.modal.info')}
+                </Text>
               ) : (
                 <TouchableOpacity
                   style={{ ...styles.button, backgroundColor: theme.primary }}

@@ -2,6 +2,7 @@ import { Image, StyleSheet, Text, View } from 'react-native';
 import { useTranslation } from 'react-i18next';
 // Hooks
 import { useProfileImage } from '../hooks/useProfileImage';
+import { useTheme } from '../hooks/useTheme';
 // Stores
 import { userStore } from '../stores/userStore';
 
@@ -12,6 +13,7 @@ type Props = {
 
 export const LeftSMatchPrev = ({ publisher, status }: Props) => {
   const { t } = useTranslation();
+  const { theme } = useTheme();
   const username = userStore(state => state.username);
   const { imageUri } = useProfileImage(publisher);
 
@@ -29,12 +31,12 @@ export const LeftSMatchPrev = ({ publisher, status }: Props) => {
             }
             style={styles.imgStyle}
           />
-          <Text>
+          <Text style={{ color: theme.textPrimary }}>
             {t('home-tabs.match-stack.matches.prev.publisher')}: {publisher}
           </Text>
         </>
       )}
-      <Text>
+      <Text style={{ color: theme.textPrimary }}>
         {t('home-tabs.match-stack.matches.prev.status')}: {status}
       </Text>
     </View>

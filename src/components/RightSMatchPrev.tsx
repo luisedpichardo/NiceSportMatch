@@ -13,17 +13,17 @@ export const RigthSMatchPrev = ({ day, time }: Props) => {
   return (
     <View style={{ justifyContent: 'center' }}>
       <View style={styles.itemInfo}>
-        <Text>{day}</Text>
+        <Text style={{ color: theme.textPrimary }}>{day}</Text>
         <Image
           source={require('../../assets/calendar.png')}
-          style={{ ...styles.icnStyle, tintColor: theme.iconSecondary }}
+          style={{ ...styles.icnStyle, tintColor: theme.iconPrimary }}
         />
       </View>
       <View style={styles.itemInfo}>
-        <Text>{time}</Text>
+        <Text style={{ color: theme.textPrimary }}>{time}</Text>
         <Image
           source={require('../../assets/clock.png')}
-          style={{ ...styles.icnStyle, tintColor: theme.iconSecondary }}
+          style={{ ...styles.icnStyle, tintColor: theme.iconPrimary }}
         />
       </View>
     </View>

@@ -1,5 +1,6 @@
 import { StyleSheet, Text, View } from 'react-native';
 import { useTranslation } from 'react-i18next';
+import { useTheme } from '../hooks/useTheme';
 
 type Props = {
   own: boolean;
@@ -7,23 +8,26 @@ type Props = {
 
 export const NoMatches = ({ own }: Props) => {
   const { t } = useTranslation();
+  const { theme } = useTheme();
 
   return (
     <View style={styles.noMatchesCont}>
       {own ? (
         <>
-          <Text style={styles.noMatchesTitl}>Add Matches</Text>
-          <Text style={styles.noMatchesubT}>
-            There is nothing to display here yet
+          <Text style={{ ...styles.noMatchesTitl, color: theme.textPrimary }}>
+            {t('home-tabs.match-stack.matches.no-matches.title')}
+          </Text>
+          <Text style={{ ...styles.noMatchesubT, color: theme.textSecondary }}>
+            {t('home-tabs.match-stack.matches.no-matches.subtitle')}
           </Text>
         </>
       ) : (
         <>
-          <Text style={styles.noMatchesTitl}>
-            {t('home-tabs.match-stack.matches.no-matches.title')}
+          <Text style={{ ...styles.noMatchesTitl, color: theme.textPrimary }}>
+            {t('home-tabs.match-stack.matches.no-matches.no-title')}
           </Text>
-          <Text style={styles.noMatchesubT}>
-            {t('home-tabs.match-stack.matches.no-matches.subtitle')}
+          <Text style={{ ...styles.noMatchesubT, color: theme.textSecondary }}>
+            {t('home-tabs.match-stack.matches.no-matches.no-subtitle')}
           </Text>
         </>
       )}

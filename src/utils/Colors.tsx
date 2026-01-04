@@ -16,6 +16,8 @@ export const lightTheme = {
   ownBubble: '#FFFFFF', // own chat
   chatText: '#FFFFFF', // ther chat text
   ownChatText: '#000000', // own chat text
+  bottomTab: '#FFFFFF', // bottom tab
+  bottomTabIcon: '#808080', // Bottom Icon tab
 };
 
 export const darkTheme = {
@@ -36,4 +38,6 @@ export const darkTheme = {
   ownBubble: '#008000',
   chatText: '#E1E3DF',
   ownChatText: '#FFFFFF',
+  bottomTab: '#132b02ff',
+  bottomTabIcon: '#FFFFFF', // Bottom Icon tab
 };

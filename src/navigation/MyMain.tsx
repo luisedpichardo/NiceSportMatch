@@ -1,4 +1,6 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+// Hooks
+import { useTheme } from '../hooks/useTheme';
 // Navigation
 import { HomeTabs } from './HomeTabs';
 // Screens
@@ -11,11 +13,14 @@ import { NavRoot } from './types';
 const Stack = createNativeStackNavigator<NavRoot>();
 
 export function MyMain() {
+  const { theme } = useTheme();
+
   return (
     <Stack.Navigator
       screenOptions={{
         headerTransparent: true,
         headerBackButtonDisplayMode: 'minimal',
+        headerTitleStyle: { color: theme.textPrimary },
       }}
     >
       <Stack.Screen

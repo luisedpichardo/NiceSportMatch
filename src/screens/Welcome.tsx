@@ -42,7 +42,9 @@ export const Welcome = ({ navigation }: Props) => {
           }}
           style={{ ...styles.btnStyle, backgroundColor: theme.surface }}
         >
-          <Text style={styles.textStyle}>{t('auth.welcome.sign-up')}</Text>
+          <Text style={{ ...styles.textStyle, color: theme.textPrimary }}>
+            {t('auth.welcome.sign-up')}
+          </Text>
         </TouchableOpacity>
       </View>
     </Background>

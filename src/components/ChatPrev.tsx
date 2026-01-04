@@ -42,11 +42,13 @@ export const ChatPrev = ({ sender, navigation }: Props) => {
               style={styles.imgStyle}
             />
             <View style={{ marginLeft: 10, justifyContent: 'center' }}>
-              <Text>{sender}</Text>
+              <Text style={{ color: theme.textPrimary }}>{sender}</Text>
               {sender === lastMessage.sender ? (
-                <Text>{lastMessage.message}</Text>
+                <Text style={{ color: theme.textPrimary }}>
+                  {lastMessage.message}
+                </Text>
               ) : (
-                <Text>
+                <Text style={{ color: theme.textPrimary }}>
                   {t('home-tabs.messages-stack.messages.prev.you')}:{' '}
                   {lastMessage.message}
                 </Text>

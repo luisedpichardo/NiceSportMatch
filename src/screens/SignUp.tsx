@@ -21,7 +21,9 @@ export const SignUp = ({ navigation }: Props) => {
       style={styles.container}
     >
       <View style={styles.topCont}>
-        <Text style={styles.titleStyle}>{t('auth.sign-up.title')}</Text>
+        <Text style={{ ...styles.titleStyle, color: theme.textPrimary }}>
+          {t('auth.sign-up.title')}
+        </Text>
       </View>
       <View style={styles.formContatiner}>
         <SignUpForm />

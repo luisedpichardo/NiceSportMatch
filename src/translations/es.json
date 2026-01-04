@@ -54,8 +54,10 @@
           "open-chat": "Abrir chat"
         },
         "no-matches": {
-          "title": "¡No hay partidos para mostrar!",
-          "subtitle": "Ve al mapa y agrega partidos aquí"
+          "title": "Crea Partidos",
+          "subtitle": "No hay nada para mostrar aún!",
+          "no-title": "¡No hay partidos para mostrar!",
+          "no-subtitle": "Ve al mapa y agrega partidos aquí"
         }
       },
       "create": {

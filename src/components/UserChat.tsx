@@ -29,7 +29,7 @@ export const UserChat = ({ messages }: Props) => {
               </View>
             ) : (
               <View>
-                <Text>{item.sender}</Text>
+                <Text style={{ color: theme.textPrimary }}>{item.sender}</Text>
                 <View
                   style={{
                     ...styles.messageCont,
