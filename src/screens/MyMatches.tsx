@@ -60,7 +60,7 @@ export const MyMatches = () => {
           backgroundColor: theme.primary,
         }}
       >
-        <Text style={{ ...styles.btnTxt, color: theme.border }}>
+        <Text style={styles.btnTxt}>
           {t('home-tabs.match-stack.matches.btn-txt')}
         </Text>
       </TouchableOpacity>
@@ -90,6 +90,7 @@ const styles = StyleSheet.create({
   },
   btnTxt: {
     fontWeight: 'bold',
+    color: 'white',
   },
   matchesContatiner: {
     flex: 4,

@@ -48,18 +48,28 @@ export function HomeTabs() {
         style={({ pressed }) => [
           styles.custBtn,
           styles.shadow,
+          {
+            borderColor: props['aria-selected']
+              ? theme.bottomTab
+              : theme.iconPrimary,
+          },
           { shadowColor: theme.cardShadow },
           pressed && { transform: [{ scale: 0.8 }] },
           {
             backgroundColor: props['aria-selected']
-              ? theme.iconPrimary
-              : theme.iconSecondary,
+              ? theme.iconWhite
+              : theme.iconPrimary,
           },
         ]}
       >
         <Image
           source={require('../../assets/map.png')}
-          style={{ ...styles.custImg, tintColor: theme.iconWhite }}
+          style={{
+            ...styles.custImg,
+            tintColor: props['aria-selected']
+              ? theme.iconPrimary
+              : theme.iconWhite,
+          }}
         />
       </Pressable>
     );
@@ -168,6 +178,7 @@ const styles = StyleSheet.create({
     height: 90,
     borderRadius: 45,
     alignSelf: 'center',
+    borderWidth: 2,
   },
   custImg: {
     width: 35,
