@@ -19,6 +19,8 @@ import {
 } from '../services/UserService';
 // Stores
 import { userStore } from '../stores/userStore';
+// Utils
+import { timeFormatHelper } from '../utils/functions/timeFormatHelper';
 
 type MatchDetailsModalProps = {
   modalVisible: any;
@@ -93,7 +95,7 @@ export const MatchDetailsModal = ({
             {t('home-tabs.map.modal.day')}: {match.day}
           </Text>
           <Text style={{ ...styles.modalText, color: theme.textPrimary }}>
-            {t('home-tabs.map.modal.time')}: {match.time}
+            {t('home-tabs.map.modal.time')}: {timeFormatHelper(match.time)}
           </Text>
           {matchesIDs ? (
             <>

@@ -4,6 +4,8 @@ import DateTimePickerModal from 'react-native-modal-datetime-picker';
 import { useTranslation } from 'react-i18next';
 // Hooks
 import { useTheme } from '../hooks/useTheme';
+// Utils
+import { timeFormatHelper } from '../utils/functions/timeFormatHelper';
 
 export type TimeUpdaterRef = {
   getTime: () => any;
@@ -50,9 +52,13 @@ const TimeUpdater = (props: any, ref: any) => {
         onCancel={hideTimeUpdater}
       />
       {selectedTime ? (
-        <Text style={{ color: theme.textSecondary }}>{selectedTime}</Text>
+        <Text style={{ color: theme.textSecondary }}>
+          {timeFormatHelper(selectedTime)}
+        </Text>
       ) : (
-        <Text style={{ color: theme.textSecondary }}>{props.currTime}</Text>
+        <Text style={{ color: theme.textSecondary }}>
+          {timeFormatHelper(props.currTime)}
+        </Text>
       )}
     </View>
   );

@@ -1,6 +1,8 @@
 import { Image, StyleSheet, Text, View } from 'react-native';
 // Hooks
 import { useTheme } from '../hooks/useTheme';
+// Utils
+import { timeFormatHelper } from '../utils/functions/timeFormatHelper';
 
 type Props = {
   day: any;
@@ -20,7 +22,9 @@ export const RigthSMatchPrev = ({ day, time }: Props) => {
         />
       </View>
       <View style={styles.itemInfo}>
-        <Text style={{ color: theme.textPrimary }}>{time}</Text>
+        <Text style={{ color: theme.textPrimary }}>
+          {timeFormatHelper(time)}
+        </Text>
         <Image
           source={require('../../assets/clock.png')}
           style={{ ...styles.icnStyle, tintColor: theme.iconPrimary }}

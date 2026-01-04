@@ -6,9 +6,11 @@ type storeState = {
   user: any;
   username: string | null;
   theme: string;
+  hour12Format: boolean;
   setUser: (user: any) => void;
   setUsername: (username: string) => void;
   setTheme: (theme: string) => void;
+  setHour12Format: (format: boolean) => void;
 };
 
 export const userStore = create<storeState>()(
@@ -17,9 +19,11 @@ export const userStore = create<storeState>()(
       user: null,
       username: '',
       theme: 'light',
+      hour12Format: true,
       setUser: user => set({ user }),
       setUsername: username => set({ username }),
       setTheme: theme => set({ theme }),
+      setHour12Format: hour12Format => set({ hour12Format }),
     }),
     {
       name: 'Nice-Sport-Match-info',
