@@ -63,8 +63,8 @@
       "create": {
         "title": "Create Match",
         "create-form": {
-          "day": "Day",
-          "time": "Time",
+          "day": "Select Day",
+          "time": "Select Time",
           "validating": "Validating...",
           "create": "Create Match",
           "success": "Success",
@@ -77,8 +77,8 @@
         "title": "Update Match",
         "form": {
           "fail": "Error",
-          "day": "Day",
-          "time": "Time",
+          "day": "Select Day",
+          "time": "Select Time",
           "status": "Status",
           "update-info": "Update Match Info",
           "map": {

@@ -15,6 +15,7 @@ import { LocationUpdater, MapLocationUpdaterRef } from './LocationUpdater';
 // Hooks
 import { useTheme } from '../hooks/useTheme';
 import { updateMatchService } from '../services/MatchService';
+import DateUpdater, { DateUpdaterRef } from './DateUpdater';
 
 type Props = {
   match: any;
@@ -28,6 +29,7 @@ export const UpdateMatchForm = ({ match, navigation }: Props) => {
   const [newTime, setNewTime] = useState('');
   const [newStatus, setNewStatus] = useState('');
   const mapRef = useRef<MapLocationUpdaterRef>(null);
+  const dateRef = useRef<DateUpdaterRef>(null);
 
   const onUpdateMatch = async () => {
     // Assign data accordingly
@@ -40,7 +42,7 @@ export const UpdateMatchForm = ({ match, navigation }: Props) => {
         long: mapRef.current.getLocation().longitude,
       };
     }
-    if (newDay) updatedData.day = newDay;
+    if (dateRef.current?.getDate()) updatedData.day = dateRef.current.getDate();
     if (newTime) updatedData.time = newTime;
     if (newStatus) updatedData.status = newStatus;
     // Send the update
@@ -59,8 +61,10 @@ export const UpdateMatchForm = ({ match, navigation }: Props) => {
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
     >
       <LocationUpdater ref={mapRef} initialLoc={match.address} />
+
+      <DateUpdater ref={dateRef} currDate={match.day} />
       <ScrollView>
-        <Text style={[styles.txt, { color: theme.primary }]}>
+        {/* <Text style={[styles.txt, { color: theme.primary }]}>
           {t('home-tabs.match-stack.update.form.day')}
         </Text>
         <TextInput
@@ -68,7 +72,7 @@ export const UpdateMatchForm = ({ match, navigation }: Props) => {
           value={newDay}
           onChangeText={setNewDay}
           style={[styles.input, { borderColor: theme.primary }]}
-        />
+        /> */}
         <Text style={[styles.txt, { color: theme.primary }]}>
           {t('home-tabs.match-stack.update.form.time')}
         </Text>

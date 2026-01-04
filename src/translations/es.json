@@ -63,8 +63,8 @@
       "create": {
         "title": "Crear partido",
         "create-form": {
-          "day": "Día",
-          "time": "Hora",
+          "day": "Selecciona Fecha",
+          "time": "Selecciona Hora",
           "validating": "Validando...",
           "create": "Crear partido",
           "success": "Éxito",
@@ -77,8 +77,8 @@
         "title": "Actualizar partido",
         "form": {
           "fail": "Error",
-          "day": "Día",
-          "time": "Hora",
+          "day": "Selecciona Fecha",
+          "time": "Selecciona Hora",
           "status": "Estado",
           "update-info": "Actualizar información del partido",
           "map": {

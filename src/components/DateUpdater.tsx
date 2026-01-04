@@ -5,27 +5,31 @@ import { useTranslation } from 'react-i18next';
 // Hooks
 import { useTheme } from '../hooks/useTheme';
 
-export type DatePickerRef = {
+export type DateUpdaterRef = {
   getDate: () => any;
 };
 
-const DatePicker = (props: any, ref: any) => {
+export type Props = {
+  currDate: any;
+};
+
+const DateUpdater = (props: any, ref: any) => {
   const { t } = useTranslation();
   const { theme } = useTheme();
-  const [isDatePickerVisible, setIsDatePickerVisible] = useState(false);
+  const [isDateUpdaterVisible, setIsDateUpdaterVisible] = useState(false);
   const [selectedDate, setSelectedDate] = useState('');
 
-  const showDatePicker = () => {
-    setIsDatePickerVisible(true);
+  const showDateUpdater = () => {
+    setIsDateUpdaterVisible(true);
   };
 
-  const hideDatePicker = () => {
-    setIsDatePickerVisible(false);
+  const hideDateUpdater = () => {
+    setIsDateUpdaterVisible(false);
   };
 
   const handleConfirm = (date: any) => {
     setSelectedDate(date.toDateString());
-    hideDatePicker();
+    hideDateUpdater();
   };
 
   useImperativeHandle(ref, () => ({
@@ -34,23 +38,27 @@ const DatePicker = (props: any, ref: any) => {
 
   return (
     <View style={styles.container}>
-      <Pressable onPress={showDatePicker}>
+      <Pressable onPress={showDateUpdater}>
         <Text style={{ ...styles.txt, color: theme.textPrimary }}>
           {t('home-tabs.match-stack.update.form.day')}
         </Text>
       </Pressable>
       <DateTimePickerModal
-        isVisible={isDatePickerVisible}
+        isVisible={isDateUpdaterVisible}
         mode="date"
         onConfirm={handleConfirm}
-        onCancel={hideDatePicker}
+        onCancel={hideDateUpdater}
       />
-      <Text style={{ color: theme.textSecondary }}>{selectedDate}</Text>
+      {selectedDate ? (
+        <Text style={{ color: theme.textSecondary }}>{selectedDate}</Text>
+      ) : (
+        <Text style={{ color: theme.textSecondary }}>{props.currDate}</Text>
+      )}
     </View>
   );
 };
 
-export default forwardRef(DatePicker);
+export default forwardRef<DateUpdaterRef, Props>(DateUpdater);
 
 const styles = StyleSheet.create({
   container: {
