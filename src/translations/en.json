@@ -43,6 +43,8 @@
       "matches": {
         "header-title": "Matches",
         "btn-txt": "Create Match",
+        "my-matches": "My Matches",
+        "other-matches": "Other Matches",
         "prev": {
           "publisher": "Publisher",
           "you": "You",
@@ -132,7 +134,8 @@
     "err-mess": "No valid user",
     "prof-info": "Profile Info",
     "select-lang": "Select Language",
-    "select-theme": "Select Theme",
+    "ligth-theme": "Light Theme",
+    "dark-theme": "Dark Theme",
     "profile": {
       "img": {
         "choose": "Choose from library",

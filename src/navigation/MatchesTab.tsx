@@ -1,21 +1,23 @@
 import { useState } from 'react';
 import { StyleSheet, View, useWindowDimensions } from 'react-native';
 import { TabBar, TabView } from 'react-native-tab-view';
+import { useTranslation } from 'react-i18next';
 // Hooks
 import { useTheme } from '../hooks/useTheme';
 // Screens
 import { MyMatches } from '../screens/MyMatches';
 import { OtherMatches } from '../screens/OtherMatches';
 
-const routes = [
-  { key: 'my', title: 'My Matches' },
-  { key: 'other', title: 'Other Matches' },
-];
-
 export function MatchesTab() {
   const layout = useWindowDimensions();
   const { theme } = useTheme();
+  const { t } = useTranslation();
   const [index, setIndex] = useState(0);
+
+  const routes = [
+    { key: 'my', title: t('home-tabs.match-stack.matches.my-matches') },
+    { key: 'other', title: t('home-tabs.match-stack.matches.other-matches') },
+  ];
 
   const renderScene = ({ route }: any) => {
     switch (route.key) {

@@ -43,6 +43,8 @@
       "matches": {
         "header-title": "Partidos",
         "btn-txt": "Crear partido",
+        "my-matches": "Mis Partidos",
+        "other-matches": "Otros Partidos",
         "prev": {
           "publisher": "Creador",
           "you": "Tú",
@@ -132,7 +134,8 @@
     "err-mess": "Usuario no válido",
     "prof-info": "Información del perfil",
     "select-lang": "Seleccionar idioma",
-    "select-theme": "Seleccionar tema",
+    "ligth-theme": "Modo Claro",
+    "dark-theme": "Modo Oscuro",
     "profile": {
       "img": {
         "choose": "Elegir de la galería",

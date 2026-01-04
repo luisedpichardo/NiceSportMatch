@@ -8,10 +8,13 @@ import { CreateMatch } from '../screens/CreateMatch';
 import { UpdateMatch } from '../screens/UpdateMatch';
 // Types
 import { MatchNavStack } from './types';
+import { useTranslation } from 'react-i18next';
 
 const MatchSta = createNativeStackNavigator<MatchNavStack>();
 
 export function MatchSatck() {
+  const { t } = useTranslation();
+
   return (
     <MatchSta.Navigator
       screenOptions={{
@@ -24,6 +27,7 @@ export function MatchSatck() {
         component={MatchesTab}
         options={{
           headerRight: () => rightHeader(),
+          headerTitle: t('home-tabs.match-stack.matches.header-title'),
         }}
       />
       <MatchSta.Screen name="CreateMatch" component={CreateMatch} />
