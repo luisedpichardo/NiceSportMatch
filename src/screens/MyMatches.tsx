@@ -94,5 +94,6 @@ const styles = StyleSheet.create({
   matchesContatiner: {
     flex: 4,
     marginVertical: 10,
+    marginBottom: '33%',
   },
 });

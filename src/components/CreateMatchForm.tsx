@@ -1,23 +1,12 @@
 import { useRef, useState } from 'react';
-import {
-  View,
-  Text,
-  TouchableOpacity,
-  StyleSheet,
-  Alert,
-  KeyboardAvoidingView,
-  Platform,
-} from 'react-native';
-import { Formik } from 'formik';
+import { View, Text, StyleSheet, Alert, Pressable } from 'react-native';
 import { useTranslation } from 'react-i18next';
 // Components
-import { CustomInput } from './CustomInput';
 import { LocationPicker, MapLocationPickerRef } from './LocationPicker';
-import PickDate, { DatePickerRef } from './PickDate';
+import DatePicker, { DatePickerRef } from './DatePicker';
+import TimePicker, { TimePickerRef } from './TimePicker';
 // Hooks
 import { useTheme } from '../hooks/useTheme';
-// Schemas
-import { matchValidation } from '../schemas/MatchValidation';
 // Services
 import { createMatchService } from '../services/MatchService';
 // Stores
@@ -34,8 +23,9 @@ export const CreateMatchForm = ({ navigation }: Props) => {
   const [validating, setValidating] = useState(false);
   const mapRef = useRef<MapLocationPickerRef>(null);
   const dateRef = useRef<DatePickerRef>(null);
+  const timeRef = useRef<TimePickerRef>(null);
 
-  const onCreateMatch = async (time: string) => {
+  const onCreateMatch = async () => {
     setValidating(true);
 
     const location = mapRef.current?.getLocation();
@@ -48,6 +38,13 @@ export const CreateMatchForm = ({ navigation }: Props) => {
     console.log(date);
     if (!date) {
       Alert.alert('Missing date');
+      setValidating(false);
+      return;
+    }
+    const time = timeRef.current?.getTime();
+    console.log(time);
+    if (!time) {
+      Alert.alert('Missing time');
       setValidating(false);
       return;
     }
@@ -72,50 +69,22 @@ export const CreateMatchForm = ({ navigation }: Props) => {
   };
 
   return (
-    <KeyboardAvoidingView
-      style={styles.container}
-      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-    >
+    <View style={styles.container}>
       <LocationPicker ref={mapRef} />
+      <DatePicker ref={dateRef} />
+      <TimePicker ref={timeRef} />
 
-      <PickDate ref={dateRef} />
-
-      <View style={styles.formStyle}>
-        <Formik
-          validationSchema={matchValidation}
-          initialValues={{
-            time: '',
-          }}
-          onSubmit={values => onCreateMatch(values.time)}
-        >
-          {({ handleChange, handleSubmit, values, errors, isValid }) => (
-            <>
-              <CustomInput
-                title={t('home-tabs.match-stack.create.create-form.time')}
-                placeholder={t('home-tabs.match-stack.create.create-form.time')}
-                value={values.time}
-                onChangeText={handleChange('time')}
-                secureTextEntry={false}
-                keyboardType="default"
-                error={errors}
-                errorMessage={errors.time}
-              />
-              <TouchableOpacity
-                onPress={handleSubmit}
-                style={[styles.btn, { backgroundColor: theme.primary }]}
-                disabled={!isValid}
-              >
-                <Text style={[styles.btnTxt, { color: theme.border }]}>
-                  {validating
-                    ? t('home-tabs.match-stack.create.create-form.validating')
-                    : t('home-tabs.match-stack.create.create-form.create')}
-                </Text>
-              </TouchableOpacity>
-            </>
-          )}
-        </Formik>
-      </View>
-    </KeyboardAvoidingView>
+      <Pressable
+        style={{ ...styles.btn, backgroundColor: theme.primary }}
+        onPress={() => onCreateMatch()}
+      >
+        <Text style={{ ...styles.btnTxt, color: theme.border }}>
+          {validating
+            ? t('home-tabs.match-stack.create.create-form.validating')
+            : t('home-tabs.match-stack.create.create-form.create')}
+        </Text>
+      </Pressable>
+    </View>
   );
 };
 

@@ -1,12 +1,15 @@
 import React, { forwardRef, useImperativeHandle, useState } from 'react';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
+// Hooks
+import { useTheme } from '../hooks/useTheme';
 
 export type DatePickerRef = {
   getDate: () => any;
 };
 
-const PickDate = (props: any, ref: any) => {
+const DatePicker = (props: any, ref: any) => {
+  const { theme } = useTheme();
   const [isDatePickerVisible, setIsDatePickerVisible] = useState(false);
   const [selectedDate, setSelectedDate] = useState('');
 
@@ -30,7 +33,9 @@ const PickDate = (props: any, ref: any) => {
   return (
     <View style={styles.container}>
       <Pressable onPress={showDatePicker}>
-        <Text>Select Date</Text>
+        <Text style={{ ...styles.txt, color: theme.textPrimary }}>
+          Select Date
+        </Text>
       </Pressable>
       <DateTimePickerModal
         isVisible={isDatePickerVisible}
@@ -38,17 +43,20 @@ const PickDate = (props: any, ref: any) => {
         onConfirm={handleConfirm}
         onCancel={hideDatePicker}
       />
-      <Text>{selectedDate}</Text>
+      <Text style={{ color: theme.textSecondary }}>{selectedDate}</Text>
     </View>
   );
 };
 
-export default forwardRef(PickDate);
+export default forwardRef(DatePicker);
 
 const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     marginVertical: 10,
+  },
+  txt: {
+    fontWeight: 'bold',
   },
 });
