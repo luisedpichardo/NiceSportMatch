@@ -6,7 +6,8 @@ import { useTranslation } from 'react-i18next';
 // Components
 import { SettingsOptions } from '../components/SettingsOptions';
 import { RightHdrBtn } from '../components/RightHdrBtn';
-import { SwitchSettingsOpt } from '../components/SwitchSettingsOpt';
+import { ThemeSwitchSettingsOpt } from '../components/ThemeSwitchSettingsOpt';
+import { TimeFormatSwitchSettOpt } from '../components/TimeFormatSwitchSettOpt';
 // Hooks
 import { useTheme } from '../hooks/useTheme';
 // Services
@@ -74,7 +75,8 @@ export const Settings = ({ navigation }: Props) => {
           }}
           text={t('settings.select-lang')}
         />
-        <SwitchSettingsOpt />
+        <ThemeSwitchSettingsOpt />
+        <TimeFormatSwitchSettOpt />
       </View>
     </View>
   );

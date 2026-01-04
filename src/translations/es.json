@@ -138,6 +138,8 @@
     "select-lang": "Seleccionar idioma",
     "ligth-theme": "Modo Claro",
     "dark-theme": "Modo Oscuro",
+    "format-12-Hrs": "Formato de 12 horas",
+    "format-24-Hrs": "Formato de 24 horas",
     "profile": {
       "img": {
         "choose": "Elegir de la galería",
