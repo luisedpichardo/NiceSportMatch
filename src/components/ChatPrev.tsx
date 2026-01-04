@@ -25,7 +25,7 @@ export const ChatPrev = ({ sender, navigation }: Props) => {
 
   return (
     <TouchableOpacity
-      style={{ ...styles.container, backgroundColor: theme.background }}
+      style={{ ...styles.container, backgroundColor: theme.surface }}
       onPress={() => navigation.navigate('Chat', { someone: sender })}
     >
       <View style={styles.chat}>

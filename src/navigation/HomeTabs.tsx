@@ -52,14 +52,14 @@ export function HomeTabs() {
           pressed && { transform: [{ scale: 0.8 }] },
           {
             backgroundColor: props['aria-selected']
-              ? theme.primary
+              ? theme.iconPrimary
               : theme.iconSecondary,
           },
         ]}
       >
         <Image
           source={require('../../assets/map.png')}
-          style={{ ...styles.custImg, tintColor: theme.surface }}
+          style={{ ...styles.custImg, tintColor: theme.iconWhite }}
         />
       </Pressable>
     );
