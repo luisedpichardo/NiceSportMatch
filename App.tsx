@@ -14,13 +14,14 @@ import i18n from './i18n';
 import { Navigation } from './src/navigation/navigation';
 // Services
 import { getPersistedLang } from './src/services/LanguageService';
+import { ErrorBoundary } from './src/screens/ErrorBoundary';
 // Store
 import { useStore } from './src/stores/userStore';
+// Utils
 import {
   assignUsernameToStore,
   removeUsernameFromStore,
 } from './src/utils/AuthHelpers';
-import { ErrorBoundary } from './src/screens/ErrorBoundary';
 
 function App() {
   useEffect(() => {

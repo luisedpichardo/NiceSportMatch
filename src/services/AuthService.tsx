@@ -1,4 +1,4 @@
-import { Image } from 'react-native';
+import { Alert, Image, Platform } from 'react-native';
 import {
   createUserWithEmailAndPassword,
   getAuth,
@@ -6,6 +6,13 @@ import {
   signOut,
 } from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
+import DeviceInfo from 'react-native-device-info';
+// Utils
+import {
+  requestNotificationAndroidPermission,
+  requestNotificationIOSPermission,
+} from '../utils/PermissionsHelpers';
+import { addDeviceToken } from './UserService';
 
 export const createUserWithEmailAndPasswordService = async (
   firstName: string,
@@ -55,9 +62,29 @@ export const signInWithEmailAndPasswordService = async (
 ) => {
   // Set context
   try {
+    let token;
+    console.log('before sign up');
     // Log in
     await signInWithEmailAndPassword(getAuth(), email, password);
-    // Create token for push notifications
+    console.log('before deailing with the token');
+    const isEmulator = await DeviceInfo.isEmulator();
+    if (isEmulator) {
+      // signOutService();
+      Alert.alert(
+        'You are not on real device so notifications will not work on you',
+      );
+    } else {
+      // Create token for push notifications
+      if (Platform.OS === 'ios') {
+        token = await requestNotificationIOSPermission();
+      } else if (Platform.OS === 'android') {
+        token = await requestNotificationAndroidPermission();
+      }
+      if (token) {
+        console.log(token);
+        addDeviceToken(email, token);
+      }
+    }
   } catch (e: any) {
     if (e.code === 'auth/invalid-credential') {
       throw new Error('This does not match our records!');
@@ -70,7 +97,7 @@ export const signInWithEmailAndPasswordService = async (
 };
 
 // Sign out User
-export const signOutService = async (email: string) => {
+export const signOutService = async () => {
   // Remove device token for the notificatinos
   signOut(getAuth());
 };

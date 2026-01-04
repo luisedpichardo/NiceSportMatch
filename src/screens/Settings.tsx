@@ -47,8 +47,7 @@ export const Settings = ({ navigation }: Props) => {
 
   const signOut = async () => {
     // Remove
-    const user: any = getAuth().currentUser;
-    signOutService(user.email).catch((err: any) => {
+    signOutService().catch((err: any) => {
       Alert.alert(t('settings.error'), err);
     });
   };
