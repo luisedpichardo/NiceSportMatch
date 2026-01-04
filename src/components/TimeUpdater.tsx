@@ -5,27 +5,31 @@ import { useTranslation } from 'react-i18next';
 // Hooks
 import { useTheme } from '../hooks/useTheme';
 
-export type TimePickerRef = {
+export type TimeUpdaterRef = {
   getTime: () => any;
 };
 
-const TimePicker = (props: any, ref: any) => {
+export type Props = {
+  currTime: any;
+};
+
+const TimeUpdater = (props: any, ref: any) => {
   const { t } = useTranslation();
   const { theme } = useTheme();
-  const [isTimePickerVisible, setIsTimePickerVisible] = useState(false);
+  const [isTimeUpdaterVisible, setIsTimeUpdaterVisible] = useState(false);
   const [selectedTime, setSelectedTime] = useState('');
 
-  const showTimePicker = () => {
-    setIsTimePickerVisible(true);
+  const showTimeUpdater = () => {
+    setIsTimeUpdaterVisible(true);
   };
 
-  const hideTimePicker = () => {
-    setIsTimePickerVisible(false);
+  const hideTimeUpdater = () => {
+    setIsTimeUpdaterVisible(false);
   };
 
   const handleConfirm = (time: any) => {
     setSelectedTime(time.toTimeString());
-    hideTimePicker();
+    hideTimeUpdater();
   };
 
   useImperativeHandle(ref, () => ({
@@ -34,23 +38,27 @@ const TimePicker = (props: any, ref: any) => {
 
   return (
     <View style={styles.container}>
-      <Pressable onPress={showTimePicker}>
+      <Pressable onPress={showTimeUpdater}>
         <Text style={{ ...styles.txt, color: theme.textPrimary }}>
           {t('home-tabs.match-stack.update.form.time')}
         </Text>
       </Pressable>
       <DateTimePickerModal
-        isVisible={isTimePickerVisible}
+        isVisible={isTimeUpdaterVisible}
         mode="time"
         onConfirm={handleConfirm}
-        onCancel={hideTimePicker}
+        onCancel={hideTimeUpdater}
       />
-      <Text style={{ color: theme.textSecondary }}>{selectedTime}</Text>
+      {selectedTime ? (
+        <Text style={{ color: theme.textSecondary }}>{selectedTime}</Text>
+      ) : (
+        <Text style={{ color: theme.textSecondary }}>{props.currTime}</Text>
+      )}
     </View>
   );
 };
 
-export default forwardRef(TimePicker);
+export default forwardRef<TimeUpdaterRef, Props>(TimeUpdater);
 
 const styles = StyleSheet.create({
   container: {

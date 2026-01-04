@@ -12,10 +12,11 @@ import {
 import { useTranslation } from 'react-i18next';
 // Components
 import { LocationUpdater, MapLocationUpdaterRef } from './LocationUpdater';
+import DateUpdater, { DateUpdaterRef } from './DateUpdater';
+import TimeUpdater, { TimeUpdaterRef } from './TimeUpdater';
 // Hooks
 import { useTheme } from '../hooks/useTheme';
 import { updateMatchService } from '../services/MatchService';
-import DateUpdater, { DateUpdaterRef } from './DateUpdater';
 
 type Props = {
   match: any;
@@ -25,11 +26,10 @@ type Props = {
 export const UpdateMatchForm = ({ match, navigation }: Props) => {
   const { t } = useTranslation();
   const { theme } = useTheme();
-  const [newDay, setNewDay] = useState('');
-  const [newTime, setNewTime] = useState('');
   const [newStatus, setNewStatus] = useState('');
   const mapRef = useRef<MapLocationUpdaterRef>(null);
   const dateRef = useRef<DateUpdaterRef>(null);
+  const timeRef = useRef<TimeUpdaterRef>(null);
 
   const onUpdateMatch = async () => {
     // Assign data accordingly
@@ -43,7 +43,8 @@ export const UpdateMatchForm = ({ match, navigation }: Props) => {
       };
     }
     if (dateRef.current?.getDate()) updatedData.day = dateRef.current.getDate();
-    if (newTime) updatedData.time = newTime;
+    if (timeRef.current?.getTime())
+      updatedData.time = timeRef.current.getTime();
     if (newStatus) updatedData.status = newStatus;
     // Send the update
     await updateMatchService(updatedData)
@@ -63,26 +64,10 @@ export const UpdateMatchForm = ({ match, navigation }: Props) => {
       <LocationUpdater ref={mapRef} initialLoc={match.address} />
 
       <DateUpdater ref={dateRef} currDate={match.day} />
+
+      <TimeUpdater ref={timeRef} currTime={match.time} />
+
       <ScrollView>
-        {/* <Text style={[styles.txt, { color: theme.primary }]}>
-          {t('home-tabs.match-stack.update.form.day')}
-        </Text>
-        <TextInput
-          placeholder={match.day}
-          value={newDay}
-          onChangeText={setNewDay}
-          style={[styles.input, { borderColor: theme.primary }]}
-        /> */}
-        <Text style={[styles.txt, { color: theme.primary }]}>
-          {t('home-tabs.match-stack.update.form.time')}
-        </Text>
-        <TextInput
-          placeholder={match.time}
-          value={newTime}
-          onChangeText={setNewTime}
-          keyboardType="numeric"
-          style={[styles.input, { borderColor: theme.primary }]}
-        />
         <Text style={[styles.txt, { color: theme.primary }]}>
           {t('home-tabs.match-stack.update.form.status')}
         </Text>
