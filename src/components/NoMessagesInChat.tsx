@@ -26,7 +26,6 @@ export const NoMessagesInChat = ({ someone }: Props) => {
 const styles = StyleSheet.create({
   noMessaCont: {
     flex: 1,
-    marginTop: '50%',
     justifyContent: 'center',
     alignSelf: 'center',
   },

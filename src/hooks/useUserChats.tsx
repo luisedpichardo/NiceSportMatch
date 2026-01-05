@@ -1,5 +1,6 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useState } from 'react';
 import { Alert } from 'react-native';
+import { useFocusEffect } from '@react-navigation/native';
 // Services
 import { getChatsForUsersService } from '../services/UserService';
 // Stores
@@ -10,9 +11,11 @@ export const useUserChats = () => {
   const [chats, setChats] = useState([]);
   const [loading, setLoading] = useState(false);
 
-  useEffect(() => {
-    fetchChats();
-  }, []);
+  useFocusEffect(
+    useCallback(() => {
+      fetchChats();
+    }, []),
+  );
 
   const fetchChats = () => {
     if (!username) return;
