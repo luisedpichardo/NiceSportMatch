@@ -39,15 +39,12 @@ export const requestNotificationAndroidPermission = async () => {
     const result = await PermissionsAndroid.request(
       PermissionsAndroid.PERMISSIONS.POST_NOTIFICATIONS,
     );
-    console.log(result);
     if (result === PermissionsAndroid.RESULTS.GRANTED) {
-      console.log('granteeeed');
       return requestDeviceToken();
     } else {
       throw new Error('Denied');
     }
   } catch (e: any) {
-    console.log(e);
     throw new Error(e.message);
   }
 };

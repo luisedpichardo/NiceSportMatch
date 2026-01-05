@@ -1,6 +1,37 @@
+import { Alert, Platform } from 'react-native';
+import { getAuth } from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
+import DeviceInfo from 'react-native-device-info';
 // Services
 import { getUserRefService } from './UserService';
+// Utils
+import {
+  requestNotificationAndroidPermission,
+  requestNotificationIOSPermission,
+} from '../utils/PermissionsHelpers';
+
+export const retrieveDeviceTokenService = async () => {
+  const email = getAuth().currentUser?.email;
+  let token;
+  const isEmulator = await DeviceInfo.isEmulator();
+
+  if (!email) throw new Error('no username found');
+  if (isEmulator) {
+    Alert.alert(
+      'You are not on real device so notifications will not work on you',
+    );
+  } else {
+    // Create token for push notifications
+    if (Platform.OS === 'ios') {
+      token = await requestNotificationIOSPermission();
+    } else if (Platform.OS === 'android') {
+      token = await requestNotificationAndroidPermission();
+    }
+    if (token) {
+      addDeviceToken(email, token);
+    }
+  }
+};
 
 export const addDeviceToken = async (email: string, token: string) => {
   try {

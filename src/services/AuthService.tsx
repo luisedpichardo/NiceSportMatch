@@ -8,7 +8,7 @@ import {
 import firestore from '@react-native-firebase/firestore';
 import DeviceInfo from 'react-native-device-info';
 // Services
-import { addDeviceToken, removeDeviceToken } from './TokenNotifService';
+import { removeDeviceToken } from './TokenNotifService';
 // Utils
 import {
   requestNotificationAndroidPermission,
@@ -46,7 +46,6 @@ export const createUserWithEmailAndPasswordService = async (
       lastName,
       imageUri,
     });
-    signOut(getAuth());
   } catch (error: any) {
     if (error.code === 'auth/email-already-in-use') {
       throw new Error('That email address is already in use!');
@@ -64,28 +63,8 @@ export const signInWithEmailAndPasswordService = async (
 ) => {
   // Set context
   try {
-    let token;
-    console.log('before sign up');
     // Log in
     await signInWithEmailAndPassword(getAuth(), email, password);
-    console.log('before deailing with the token');
-    const isEmulator = await DeviceInfo.isEmulator();
-    if (isEmulator) {
-      Alert.alert(
-        'You are not on real device so notifications will not work on you',
-      );
-    } else {
-      // Create token for push notifications
-      if (Platform.OS === 'ios') {
-        token = await requestNotificationIOSPermission();
-      } else if (Platform.OS === 'android') {
-        token = await requestNotificationAndroidPermission();
-      }
-      if (token) {
-        console.log(token);
-        addDeviceToken(email, token);
-      }
-    }
   } catch (e: any) {
     if (e.code === 'auth/invalid-credential') {
       throw new Error('This does not match our records!');

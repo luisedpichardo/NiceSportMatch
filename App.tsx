@@ -22,6 +22,7 @@ import {
   assignUsernameToStore,
   removeUsernameFromStore,
 } from './src/utils/AuthHelpers';
+import { retrieveDeviceTokenService } from './src/services/TokenNotifService';
 
 function App() {
   useEffect(() => {
@@ -29,13 +30,15 @@ function App() {
       if (user) {
         userStore.getState().setUser(user);
         assignUsernameToStore();
+        retrieveDeviceTokenService();
       } else {
         userStore.getState().setUser(null);
         removeUsernameFromStore();
       }
     });
     getPersistedLang().then(data => {
-      i18n.changeLanguage(data || '');
+      const lang = typeof data === 'string' ? data : data?.languageTag;
+      i18n.changeLanguage(lang || 'en');
     });
     return subscriber; // unsubscribe on unmount
   }, []);

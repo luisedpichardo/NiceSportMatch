@@ -1,8 +1,10 @@
+import { useState } from 'react';
 import { Text, TouchableOpacity, StyleSheet, Alert } from 'react-native';
 import { Formik } from 'formik';
 import { useTranslation } from 'react-i18next';
 // Components
 import { CustomInput } from './CustomInput';
+import { Loading } from './Loading';
 // Hooks
 import { useTheme } from '../hooks/useTheme';
 // Schemas
@@ -15,6 +17,7 @@ import { crashService, onSignUpService } from '../services/CrashlyticsService';
 export const SignUpForm = () => {
   const { t } = useTranslation();
   const { theme } = useTheme();
+  const [loading, setLoading] = useState(false);
 
   const onSignUpPressed = (
     firstName: string,
@@ -33,6 +36,7 @@ export const SignUpForm = () => {
       .then(() => {
         analyticsService(types.BUTTON, 'User successfully signed up');
         onSignUpService({ firstName, lastName, username, email });
+        setLoading(false);
         Alert.alert(t('auth.sign-up.sign-up-form.alert-success'));
       })
       .catch((err: any) => {
@@ -53,6 +57,7 @@ export const SignUpForm = () => {
         password: '',
       }}
       onSubmit={values => {
+        setLoading(true);
         onSignUpPressed(
           values.firstName,
           values.lastName,
@@ -119,9 +124,13 @@ export const SignUpForm = () => {
             style={[styles.btn, { backgroundColor: theme.primary }]}
             disabled={!isValid}
           >
-            <Text style={{ color: theme.surface, fontSize: 20 }}>
-              {t('auth.sign-up.sign-up-form.sign-up')}
-            </Text>
+            {loading ? (
+              <Loading />
+            ) : (
+              <Text style={{ color: theme.surface, fontSize: 20 }}>
+                {t('auth.sign-up.sign-up-form.sign-up')}
+              </Text>
+            )}
           </TouchableOpacity>
         </>
       )}
