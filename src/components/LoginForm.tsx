@@ -1,11 +1,4 @@
-import {
-  Text,
-  TouchableOpacity,
-  StyleSheet,
-  Alert,
-  KeyboardAvoidingView,
-  ScrollView,
-} from 'react-native';
+import { Text, TouchableOpacity, StyleSheet, Alert } from 'react-native';
 import { Formik } from 'formik';
 import { getAuth, signOut } from '@react-native-firebase/auth';
 import { useTranslation } from 'react-i18next';
@@ -39,55 +32,51 @@ export const LoginForm = () => {
   };
 
   return (
-    <KeyboardAvoidingView>
-      <ScrollView>
-        <Formik
-          validationSchema={loginValidation}
-          style={{ flex: 3 }}
-          initialValues={{
-            email: '',
-            password: '',
-          }}
-          onSubmit={values => {
-            onLoginPressed(values.email, values.password);
-          }}
-        >
-          {({ handleChange, handleSubmit, values, errors, isValid }) => (
-            <>
-              <CustomInput
-                title={t('auth.log-in.login-form.email')}
-                placeholder={t('auth.log-in.login-form.email')}
-                value={values.email}
-                onChangeText={handleChange('email')}
-                secureTextEntry={false}
-                keyboardType="email-address"
-                error={errors}
-                errorMessage={errors.email}
-              />
-              <CustomInput
-                title={t('auth.log-in.login-form.password')}
-                placeholder={t('auth.log-in.login-form.password')}
-                value={values.password}
-                onChangeText={handleChange('password')}
-                secureTextEntry={true}
-                keyboardType="default"
-                error={errors}
-                errorMessage={errors.password}
-              />
-              <TouchableOpacity
-                onPress={handleSubmit}
-                style={[styles.btn, { backgroundColor: theme.primary }]}
-                disabled={!isValid}
-              >
-                <Text style={{ color: theme.surface, fontSize: 20 }}>
-                  {t('auth.log-in.login-form.log-in')}
-                </Text>
-              </TouchableOpacity>
-            </>
-          )}
-        </Formik>
-      </ScrollView>
-    </KeyboardAvoidingView>
+    <Formik
+      validationSchema={loginValidation}
+      style={{ flex: 3 }}
+      initialValues={{
+        email: '',
+        password: '',
+      }}
+      onSubmit={values => {
+        onLoginPressed(values.email, values.password);
+      }}
+    >
+      {({ handleChange, handleSubmit, values, errors, isValid }) => (
+        <>
+          <CustomInput
+            title={t('auth.log-in.login-form.email')}
+            placeholder={t('auth.log-in.login-form.email')}
+            value={values.email}
+            onChangeText={handleChange('email')}
+            secureTextEntry={false}
+            keyboardType="email-address"
+            error={errors}
+            errorMessage={errors.email}
+          />
+          <CustomInput
+            title={t('auth.log-in.login-form.password')}
+            placeholder={t('auth.log-in.login-form.password')}
+            value={values.password}
+            onChangeText={handleChange('password')}
+            secureTextEntry={true}
+            keyboardType="default"
+            error={errors}
+            errorMessage={errors.password}
+          />
+          <TouchableOpacity
+            onPress={handleSubmit}
+            style={[styles.btn, { backgroundColor: theme.primary }]}
+            disabled={!isValid}
+          >
+            <Text style={{ color: theme.surface, fontSize: 20 }}>
+              {t('auth.log-in.login-form.log-in')}
+            </Text>
+          </TouchableOpacity>
+        </>
+      )}
+    </Formik>
   );
 };
 

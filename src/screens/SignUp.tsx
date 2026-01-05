@@ -1,4 +1,11 @@
-import { View, Text, StyleSheet } from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  Platform,
+  KeyboardAvoidingView,
+  ScrollView,
+} from 'react-native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { useTranslation } from 'react-i18next';
 // Components
@@ -16,19 +23,26 @@ export const SignUp = ({ navigation }: Props) => {
   const { theme } = useTheme();
 
   return (
-    <Background
-      colors={[theme.surface, theme.secondary, theme.primary]}
-      style={styles.container}
+    <KeyboardAvoidingView
+      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+      style={{ flex: 1 }}
     >
-      <View style={styles.topCont}>
-        <Text style={{ ...styles.titleStyle, color: theme.textPrimary }}>
-          {t('auth.sign-up.title')}
-        </Text>
-      </View>
-      <View style={styles.formContatiner}>
-        <SignUpForm />
-      </View>
-    </Background>
+      <Background
+        colors={[theme.surface, theme.secondary, theme.primary]}
+        style={styles.container}
+      >
+        <ScrollView style={{ flex: 1 }}>
+          <View style={styles.topCont}>
+            <Text style={{ ...styles.titleStyle, color: theme.textPrimary }}>
+              {t('auth.sign-up.title')}
+            </Text>
+          </View>
+          <View style={styles.formContatiner}>
+            <SignUpForm />
+          </View>
+        </ScrollView>
+      </Background>
+    </KeyboardAvoidingView>
   );
 };
 const styles = StyleSheet.create({
