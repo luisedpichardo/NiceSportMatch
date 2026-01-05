@@ -14,6 +14,7 @@ import { useAllMatches } from '../hooks/useAllMatches';
 import { useCurrPosition } from '../hooks/useCurrPosition';
 // Stores
 import { userStore } from '../stores/userStore';
+import { getMarkerColor } from '../utils/functions/getMarkerColor';
 
 export const Maps = () => {
   const { t } = useTranslation();
@@ -49,7 +50,8 @@ export const Maps = () => {
       >
         {matches && username ? (
           <>
-            {matches.map((elem: any) => {
+            {matches.map(async (elem: any) => {
+              console.log(elem);
               return (
                 <Marker
                   key={elem._id}
@@ -57,7 +59,7 @@ export const Maps = () => {
                     latitude: elem.address.lat,
                     longitude: elem.address.long,
                   }}
-                  pinColor={elem.publisher === username ? 'green' : 'red'}
+                  pinColor={await getMarkerColor(elem, username)}
                 >
                   <Callout
                     onPress={() => {

@@ -2,9 +2,7 @@ import { userStore } from '../../stores/userStore';
 
 export const timeFormatHelper = (time: string) => {
   if (time) {
-		console.log('time exists')
     const hour12Format = userStore(state => state.hour12Format);
-		console.log('after getting boolean')
     // We split the string to get just the "16:05:54" part
     const timeParts = time.split(' ')[0];
 
