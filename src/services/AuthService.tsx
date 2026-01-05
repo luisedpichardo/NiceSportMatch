@@ -23,8 +23,9 @@ export const createUserWithEmailAndPasswordService = async (
   password: string,
 ) => {
   try {
-    // Use lowercase for username
+    // Use lowercase
     const lowUsername = username.toLowerCase();
+    const lowEmail = email.toLowerCase();
     // Check if the username is valid
     const invalidUsername = (
       await firestore().collection('users').doc(lowUsername).get()
@@ -36,10 +37,10 @@ export const createUserWithEmailAndPasswordService = async (
       require('../../assets/account_pp_default.jpg'),
     ).uri;
     // Create user with email and password
-    await createUserWithEmailAndPassword(getAuth(), email, password);
+    await createUserWithEmailAndPassword(getAuth(), lowEmail, password);
     // Save user info into firestore
     await firestore().collection('users').doc(lowUsername).set({
-      email,
+      email: lowEmail,
       username: lowUsername,
       firstName,
       lastName,
