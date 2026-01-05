@@ -78,7 +78,7 @@ export const ImageProfile = () => {
           onPress={openLibrary}
           style={[styles.btn, { backgroundColor: theme.primary }]}
         >
-          <Text style={[styles.btnTxt, { color: theme.border }]}>
+          <Text style={[styles.btnTxt, { color: theme.textWhite }]}>
             {t('settings.profile.img.choose')}
           </Text>
         </TouchableOpacity>
@@ -86,7 +86,7 @@ export const ImageProfile = () => {
           onPress={openCamera}
           style={[styles.btn, { backgroundColor: theme.primary }]}
         >
-          <Text style={[styles.btnTxt, { color: theme.border }]}>
+          <Text style={[styles.btnTxt, { color: theme.textWhite }]}>
             {t('settings.profile.img.take')}
           </Text>
         </TouchableOpacity>
@@ -95,7 +95,7 @@ export const ImageProfile = () => {
         onPress={() => updateImage()}
         style={[styles.btnConf, { backgroundColor: theme.surface }]}
       >
-        <Text style={{ fontWeight: 'bold' }}>
+        <Text style={{ fontWeight: 'bold', color: theme.textPrimary }}>
           {t('settings.profile.img.update')}
         </Text>
       </TouchableOpacity>

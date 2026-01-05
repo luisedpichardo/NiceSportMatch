@@ -77,6 +77,7 @@ export const ProfileFields = () => {
         value={newFirstName}
         onChangeText={setNewFirstName}
         style={[styles.input, { borderColor: theme.primary }]}
+        placeholderTextColor={theme.textSecondary}
       />
       <Text style={[styles.txt, { color: theme.primary }]}>
         {t('settings.profile.info.last-name')}
@@ -86,6 +87,7 @@ export const ProfileFields = () => {
         value={newLastName}
         onChangeText={setNewLastName}
         style={[styles.input, { borderColor: theme.primary }]}
+        placeholderTextColor={theme.textSecondary}
       />
       <Text style={[styles.txt, { color: theme.primary }]}>
         {t('settings.profile.info.age')}
@@ -96,13 +98,14 @@ export const ProfileFields = () => {
         onChangeText={setNewAge}
         keyboardType="numeric"
         style={[styles.input, { borderColor: theme.primary }]}
+        placeholderTextColor={theme.textSecondary}
       />
 
       <TouchableOpacity
         onPress={updateAccount}
         style={[styles.btnStyle, { backgroundColor: theme.surface }]}
       >
-        <Text style={{ fontWeight: 'bold' }}>
+        <Text style={{ fontWeight: 'bold', color: theme.textPrimary }}>
           {t('settings.profile.info.update')}
         </Text>
       </TouchableOpacity>

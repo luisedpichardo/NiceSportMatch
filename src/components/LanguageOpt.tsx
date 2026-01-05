@@ -15,7 +15,7 @@ export const LanguageOpt = ({ onPress, text }: LangOpt) => {
       style={[styles.flagBtn, { backgroundColor: theme.transparent }]}
       onPress={onPress}
     >
-      <Text style={[styles.text, { color: theme.border }]}>{text}</Text>
+      <Text style={[styles.text, { color: theme.textWhite }]}>{text}</Text>
     </TouchableOpacity>
   );
 };
