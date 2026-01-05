@@ -1,4 +1,3 @@
-import { useEffect, useState } from 'react';
 import {
   Modal,
   Text,
@@ -12,15 +11,14 @@ import { useTranslation } from 'react-i18next';
 import { Loading } from './Loading';
 // Hooks
 import { useTheme } from '../hooks/useTheme';
+import { useMatchesIds } from '../hooks/useMatchesIds';
 // Services
-import {
-  addMatchIdToUserService,
-  getMatchesIdsService,
-} from '../services/UserService';
+import { addMatchIdToUserService } from '../services/UserService';
 // Stores
 import { userStore } from '../stores/userStore';
 // Utils
 import { timeFormatHelper } from '../utils/functions/timeFormatHelper';
+import { dateFormatHelper } from '../utils/functions/dateFormatHelper';
 
 type MatchDetailsModalProps = {
   modalVisible: any;
@@ -36,28 +34,7 @@ export const MatchDetailsModal = ({
   const { t } = useTranslation();
   const username = userStore(state => state.username);
   const { theme } = useTheme();
-  const [matchesIDs, setMatchesIDs] = useState<string[]>([]);
-
-  useEffect(() => {
-    fetchMatchesIds();
-  }, [modalVisible]);
-
-  const fetchMatchesIds = async () => {
-    if (!username) {
-      Alert.alert(
-        t('home-tabs.map.modal.fail'),
-        t('home-tabs.map.modal.fail-mess'),
-      );
-      return;
-    }
-    await getMatchesIdsService(username)
-      .then(res => {
-        setMatchesIDs(res ?? []);
-      })
-      .catch(err => {
-        Alert.alert(err.message);
-      });
-  };
+  const { matchesIDs, loading } = useMatchesIds();
 
   const addIDToMatches = async () => {
     if (!username) {
@@ -92,12 +69,14 @@ export const MatchDetailsModal = ({
             </Text>
           )}
           <Text style={{ ...styles.modalText, color: theme.textPrimary }}>
-            {t('home-tabs.map.modal.day')}: {match.day}
+            {t('home-tabs.map.modal.day')}: {dateFormatHelper(match.day)}
           </Text>
           <Text style={{ ...styles.modalText, color: theme.textPrimary }}>
             {t('home-tabs.map.modal.time')}: {timeFormatHelper(match.time)}
           </Text>
-          {matchesIDs ? (
+          {loading ? (
+            <Loading />
+          ) : (
             <>
               {matchesIDs.includes(match._id) ? (
                 <Text style={{ ...styles.modalText, color: theme.textPrimary }}>
@@ -128,8 +107,6 @@ export const MatchDetailsModal = ({
                 </Text>
               </TouchableOpacity>
             </>
-          ) : (
-            <Loading />
           )}
         </View>
       </View>

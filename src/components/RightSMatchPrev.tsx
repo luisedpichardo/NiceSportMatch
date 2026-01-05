@@ -3,6 +3,7 @@ import { Image, StyleSheet, Text, View } from 'react-native';
 import { useTheme } from '../hooks/useTheme';
 // Utils
 import { timeFormatHelper } from '../utils/functions/timeFormatHelper';
+import { dateFormatHelper } from '../utils/functions/dateFormatHelper';
 
 type Props = {
   day: any;
@@ -16,7 +17,7 @@ export const RigthSMatchPrev = ({ day, time }: Props) => {
     <View style={styles.container}>
       <View style={styles.itemInfo}>
         <Text style={{ ...styles.txt, color: theme.textPrimary }}>
-          {day}
+          {dateFormatHelper(day)}
           {'  '}
         </Text>
         <Image

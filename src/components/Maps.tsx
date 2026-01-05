@@ -14,7 +14,9 @@ import { useAllMatches } from '../hooks/useAllMatches';
 import { useCurrPosition } from '../hooks/useCurrPosition';
 // Stores
 import { userStore } from '../stores/userStore';
+// Utils
 import { getMarkerColor } from '../utils/functions/getMarkerColor';
+import { dateFormatHelper } from '../utils/functions/dateFormatHelper';
 
 export const Maps = () => {
   const { t } = useTranslation();
@@ -51,7 +53,9 @@ export const Maps = () => {
         {matches && username ? (
           <>
             {matches.map(async (elem: any) => {
-              console.log(elem);
+              if (dateFormatHelper(elem.day) === 'Expired') {
+                return <></>;
+              }
               return (
                 <Marker
                   key={elem._id}
