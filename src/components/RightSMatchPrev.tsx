@@ -13,17 +13,21 @@ export const RigthSMatchPrev = ({ day, time }: Props) => {
   const { theme } = useTheme();
 
   return (
-    <View style={{ justifyContent: 'center' }}>
+    <View style={styles.container}>
       <View style={styles.itemInfo}>
-        <Text style={{ color: theme.textPrimary }}>{day}</Text>
+        <Text style={{ ...styles.txt, color: theme.textPrimary }}>
+          {day}
+          {'  '}
+        </Text>
         <Image
           source={require('../../assets/calendar.png')}
           style={{ ...styles.icnStyle, tintColor: theme.iconPrimary }}
         />
       </View>
       <View style={styles.itemInfo}>
-        <Text style={{ color: theme.textPrimary }}>
+        <Text style={{ ...styles.txt, color: theme.textPrimary }}>
           {timeFormatHelper(time)}
+          {'  '}
         </Text>
         <Image
           source={require('../../assets/clock.png')}
@@ -35,6 +39,9 @@ export const RigthSMatchPrev = ({ day, time }: Props) => {
 };
 
 const styles = StyleSheet.create({
+  container: {
+    justifyContent: 'center',
+  },
   icnStyle: {
     alignSelf: 'center',
     width: 20,
@@ -44,5 +51,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'flex-end',
     marginVertical: 3,
+  },
+  txt: {
+    alignSelf: 'center',
   },
 });
