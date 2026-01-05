@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useMemo, useRef, useState } from 'react';
 import { Platform, Text } from 'react-native';
 import MapView, {
   Callout,
@@ -15,8 +15,8 @@ import { useCurrPosition } from '../hooks/useCurrPosition';
 // Stores
 import { userStore } from '../stores/userStore';
 // Utils
-import { getMarkerColor } from '../utils/functions/getMarkerColor';
 import { dateFormatHelper } from '../utils/functions/dateFormatHelper';
+import { useGetMatchesIds } from '../hooks/useGetMatchesIds';
 
 export const Maps = () => {
   const { t } = useTranslation();
@@ -24,8 +24,23 @@ export const Maps = () => {
   const mapRef = useRef<MapView | null>(null);
   const [modalVisible, setModalVisible] = useState(false);
   const [selectedMatch, setSelectedMatch] = useState(null);
-  const { matches } = useAllMatches();
+  const { matchesIds } = useGetMatchesIds();
+  const { matches, loading } = useAllMatches();
   const { currPosition } = useCurrPosition();
+
+  const markers = useMemo(() => {
+    if (!matches || !username) return [];
+    return matches.map((match: any) => {
+      let color = 'red'; // Default color
+
+      if (match.publisher === username) {
+        color = 'green'; // If the current user created it
+      } else if (matchesIds.includes(match._id)) {
+        color = 'blue'; // If the current user has joined it
+      }
+      return { ...match, markerColor: color };
+    });
+  }, [matches, username, matchesIds]);
 
   return (
     <>
@@ -50,9 +65,11 @@ export const Maps = () => {
           longitudeDelta: 0.0121,
         }}
       >
-        {matches && username ? (
+        {loading ? (
+          <></>
+        ) : (
           <>
-            {matches.map(async (elem: any) => {
+            {markers.map(async (elem: any) => {
               if (dateFormatHelper(elem.day) === 'Expired') {
                 return <></>;
               }
@@ -63,7 +80,7 @@ export const Maps = () => {
                     latitude: elem.address.lat,
                     longitude: elem.address.long,
                   }}
-                  pinColor={await getMarkerColor(elem, username)}
+                  pinColor={elem.markerColor}
                 >
                   <Callout
                     onPress={() => {
@@ -77,8 +94,6 @@ export const Maps = () => {
               );
             })}
           </>
-        ) : (
-          <></>
         )}
       </MapView>
     </>

@@ -4,8 +4,10 @@ import firestore from '@react-native-firebase/firestore';
 
 export const useAllMatches = () => {
   const [matches, setMatches] = useState<any>();
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
+    setLoading(true);
     const unsub = firestore()
       .collection('matches')
       .onSnapshot(
@@ -17,6 +19,7 @@ export const useAllMatches = () => {
             })) ?? [];
 
           setMatches(data);
+          setLoading(false);
         },
         error => {
           Alert.alert('Error', error.message);
@@ -25,5 +28,5 @@ export const useAllMatches = () => {
     return () => unsub();
   }, []);
 
-  return { matches };
+  return { matches, loading };
 };

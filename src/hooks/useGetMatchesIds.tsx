@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import firestore from '@react-native-firebase/firestore';
 // Stores
 import { userStore } from '../stores/userStore';
@@ -22,6 +22,7 @@ export const useGetMatchesIds = () => {
 
     return unsubscribe;
   }, [username]);
+  const memoizedIds = useMemo(() => matchesIds, [JSON.stringify(matchesIds)]);
 
-  return { matchesIds, loading };
+  return { matchesIds: memoizedIds, loading };
 };
