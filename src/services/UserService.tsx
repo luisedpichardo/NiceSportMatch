@@ -114,9 +114,11 @@ export const addReferenceForUserChatService = async (
     const user = (await userRef.get()).data();
     if (user) {
       if (user.chatsRef) {
-        if (user.chatsRef.includes(usernameToAdd)) return;
-        const chatsRef = [...user.chatsRef, usernameToAdd];
-        await userRef.update({ chatsRef });
+        const chatsRef = user.chatsRef.filter(
+          (elem: string) => elem !== usernameToAdd,
+        );
+        const newChatsRef = [usernameToAdd, ...chatsRef];
+        await userRef.update({ chatsRef: newChatsRef });
       } else {
         await userRef.update({ chatsRef: [usernameToAdd] });
       }
