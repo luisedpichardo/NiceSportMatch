@@ -31,7 +31,7 @@
         "email": "Correo electrónico",
         "password": "Contraseña",
         "sign-up": "Registrarse",
-        "alert-succes": "Cuenta creada",
+        "alert-success": "Cuenta creada",
         "alert-fail": "Error al crear la cuenta"
       }
     }

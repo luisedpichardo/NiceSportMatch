@@ -15,7 +15,7 @@ export const SettingsOptions = ({ onPress, text }: Props) => {
       style={{ ...styles.btn, backgroundColor: theme.transparent }}
       onPress={onPress}
     >
-      <Text style={{ ...styles.txt, color: theme.border }}>{text}</Text>
+      <Text style={{ ...styles.txt, color: theme.textWhite }}>{text}</Text>
     </TouchableOpacity>
   );
 };

@@ -37,7 +37,7 @@ export const RedirectModal = ({
         }}
       >
         <View style={{ ...styles.modalView, backgroundColor: theme.surface }}>
-          <Text style={{ fontSize: 25 }}>
+          <Text style={{ fontSize: 25, color: theme.textPrimary }}>
             {t('home-tabs.messages-stack.messages.modal.continue')} {someone}?
           </Text>
           <View style={{ flexDirection: 'row' }}>

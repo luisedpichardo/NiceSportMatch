@@ -17,7 +17,7 @@ export const ThemeSwitchSettingsOpt = () => {
 
   return (
     <View style={{ ...styles.btn, backgroundColor: theme.transparent }}>
-      <Text style={{ ...styles.txt, color: theme.border }}>
+      <Text style={{ ...styles.txt, color: theme.textWhite }}>
         {colorScheme === 'dark'
           ? t('settings.dark-theme')
           : t('settings.ligth-theme')}

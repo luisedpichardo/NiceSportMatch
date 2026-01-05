@@ -12,7 +12,7 @@ export const TimeFormatSwitchSettOpt = () => {
 
   return (
     <View style={{ ...styles.btn, backgroundColor: theme.transparent }}>
-      <Text style={{ ...styles.txt, color: theme.border }}>
+      <Text style={{ ...styles.txt, color: theme.textWhite }}>
         {hour12Format
           ? t('settings.format-12-Hrs')
           : t('settings.format-24-Hrs')}

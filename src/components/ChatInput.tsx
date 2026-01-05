@@ -39,8 +39,13 @@ export const ChatInput = ({ receiver }: Props) => {
   return (
     <View style={styles.container}>
       <TextInput
-        style={{ ...styles.input, backgroundColor: theme.surface }}
+        style={{
+          ...styles.input,
+          backgroundColor: theme.surface,
+          color: theme.textPrimary,
+        }}
         placeholder={t('home-tabs.messages-stack.chat.input-placeholder')}
+        placeholderTextColor={theme.textSecondary}
         value={message}
         onChangeText={setMessage}
       />

@@ -1,14 +1,18 @@
 import { useTranslation } from 'react-i18next';
 import { StyleSheet, Text, View } from 'react-native';
+// Hooks
+import { useTheme } from '../hooks/useTheme';
 
 export const NoChats = () => {
   const { t } = useTranslation();
+  const { theme } = useTheme();
+
   return (
     <View style={styles.noChatsCont}>
-      <Text style={styles.noChatsTitl}>
+      <Text style={{ ...styles.noChatsTitl, color: theme.textPrimary }}>
         {t('home-tabs.messages-stack.messages.no-mess.title')}
       </Text>
-      <Text style={styles.noChatSubT}>
+      <Text style={{ ...styles.noChatSubT, color: theme.textSecondary }}>
         {t('home-tabs.messages-stack.messages.no-mess.subtitle')}
       </Text>
     </View>

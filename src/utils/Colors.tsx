@@ -5,6 +5,7 @@ export const lightTheme = {
   secondary: '#90EE90', // lightgreen
   textPrimary: '#1A1C19', // black - green
   textSecondary: '#424940', // dark green
+  textWhite: '#FFFFFF', // text white persisted
   border: '#E2E8F0', // white text
   error: '#dc0404ff', // red
   cardShadow: '#000000', // black
@@ -27,6 +28,7 @@ export const darkTheme = {
   secondary: '#143323',
   textPrimary: '#E0E0E0',
   textSecondary: '#B0B0B0',
+  textWhite: '#FFFFFF', // text white persisted
   border: '#647666ff',
   error: '#FFB4AB',
   cardShadow: '#000000',

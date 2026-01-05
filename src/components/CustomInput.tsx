@@ -32,7 +32,11 @@ export const CustomInput = ({
         placeholder={placeholder}
         value={value}
         onChangeText={onChangeText}
-        style={[styles.inputField, { borderColor: theme.primary }]}
+        style={[
+          styles.inputField,
+          { borderColor: theme.primary, color: theme.textPrimary },
+        ]}
+        placeholderTextColor={theme.textSecondary}
         secureTextEntry={secureTextEntry}
         keyboardType={keyboardType}
       />
