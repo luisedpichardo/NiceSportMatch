@@ -5,6 +5,8 @@ import firestore from '@react-native-firebase/firestore';
 import { useGetMatchesIds } from './useGetMatchesIds';
 // Stores
 import { userStore } from '../stores/userStore';
+// Utils
+import { dateFormatHelper } from '../utils/functions/dateFormatHelper';
 
 export const useMyMatches = () => {
   const username = userStore(state => state.username);
@@ -28,7 +30,9 @@ export const useMyMatches = () => {
           const data =
             snapshot?.docs
               .map(doc => ({ id: doc.id, ...doc.data() }))
-              .filter((item: any) => item.publisher === username) ?? [];
+              .filter((item: any) => item.publisher === username)
+              .filter((item: any) => dateFormatHelper(item.day) !== 'Past') ??
+            [];
           // Assigning corresponding data to matches
           setMyMatches(data);
           setLoading(false);

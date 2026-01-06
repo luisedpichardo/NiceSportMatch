@@ -7,6 +7,7 @@ import { useTheme } from '../hooks/useTheme';
 // Screens
 import { MyMatches } from '../screens/MyMatches';
 import { OtherMatches } from '../screens/OtherMatches';
+import { PastMatches } from '../screens/PastMatches';
 
 export function MatchesTab() {
   const layout = useWindowDimensions();
@@ -15,12 +16,19 @@ export function MatchesTab() {
   const [index, setIndex] = useState(0);
 
   const routes = [
+    { key: 'past', title: 'Past Matches' },
     { key: 'my', title: t('home-tabs.match-stack.matches.my-matches') },
     { key: 'other', title: t('home-tabs.match-stack.matches.other-matches') },
   ];
 
   const renderScene = ({ route }: any) => {
     switch (route.key) {
+      case 'past':
+        return (
+          <View style={{ ...styles.page, backgroundColor: theme.secondary }}>
+            <PastMatches />
+          </View>
+        );
       case 'my':
         return (
           <View style={{ ...styles.page, backgroundColor: theme.secondary }}>
