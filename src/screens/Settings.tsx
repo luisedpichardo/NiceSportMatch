@@ -10,6 +10,7 @@ import { ThemeSwitchSettingsOpt } from '../components/ThemeSwitchSettingsOpt';
 import { TimeFormatSwitchSettOpt } from '../components/TimeFormatSwitchSettOpt';
 // Hooks
 import { useTheme } from '../hooks/useTheme';
+import { useInternet } from '../hooks/useInternet';
 // Services
 import { signOutService } from '../services/AuthService';
 // Types
@@ -21,6 +22,7 @@ type Props = NativeStackScreenProps<NavRoot, 'Settings'>;
 export const Settings = ({ navigation }: Props) => {
   const { t } = useTranslation();
   const { theme } = useTheme();
+  const { internetAccess } = useInternet();
 
   useEffect(() => {
     navigation.setOptions({
@@ -58,14 +60,20 @@ export const Settings = ({ navigation }: Props) => {
     Alert.alert(t('settings.error'), t('settings.err-mess'));
   };
 
+  const navigateToProfile = () => {
+    if (!internetAccess) {
+      Alert.alert('No internet access');
+      return;
+    }
+    analyticsService(types.BUTTON, 'User navigates to profile info');
+    navigation.navigate('ProfileInfo');
+  };
+
   return (
     <View style={[styles.container, { backgroundColor: theme.secondary }]}>
       <View style={styles.settCont}>
         <SettingsOptions
-          onPress={() => {
-            analyticsService(types.BUTTON, 'User navigates to profile info');
-            navigation.navigate('ProfileInfo');
-          }}
+          onPress={() => navigateToProfile()}
           text={t('settings.prof-info')}
         />
         <SettingsOptions
