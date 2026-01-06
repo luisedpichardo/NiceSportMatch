@@ -24,6 +24,7 @@
     "@react-navigation/bottom-tabs": "^7.9.0",
     "@react-navigation/native": "^7.1.26",
     "@react-navigation/native-stack": "^7.9.0",
+    "@reduxjs/toolkit": "^2.11.2",
     "firebase-admin": "^13.6.0",
     "formik": "^2.4.9",
     "i18next": "^25.7.3",
@@ -43,6 +44,7 @@
     "react-native-screens": "^4.19.0",
     "react-native-tab-view": "^4.2.2",
     "react-native-uuid": "^2.0.3",
+    "redux-logger": "^3.0.6",
     "yup": "^1.7.1",
     "zustand": "^5.0.9"
   },
