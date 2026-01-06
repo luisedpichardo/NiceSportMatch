@@ -28,7 +28,7 @@ export const MatchCardOptions = ({ publisher, own, match }: Props) => {
 
   const goToUpdate = () => {
     if (!internetAccess) {
-      Alert.alert('No internet conection');
+      Alert.alert(t('no-internet'));
       return;
     }
     nav.navigate('UpdateMatch', { match });

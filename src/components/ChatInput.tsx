@@ -29,7 +29,7 @@ export const ChatInput = ({ receiver }: Props) => {
 
   const onSendMessage = () => {
     if (!username || !message || !internetAccess) {
-      if (!internetAccess) Alert.alert('There is no internet');
+      if (!internetAccess) Alert.alert(t('no-internet'));
       setMessage('');
       return;
     }

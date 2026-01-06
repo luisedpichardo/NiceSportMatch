@@ -166,5 +166,6 @@
       "american": "🇺🇸 Inglés (Americano)",
       "mexican": "🇲🇽 Español (Mexicano)"
     }
-  }
+  },
+  "no-internet": "Sin Conecxión a Internet"
 }

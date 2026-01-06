@@ -62,7 +62,7 @@ export const Settings = ({ navigation }: Props) => {
 
   const navigateToProfile = () => {
     if (!internetAccess) {
-      Alert.alert('No internet access');
+      Alert.alert(t('no-internet'));
       return;
     }
     analyticsService(types.BUTTON, 'User navigates to profile info');
