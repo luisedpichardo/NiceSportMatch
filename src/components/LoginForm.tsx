@@ -30,6 +30,7 @@ export const LoginForm = () => {
       })
       .catch(err => {
         crashService(err);
+        setLoading(false);
         Alert.alert(t('auth.log-in.login-form.alert-fail'), err.message);
         signOut(getAuth());
       });

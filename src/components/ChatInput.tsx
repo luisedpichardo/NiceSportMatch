@@ -10,6 +10,7 @@ import {
 import { useTranslation } from 'react-i18next';
 // Hooks
 import { useTheme } from '../hooks/useTheme';
+import { useInternet } from '../hooks/useInternet';
 // Services
 import { sendMessageService } from '../services/MessagesService';
 // Stores
@@ -24,9 +25,14 @@ export const ChatInput = ({ receiver }: Props) => {
   const username = userStore(state => state.username);
   const { theme } = useTheme();
   const [message, setMessage] = useState('');
+  const { internetAccess } = useInternet();
 
   const onSendMessage = () => {
-    if (!username || !message) return;
+    if (!username || !message || !internetAccess) {
+      if (!internetAccess) Alert.alert('There is no internet');
+      setMessage('');
+      return;
+    }
     sendMessageService(username, receiver, message)
       .then(() => {
         setMessage('');

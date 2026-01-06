@@ -41,6 +41,7 @@ export const SignUpForm = () => {
       })
       .catch((err: any) => {
         crashService(err);
+        setLoading(false);
         Alert.alert(t('auth.sign-up.sign-up-form.alert-fail'), err.message);
       });
   };

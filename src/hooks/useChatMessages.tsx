@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react';
 import { Alert } from 'react-native';
 import firestore, { Filter } from '@react-native-firebase/firestore';
+// Hooks
+import { useInternet } from './useInternet';
 // Stores
 import { userStore } from '../stores/userStore';
 
@@ -8,11 +10,11 @@ export const useChatMessages = (someone: string) => {
   const [messages, setMessages] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const username = userStore(state => state.username);
+  const { internetAccess } = useInternet();
 
   useEffect(() => {
-    if (!username || !someone) {
-      setMessages([]);
-      setLoading(false);
+    if (!username || !someone || !internetAccess) {
+      if (!internetAccess) setLoading(false);
       return;
     }
 
@@ -51,5 +53,5 @@ export const useChatMessages = (someone: string) => {
     return unsubscribe;
   }, [username, someone]);
 
-  return { messages, loading };
+  return { messages, loading, internetAccess };
 };
