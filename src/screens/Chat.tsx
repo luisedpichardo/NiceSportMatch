@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { KeyboardAvoidingView, StyleSheet, Text, View } from 'react-native';
+import { KeyboardAvoidingView, StyleSheet, View } from 'react-native';
 import { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
 import { CompositeScreenProps } from '@react-navigation/native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
@@ -11,6 +11,7 @@ import { NoInternetAccess } from '../components/NoInternetAccess';
 // Hooks
 import { useChatMessages } from '../hooks/useChatMessages';
 import { useTheme } from '../hooks/useTheme';
+import { useInternet } from '../hooks/useInternet';
 // Navigation Types
 import { ChatNavStack, NavHomeTab } from '../navigation/types';
 
@@ -22,7 +23,8 @@ type Props = CompositeScreenProps<
 export const Chat = ({ navigation, route }: Props) => {
   const { theme } = useTheme();
   const someone: string = route.params?.someone;
-  const { messages, loading, internetAccess } = useChatMessages(someone);
+  const { messages, loading } = useChatMessages(someone);
+  const { internetAccess } = useInternet();
 
   useEffect(() => {
     navigation.setOptions({
