@@ -1,4 +1,4 @@
-import { StyleSheet, Text, TouchableOpacity } from 'react-native';
+import { Alert, StyleSheet, Text, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { useTranslation } from 'react-i18next';
@@ -8,6 +8,7 @@ import { MatchNotOwnOpt } from './MatchNotOwnOpt';
 import { useTheme } from '../hooks/useTheme';
 // Types
 import { MatchNavStack } from '../navigation/types';
+import { useInternet } from '../hooks/useInternet';
 
 type Props = {
   publisher: string;
@@ -19,16 +20,25 @@ export const MatchCardOptions = ({ publisher, own, match }: Props) => {
   const { t } = useTranslation();
   const { theme } = useTheme();
   const navigation = useNavigation();
+  const { internetAccess } = useInternet();
   const nav = navigation as NativeStackScreenProps<
     MatchNavStack,
     'Matches'
   >['navigation'];
 
+  const goToUpdate = () => {
+    if (!internetAccess) {
+      Alert.alert('No internet conection');
+      return;
+    }
+    nav.navigate('UpdateMatch', { match });
+  };
+
   return (
     <>
       {own ? (
         <TouchableOpacity
-          onPress={() => nav.navigate('UpdateMatch', { match })}
+          onPress={() => goToUpdate()}
           style={{
             ...styles.btn,
             backgroundColor: theme.secondary,

@@ -8,6 +8,7 @@ import { useTheme } from '../hooks/useTheme';
 import { removeMatchFromUserService } from '../services/UserService';
 // Stores
 import { userStore } from '../stores/userStore';
+import { useInternet } from '../hooks/useInternet';
 
 type Props = {
   publisher: string;
@@ -25,6 +26,7 @@ export const MatchNotOwnOpt = ({ publisher, _id }: Props) => {
   const { t } = useTranslation();
   const username = userStore(state => state.username);
   const { theme } = useTheme();
+  const { internetAccess } = useInternet();
   const chatNav =
     useNavigation<NativeStackNavigationProp<ChatStackParamList>>();
   const removeMatchFromUser = async () => {
@@ -41,6 +43,7 @@ export const MatchNotOwnOpt = ({ publisher, _id }: Props) => {
       <TouchableOpacity
         onPress={() => removeMatchFromUser()}
         style={{ ...styles.btn, backgroundColor: theme.error }}
+        disabled={!internetAccess}
       >
         <Text style={{ ...styles.txt, color: theme.border }}>
           {t('home-tabs.match-stack.matches.prev.not-interested')}
@@ -59,6 +62,7 @@ export const MatchNotOwnOpt = ({ publisher, _id }: Props) => {
           borderColor: theme.primary,
           backgroundColor: theme.secondary,
         }}
+        disabled={!internetAccess}
       >
         <Text style={{ ...styles.txt, color: theme.textPrimary }}>
           {t('home-tabs.match-stack.matches.prev.open-chat')}
