@@ -11,8 +11,8 @@ export const dateFormatHelper = (date: any) => {
     d1.getMonth() === d2.getMonth() &&
     d1.getDate() === d2.getDate();
 
-  if (selectedDate < today) return 'Expired';
-  else if (isSameDay(selectedDate, today)) return 'Today';
+  if (isSameDay(selectedDate, today)) return 'Today';
+  else if (selectedDate < today) return 'Past';
   else if (isSameDay(selectedDate, tomorrow)) return 'Tomorrow';
 
   return date;

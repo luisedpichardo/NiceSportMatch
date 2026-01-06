@@ -23,8 +23,12 @@ import {
   removeUsernameFromStore,
 } from './src/utils/AuthHelpers';
 import { retrieveDeviceTokenService } from './src/services/TokenNotifService';
+import { StatusBar } from 'react-native';
+import { useTheme } from './src/hooks/useTheme';
 
 function App() {
+  const { colorScheme } = useTheme();
+
   useEffect(() => {
     const subscriber = onAuthStateChanged(getAuth(), user => {
       if (user) {
@@ -45,6 +49,9 @@ function App() {
 
   return (
     <SafeAreaProvider>
+      <StatusBar
+        barStyle={colorScheme === 'light' ? 'dark-content' : 'light-content'}
+      />
       <ErrorBoundary>
         <NavigationContainer>
           <Navigation />

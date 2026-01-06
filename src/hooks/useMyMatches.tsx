@@ -29,7 +29,7 @@ export const useMyMatches = () => {
             snapshot?.docs
               .map(doc => ({ id: doc.id, ...doc.data() }))
               .filter((item: any) => item.publisher === username) ?? [];
-          // Assing corresponding data to matches
+          // Assigning corresponding data to matches
           setMyMatches(data);
           setLoading(false);
         },
