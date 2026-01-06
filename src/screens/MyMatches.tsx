@@ -14,6 +14,7 @@ import { MatchPrev } from '../components/MatchPrev';
 // Hooks
 import { useMyMatches } from '../hooks/useMyMatches';
 import { useTheme } from '../hooks/useTheme';
+import { useInternet } from '../hooks/useInternet';
 // Services
 import { analyticsService, types } from '../services/AnalyticsService';
 
@@ -34,6 +35,8 @@ export const MyMatches = () => {
   const { theme } = useTheme();
   const navigation = useNavigation();
   const { myMatches, loading } = useMyMatches();
+  const { internetAccess } = useInternet();
+
   return (
     <View style={styles.container}>
       <View style={styles.matchesContatiner}>
@@ -59,6 +62,7 @@ export const MyMatches = () => {
           shadowColor: theme.cardShadow,
           backgroundColor: theme.primary,
         }}
+        disabled={!internetAccess}
       >
         <Text style={styles.btnTxt}>
           {t('home-tabs.match-stack.matches.btn-txt')}
