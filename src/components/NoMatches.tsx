@@ -11,7 +11,7 @@ export const NoMatches = ({ own }: Props) => {
   const { theme } = useTheme();
 
   return (
-    <View style={styles.noMatchesCont}>
+    <View testID="container" style={styles.noMatchesCont}>
       {own ? (
         <>
           <Text style={{ ...styles.noMatchesTitl, color: theme.textPrimary }}>
