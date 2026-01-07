@@ -3,6 +3,9 @@ import { Alert } from 'react-native';
 import firestore from '@react-native-firebase/firestore';
 // Hooks
 import { useGetMatchesIds } from './useGetMatchesIds';
+import { useInternet } from './useInternet';
+// Services
+import { readOtherMatchesFromDBService } from '../services/LocalDBService';
 // Stores
 import { userStore } from '../stores/userStore';
 // Utils
@@ -11,17 +14,23 @@ import { dateFormatHelper } from '../utils/functions/dateFormatHelper';
 export const useOthersMatches = () => {
   const username = userStore(state => state.username);
   const [othersMatches, setOthersMatches] = useState<any[]>([]);
-  const [loadingOthers, setLoadingOthers] = useState(true);
-
+  const [loading, setLoading] = useState(true);
+  const { internetAccess } = useInternet();
   const { matchesIds } = useGetMatchesIds();
 
   useEffect(() => {
     if (!username || matchesIds.length < 1) {
       setOthersMatches([]);
-      setLoadingOthers(false);
+      setLoading(false);
       return;
     }
-    setLoadingOthers(true);
+    setLoading(true);
+    if (!internetAccess) {
+      setLoading(true);
+      fetchForNoInternet(username);
+      return;
+    }
+
     const unsubscribeIds = firestore()
       .collection('matches')
       .where(firestore.FieldPath.documentId(), 'in', matchesIds)
@@ -35,18 +44,25 @@ export const useOthersMatches = () => {
             [];
           // Assing corresponding data to matches
           setOthersMatches(data);
-          setLoadingOthers(false);
+          setLoading(false);
         },
         error => {
           Alert.alert('IDs listener error:', error.message);
-          setLoadingOthers(false);
+          setLoading(false);
         },
       );
 
     return () => {
       if (unsubscribeIds) unsubscribeIds();
     };
-  }, [username, matchesIds]);
+  }, [username, matchesIds, internetAccess]);
 
-  return { othersMatches, loadingOthers };
+  const fetchForNoInternet = async (username: string) => {
+    const othersMatches: any = await readOtherMatchesFromDBService(username);
+    // set othersMatches;
+    setOthersMatches(othersMatches);
+    setLoading(false);
+  };
+
+  return { othersMatches, loading };
 };

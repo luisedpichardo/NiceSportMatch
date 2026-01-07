@@ -6,15 +6,23 @@
  */
 
 import { useEffect } from 'react';
+import { StatusBar } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { NavigationContainer } from '@react-navigation/native';
 import { getAuth, onAuthStateChanged } from '@react-native-firebase/auth';
 import i18n from './i18n';
+// Hooks
+import { useTheme } from './src/hooks/useTheme';
 // Navigation
 import { Navigation } from './src/navigation/navigation';
 // Services
 import { getPersistedLang } from './src/services/LanguageService';
 import { ErrorBoundary } from './src/screens/ErrorBoundary';
+import { retrieveDeviceTokenService } from './src/services/TokenNotifService';
+import {
+  removeDBonLogOut,
+  syncFirestoreToSQLite,
+} from './src/services/LocalDBService';
 // Store
 import { userStore } from './src/stores/userStore';
 // Utils
@@ -22,9 +30,6 @@ import {
   assignUsernameToStore,
   removeUsernameFromStore,
 } from './src/utils/AuthHelpers';
-import { retrieveDeviceTokenService } from './src/services/TokenNotifService';
-import { StatusBar } from 'react-native';
-import { useTheme } from './src/hooks/useTheme';
 
 function App() {
   const { colorScheme } = useTheme();
@@ -35,9 +40,15 @@ function App() {
         userStore.getState().setUser(user);
         assignUsernameToStore();
         retrieveDeviceTokenService();
+        setTimeout(() => {
+          // Assign db according to the user
+          syncFirestoreToSQLite();
+        }, 3000);
       } else {
         userStore.getState().setUser(null);
         removeUsernameFromStore();
+        // Remove db
+        removeDBonLogOut();
       }
     });
     getPersistedLang().then(data => {

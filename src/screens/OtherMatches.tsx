@@ -19,11 +19,11 @@ function showMathes(matches: any) {
 }
 
 export const OtherMatches = () => {
-  const { othersMatches, loadingOthers } = useOthersMatches();
+  const { othersMatches, loading } = useOthersMatches();
   return (
     <View style={styles.container}>
       <View style={styles.matchesContatiner}>
-        {loadingOthers ? (
+        {loading ? (
           <Loading />
         ) : (
           <>
