@@ -43,7 +43,7 @@ export const ChatInput = ({ receiver }: Props) => {
   };
 
   return (
-    <View style={styles.container}>
+    <View testID="container" style={styles.container}>
       <TextInput
         style={{
           ...styles.input,
@@ -57,6 +57,7 @@ export const ChatInput = ({ receiver }: Props) => {
       />
       <View style={{ flex: 1 }}></View>
       <TouchableOpacity
+        testID="sendMessageBtn"
         style={{ ...styles.btn, backgroundColor: theme.primary }}
         onPress={() => onSendMessage()}
       >

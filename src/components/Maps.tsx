@@ -69,7 +69,7 @@ export const Maps = () => {
           <></>
         ) : (
           <>
-            {markers.map(async (elem: any) => {
+            {markers.map((elem: any) => {
               if (dateFormatHelper(elem.day) === 'Past') {
                 return <></>;
               }

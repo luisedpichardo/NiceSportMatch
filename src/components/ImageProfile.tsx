@@ -66,6 +66,7 @@ export const ImageProfile = () => {
   return (
     <>
       <Image
+        testID="image"
         source={
           imageUri
             ? { uri: imageUri }
@@ -73,7 +74,7 @@ export const ImageProfile = () => {
         }
         style={styles.imgStyle}
       />
-      <View style={styles.btnsOpt}>
+      <View testID="optionsBtnsCont" style={styles.btnsOpt}>
         <TouchableOpacity
           onPress={openLibrary}
           style={[styles.btn, { backgroundColor: theme.primary }]}
@@ -92,6 +93,7 @@ export const ImageProfile = () => {
         </TouchableOpacity>
       </View>
       <TouchableOpacity
+        testID="updateBtn"
         onPress={() => updateImage()}
         style={[styles.btnConf, { backgroundColor: theme.surface }]}
       >

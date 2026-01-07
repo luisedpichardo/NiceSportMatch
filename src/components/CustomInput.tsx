@@ -26,9 +26,15 @@ export const CustomInput = ({
   const { theme } = useTheme();
 
   return (
-    <View>
-      <Text style={{ color: theme.primary, fontWeight: 'bold' }}>{title}</Text>
+    <View testID="container">
+      <Text
+        testID="titleText"
+        style={{ color: theme.primary, fontWeight: 'bold' }}
+      >
+        {title}
+      </Text>
       <TextInput
+        testID="inputField"
         placeholder={placeholder}
         value={value}
         onChangeText={onChangeText}
@@ -41,7 +47,10 @@ export const CustomInput = ({
         keyboardType={keyboardType}
       />
       {error && (
-        <Text style={[styles.errorSty, { color: theme.error }]}>
+        <Text
+          testID="errorText"
+          style={[styles.errorSty, { color: theme.error }]}
+        >
           {errorMessage}
         </Text>
       )}
