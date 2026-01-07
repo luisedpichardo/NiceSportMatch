@@ -1,4 +1,4 @@
-import { Alert, StyleSheet, Text, TouchableOpacity } from 'react-native';
+import { Alert, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { useTranslation } from 'react-i18next';
@@ -38,6 +38,7 @@ export const MatchCardOptions = ({ publisher, own, match }: Props) => {
     <>
       {own ? (
         <TouchableOpacity
+          testID="modifyBtn"
           onPress={() => goToUpdate()}
           style={{
             ...styles.btn,
@@ -45,12 +46,17 @@ export const MatchCardOptions = ({ publisher, own, match }: Props) => {
             borderColor: theme.primary,
           }}
         >
-          <Text style={{ ...styles.txt, color: theme.textPrimary }}>
+          <Text
+            testID="modifyTxt"
+            style={{ ...styles.txt, color: theme.textPrimary }}
+          >
             {t('home-tabs.match-stack.matches.prev.modify')}
           </Text>
         </TouchableOpacity>
       ) : (
-        <MatchNotOwnOpt _id={match._id} publisher={publisher} />
+        <View testID="otherOpt">
+          <MatchNotOwnOpt _id={match._id} publisher={publisher} />
+        </View>
       )}
     </>
   );
