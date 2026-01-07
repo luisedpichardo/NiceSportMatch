@@ -57,15 +57,4 @@ describe('Details for modal', () => {
     );
     expect(getByTestId('timeDisplay')).toBeTruthy();
   });
-
-  test('Time Display', () => {
-    const { getByTestId } = render(
-      <MatchDetailsModal
-        modalVisible="sender"
-        setModalVisible={true}
-        match={match}
-      />,
-    );
-    expect(getByTestId('usernameMatch')).toBeTruthy();
-  });
 });

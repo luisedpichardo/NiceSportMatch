@@ -39,17 +39,22 @@ export const MatchNotOwnOpt = ({ publisher, _id }: Props) => {
   };
 
   return (
-    <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+    <View
+      testID="options"
+      style={{ flexDirection: 'row', justifyContent: 'space-between' }}
+    >
       <TouchableOpacity
+        testID="removeBtn"
         onPress={() => removeMatchFromUser()}
         style={{ ...styles.btn, backgroundColor: theme.error }}
         disabled={!internetAccess}
       >
-        <Text style={{ ...styles.txt, color: theme.border }}>
+        <Text testID="removeTxt" style={{ ...styles.txt, color: theme.border }}>
           {t('home-tabs.match-stack.matches.prev.not-interested')}
         </Text>
       </TouchableOpacity>
       <TouchableOpacity
+        testID="openChatBtn"
         onPress={() =>
           chatNav.navigate('ChatNav', {
             screen: 'Messages',
@@ -64,7 +69,10 @@ export const MatchNotOwnOpt = ({ publisher, _id }: Props) => {
         }}
         disabled={!internetAccess}
       >
-        <Text style={{ ...styles.txt, color: theme.textPrimary }}>
+        <Text
+          testID="openChatTxtBtn"
+          style={{ ...styles.txt, color: theme.textPrimary }}
+        >
           {t('home-tabs.match-stack.matches.prev.open-chat')}
         </Text>
       </TouchableOpacity>
