@@ -1,7 +1,7 @@
 import { Loading } from '../src/components/Loading';
 import { render } from '@testing-library/react-native';
 
-describe('Language Options', () => {
+describe('Loading', () => {
   test('There is a container', () => {
     const { getByTestId } = render(<Loading />);
     expect(getByTestId('container')).toBeTruthy();

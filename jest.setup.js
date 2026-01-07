@@ -148,3 +148,30 @@ jest.mock('@react-navigation/native', () => {
     useFocusEffect: cb => cb(),
   };
 });
+
+// React-native-maps
+jest.mock('react-native-maps', () => {
+  const React = require('react');
+  class MockMapView extends React.Component {
+    render() {
+      return React.createElement('MapView', this.props, this.props.children);
+    }
+  }
+  class MockMarker extends React.Component {
+    render() {
+      return React.createElement('Marker', this.props, this.props.children);
+    }
+  }
+  return {
+    __esModule: true,
+    default: MockMapView,
+    Marker: MockMarker,
+  };
+});
+
+// Geolocation from react-native-community
+jest.mock('@react-native-community/geolocation', () => ({
+  getCurrentPosition: jest.fn(),
+  watchPosition: jest.fn(),
+  clearWatch: jest.fn(),
+}));

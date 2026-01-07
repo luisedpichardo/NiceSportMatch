@@ -27,6 +27,7 @@ export const LocationPicker = forwardRef<MapLocationPickerRef, {}>(
 
     return (
       <MapView
+        testID="container"
         style={{ flex: 1 }}
         initialRegion={{
           latitude: currPosition.lat,
