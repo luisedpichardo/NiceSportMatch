@@ -18,13 +18,14 @@ export const MatchPrev = ({ match }: Match) => {
 
   return (
     <View
+      testID="matchView"
       style={{
         ...styles.container,
         shadowColor: theme.cardShadow,
         backgroundColor: theme.surface,
       }}
     >
-      <View style={styles.matchInfo}>
+      <View testID="infoContainer" style={styles.matchInfo}>
         <LeftSMatchPrev publisher={match.publisher} status={match.status} />
         <RigthSMatchPrev day={match.day} time={match.time} />
       </View>
