@@ -76,6 +76,7 @@ export const ImageProfile = () => {
       />
       <View testID="optionsBtnsCont" style={styles.btnsOpt}>
         <TouchableOpacity
+          testID="openLib"
           onPress={openLibrary}
           style={[styles.btn, { backgroundColor: theme.primary }]}
         >
