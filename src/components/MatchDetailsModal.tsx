@@ -50,14 +50,23 @@ export const MatchDetailsModal = ({
   };
 
   return (
-    <Modal animationType="slide" transparent={true} visible={modalVisible}>
+    <Modal
+      testID="modalView"
+      animationType="slide"
+      transparent={true}
+      visible={modalVisible}
+    >
       <View
+        testID="background"
         style={{
           ...styles.centeredView,
           backgroundColor: theme.transparent,
         }}
       >
-        <View style={{ ...styles.modalView, backgroundColor: theme.surface }}>
+        <View
+          testID="modalContainer"
+          style={{ ...styles.modalView, backgroundColor: theme.surface }}
+        >
           {username === match.publisher ? (
             <Text style={{ ...styles.modalText, color: theme.textPrimary }}>
               {t('home-tabs.map.modal.publisher')}:{' '}
@@ -68,10 +77,16 @@ export const MatchDetailsModal = ({
               {t('home-tabs.map.modal.publisher')}: {match.publisher}
             </Text>
           )}
-          <Text style={{ ...styles.modalText, color: theme.textPrimary }}>
+          <Text
+            testID="dayDisplay"
+            style={{ ...styles.modalText, color: theme.textPrimary }}
+          >
             {t('home-tabs.map.modal.day')}: {dateFormatHelper(match.day)}
           </Text>
-          <Text style={{ ...styles.modalText, color: theme.textPrimary }}>
+          <Text
+            testID="timeDisplay"
+            style={{ ...styles.modalText, color: theme.textPrimary }}
+          >
             {t('home-tabs.map.modal.time')}: {timeFormatHelper(match.time)}
           </Text>
           {loading ? (
