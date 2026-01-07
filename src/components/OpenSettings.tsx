@@ -7,6 +7,7 @@ import { RightHdrBtn } from './RightHdrBtn';
 import { useTheme } from '../hooks/useTheme';
 // Navigation
 import { NavRoot } from '../navigation/types';
+import { View } from 'react-native';
 
 export const OpenSettings = () => {
   const { t } = useTranslation();
@@ -14,10 +15,12 @@ export const OpenSettings = () => {
   const navigation = useNavigation<NativeStackNavigationProp<NavRoot>>();
 
   return (
-    <RightHdrBtn
-      text={t('home-tabs.open-settings')}
-      color={theme.textPrimary}
-      onPress={() => navigation.navigate('Settings')}
-    />
+    <View testID="btnContainer">
+      <RightHdrBtn
+        text={t('home-tabs.open-settings')}
+        color={theme.textPrimary}
+        onPress={() => navigation.navigate('Settings')}
+      />
+    </View>
   );
 };
