@@ -72,6 +72,8 @@ jest.mock('@react-native-firebase/crashlytics', () => {
   return () => ({
     log: jest.fn(),
     recordError: jest.fn(),
+    setUserId: jest.fn(),
+    setAttributes: jest.fn(),
   });
 });
 
