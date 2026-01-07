@@ -8,7 +8,7 @@ export const NoChats = () => {
   const { theme } = useTheme();
 
   return (
-    <View style={styles.noChatsCont}>
+    <View testID="noChatCont" style={styles.noChatsCont}>
       <Text style={{ ...styles.noChatsTitl, color: theme.textPrimary }}>
         {t('home-tabs.messages-stack.messages.no-mess.title')}
       </Text>
