@@ -18,12 +18,13 @@ export const LeftSMatchPrev = ({ publisher, status }: Props) => {
   const { imageUri } = useProfileImage(publisher);
 
   return (
-    <View style={styles.container}>
+    <View testID="container" style={styles.container}>
       {username === publisher ? (
         <></>
       ) : (
         <>
           <Image
+            testID="image"
             source={
               imageUri
                 ? { uri: imageUri }
@@ -31,12 +32,12 @@ export const LeftSMatchPrev = ({ publisher, status }: Props) => {
             }
             style={styles.imgStyle}
           />
-          <Text style={{ color: theme.textPrimary }}>
+          <Text testID="publisherTxt" style={{ color: theme.textPrimary }}>
             {t('home-tabs.match-stack.matches.prev.publisher')}: {publisher}
           </Text>
         </>
       )}
-      <Text style={{ color: theme.textPrimary }}>
+      <Text testID="statusTxt" style={{ color: theme.textPrimary }}>
         {t('home-tabs.match-stack.matches.prev.status')}: {status}
       </Text>
     </View>

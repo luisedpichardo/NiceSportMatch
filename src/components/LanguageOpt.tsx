@@ -12,10 +12,13 @@ export const LanguageOpt = ({ onPress, text }: LangOpt) => {
 
   return (
     <TouchableOpacity
+      testID="btn"
       style={[styles.flagBtn, { backgroundColor: theme.transparent }]}
       onPress={onPress}
     >
-      <Text style={[styles.text, { color: theme.textWhite }]}>{text}</Text>
+      <Text testID="txt" style={[styles.text, { color: theme.textWhite }]}>
+        {text}
+      </Text>
     </TouchableOpacity>
   );
 };
