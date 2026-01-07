@@ -67,6 +67,14 @@ jest.mock('@react-native-firebase/auth', () => {
   };
 });
 
+// Mock Crashlytics
+jest.mock('@react-native-firebase/crashlytics', () => {
+  return () => ({
+    log: jest.fn(),
+    recordError: jest.fn(),
+  });
+});
+
 // react-native-device-info (FULL MOCK)
 jest.mock('react-native-device-info', () => {
   return {
