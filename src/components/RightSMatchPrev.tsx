@@ -14,7 +14,7 @@ export const RigthSMatchPrev = ({ day, time }: Props) => {
   const { theme } = useTheme();
 
   return (
-    <View style={styles.container}>
+    <View testID="container" style={styles.container}>
       <View style={styles.itemInfo}>
         <Text style={{ ...styles.txt, color: theme.textPrimary }}>
           {dateFormatHelper(day)}
