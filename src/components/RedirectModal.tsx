@@ -29,7 +29,12 @@ export const RedirectModal = ({
   };
 
   return (
-    <Modal animationType="slide" transparent={true} visible={modalVisible}>
+    <Modal
+      testID="modalCont"
+      animationType="slide"
+      transparent={true}
+      visible={modalVisible}
+    >
       <View
         style={{
           ...styles.centeredView,
