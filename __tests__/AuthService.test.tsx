@@ -2,7 +2,6 @@ import { createUserWithEmailAndPasswordService } from '../src/services/AuthServi
 import { createUserWithEmailAndPassword } from '@react-native-firebase/auth';
 import { Image } from 'react-native';
 
-// 1. Mock Auth Functions
 jest.mock('@react-native-firebase/auth', () => ({
   getAuth: jest.fn(() => ({ currentUser: { email: 'test@test.com' } })),
   createUserWithEmailAndPassword: jest.fn(),
@@ -10,7 +9,6 @@ jest.mock('@react-native-firebase/auth', () => ({
   signOut: jest.fn(),
 }));
 
-// 2. Mock Firestore (Chained)
 const mockSet = jest.fn();
 const mockGet = jest.fn();
 const mockDoc = jest.fn(() => ({
@@ -25,7 +23,6 @@ jest.mock('@react-native-firebase/firestore', () => () => ({
   collection: mockCollection,
 }));
 
-// 3. Mock Native Image Assets
 Image.resolveAssetSource = jest.fn().mockReturnValue({ uri: 'mock-uri' });
 
 describe('createUserWithEmailAndPasswordService', () => {
