@@ -2,7 +2,10 @@ import uuid from 'react-native-uuid';
 import firestore from '@react-native-firebase/firestore';
 // Services
 import { addMatchIdToUserService, getMatchesIdsService } from './UserService';
-import { createMatchForDBService } from '../services/LocalDBService';
+import {
+  createMatchForDBService,
+  updateMatchForDBService,
+} from '../services/LocalDBService';
 
 export const createMatchService = async (
   lat: number,
@@ -59,6 +62,8 @@ export const readOwnUsersMatchesService = async (username: string) => {
 
 export const updateMatchService = async (match: any) => {
   try {
+    // Update on local DB
+    updateMatchForDBService(match);
     await getMatchRefService(match._id).update(match);
   } catch (err: any) {
     throw new Error(err.message);

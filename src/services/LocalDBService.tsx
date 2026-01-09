@@ -214,3 +214,22 @@ export const createMatchForDBService = async (match: any) => {
     );
   });
 };
+
+export const updateMatchForDBService = async (updates: any) => {
+  const fields = Object.keys(updates);
+  if (fields.length === 0) return;
+  // Prepare query
+  const setClause = fields.map(f => `${f} = ?`).join(', ');
+  const values = fields.map(f => updates[f]);
+  const query = `
+    UPDATE matches
+    SET ${setClause}
+    WHERE _id = ?;
+  `;
+  // _id at the end for the where
+  values.push(updates._id);
+  // Make the query
+  db.transaction((tx: any) => {
+    tx.executeSql(query, values);
+  });
+};
