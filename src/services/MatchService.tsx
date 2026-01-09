@@ -2,6 +2,7 @@ import uuid from 'react-native-uuid';
 import firestore from '@react-native-firebase/firestore';
 // Services
 import { addMatchIdToUserService, getMatchesIdsService } from './UserService';
+import { createMatchForDBService } from '../services/LocalDBService';
 
 export const createMatchService = async (
   lat: number,
@@ -22,6 +23,8 @@ export const createMatchService = async (
       publisher,
       status: 'Upcoming',
     };
+    // Update local db
+    createMatchForDBService(match);
 
     await firestore().collection('matches').doc(match._id).set(match);
     // Add id to array of matches inside user

@@ -197,3 +197,20 @@ export const readPastMatchesFromDBService = async () => {
     });
   });
 };
+
+export const createMatchForDBService = async (match: any) => {
+  db.transaction((tx: any) => {
+    tx.executeSql(
+      `INSERT INTO matches (_id, address, day, publisher, status, time)
+           VALUES (?, ?, ?, ?, ?, ?)`,
+      [
+        match._id,
+        JSON.stringify(match.address),
+        match.day,
+        match.publisher,
+        match.status,
+        match.time,
+      ],
+    );
+  });
+};
