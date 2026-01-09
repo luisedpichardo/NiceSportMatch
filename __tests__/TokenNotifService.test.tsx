@@ -3,6 +3,7 @@ import DeviceInfo from 'react-native-device-info';
 import {
   retrieveDeviceTokenService,
   addDeviceToken,
+  removeDeviceToken,
 } from '../src/services/TokenNotifService';
 import {
   requestNotificationIOSPermission,
@@ -92,6 +93,23 @@ describe('addDeviceToken', () => {
 
     expect(mockUpdate).toHaveBeenCalledWith({
       deviceTokens: ['token-1', 'token-2'],
+    });
+  });
+});
+
+describe('removeDeviceToken', () => {
+  test('should remove token from the existing list', async () => {
+    const email = 'test@example.com';
+    const token = 'token-2';
+
+    // Simulate existing tokens in DB
+    mockGet.mockResolvedValue({
+      data: () => ({ deviceTokens: ['token-1', 'token-2'] }),
+    });
+    await removeDeviceToken(email, token);
+
+    expect(mockUpdate).toHaveBeenCalledWith({
+      deviceTokens: ['token-1'],
     });
   });
 });
