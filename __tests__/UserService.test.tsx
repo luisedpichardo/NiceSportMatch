@@ -82,3 +82,30 @@ describe('addReferenceForUserChatService', () => {
     });
   });
 });
+
+describe('removeMatchFromUserService', () => {
+  test('should remove id from the list', async () => {
+    mockGet.mockResolvedValue({
+      data: () => ({ matchesIds: ['match3', 'match2'] }),
+    });
+    await UserService.removeMatchFromUserService('match3', 'username');
+
+    expect(mockUpdate).toHaveBeenCalledWith({
+      matchesIds: ['match2'],
+    });
+  });
+});
+
+describe('getChatsForUsersService', () => {
+  test('returns chat references', async () => {
+    const mockChats = ['username2', 'username1'];
+
+    mockGet.mockResolvedValue({
+      data: () => ({ chatsRef: mockChats }),
+    });
+
+    const chats = await UserService.getChatsForUsersService('username');
+
+    expect(chats).toEqual(mockChats);
+  });
+});
