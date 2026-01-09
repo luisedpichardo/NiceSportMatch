@@ -4,7 +4,7 @@ import { Loading } from '../components/Loading';
 import { NoMatches } from '../components/NoMatches';
 import { MatchPrev } from '../components/MatchPrev';
 // Hooks
-import { useOthersMatches } from '../hooks/useOthersMatches';
+import { useUserMatches } from '../hooks/useUserMatches';
 
 function showMathes(matches: any) {
   return (
@@ -19,7 +19,8 @@ function showMathes(matches: any) {
 }
 
 export const OtherMatches = () => {
-  const { othersMatches, loading } = useOthersMatches();
+  const { matches, loading } = useUserMatches('other');
+
   return (
     <View style={styles.container}>
       <View style={styles.matchesContatiner}>
@@ -27,8 +28,8 @@ export const OtherMatches = () => {
           <Loading />
         ) : (
           <>
-            {othersMatches.length > 0 ? (
-              showMathes(othersMatches)
+            {matches.length > 0 ? (
+              showMathes(matches)
             ) : (
               <NoMatches own={false} />
             )}

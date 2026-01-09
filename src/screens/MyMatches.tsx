@@ -12,7 +12,7 @@ import { NoMatches } from '../components/NoMatches';
 import { Loading } from '../components/Loading';
 import { MatchPrev } from '../components/MatchPrev';
 // Hooks
-import { useMyMatches } from '../hooks/useMyMatches';
+import { useUserMatches } from '../hooks/useUserMatches';
 import { useTheme } from '../hooks/useTheme';
 import { useInternet } from '../hooks/useInternet';
 // Services
@@ -34,7 +34,7 @@ export const MyMatches = () => {
   const { t } = useTranslation();
   const { theme } = useTheme();
   const navigation = useNavigation();
-  const { myMatches, loading } = useMyMatches();
+  const { matches, loading } = useUserMatches('mine');
   const { internetAccess } = useInternet();
 
   return (
@@ -44,8 +44,8 @@ export const MyMatches = () => {
           <Loading />
         ) : (
           <>
-            {myMatches.length > 0 ? (
-              showMathes(myMatches)
+            {matches.length > 0 ? (
+              showMathes(matches)
             ) : (
               <NoMatches own={true} />
             )}

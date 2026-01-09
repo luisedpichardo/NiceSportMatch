@@ -5,8 +5,9 @@ import firestore from '@react-native-firebase/firestore';
 import { useGetMatchesIds } from './useGetMatchesIds';
 // Stores
 import { userStore } from '../stores/userStore';
+import { dateFormatHelper } from '../utils/functions/dateFormatHelper';
 
-export const useUserMatches = () => {
+export const useUserMatches = (flag: string) => {
   const username = userStore(state => state.username);
   const [matches, setMatches] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
@@ -25,9 +26,31 @@ export const useUserMatches = () => {
       .where(firestore.FieldPath.documentId(), 'in', matchesIds)
       .onSnapshot(
         snapshot => {
-          const data =
-            snapshot?.docs.map(doc => ({ id: doc.id, ...doc.data() })) ?? [];
-          // Assing corresponding data to matches
+          let data;
+          if (flag === 'mine') {
+            data =
+              snapshot?.docs
+                .map(doc => ({ id: doc.id, ...doc.data() }))
+                .filter((item: any) => item.publisher === username)
+                .filter((item: any) => dateFormatHelper(item.day) !== 'Past') ??
+              [];
+          } else if (flag === 'other') {
+            data =
+              snapshot?.docs
+                .map(doc => ({ id: doc.id, ...doc.data() }))
+                .filter((item: any) => item.publisher !== username)
+                .filter((item: any) => dateFormatHelper(item.day) !== 'Past') ??
+              [];
+          } else {
+            data =
+              snapshot?.docs
+                .map(doc => ({
+                  id: doc.id,
+                  ...doc.data(),
+                }))
+                .filter((item: any) => dateFormatHelper(item.day) === 'Past') ??
+              [];
+          }
           setMatches(data);
           setLoading(false);
         },

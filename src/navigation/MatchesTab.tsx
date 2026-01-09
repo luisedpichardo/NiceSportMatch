@@ -13,7 +13,7 @@ export function MatchesTab() {
   const layout = useWindowDimensions();
   const { theme } = useTheme();
   const { t } = useTranslation();
-  const [index, setIndex] = useState(0);
+  const [index, setIndex] = useState(1);
 
   const routes = [
     { key: 'past', title: 'Past Matches' },
