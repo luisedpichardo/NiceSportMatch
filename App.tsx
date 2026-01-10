@@ -55,7 +55,7 @@ function App() {
       const lang = typeof data === 'string' ? data : data?.languageTag;
       i18n.changeLanguage(lang || 'en');
     });
-    return subscriber; // unsubscribe on unmount
+    return subscriber;
   }, []);
 
   return (
