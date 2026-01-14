@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import {
   Alert,
+  Image,
+  Pressable,
   StyleSheet,
   Text,
   TextInput,
@@ -15,6 +17,7 @@ import { useInternet } from '../hooks/useInternet';
 import { sendMessageService } from '../services/MessagesService';
 // Stores
 import { userStore } from '../stores/userStore';
+import { SelectImgModal } from './SelectImgModal';
 
 type Props = {
   receiver: string;
@@ -26,6 +29,7 @@ export const ChatInput = ({ receiver }: Props) => {
   const { theme } = useTheme();
   const [message, setMessage] = useState('');
   const { internetAccess } = useInternet();
+  const [modalAttachement, setModalAttachement] = useState(false);
 
   const onSendMessage = () => {
     if (!username || !message || !internetAccess) {
@@ -33,7 +37,7 @@ export const ChatInput = ({ receiver }: Props) => {
       setMessage('');
       return;
     }
-    sendMessageService(username, receiver, message)
+    sendMessageService(username, receiver, message, 'text', '')
       .then(() => {
         setMessage('');
       })
@@ -42,8 +46,19 @@ export const ChatInput = ({ receiver }: Props) => {
       });
   };
 
+  const onSendImage = () => {
+    setModalAttachement(true);
+  };
+
   return (
     <View testID="container" style={styles.container}>
+      {modalAttachement && (
+        <SelectImgModal
+          modalVisible={modalAttachement}
+          setModalVisible={setModalAttachement}
+          receiver={receiver}
+        />
+      )}
       <TextInput
         style={{
           ...styles.input,
@@ -56,6 +71,16 @@ export const ChatInput = ({ receiver }: Props) => {
         onChangeText={setMessage}
       />
       <View style={{ flex: 1 }}></View>
+      <Pressable
+        style={{ ...styles.btn, backgroundColor: theme.primary }}
+        onPress={() => onSendImage()}
+      >
+        <Image
+          source={require('../../assets/attach-document.png')}
+          style={{ ...styles.iconSty, tintColor: theme.border }}
+        />
+      </Pressable>
+      <View style={{ flex: 0.5 }}></View>
       <TouchableOpacity
         testID="sendMessageBtn"
         style={{ ...styles.btn, backgroundColor: theme.primary }}
@@ -88,5 +113,10 @@ const styles = StyleSheet.create({
   btnTxt: {
     alignSelf: 'center',
     fontWeight: 'bold',
+  },
+  iconSty: {
+    alignSelf: 'center',
+    width: 20,
+    height: 20,
   },
 });

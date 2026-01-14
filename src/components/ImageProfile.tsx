@@ -41,7 +41,10 @@ export const ImageProfile = () => {
       fileName: username,
       fileType: type,
     };
-    const imgUrl = await uploadProfilePic(imgData);
+    const imgUrl = await uploadProfilePic(imgData).catch(err => {
+      setValidating(false);
+      Alert.alert('Error', err.message);
+    });
 
     // Send the update
     if (username) {

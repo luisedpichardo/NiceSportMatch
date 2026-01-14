@@ -37,14 +37,30 @@ export const ChatPrev = ({ sender, navigation }: Props) => {
             <View style={{ marginLeft: 10, justifyContent: 'center' }}>
               <Text style={{ color: theme.textPrimary }}>{sender}</Text>
               {sender === lastMessage.sender ? (
-                <Text style={{ color: theme.textPrimary }}>
-                  {lastMessage.message}
-                </Text>
+                <>
+                  {lastMessage.image ? (
+                    <Text style={{ color: theme.textPrimary }}>
+                      {sender} has sent a photo
+                    </Text>
+                  ) : (
+                    <Text style={{ color: theme.textPrimary }}>
+                      {lastMessage.message}
+                    </Text>
+                  )}
+                </>
               ) : (
-                <Text style={{ color: theme.textPrimary }}>
-                  {t('home-tabs.messages-stack.messages.prev.you')}:{' '}
-                  {lastMessage.message}
-                </Text>
+                <>
+                  {lastMessage.image ? (
+                    <Text style={{ color: theme.textPrimary }}>
+                      You sent an image
+                    </Text>
+                  ) : (
+                    <Text style={{ color: theme.textPrimary }}>
+                      {t('home-tabs.messages-stack.messages.prev.you')}:{' '}
+                      {lastMessage.message}
+                    </Text>
+                  )}
+                </>
               )}
             </View>
           </View>
