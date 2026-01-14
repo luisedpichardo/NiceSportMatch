@@ -1,5 +1,6 @@
-import { Image, StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 import { useTranslation } from 'react-i18next';
+import FastImage from 'react-native-fast-image';
 // Hooks
 import { useProfileImage } from '../hooks/useProfileImage';
 import { useTheme } from '../hooks/useTheme';
@@ -23,7 +24,7 @@ export const LeftSMatchPrev = ({ publisher, status }: Props) => {
         <></>
       ) : (
         <>
-          <Image
+          <FastImage
             testID="image"
             source={{ uri: imageUri }}
             style={styles.imgStyle}

@@ -1,5 +1,4 @@
 import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
-import RNFS from 'react-native-fs';
 
 export const openCameraHelper = async () => {
   try {
@@ -36,15 +35,6 @@ export const openLibraryHelper = async () => {
         type: result.assets[0].type,
       };
     }
-  } catch (error: any) {
-    throw new Error(error.message);
-  }
-};
-
-export const convertToBase64Helper = async (uri: string) => {
-  try {
-    const base64String = await RNFS.readFile(uri, 'base64');
-    return base64String;
   } catch (error: any) {
     throw new Error(error.message);
   }
