@@ -1,4 +1,6 @@
+import { useState } from 'react';
 import {
+  ActivityIndicator,
   Alert,
   Image,
   StyleSheet,
@@ -13,39 +15,48 @@ import { useTheme } from '../hooks/useTheme';
 // Service
 import { getUserRefService } from '../services/UserService';
 import { analyticsService, types } from '../services/AnalyticsService';
+import { uploadPic, uploadProfilePic } from '../services/AwsService';
 // Stores
 import { userStore } from '../stores/userStore';
 // Utils
-import {
-  convertToBase64Helper,
-  openCameraHelper,
-  openLibraryHelper,
-} from '../utils/ImageHelpers';
+import { openCameraHelper, openLibraryHelper } from '../utils/ImageHelpers';
 
 export const ImageProfile = () => {
   const { t } = useTranslation();
   const username = userStore(state => state.username);
   const { theme } = useTheme();
   const { imageUri, setImageUri } = useProfileImage(username);
+  const [type, setType] = useState('');
+  const [validating, setValidating] = useState(false);
 
   const updateImage = async () => {
-    if (!imageUri) return;
+    setValidating(true);
+    if (!imageUri || !username) {
+      setValidating(false);
+      return;
+    }
 
-    const base64Image = await convertToBase64Helper(imageUri);
-    const base64WithPrefix = `data:image/jpeg;base64,${base64Image}`;
+    const imgData: uploadPic = {
+      fileUri: imageUri,
+      fileName: username,
+      fileType: type,
+    };
+    const imgUrl = await uploadProfilePic(imgData);
 
     // Send the update
     if (username) {
       try {
         await getUserRefService(username).update({
-          profileImage: base64WithPrefix,
+          imageUri: imgUrl,
         });
         analyticsService(types.BUTTON, 'User updates profile picture');
+        setValidating(false);
         Alert.alert(
           t('settings.profile.img.alert-success'),
           t('settings.profile.img.alert-suc-mess'),
         );
       } catch (err: any) {
+        setValidating(false);
         Alert.alert(t('settings.profile.img.alert-fail'), err.message);
       }
     }
@@ -53,25 +64,29 @@ export const ImageProfile = () => {
 
   const openLibrary = async () => {
     analyticsService(types.BUTTON, 'User opens library from profile info');
-    const uri = await openLibraryHelper();
-    setImageUri(uri);
+    const img: any = await openLibraryHelper();
+    setType(cleanFileType(img.type));
+    setImageUri(img.uri);
   };
 
   const openCamera = async () => {
     analyticsService(types.BUTTON, 'User opens camera from profile info');
-    const uri = await openCameraHelper();
-    setImageUri(uri);
+    const img: any = await openCameraHelper();
+    setType(cleanFileType(img.type));
+    setImageUri(img.uri);
+  };
+
+  const cleanFileType = (type: string) => {
+    const t = type.toLowerCase();
+    if (t === 'image/jpg') return 'image/jpeg';
+    return t;
   };
 
   return (
     <>
       <Image
         testID="image"
-        source={
-          imageUri
-            ? { uri: imageUri }
-            : require('../../assets/account_pp_default.jpg')
-        }
+        source={{ uri: imageUri }}
         style={styles.imgStyle}
       />
       <View testID="optionsBtnsCont" style={styles.btnsOpt}>
@@ -98,9 +113,13 @@ export const ImageProfile = () => {
         onPress={() => updateImage()}
         style={[styles.btnConf, { backgroundColor: theme.surface }]}
       >
-        <Text style={{ fontWeight: 'bold', color: theme.textPrimary }}>
-          {t('settings.profile.img.update')}
-        </Text>
+        {validating ? (
+          <ActivityIndicator size="large" />
+        ) : (
+          <Text style={{ fontWeight: 'bold', color: theme.textPrimary }}>
+            {t('settings.profile.img.update')}
+          </Text>
+        )}
       </TouchableOpacity>
     </>
   );

@@ -12,7 +12,10 @@ export const openCameraHelper = async () => {
     if (result.errorCode) {
       throw new Error(result.errorMessage);
     } else if (result.assets && result.assets.length > 0) {
-      return result.assets[0].uri;
+      return {
+        uri: result.assets[0].uri,
+        type: result.assets[0].type,
+      };
     }
   } catch (error: any) {
     throw new Error(error.message);
@@ -28,7 +31,10 @@ export const openLibraryHelper = async () => {
     if (result.errorCode) {
       throw new Error(result.errorMessage);
     } else if (result.assets && result.assets.length > 0) {
-      return result.assets[0].uri;
+      return {
+        uri: result.assets[0].uri,
+        type: result.assets[0].type,
+      };
     }
   } catch (error: any) {
     throw new Error(error.message);

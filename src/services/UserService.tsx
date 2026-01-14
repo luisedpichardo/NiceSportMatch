@@ -1,6 +1,7 @@
 import firestore from '@react-native-firebase/firestore';
 // Sercices
 import { matchAddedNotificationService } from './TokenNotifService';
+import { readDefaultProfilePic } from './AwsService';
 
 export const readFieldsToUpdateUserService = async (username: string) => {
   try {
@@ -37,10 +38,15 @@ export const getUserRefService = (username: string) => {
 
 export const readImageUriService = async (username: string) => {
   try {
-    const imgUri = (
+    const profileImg = (
       await firestore().collection('users').doc(username).get()
-    ).data()?.profileImage;
-    return imgUri;
+    ).data()?.imageUri;
+    // Check for profile picture
+    if (profileImg) {
+      return profileImg;
+    }
+    // Return default picture
+    return readDefaultProfilePic();
   } catch (e: any) {
     throw new Error(e.message);
   }

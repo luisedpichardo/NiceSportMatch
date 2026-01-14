@@ -33,14 +33,7 @@ export const ChatPrev = ({ sender, navigation }: Props) => {
           <ActivityIndicator size="large" />
         ) : (
           <View style={{ flexDirection: 'row' }}>
-            <Image
-              source={
-                imageUri
-                  ? { uri: imageUri }
-                  : require('../../assets/account_pp_default.jpg')
-              }
-              style={styles.imgStyle}
-            />
+            <Image source={{ uri: imageUri }} style={styles.imgStyle} />
             <View style={{ marginLeft: 10, justifyContent: 'center' }}>
               <Text style={{ color: theme.textPrimary }}>{sender}</Text>
               {sender === lastMessage.sender ? (

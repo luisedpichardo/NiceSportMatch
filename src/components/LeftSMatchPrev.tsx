@@ -25,11 +25,7 @@ export const LeftSMatchPrev = ({ publisher, status }: Props) => {
         <>
           <Image
             testID="image"
-            source={
-              imageUri
-                ? { uri: imageUri }
-                : require('../../assets/account_pp_default.jpg')
-            }
+            source={{ uri: imageUri }}
             style={styles.imgStyle}
           />
           <Text testID="publisherTxt" style={{ color: theme.textPrimary }}>
