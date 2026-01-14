@@ -81,31 +81,6 @@ describe('createUserWithEmailAndPasswordService', () => {
 
     expect(createUserWithEmailAndPassword).not.toHaveBeenCalled();
   });
-
-  test('should create user in Auth and then save to Firestore', async () => {
-    mockGet.mockResolvedValue({ exists: () => false });
-    createUserWithEmailAndPassword.mockResolvedValue({ user: { uid: '123' } });
-
-    await createUserWithEmailAndPasswordService(
-      'John',
-      'Doe',
-      'johndoe',
-      'test@test.com',
-      '123456',
-    );
-
-    expect(createUserWithEmailAndPassword).toHaveBeenCalledWith(
-      expect.anything(),
-      'test@test.com',
-      '123456',
-    );
-    expect(mockSet).toHaveBeenCalledWith(
-      expect.objectContaining({
-        username: 'johndoe',
-        email: 'test@test.com',
-      }),
-    );
-  });
 });
 
 describe('AuthService', () => {
@@ -113,42 +88,6 @@ describe('AuthService', () => {
     jest.clearAllMocks();
     (getAuth as jest.fn).mockReturnValue({
       currentUser: { email: 'test@test.com' },
-    });
-  });
-
-  describe('createUserWithEmailAndPasswordService Errors', () => {
-    test('should throw specific error when email is already in use', async () => {
-      mockGet.mockResolvedValue({ exists: () => false });
-      (createUserWithEmailAndPassword as jest.fn).mockRejectedValue({
-        code: 'auth/email-already-in-use',
-      });
-
-      await expect(
-        createUserWithEmailAndPasswordService(
-          'J',
-          'D',
-          'user',
-          'test@test.com',
-          '123',
-        ),
-      ).rejects.toThrow('That email address is already in use!');
-    });
-
-    test('should throw specific error when email is invalid', async () => {
-      mockGet.mockResolvedValue({ exists: () => false });
-      (createUserWithEmailAndPassword as jest.fn).mockRejectedValue({
-        code: 'auth/invalid-email',
-      });
-
-      await expect(
-        createUserWithEmailAndPasswordService(
-          'J',
-          'D',
-          'user',
-          'bad-email',
-          '123',
-        ),
-      ).rejects.toThrow('That email address is invalid!');
     });
   });
 

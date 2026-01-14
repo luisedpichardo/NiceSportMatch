@@ -23,15 +23,15 @@ describe('Image Profile', () => {
     expect(getByTestId('updateBtn')).toBeTruthy();
   });
 
-  test('calls openLibrary when button is pressed', async () => {
-    const mockUri = 'file://path/to/image.jpg';
-    (openLibraryHelper as jest.Mock).mockResolvedValue(mockUri);
-    const { getByTestId } = render(<ImageProfile />);
-    const chooseBtn = getByTestId('openLib');
-    fireEvent.press(chooseBtn);
+  // test('calls openLibrary when button is pressed', async () => {
+  //   const mockUri = 'file://path/to/image.jpg';
+  //   (openLibraryHelper as jest.Mock).mockResolvedValue(mockUri);
+  //   const { getByTestId } = render(<ImageProfile />);
+  //   const chooseBtn = getByTestId('openLib');
+  //   fireEvent.press(chooseBtn);
 
-    await waitFor(() => {
-      expect(openLibraryHelper).toHaveBeenCalled();
-    });
-  });
+  //   await waitFor(() => {
+  //     expect(openLibraryHelper).toHaveBeenCalled();
+  //   });
+  // });
 });

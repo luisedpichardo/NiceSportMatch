@@ -45,6 +45,16 @@ jest.mock('@react-native-firebase/firestore', () => {
   return firestore;
 });
 
+// Firebase Functions
+jest.mock('@react-native-firebase/functions', () => {
+  return () => ({
+    httpsCallable: jest.fn(() => {
+      return jest.fn(() => Promise.resolve({ data: {} }));
+    }),
+    useEmulator: jest.fn(),
+  });
+});
+
 // Firebase Auth
 jest.mock('@react-native-firebase/auth', () => {
   return {
