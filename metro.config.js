@@ -1,11 +1,12 @@
 const { getDefaultConfig, mergeConfig } = require('@react-native/metro-config');
+const {
+  withStorybook,
+} = require('@storybook/react-native/metro/withStorybook');
+const path = require('path');
 
-/**
- * Metro configuration
- * https://reactnative.dev/docs/metro
- *
- * @type {import('@react-native/metro-config').MetroConfig}
- */
-const config = {};
+const config = getDefaultConfig(__dirname);
 
-module.exports = mergeConfig(getDefaultConfig(__dirname), config);
+// Wrap your config with withStorybook
+module.exports = withStorybook(
+  mergeConfig(getDefaultConfig(__dirname), config),
+);

@@ -1,9 +1,10 @@
+import { StyleProp, ViewStyle } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 
 type Props = {
   children: any;
   colors: Array<any>;
-  style: any;
+  style: StyleProp<ViewStyle>;
 };
 
 export const Background = ({ children, colors, style }: Props) => {
