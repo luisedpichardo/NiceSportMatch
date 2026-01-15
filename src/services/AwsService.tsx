@@ -12,10 +12,10 @@ export type uploadPic = {
 const functionsInstance = functions();
 
 // Test a function locally before deploying
-if (__DEV__) {
-  const host = Platform.OS === 'android' ? '10.0.2.2' : '127.0.0.1';
-  functionsInstance.useEmulator(host, 5001);
-}
+// if (__DEV__) {
+//   const host = Platform.OS === 'android' ? '10.0.2.2' : '127.0.0.1';
+//   functionsInstance.useEmulator(host, 5001);
+// }
 
 export const readDefaultProfilePic = async () => {
   return 'https://nice-sport-match-bucket.s3.us-east-2.amazonaws.com/profile-pics/account_pp_default.jpg';

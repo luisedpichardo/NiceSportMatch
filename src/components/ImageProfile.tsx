@@ -2,13 +2,13 @@ import { useState } from 'react';
 import {
   ActivityIndicator,
   Alert,
+  Image,
   StyleSheet,
   Text,
   TouchableOpacity,
   View,
 } from 'react-native';
 import { useTranslation } from 'react-i18next';
-import FastImage from 'react-native-fast-image';
 // Hooks
 import { useProfileImage } from '../hooks/useProfileImage';
 import { useTheme } from '../hooks/useTheme';
@@ -87,7 +87,7 @@ export const ImageProfile = () => {
 
   return (
     <>
-      <FastImage
+      <Image
         testID="image"
         source={{ uri: imageUri }}
         style={styles.imgStyle}

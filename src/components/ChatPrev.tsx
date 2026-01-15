@@ -1,12 +1,12 @@
 import {
   ActivityIndicator,
+  Image,
   StyleSheet,
   Text,
   TouchableOpacity,
   View,
 } from 'react-native';
 import { useTranslation } from 'react-i18next';
-import FastImage from 'react-native-fast-image';
 // Hooks
 import { useLastChatMessage } from '../hooks/useLastChatMessage';
 import { useProfileImage } from '../hooks/useProfileImage';
@@ -33,7 +33,7 @@ export const ChatPrev = ({ sender, navigation }: Props) => {
           <ActivityIndicator size="large" />
         ) : (
           <View style={{ flexDirection: 'row' }}>
-            <FastImage source={{ uri: imageUri }} style={styles.imgStyle} />
+            <Image source={{ uri: imageUri }} style={styles.imgStyle} />
             <View style={{ marginLeft: 10, justifyContent: 'center' }}>
               <Text style={{ color: theme.textPrimary }}>{sender}</Text>
               {sender === lastMessage.sender ? (

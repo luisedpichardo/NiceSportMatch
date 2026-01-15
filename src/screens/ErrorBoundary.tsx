@@ -1,6 +1,5 @@
 import { Component, ErrorInfo, ReactNode } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
-import FastImage from 'react-native-fast-image';
+import { Image, StyleSheet, Text, View } from 'react-native';
 
 interface Props {
   children: ReactNode;
@@ -31,7 +30,7 @@ export class ErrorBoundary extends Component<Props, State> {
     if (this.state.hasError) {
       return (
         <View style={styles.container}>
-          <FastImage
+          <Image
             source={require('../../assets/error.png')}
             style={styles.img}
           />
