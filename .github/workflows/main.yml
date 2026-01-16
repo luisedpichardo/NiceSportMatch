@@ -3,7 +3,7 @@ name: Build android artifact
 on:
   push:
     branches:
-      - master
+      - main
   workflow_dispatch:
 
 jobs:
@@ -13,28 +13,40 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Setup Node
-        uses: actions/setup-node@v4
-        with:
-          node-version: "20"
-          cache: npm
-
-      - name: Setup Java
+      - name: Install Java
         uses: actions/setup-java@v4
         with:
           distribution: temurin
-          java-version: "17"
+          java-version: '17'
+
+      - name: Validate Gradle wrapper
+        uses: gradle/wrapper-validation-action@v1
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: npm
 
       - name: Install dependencies
-        run: npm ci
+        run: npm install --force
+
+      - name: Create local.properties
+        run: echo "sdk.dir=$ANDROID_HOME" > android/local.properties
 
       - name: npm test
-        run: npx jest test
+        run: yarn test --coverage
+
+      - name: Bundle the app
+        run: npx react-native bundle - platform android - dev false - entry-file index.js - bundle-output android/app/src/main/assets/index.android.bundle - assets-dest android/app/src/main/res
+
+      - name: Set Gradlew Permissions
+        run: chmod +x android/gradlew
 
       - name: Build debug APK
         run: |
           cd android
-          ./gradlew assembleDebug
+          ./gradlew assemble
 
       - name: Upload to Firebase App Distribution
         env:
@@ -53,3 +65,33 @@ jobs:
         with:
           name: android-apk-debug
           path: android/app/build/outputs/apk/debug/app-debug.apk
+
+      - name: Upload artifact to Firebase App Distribution
+        id: testing_outputs
+        uses: wzieba/Firebase-Distribution-Github-Action@v1
+        with:
+        appId: ${{secrets.FIREBASE_APP_ID}}
+        serviceCredentialsFileContent: ${{secrets.CREDENTIAL_FILE_CONTENT}}
+        groups: testers
+        file: android/app/build/outputs/apk/debug/app-debug.apk
+
+      - name: Send Email Notification
+        uses: dawidd6/action-send-mail@v3
+        with:
+        server_address: smtp.gmail.com
+        server_port: 587
+        username: mynulislamridoy
+        password: ${{secrets.SMTP_PASSWORD}}
+        subject: 'A New Build Released, Check It Out'
+        to: eduarodpichardo03+test@gmail.com
+        from: eduarodpichardo03@gmail.com
+        body: |
+          Dear Sir/Madam,
+
+          These links provide direct access to the updated version of the app. Use any of these links to download and test the app.
+
+          - Firebase Console URI: ${{steps.testing_outputs.outputs.FIREBASE_CONSOLE_URI}}
+          - App URI: ${{steps.testing_outputs.outputs.TESTING_URI}}
+          - Binary Download URI: ${{steps.testing_outputs.outputs.BINARY_DOWNLOAD_URI}}
+
+          We encourage you to explore these new features and functionalities and let us know what you think.
