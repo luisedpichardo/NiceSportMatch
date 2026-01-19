@@ -70,28 +70,28 @@ jobs:
         id: testing_outputs
         uses: wzieba/Firebase-Distribution-Github-Action@v1
         with:
-        appId: ${{secrets.FIREBASE_APP_ID}}
-        serviceCredentialsFileContent: ${{secrets.CREDENTIAL_FILE_CONTENT}}
-        groups: testers
-        file: android/app/build/outputs/apk/debug/app-debug.apk
+          appId: ${{secrets.FIREBASE_APP_ID}}
+          serviceCredentialsFileContent: ${{secrets.CREDENTIAL_FILE_CONTENT}}
+          groups: testers
+          file: android/app/build/outputs/apk/debug/app-debug.apk
 
       - name: Send Email Notification
         uses: dawidd6/action-send-mail@v3
         with:
-        server_address: smtp.gmail.com
-        server_port: 587
-        username: mynulislamridoy
-        password: ${{secrets.SMTP_PASSWORD}}
-        subject: 'A New Build Released, Check It Out'
-        to: eduarodpichardo03+test@gmail.com
-        from: eduarodpichardo03@gmail.com
-        body: |
-          Dear Sir/Madam,
+          server_address: smtp.gmail.com
+          server_port: 587
+          username: mynulislamridoy
+          password: ${{secrets.SMTP_PASSWORD}}
+          subject: 'A New Build Released, Check It Out'
+          to: eduarodpichardo03+test@gmail.com
+          from: eduarodpichardo03@gmail.com
+          body: |
+            Dear Sir/Madam,
 
-          These links provide direct access to the updated version of the app. Use any of these links to download and test the app.
+            These links provide direct access to the updated version of the app. Use any of these links to download and test the app.
 
-          - Firebase Console URI: ${{steps.testing_outputs.outputs.FIREBASE_CONSOLE_URI}}
-          - App URI: ${{steps.testing_outputs.outputs.TESTING_URI}}
-          - Binary Download URI: ${{steps.testing_outputs.outputs.BINARY_DOWNLOAD_URI}}
+            - Firebase Console URI: ${{steps.testing_outputs.outputs.FIREBASE_CONSOLE_URI}}
+            - App URI: ${{steps.testing_outputs.outputs.TESTING_URI}}
+            - Binary Download URI: ${{steps.testing_outputs.outputs.BINARY_DOWNLOAD_URI}}
 
-          We encourage you to explore these new features and functionalities and let us know what you think.
+            We encourage you to explore these new features and functionalities and let us know what you think.
