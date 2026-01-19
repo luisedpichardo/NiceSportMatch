@@ -1,12 +1,12 @@
 const { getDefaultConfig, mergeConfig } = require('@react-native/metro-config');
-const {
-  withStorybook,
-} = require('@storybook/react-native/metro/withStorybook');
-const path = require('path');
+const defaultConfig = getDefaultConfig(__dirname);
 
-const config = getDefaultConfig(__dirname);
-
-// Wrap your config with withStorybook
-module.exports = withStorybook(
-  mergeConfig(getDefaultConfig(__dirname), config),
-);
+module.exports = mergeConfig(defaultConfig, {
+  resolver: {
+    sourceExts: [
+      ...defaultConfig.resolver.sourceExts,
+      'stories.ts',
+      'stories.tsx',
+    ],
+  },
+});
