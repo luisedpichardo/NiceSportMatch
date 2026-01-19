@@ -31,8 +31,46 @@ jobs:
       - name: Install dependencies
         run: npm install --force
 
-      - name: Create local.properties
-        run: echo "sdk.dir=$ANDROID_HOME" > android/local.properties
+      # - name: Create local.properties
+      #   run: echo "sdk.dir=$ANDROID_HOME" > android/local.properties
+
+      - name: Configure Android Environment and Secrets
+        env:
+          GOOGLE_API_KEY: ${{ secrets.GOOGLE_API_KEY }}
+          GOOGLE_SERVICES_JSON_CONTENT: ${{ secrets.GOOGLE_SERVICES_JSON_CONTENT }}
+          ANDROID_KEYSTORE_BASE64: ${{ secrets.ANDROID_KEYSTORE_BASE64 }}
+          run: |
+            set -e # fail if any command fails
+            set +x # ensure secret values are NOT printed in the logs
+
+            # Define the path to the android folder
+            ANDROID_DIR="./android"
+            mkdir -p $ANDROID_DIR
+
+            # Create local.properties
+            echo "sdk.dir=$ANDROID_HOME" > $ANDROID_DIR/local.properties
+            echo "GOOGLE_API_KEY=$GOOGLE_API_KEY" >> $ANDROID_DIR/local.properties
+
+            echo "Successfully created local.properties with GOOGLE_API_KEY"
+
+            # Path to the app folder
+            TARGET_DIR="./android/app"
+            mkdir -p $TARGET_DIR
+
+            # Use a 'heredoc' to write the secret to the file safely
+            cat <<EOF > $TARGET_DIR/google-services.json
+            $GOOGLE_SERVICES_JSON_CONTENT
+            EOF
+
+            echo "google-services.json recreated successfully."
+
+            # 1. Create the Keystore file from the Secret
+            echo "$ANDROID_KEYSTORE_BASE64" | base64 --decode > ./android/app/NiceSportMatch-key.keystore
+
+            # 2. Fix the Memory/Metaspace warning
+            echo "org.gradle.jvmargs=-Xmx4096m -XX:MaxMetaspaceSize=1024m" >> ./android/gradle.properties
+
+            echo "Keystore and Memory settings updated!"
 
       - name: npm test
         run: yarn test --coverage
