@@ -31,9 +31,6 @@ jobs:
       - name: Install dependencies
         run: npm install --force
 
-      # - name: Create local.properties
-      #   run: echo "sdk.dir=$ANDROID_HOME" > android/local.properties
-
       - name: Configure Android Environment and Secrets
         env:
           run: |
