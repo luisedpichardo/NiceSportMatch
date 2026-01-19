@@ -32,39 +32,38 @@ jobs:
         run: npm install --force
 
       - name: Configure Android Environment and Secrets
-        env:
-          run: |
-            set -e # fail if any command fails
-            set +x # ensure secret values are NOT printed in the logs
+        run: |
+          set -e # fail if any command fails
+          set +x # ensure secret values are NOT printed in the logs
 
-            # Define the path to the android folder
-            ANDROID_DIR="./android"
-            mkdir -p $ANDROID_DIR
+          # Define the path to the android folder
+          ANDROID_DIR="./android"
+          mkdir -p $ANDROID_DIR
 
-            # Create local.properties
-            echo "sdk.dir=$ANDROID_HOME" > $ANDROID_DIR/local.properties
-            echo "GOOGLE_API_KEY=${{ secrets.GOOGLE_API_KEY }}" >> $ANDROID_DIR/local.properties
+          # Create local.properties
+          echo "sdk.dir=$ANDROID_HOME" > $ANDROID_DIR/local.properties
+          echo "GOOGLE_API_KEY=${{ secrets.GOOGLE_API_KEY }}" >> $ANDROID_DIR/local.properties
 
-            echo "Successfully created local.properties with GOOGLE_API_KEY"
+          echo "Successfully created local.properties with GOOGLE_API_KEY"
 
-            # Path to the app folder
-            TARGET_DIR="./android/app"
-            mkdir -p $TARGET_DIR
+          # Path to the app folder
+          TARGET_DIR="./android/app"
+          mkdir -p $TARGET_DIR
 
-            # Use a 'heredoc' to write the secret to the file safely
-            cat <<EOF > $TARGET_DIR/google-services.json
-            ${{ secrets.GOOGLE_SERVICES_JSON_CONTENT }}
-            EOF
+          # Use a 'heredoc' to write the secret to the file safely
+          cat <<EOF > $TARGET_DIR/google-services.json
+          ${{ secrets.GOOGLE_SERVICES_JSON_CONTENT }}
+          EOF
 
-            echo "google-services.json recreated successfully."
+          echo "google-services.json recreated successfully."
 
-            # 1. Create the Keystore file from the Secret
-            echo "${{ secrets.ANDROID_KEYSTORE_BASE64 }}" | base64 --decode > ./android/app/NiceSportMatch-key.keystore
+          # 1. Create the Keystore file from the Secret
+          echo "${{ secrets.ANDROID_KEYSTORE_BASE64 }}" | base64 --decode > ./android/app/NiceSportMatch-key.keystore
 
-            # 2. Fix the Memory/Metaspace warning
-            echo "org.gradle.jvmargs=-Xmx4096m -XX:MaxMetaspaceSize=1024m" >> ./android/gradle.properties
+          # 2. Fix the Memory/Metaspace warning
+          echo "org.gradle.jvmargs=-Xmx4096m -XX:MaxMetaspaceSize=1024m" >> ./android/gradle.properties
 
-            echo "Keystore and Memory settings updated!"
+          echo "Keystore and Memory settings updated!"
 
       - name: npm test
         run: yarn test --coverage
@@ -77,7 +76,7 @@ jobs:
           --dev false \
           --entry-file index.js \
           --bundle-output android/app/src/main/assets/index.android.bundle \
-          --assets-dest android/app/src/main/res \
+          --assets-dest android/app/src/main/res
 
       - name: Set Gradlew Permissions
         run: chmod +x android/gradlew
