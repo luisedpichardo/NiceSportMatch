@@ -19,3 +19,14 @@ jobs:
       - run: npm install
       # - run: npm run lint
       - run: npm test
+
+  build-android:
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'zulu'
+          java-version: '17'
