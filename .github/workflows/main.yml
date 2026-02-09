@@ -134,6 +134,11 @@ jobs:
 
       #       We encourage you to explore these new features and functionalities and let us know what you think.
 
+      - name: Debug File List
+        run: |
+          echo "Current directory: $(pwd)"
+          ls -R | grep "package-lock.json"
+
       # 1. Use the correct package manager and cache
       - name: Install dependencies
         run: npm ci # Much faster and cleaner than npm install --force
