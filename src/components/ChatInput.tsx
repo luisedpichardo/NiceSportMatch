@@ -70,7 +70,7 @@ export const ChatInput = ({ receiver }: Props) => {
         value={message}
         onChangeText={setMessage}
       />
-      <View style={{ flex: 1 }}></View>
+      <View style={{ flex: 1 }} />
       <Pressable
         style={{ ...styles.btn, backgroundColor: theme.primary }}
         onPress={() => onSendImage()}
@@ -80,7 +80,7 @@ export const ChatInput = ({ receiver }: Props) => {
           style={{ ...styles.iconSty, tintColor: theme.border }}
         />
       </Pressable>
-      <View style={{ flex: 0.5 }}></View>
+      <View style={{ flex: 0.5 }} />
       <TouchableOpacity
         testID="sendMessageBtn"
         style={{ ...styles.btn, backgroundColor: theme.primary }}
