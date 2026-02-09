@@ -134,38 +134,72 @@ jobs:
 
       #       We encourage you to explore these new features and functionalities and let us know what you think.
 
-      - name: Debug File List
-        run: |
-          echo "Current directory: $(pwd)"
-          ls -R | grep "package-lock.json"
+      # SECOND
+      # - name: Debug File List
+      #   run: |
+      #     echo "Current directory: $(pwd)"
+      #     ls -R | grep "package-lock.json"
 
-      # 1. Use the correct package manager and cache
-      - name: Install dependencies
-        run: npm ci # Much faster and cleaner than npm install --force
+      # # 1. Use the correct package manager and cache
+      # - name: Install dependencies
+      #   run: npm ci # Much faster and cleaner than npm install --force
 
-      # 2. Combine the Environment setup and remove redundant echoes
-      - name: Configure Android Environment
-        run: |
-          mkdir -p android/app
-          echo "sdk.dir=$ANDROID_HOME" > android/local.properties
-          echo "GOOGLE_API_KEY=${{ secrets.GOOGLE_API_KEY }}" >> android/local.properties
-          echo '${{ secrets.GOOGLE_SERVICES_JSON_CONTENT }}' > android/app/google-services.json
-          echo "${{ secrets.ANDROID_KEYSTORE_BASE64 }}" | base64 --decode > android/app/NiceSportMatch-key.keystore
-          # Use a smaller heap if you are hitting memory limits, but 4096 is usually fine
-          echo "org.gradle.jvmargs=-Xmx3072m" >> android/gradle.properties
+      # # 2. Combine the Environment setup and remove redundant echoes
+      # - name: Configure Android Environment
+      #   run: |
+      #     mkdir -p android/app
+      #     echo "sdk.dir=$ANDROID_HOME" > android/local.properties
+      #     echo "GOOGLE_API_KEY=${{ secrets.GOOGLE_API_KEY }}" >> android/local.properties
+      #     echo '${{ secrets.GOOGLE_SERVICES_JSON_CONTENT }}' > android/app/google-services.json
+      #     echo "${{ secrets.ANDROID_KEYSTORE_BASE64 }}" | base64 --decode > android/app/NiceSportMatch-key.keystore
+      #     # Use a smaller heap if you are hitting memory limits, but 4096 is usually fine
+      #     echo "org.gradle.jvmargs=-Xmx3072m" >> android/gradle.properties
 
-      # 3. Clean before build to save space
-      - name: Build debug APK
-        run: |
-          cd android
-          ./gradlew clean assembleDebug
+      # # 3. Clean before build to save space
+      # - name: Build debug APK
+      #   run: |
+      #     cd android
+      #     ./gradlew clean assembleDebug
 
-      # 4. Use ONLY ONE Firebase upload method
-      - name: Upload to Firebase
-        id: testing_outputs
-        uses: wzieba/Firebase-Distribution-Github-Action@v1
+      # # 4. Use ONLY ONE Firebase upload method
+      # - name: Upload to Firebase
+      #   id: testing_outputs
+      #   uses: wzieba/Firebase-Distribution-Github-Action@v1
+      #   with:
+      #     appId: ${{secrets.FIREBASE_APP_ID}}
+      #     serviceCredentialsFileContent: ${{secrets.CREDENTIAL_FILE_CONTENT}}
+      #     groups: testers
+      #     file: android/app/build/outputs/apk/debug/app-debug.apk
+
+      # Checkout the code
+      - name: Checkout code
+        uses: actions/checkout@v3
+      # Set up Node.js environment
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
         with:
-          appId: ${{secrets.FIREBASE_APP_ID}}
-          serviceCredentialsFileContent: ${{secrets.CREDENTIAL_FILE_CONTENT}}
-          groups: testers
-          file: android/app/build/outputs/apk/debug/app-debug.apk
+          node-version: '18'
+      # Install dependencies
+      - name: Install dependencies
+        run: npm install
+      # Set up JDK for Android build
+      - name: Set up JDK 11
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'adopt'
+          java-version: '11'
+      # Set up Android SDK
+      - name: Install Android SDK
+        uses: android-actions/setup-android@v2
+        with:
+          api-level: 30
+          build-tools-version: 30.0.3
+      # Build the Android app
+      - name: Build Android App
+        run: ./gradlew assembleRelease
+      # Optional: Upload APK as an artifact
+      - name: Upload APK
+        uses: actions/upload-artifact@v3
+        with:
+          name: app-release.apk
+          path: android/app/build/outputs/apk/release/app-release.apk
