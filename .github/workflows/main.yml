@@ -36,6 +36,9 @@ jobs:
 
       - name: Decode Keystore
         run: echo "${{ secrets.ANDROID_KEYSTORE_BASE64 }}" | base64 --decode > android/app/release.keystore
+      
+      - name: Create local.properties
+        run: echo "${{ secrets.GOOGLE_API_KEY }}" > android/local.properties
 
       - name: Build Release Bundle (AAB)
         run: |
