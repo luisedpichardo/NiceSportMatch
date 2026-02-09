@@ -30,6 +30,9 @@ jobs:
         with:
           distribution: 'zulu'
           java-version: '17'
+      
+      - name: Install Dependencies
+        run: npm install
 
       - name: Decode Keystore
         run: echo "${{ secrets.ANDROID_KEYSTORE_BASE64 }}" | base64 --decode > android/app/release.keystore
