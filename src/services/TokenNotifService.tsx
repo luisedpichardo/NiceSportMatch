@@ -2,6 +2,7 @@ import { Alert, Platform } from 'react-native';
 import { getAuth } from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
 import DeviceInfo from 'react-native-device-info';
+import functions from '@react-native-firebase/functions';
 // Services
 import { getUserRefService } from './UserService';
 // Utils
@@ -9,6 +10,14 @@ import {
   requestNotificationAndroidPermission,
   requestNotificationIOSPermission,
 } from '../utils/PermissionsHelpers';
+
+const functionsInstance = functions();
+
+// Test a function locally before deploying
+// if (__DEV__) {
+//   const host = Platform.OS === 'android' ? '10.0.2.2' : '127.0.0.1';
+//   functionsInstance.useEmulator(host, 5001);
+// }
 
 export const retrieveDeviceTokenService = async () => {
   const email = getAuth().currentUser?.email;
