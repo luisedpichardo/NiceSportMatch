@@ -7,7 +7,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  test:
+  build-android:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -17,13 +17,8 @@ jobs:
           node-version: 18
           cache: 'npm'
       - run: npm install
-      # - run: npm run lint
       - run: npm test
 
-  build-android:
-    needs: test
-    runs-on: ubuntu-latest
-    steps:
       - uses: actions/checkout@v4
       - name: Setup Java
         uses: actions/setup-java@v4
@@ -35,13 +30,26 @@ jobs:
         run: npm install
 
       - name: Decode Keystore
-        run: echo "${{ secrets.ANDROID_KEYSTORE_BASE64 }}" | base64 --decode > android/app/release.keystore
+        run: echo "${{ secrets.ANDROID_KEYSTORE_BASE64 }}" | base64 --decode > android/app/NiceSportMatch-key.keystore
 
       - name: Create local.properties
         run: echo "GOOGLE_API_KEY=${{ secrets.GOOGLE_API_KEY }}" > android/local.properties
 
       - name: Create google-services.json
         run: echo "${{ secrets.GOOGLE_SERVICES_JSON_CONTENT }}" | base64 --decode > android/app/google-services.json
+
+      - name: Verify Keystore Location
+        run: |
+          echo "Checking current directory..."
+          pwd
+          echo "Searching for NiceSportMatch-key.keystore..."
+          find . -name "NiceSportMatch-key.keystore"
+          if [ -f "android/app/NiceSportMatch-key.keystore" ]; then
+            echo "✅ Keystore found in android/app/"
+          else
+            echo "❌ Keystore NOT found in expected path"
+            exit 1
+          fi
 
       - name: Build Release Bundle (AAB)
         # env:
@@ -50,7 +58,7 @@ jobs:
         run: |
           cd android
           ./gradlew bundleRelease \
-            -Pandroid.injected.signing.store.file=app/release.keystore \
+            -Pandroid.injected.signing.store.file=NiceSportMatch-key.keystore \
             -Pandroid.injected.signing.store.password=${{ secrets.KEYSTORE_PASSWORD }} \
             -Pandroid.injected.signing.key.alias=${{ secrets.KEY_ALIAS }} \
             -Pandroid.injected.signing.key.password=${{ secrets.KEY_PASSWORD }}
