@@ -25,6 +25,7 @@ jobs:
         with:
           distribution: 'zulu'
           java-version: '17'
+          cache: 'gradle'
 
       - name: Install Dependencies
         run: npm install
@@ -52,13 +53,10 @@ jobs:
           fi
 
       - name: Build Release Bundle (AAB)
-        # env:
-        #   # This maps your GitHub Secret to an environment variable
-        #   MAPS_API_KEY: ${{ secrets.GOOGLE_API_KEY }}
         run: |
           cd android
           ./gradlew bundleRelease \
-            -Pandroid.injected.signing.store.file=NiceSportMatch-key.keystore \
+            -Pandroid.injected.signing.store.file=$GITHUB_WORKSPACE/android/app/NiceSportMatch-key.keystore \  
             -Pandroid.injected.signing.store.password=${{ secrets.KEYSTORE_PASSWORD }} \
             -Pandroid.injected.signing.key.alias=${{ secrets.KEY_ALIAS }} \
             -Pandroid.injected.signing.key.password=${{ secrets.KEY_PASSWORD }}
