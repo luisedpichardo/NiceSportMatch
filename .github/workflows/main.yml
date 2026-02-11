@@ -27,9 +27,6 @@ jobs:
           java-version: '17'
           cache: 'gradle'
 
-      - name: Install Dependencies
-        run: npm install
-
       - name: Decode Keystore
         run: echo "${{ secrets.ANDROID_KEYSTORE_BASE64 }}" | base64 --decode > android/app/NiceSportMatch-key.keystore
 
@@ -76,5 +73,5 @@ jobs:
         with:
           appId: ${{ secrets.FIREBASE_APP_ID }}
           serviceCredentialsFileContent: ${{ secrets.FIREBASE_CREDENTIALS }}
-          groups: 'rn-batch' # Match your Firebase group name
-          file: android/app/build/outputs/apk/release/app-release.apk
+          groups: rn-batch
+          file: android/app/build/outputs/apk/release/*.apk
