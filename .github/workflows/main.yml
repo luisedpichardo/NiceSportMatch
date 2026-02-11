@@ -71,6 +71,10 @@ jobs:
             android/app/build/outputs/bundle/release/*.aab
           retention-days: 7
 
+      - name: List APK outputs
+        run: |
+          ls -la android/app/build/outputs/apk/release
+
       - name: upload artifact to Firebase App Distribution
         uses: wzieba/Firebase-Distribution-Github-Action@v1
         with:
