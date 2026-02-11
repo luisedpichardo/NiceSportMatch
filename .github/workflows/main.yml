@@ -61,13 +61,14 @@ jobs:
             -Pandroid.injected.signing.key.alias="${{ secrets.KEY_ALIAS }}" \
             -Pandroid.injected.signing.key.password="${{ secrets.KEY_PASSWORD }}"
 
-      - name: Upload AAB & APK Artifact
+      - name: Upload Artifacts (APK & AAB)
         uses: actions/upload-artifact@v4
         with:
-          name: NiceSportMatch-AAB
+          name: NiceSportMatch-Builds
+          # This glob pattern uploads both the APK and the AAB in one go
           path: |
-            android/app/build/outputs/bundle/release/app-release.aab
-            android/app/build/outputs/apk/release/app-release.apk
+            android/app/build/outputs/apk/release/*.apk
+            android/app/build/outputs/bundle/release/*.aab
           retention-days: 7
 
       - name: upload artifact to Firebase App Distribution
@@ -75,5 +76,5 @@ jobs:
         with:
           appId: ${{ secrets.FIREBASE_APP_ID }}
           serviceCredentialsFileContent: ${{ secrets.FIREBASE_CREDENTIALS }}
-          groups: 'testers' # Match your Firebase group name
+          groups: 'rn-batch' # Match your Firebase group name
           file: android/app/build/outputs/apk/release/app-release.apk
