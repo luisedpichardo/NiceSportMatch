@@ -64,11 +64,11 @@ jobs:
       - name: Upload AAB Artifact
         uses: actions/upload-artifact@v4
         with:
-          name: app-release-bundle
+          name: NiceSportMatch-AAB
           path: android/app/build/outputs/bundle/release/app-release.aab
           retention-days: 7
       
-      - name: Build Assembly Bundle (APK)
+      - name: Build APK (Assemble Release)
         run: |
           cd android
           ./gradlew assembleRelease \
@@ -80,7 +80,9 @@ jobs:
       - name: Upload APK Artifact
         uses: actions/upload-artifact@v4
         with:
-          name: app-release-bundle
+          name: NiceSportMatch-APK
+          # APKs are usually generated with 'app-release.apk' or 'app-release-unsigned.apk'
+          # Check your build.gradle if you have custom naming rules
           path: android/app/build/outputs/apk/release/app-release.apk
           retention-days: 7
 
