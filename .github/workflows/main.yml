@@ -71,9 +71,10 @@ jobs:
             android/app/build/outputs/bundle/release/*.aab
           retention-days: 7
 
-      - name: List APK outputs
+      - name: Find APK
         run: |
-          ls -la android/app/build/outputs/apk/release
+          APK_PATH=$(ls android/app/build/outputs/apk/release/*.apk | head -n 1)
+          echo "APK_PATH=$APK_PATH" >> $GITHUB_ENV
 
       - name: upload artifact to Firebase App Distribution
         uses: wzieba/Firebase-Distribution-Github-Action@v1
@@ -81,4 +82,4 @@ jobs:
           appId: ${{ secrets.FIREBASE_APP_ID }}
           serviceCredentialsFileContent: ${{ secrets.FIREBASE_CREDENTIALS }}
           groups: rn-batch
-          file: android/app/build/outputs/apk/release/*.apk
+          file: ${{ env.APK_PATH }}
