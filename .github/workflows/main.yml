@@ -82,4 +82,4 @@ jobs:
           appId: ${{ secrets.FIREBASE_APP_ID }}
           serviceCredentialsFileContent: ${{ secrets.FIREBASE_CREDENTIALS }}
           groups: rn-batch
-          file: ${{ env.APK_PATH }}
+          file: android/app/build/outputs/apk/release/*.apk
