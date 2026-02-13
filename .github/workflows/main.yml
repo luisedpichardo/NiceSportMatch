@@ -75,6 +75,11 @@ jobs:
           APK_PATH=$(ls android/app/build/outputs/apk/release/*.apk | head -n 1)
           echo "APK_PATH=$APK_PATH" >> $GITHUB_ENV
 
+      - name: Verify APK
+        run: |
+          ls -lh android/app/build/outputs/apk/release/
+          file android/app/build/outputs/apk/release/*.apk
+
       - name: upload artifact to Firebase App Distribution
         uses: wzieba/Firebase-Distribution-Github-Action@v1
         with:
