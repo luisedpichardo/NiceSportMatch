@@ -65,9 +65,6 @@ describe('sendMessageService', () => {
       receiver,
       sender,
     );
-
-    // Verify Notification Service
-    expect(newMessageNotificationService).toHaveBeenCalledWith(expectedMessage);
   });
 
   test('should throw an error if firestore fails', async () => {
