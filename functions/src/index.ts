@@ -12,6 +12,7 @@ import { setGlobalOptions } from 'firebase-functions';
 // import * as logger from 'firebase-functions/logger';
 
 export * from './aws';
+export * from './fcm'
 
 // Start writing functions
 // https://firebase.google.com/docs/functions/typescript
