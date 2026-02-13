@@ -46,7 +46,7 @@ export const sendMessageService = async (
     addReferenceForUserChatService(sender, receiver);
     addReferenceForUserChatService(receiver, sender);
     // Send notification
-    newMessageNotificationService(newMessage);
+    newMessageNotificationService(newMessage, flag);
   } catch (e: any) {
     throw new Error(e.message);
   }

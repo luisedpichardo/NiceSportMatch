@@ -70,10 +70,8 @@ export const removeDeviceToken = async (email: any, token: string) => {
     if (userTokens?.deviceTokens) {
       // Remove token if there is a list
       const tokens = userTokens.deviceTokens;
-      console.log(tokens);
       // Filter through the list
       const newTokens = tokens.filter((item: string) => item !== token);
-      console.log('new tokens', newTokens);
       await userTokenRef.update({ deviceTokens: newTokens });
     } else {
       throw new Error('Could not find any tokens');
@@ -85,10 +83,8 @@ export const removeDeviceToken = async (email: any, token: string) => {
 
 const getTokensService = async (email: string) => {
   try {
-    console.log(email);
     const tokensRef = firestore().collection('tokens').doc(email);
     const userTokens = (await tokensRef.get()).data();
-    console.log(userTokens?.deviceTokens);
     if (userTokens) {
       return userTokens;
     }
@@ -102,20 +98,16 @@ export const matchAddedNotificationService = async (
   username: string,
 ) => {
   if (username === currUsername) return;
-  console.log('trying to create a notification');
   try {
     const userRef = (await getUserRefService(username).get()).data();
     if (userRef) {
       const userTokens = await getTokensService(userRef.email);
       if (userTokens) {
-        const notification = {
-          notification: {
-            title: 'Someone is interested in your matches!',
-            body: 'Get in and add missing informating to your match for the rest.',
-          },
+        await functionsInstance.httpsCallable('notifMessage')({
+          title: 'Someone is interested in your matches!',
+          body: 'Get in and add missing informating to your match for the rest.',
           tokens: userTokens.deviceTokens,
-        };
-        console.log('notification to user: ', notification);
+        });
       }
     }
   } catch (e: any) {
@@ -123,7 +115,10 @@ export const matchAddedNotificationService = async (
   }
 };
 
-export const newMessageNotificationService = async (newMessage: any) => {
+export const newMessageNotificationService = async (
+  newMessage: any,
+  flag: string,
+) => {
   try {
     const receiverRef = (
       await getUserRefService(newMessage.receiver).get()
@@ -131,14 +126,14 @@ export const newMessageNotificationService = async (newMessage: any) => {
     if (receiverRef) {
       const userReceiverTokens = await getTokensService(receiverRef.email);
       if (userReceiverTokens) {
-        const notification = {
-          notification: {
-            title: newMessage.sender,
-            body: newMessage.message,
-          },
+        await functionsInstance.httpsCallable('notifMessage')({
+          title: newMessage.sender,
+          body:
+            flag === 'image'
+              ? `${newMessage.sender} sent an image!`
+              : newMessage.message,
           tokens: userReceiverTokens.deviceTokens,
-        };
-        console.log('notification to user: ', notification);
+        });
       }
     }
   } catch (e: any) {
