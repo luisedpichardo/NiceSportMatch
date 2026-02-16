@@ -29,7 +29,7 @@ export const useChatMessages = (someone: string) => {
           ),
         ),
       )
-      .orderBy('time', 'asc')
+      .orderBy('time', 'desc')
       .onSnapshot(
         snapshot => {
           if (!snapshot) return;

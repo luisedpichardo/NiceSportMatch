@@ -15,6 +15,7 @@ export const UserChat = ({ messages }: Props) => {
   return (
     <FlatList
       data={messages}
+      inverted
       renderItem={({ item }) => {
         return (
           <View key={item.time} style={{ margin: 10 }}>
