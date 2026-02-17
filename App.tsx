@@ -11,6 +11,7 @@ import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { NavigationContainer } from '@react-navigation/native';
 import { getAuth, onAuthStateChanged } from '@react-native-firebase/auth';
 import i18n from './i18n';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 // Hooks
 import { useTheme } from './src/hooks/useTheme';
 // Navigation
@@ -64,9 +65,11 @@ function App() {
         barStyle={colorScheme === 'light' ? 'dark-content' : 'light-content'}
       />
       <ErrorBoundary>
-        <NavigationContainer>
-          <Navigation />
-        </NavigationContainer>
+        <GestureHandlerRootView>
+          <NavigationContainer>
+            <Navigation />
+          </NavigationContainer>
+        </GestureHandlerRootView>
       </ErrorBoundary>
     </SafeAreaProvider>
   );
