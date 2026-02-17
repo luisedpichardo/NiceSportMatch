@@ -1,4 +1,4 @@
-import { Image, Pressable, StyleSheet, Text, View } from 'react-native';
+import { Image, Pressable, StyleSheet, Text } from 'react-native';
 import { Gesture, GestureDetector } from 'react-native-gesture-handler';
 import Animated, {
   useAnimatedStyle,
@@ -7,6 +7,8 @@ import Animated, {
 } from 'react-native-reanimated';
 // Hooks
 import { useTheme } from '../hooks/useTheme';
+// Service
+import { removeMessageService } from '../services/MessagesService';
 
 export const BubbleChatOwn = ({ item }) => {
   const { theme } = useTheme();
@@ -15,6 +17,7 @@ export const BubbleChatOwn = ({ item }) => {
 
   const onDeletedMessage = id => {
     console.log('id to remove', id);
+    removeMessageService(id);
   };
 
   const animatedStyle = useAnimatedStyle(() => ({
@@ -33,7 +36,7 @@ export const BubbleChatOwn = ({ item }) => {
     .onFinalize(() => {
       setTimeout(() => {
         position.value = withSpring(0);
-      }, 5000);
+      }, 1500);
     });
 
   return (

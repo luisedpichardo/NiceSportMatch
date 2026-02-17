@@ -1,5 +1,9 @@
 import uuid from 'react-native-uuid';
-import firestore, { serverTimestamp } from '@react-native-firebase/firestore';
+import firestore, {
+  deleteDoc,
+  doc,
+  serverTimestamp,
+} from '@react-native-firebase/firestore';
 // Services
 import { addReferenceForUserChatService } from './UserService';
 import { newMessageNotificationService } from './TokenNotifService';
@@ -47,6 +51,14 @@ export const sendMessageService = async (
     addReferenceForUserChatService(receiver, sender);
     // Send notification
     newMessageNotificationService(newMessage, flag);
+  } catch (e: any) {
+    throw new Error(e.message);
+  }
+};
+
+export const removeMessageService = async (id: string) => {
+  try {
+    await deleteDoc(doc(firestore(), 'messages', id));
   } catch (e: any) {
     throw new Error(e.message);
   }
