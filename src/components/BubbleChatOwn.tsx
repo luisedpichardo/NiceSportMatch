@@ -31,12 +31,11 @@ export const BubbleChatOwn = ({ item }) => {
     })
     .onUpdate(e => {
       position.value = startX.value + e.translationX;
-      position.value = withSpring(-50);
-    })
-    .onFinalize(() => {
-      setTimeout(() => {
+      if (position.value > -25) {
         position.value = withSpring(0);
-      }, 1500);
+      } else {
+        position.value = withSpring(-50);
+      }
     });
 
   return (
