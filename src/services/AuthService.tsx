@@ -1,11 +1,19 @@
-import { Alert, Image, Platform } from 'react-native';
+import { Alert, Platform } from 'react-native';
+import { getApp } from '@react-native-firebase/app';
 import {
   createUserWithEmailAndPassword,
   getAuth,
   signInWithEmailAndPassword,
   signOut,
 } from '@react-native-firebase/auth';
-import firestore from '@react-native-firebase/firestore';
+import {
+  collection,
+  doc,
+  getDoc,
+  getDocs,
+  getFirestore,
+  setDoc,
+} from '@react-native-firebase/firestore';
 import DeviceInfo from 'react-native-device-info';
 // Services
 import { removeDeviceToken } from './TokenNotifService';
@@ -14,6 +22,9 @@ import {
   requestNotificationAndroidPermission,
   requestNotificationIOSPermission,
 } from '../utils/PermissionsHelpers';
+
+const app = getApp();
+const db = getFirestore(app);
 
 export const createUserWithEmailAndPasswordService = async (
   firstName: string,
@@ -27,24 +38,23 @@ export const createUserWithEmailAndPasswordService = async (
     const lowUsername = username.toLowerCase();
     const lowEmail = email.toLowerCase();
     // Check if the username is valid
-    const invalidUsername = (
-      await firestore().collection('users').doc(lowUsername).get()
-    ).exists();
+    const userDocRef = doc(db, 'users', lowUsername);
+    const userSnapshot = await getDoc(userDocRef);
     // If username in use
-    if (invalidUsername) throw new Error('Username must be unique');
-    // Assing default picture and compress it
-    const imageUri = Image.resolveAssetSource(
-      require('../../assets/account_pp_default.jpg'),
-    ).uri;
+    if (userSnapshot.exists()) {
+      throw new Error('Username must be unique');
+    }
     // Create user with email and password
     await createUserWithEmailAndPassword(getAuth(), lowEmail, password);
-    // Save user info into firestore
-    await firestore().collection('users').doc(lowUsername).set({
+    // Save user profile to Firestore
+    await setDoc(userDocRef, {
       email: lowEmail,
       username: lowUsername,
       firstName,
       lastName,
-      imageUri,
+      imageUri:
+        'https://nice-sport-match-bucket.s3.us-east-2.amazonaws.com/profile-pics/account_pp_default.jpg',
+      createdAt: new Date(),
     });
   } catch (error: any) {
     if (error.code === 'auth/email-already-in-use') {
@@ -100,8 +110,8 @@ export const signOutService = async () => {
 // Read users
 export const readUsersService = async () => {
   try {
-    const users = (await firestore().collection('users').get()).docs;
-    return users;
+    const snapshot = await getDocs(collection(db, 'users'));
+    return snapshot.docs;
   } catch (e: any) {
     throw new Error(e.message);
   }
