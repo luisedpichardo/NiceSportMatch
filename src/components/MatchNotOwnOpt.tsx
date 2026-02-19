@@ -13,6 +13,7 @@ import { useInternet } from '../hooks/useInternet';
 type Props = {
   publisher: string;
   _id: string;
+  removeCallBack: () => void;
 };
 
 type ChatStackParamList = {
@@ -22,7 +23,7 @@ type ChatStackParamList = {
   };
 };
 
-export const MatchNotOwnOpt = ({ publisher, _id }: Props) => {
+export const MatchNotOwnOpt = ({ publisher, _id, removeCallBack }: Props) => {
   const { t } = useTranslation();
   const username = userStore(state => state.username);
   const { theme } = useTheme();
@@ -33,6 +34,7 @@ export const MatchNotOwnOpt = ({ publisher, _id }: Props) => {
     if (!username) return;
     try {
       await removeMatchFromUserService(_id, username);
+      removeCallBack();
     } catch (e: any) {
       Alert.alert('Error', e.message);
     }

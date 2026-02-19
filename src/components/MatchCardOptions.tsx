@@ -14,9 +14,15 @@ type Props = {
   publisher: string;
   own: boolean;
   match: any;
+  removeCallBack: () => void;
 };
 
-export const MatchCardOptions = ({ publisher, own, match }: Props) => {
+export const MatchCardOptions = ({
+  publisher,
+  own,
+  match,
+  removeCallBack,
+}: Props) => {
   const { t } = useTranslation();
   const { theme } = useTheme();
   const navigation = useNavigation();
@@ -55,7 +61,11 @@ export const MatchCardOptions = ({ publisher, own, match }: Props) => {
         </TouchableOpacity>
       ) : (
         <View testID="otherOpt">
-          <MatchNotOwnOpt _id={match._id} publisher={publisher} />
+          <MatchNotOwnOpt
+            _id={match._id}
+            publisher={publisher}
+            removeCallBack={removeCallBack}
+          />
         </View>
       )}
     </>

@@ -1,4 +1,8 @@
 import { StyleSheet, View } from 'react-native';
+import Animated, {
+  useAnimatedStyle,
+  useSharedValue,
+} from 'react-native-reanimated';
 // Components
 import { MatchCardOptions } from './MatchCardOptions';
 import { RigthSMatchPrev } from './RightSMatchPrev';
@@ -15,26 +19,38 @@ type Match = {
 export const MatchPrev = ({ match }: Match) => {
   const username = userStore(state => state.username);
   const { theme } = useTheme();
+  const position = useSharedValue(0);
+
+  const removeAnimation = () => {
+    position.value = -300;
+  };
+
+  const animatedStyle = useAnimatedStyle(() => ({
+    transform: [{ translateX: position.value }],
+  }));
 
   return (
-    <View
-      testID="matchView"
-      style={{
-        ...styles.container,
-        shadowColor: theme.cardShadow,
-        backgroundColor: theme.surface,
-      }}
-    >
-      <View testID="infoContainer" style={styles.matchInfo}>
-        <LeftSMatchPrev publisher={match.publisher} status={match.status} />
-        <RigthSMatchPrev day={match.day} time={match.time} />
+    <Animated.View style={[animatedStyle]}>
+      <View
+        testID="matchView"
+        style={{
+          ...styles.container,
+          shadowColor: theme.cardShadow,
+          backgroundColor: theme.surface,
+        }}
+      >
+        <View testID="infoContainer" style={styles.matchInfo}>
+          <LeftSMatchPrev publisher={match.publisher} status={match.status} />
+          <RigthSMatchPrev day={match.day} time={match.time} />
+        </View>
+        <MatchCardOptions
+          publisher={match.publisher}
+          own={username === match.publisher}
+          match={match}
+          removeCallBack={removeAnimation}
+        />
       </View>
-      <MatchCardOptions
-        publisher={match.publisher}
-        own={username === match.publisher}
-        match={match}
-      />
-    </View>
+    </Animated.View>
   );
 };
 
