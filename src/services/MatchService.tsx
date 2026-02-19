@@ -1,11 +1,21 @@
 import uuid from 'react-native-uuid';
-import firestore from '@react-native-firebase/firestore';
+import { getApp } from '@react-native-firebase/app';
+import {
+  collection,
+  doc,
+  getDocs,
+  getFirestore,
+  setDoc,
+} from '@react-native-firebase/firestore';
 // Services
 import { addMatchIdToUserService, getMatchesIdsService } from './UserService';
 import {
   createMatchForDBService,
   updateMatchForDBService,
 } from '../services/LocalDBService';
+
+const app = getApp();
+const db = getFirestore(app);
 
 export const createMatchService = async (
   lat: number,
@@ -25,11 +35,14 @@ export const createMatchService = async (
       time,
       publisher,
       status: 'Upcoming',
+      createdAt: new Date(),
     };
     // Update local db
     createMatchForDBService(match);
+    // Add to firestore
+    const matchDocRef = doc(db, 'matches', match._id);
+    await setDoc(matchDocRef, match);
 
-    await firestore().collection('matches').doc(match._id).set(match);
     // Add id to array of matches inside user
     addMatchIdToUserService(publisher, publisher, match._id);
   } catch (e: any) {
@@ -39,8 +52,11 @@ export const createMatchService = async (
 
 export const readAllMatchesService = async () => {
   try {
-    const matchesData = (await firestore().collection('matches').get()).docs;
-    const matches = matchesData.map(elem => elem.data());
+    const snapshot = await getDocs(collection(db, 'matches'));
+    const matches = snapshot.docs.map(doc => ({
+      id: doc.id,
+      ...doc.data(),
+    }));
     return matches;
   } catch (e: any) {
     throw new Error(e.message);
@@ -72,7 +88,7 @@ export const updateMatchService = async (match: any) => {
 
 export const getMatchRefService = (_id: string) => {
   try {
-    return firestore().collection('matches').doc(_id);
+    return doc(collection(db, 'matches'), _id);
   } catch (e: any) {
     throw new Error(e.message);
   }
