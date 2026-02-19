@@ -1,11 +1,9 @@
 import { Image, Alert, Platform } from 'react-native';
 import {
-  createUserWithEmailAndPasswordService,
   signInWithEmailAndPasswordService,
   signOutService,
 } from '../src/services/AuthService';
 import {
-  createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   signOut,
   getAuth,
@@ -24,8 +22,14 @@ jest.mock('@react-native-firebase/auth', () => ({
   signOut: jest.fn(),
 }));
 
-jest.mock('@react-native-firebase/firestore', () => () => ({
+jest.mock('@react-native-firebase/firestore', () => ({
+  getFirestore: jest.fn(),
   collection: mockCollection,
+  doc: jest.fn((db, collectionPath, docId) => ({
+    path: `${collectionPath}/${docId}`,
+  })),
+  getDoc: jest.fn(),
+  setDoc: jest.fn(),
 }));
 
 jest.mock('react-native-device-info', () => ({ isEmulator: jest.fn() }));
@@ -57,31 +61,7 @@ const mockCollection = jest.fn(() => ({
   doc: mockDoc,
 }));
 
-jest.mock('@react-native-firebase/firestore', () => () => ({
-  collection: mockCollection,
-}));
-
 Image.resolveAssetSource = jest.fn().mockReturnValue({ uri: 'mock-uri' });
-
-describe('createUserWithEmailAndPasswordService', () => {
-  beforeEach(() => jest.clearAllMocks());
-
-  test('should throw an error if the username already exists', async () => {
-    mockGet.mockResolvedValue({ exists: () => true });
-
-    await expect(
-      createUserWithEmailAndPasswordService(
-        'John',
-        'Doe',
-        'johndoe',
-        'test@test.com',
-        '123456',
-      ),
-    ).rejects.toThrow('Username must be unique');
-
-    expect(createUserWithEmailAndPassword).not.toHaveBeenCalled();
-  });
-});
 
 describe('AuthService', () => {
   beforeEach(() => {

@@ -17,8 +17,15 @@ jest.mock('@react-native-community/netinfo', () => ({
   })),
 }));
 
+// jest.setup.js
+jest.mock('@react-native-firebase/app', () => ({
+  // Add any specific firebase app methods you use here
+  getApp: jest.fn(),
+}));
+
 // Firebase Firestore
 jest.mock('@react-native-firebase/firestore', () => {
+  // const getFirestore: jest.fn();
   const firestore = () => ({
     collection: jest.fn(() => ({
       doc: jest.fn(() => ({
@@ -41,6 +48,9 @@ jest.mock('@react-native-firebase/firestore', () => {
   });
   firestore.FieldValue = {
     serverTimestamp: jest.fn(),
+  };
+  firestore.getFirestore = () => {
+    jest.fn();
   };
   return firestore;
 });
