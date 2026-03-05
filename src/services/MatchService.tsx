@@ -93,3 +93,12 @@ export const getMatchRefService = (_id: string) => {
     throw new Error(e.message);
   }
 };
+
+export const readMatchById = async (_id: string) => {
+  try {
+    const matchInfo = await getMatchRefService(_id).get();
+    return matchInfo.data();
+  } catch (e: any) {
+    throw new Error(e.message);
+  }
+};

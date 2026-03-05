@@ -1,5 +1,11 @@
 import { useEffect } from 'react';
-import { KeyboardAvoidingView, StyleSheet, View } from 'react-native';
+import {
+  Image,
+  KeyboardAvoidingView,
+  Pressable,
+  StyleSheet,
+  View,
+} from 'react-native';
 import { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
 import { CompositeScreenProps } from '@react-navigation/native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
@@ -29,8 +35,31 @@ export const Chat = ({ navigation, route }: Props) => {
   useEffect(() => {
     navigation.setOptions({
       headerTitle: someone,
+      headerRight: () => rightOptions(),
+      headerStyle: { backgroundColor: theme.chatHeader },
     });
   }, [navigation, someone]);
+
+  const rightOptions = () => {
+    return (
+      <>
+        <Pressable onPress={() => console.log('calling', someone)}>
+          <Image
+            style={styles.img}
+            source={require('../../assets/telephone.png')}
+            resizeMode="contain"
+          />
+        </Pressable>
+        <Pressable onPress={() => console.log('video calling', someone)}>
+          <Image
+            style={styles.img}
+            source={require('../../assets/video.png')}
+            resizeMode="contain"
+          />
+        </Pressable>
+      </>
+    );
+  };
 
   return (
     <View style={{ ...styles.container, backgroundColor: theme.secondary }}>
@@ -63,5 +92,10 @@ const styles = StyleSheet.create({
   messageCont: {
     flex: 1,
     marginTop: '30%',
+  },
+  img: {
+    width: 20,
+    height: 20,
+    marginHorizontal: 7,
   },
 });

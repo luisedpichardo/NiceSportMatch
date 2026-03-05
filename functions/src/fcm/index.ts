@@ -5,6 +5,7 @@ type Notification = {
   title: string;
   body: string;
   tokens: Array<string>;
+  url: string;
 };
 type NotifProps = {
   data: Notification;
@@ -26,6 +27,9 @@ export const notifMessage = functions.https.onCall(
         notification: {
           title: data.title,
           body: data.body,
+        },
+        data: {
+          url: data.url,
         },
         tokens: data.tokens,
       });

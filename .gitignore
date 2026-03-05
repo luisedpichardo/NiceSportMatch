@@ -79,5 +79,3 @@ yarn-error.log
 .env
 
 nice-sport-match-firebase-adminsdk-fbsvc-41cfd250ef.json
-*storybook.log
-storybook-static

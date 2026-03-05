@@ -29,7 +29,13 @@ export function MessageStack() {
           headerRight: () => rightHeader(),
         }}
       />
-      <ChatStack.Screen name="Chat" component={Chat} />
+      <ChatStack.Screen
+        name="Chat"
+        component={Chat}
+        options={{
+          headerTransparent: false,
+        }}
+      />
     </ChatStack.Navigator>
   );
 }

@@ -32,6 +32,17 @@ import {
   removeUsernameFromStore,
 } from './src/utils/AuthHelpers';
 
+// Define Deep Linking Configuration
+const linking = {
+  prefixes: ['nicesportmatch://'],
+  config: {
+    screens: {
+      UpdateMatch: 'matches/:matchId',
+      Chat: 'chat/:someone'
+    },
+  },
+};
+
 function App() {
   const { colorScheme } = useTheme();
 
@@ -66,7 +77,7 @@ function App() {
       />
       <ErrorBoundary>
         <GestureHandlerRootView>
-          <NavigationContainer>
+          <NavigationContainer linking={linking}>
             <Navigation />
           </NavigationContainer>
         </GestureHandlerRootView>

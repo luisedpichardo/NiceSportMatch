@@ -6,9 +6,9 @@ import { useTranslation } from 'react-i18next';
 import { MatchNotOwnOpt } from './MatchNotOwnOpt';
 // Hooks
 import { useTheme } from '../hooks/useTheme';
+import { useInternet } from '../hooks/useInternet';
 // Types
 import { MatchNavStack } from '../navigation/types';
-import { useInternet } from '../hooks/useInternet';
 
 type Props = {
   publisher: string;
@@ -37,7 +37,7 @@ export const MatchCardOptions = ({
       Alert.alert(t('no-internet'));
       return;
     }
-    nav.navigate('UpdateMatch', { match });
+    nav.navigate('UpdateMatch', { matchId: match.id });
   };
 
   return (

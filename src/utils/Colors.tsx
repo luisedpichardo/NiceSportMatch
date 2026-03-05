@@ -13,6 +13,7 @@ export const lightTheme = {
   iconSecondary: '#808080', // icon gray
   iconWhite: '#FFFFFF', // icon white
   transparent: 'rgba(0, 0, 0, 0.5)', // transparent black
+  chatHeader: '#61b961',
   bubble: '#808080', // their chat
   ownBubble: '#FFFFFF', // own chat
   chatText: '#FFFFFF', // ther chat text
@@ -36,6 +37,7 @@ export const darkTheme = {
   iconSecondary: '#2A3B2F',
   iconWhite: '#FFFFFF', // icon white
   transparent: 'rgba(46, 204, 113, 0.2)',
+  chatHeader: '#2a6a49',
   bubble: '#2A3B2F',
   ownBubble: '#008000',
   chatText: '#E1E3DF',

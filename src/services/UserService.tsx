@@ -67,7 +67,7 @@ export const addMatchIdToUserService = async (
       } else {
         await userRef.update({ matchesIds: [_id] });
       }
-      matchAddedNotificationService(currUsername, username);
+      matchAddedNotificationService(currUsername, username, _id);
     } else {
       throw new Error('No user found');
     }

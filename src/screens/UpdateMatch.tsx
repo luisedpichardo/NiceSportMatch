@@ -4,8 +4,10 @@ import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { useTranslation } from 'react-i18next';
 // Components
 import { UpdateMatchForm } from '../components/UpdateMatchForm';
-// Hoooks
+import { Loading } from '../components/Loading';
+// Hooks
 import { useTheme } from '../hooks/useTheme';
+import { useMatch } from '../hooks/useMatch';
 // Types
 import { MatchNavStack } from '../navigation/types';
 
@@ -14,7 +16,8 @@ type Props = NativeStackScreenProps<MatchNavStack, 'UpdateMatch'>;
 export const UpdateMatch = ({ navigation, route }: Props) => {
   const { t } = useTranslation();
   const { theme } = useTheme();
-  const match = route.params?.match;
+  const id = route.params?.matchId;
+  const { match, loading } = useMatch(id);
 
   useEffect(() => {
     navigation.setOptions({
@@ -25,7 +28,11 @@ export const UpdateMatch = ({ navigation, route }: Props) => {
   return (
     <View style={[styles.container, { backgroundColor: theme.secondary }]}>
       <View style={styles.formContatiner}>
-        <UpdateMatchForm match={match} navigation={navigation} />
+        {loading ? (
+          <Loading />
+        ) : (
+          <UpdateMatchForm match={match} navigation={navigation} />
+        )}
       </View>
     </View>
   );

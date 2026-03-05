@@ -96,6 +96,7 @@ const getTokensService = async (email: string) => {
 export const matchAddedNotificationService = async (
   currUsername: string,
   username: string,
+  _id: string,
 ) => {
   if (username === currUsername) return;
   try {
@@ -106,6 +107,7 @@ export const matchAddedNotificationService = async (
         await functionsInstance.httpsCallable('notifMessage')({
           title: 'Someone is interested in your matches!',
           body: 'Get in and add missing informating to your match for the rest.',
+          url: `nicesportmatch://matches/${_id}`,
           tokens: userTokens.deviceTokens,
         });
       }
@@ -133,6 +135,7 @@ export const newMessageNotificationService = async (
               ? `${newMessage.sender} sent an image!`
               : newMessage.message,
           tokens: userReceiverTokens.deviceTokens,
+          url: `nicesportmatch://chat/${newMessage.sender}`,
         });
       }
     }
