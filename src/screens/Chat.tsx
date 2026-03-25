@@ -43,7 +43,9 @@ export const Chat = ({ navigation, route }: Props) => {
   const rightOptions = () => {
     return (
       <>
-        <Pressable onPress={() => console.log('calling', someone)}>
+        <Pressable
+          onPress={() => navigation.navigate('AudioCallRequest', { someone })}
+        >
           <Image
             style={styles.img}
             source={require('../../assets/telephone.png')}

@@ -26,4 +26,5 @@ export type MatchNavStack = {
 export type ChatNavStack = {
   Chat: any;
   Messages: any;
+  AudioCallRequest: any;
 };
