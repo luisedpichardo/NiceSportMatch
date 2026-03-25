@@ -6,6 +6,7 @@ import { useTheme } from '../hooks/useTheme';
 // Screens
 import { Messages } from '../screens/Messages';
 import { Chat } from '../screens/Chat';
+import { AudioCallRequest } from '../screens/AudioCallRequest';
 // Types
 import { ChatNavStack } from './types';
 
@@ -34,6 +35,14 @@ export function MessageStack() {
         component={Chat}
         options={{
           headerTransparent: false,
+        }}
+      />
+      <ChatStack.Screen
+        name="AudioCallRequest"
+        component={AudioCallRequest}
+        options={{
+          headerTitle: '',
+          // headerBackVisible: false,
         }}
       />
     </ChatStack.Navigator>
