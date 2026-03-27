@@ -8,7 +8,6 @@
 import { useCallback, useEffect } from 'react';
 import { StatusBar } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
-import { NavigationContainer } from '@react-navigation/native';
 import { getAuth, onAuthStateChanged } from '@react-native-firebase/auth';
 import i18n from './i18n';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
@@ -36,6 +35,7 @@ import {
   removeUsernameFromStore,
 } from './src/utils/AuthHelpers';
 
+<<<<<<< HEAD
 // Define Deep Linking Configuration
 const linking = {
   prefixes: ['nicesportmatch://'],
@@ -47,10 +47,13 @@ const linking = {
   },
 };
 
+=======
+>>>>>>> a129be1a75c2af3b4e00e27f9c6ed16586b4bd3d
 function App() {
   const { colorScheme } = useTheme();
 
   useEffect(() => {
+    userStore.getState().setIsLoading(true);
     const subscriber = onAuthStateChanged(getAuth(), user => {
       if (user) {
         userStore.getState().setUser(user);
@@ -66,6 +69,7 @@ function App() {
         // Remove db
         removeDBonLogOut();
       }
+      userStore.getState().setIsLoading(false);
     });
     getPersistedLang().then(data => {
       const lang = typeof data === 'string' ? data : data?.languageTag;
@@ -86,11 +90,15 @@ function App() {
       />
       <ErrorBoundary>
         <GestureHandlerRootView>
+<<<<<<< HEAD
           <PerformanceProfiler onReportPrepared={onReportPrepared}>
             <NavigationContainer linking={linking}>
               <Navigation />
             </NavigationContainer>
           </PerformanceProfiler>
+=======
+          <Navigation />
+>>>>>>> a129be1a75c2af3b4e00e27f9c6ed16586b4bd3d
         </GestureHandlerRootView>
       </ErrorBoundary>
     </SafeAreaProvider>
