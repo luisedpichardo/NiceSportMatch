@@ -6,6 +6,7 @@ import com.facebook.react.ReactApplication
 import com.facebook.react.ReactHost
 import com.facebook.react.ReactNativeApplicationEntryPoint.loadReactNative
 import com.facebook.react.defaults.DefaultReactHost.getDefaultReactHost
+import com.shopify.reactnativeperformance.ReactNativePerformance;
 
 class MainApplication : Application(), ReactApplication {
 
@@ -21,6 +22,7 @@ class MainApplication : Application(), ReactApplication {
   }
 
   override fun onCreate() {
+    ReactNativePerformance.onAppStarted();
     super.onCreate()
     loadReactNative(this)
   }

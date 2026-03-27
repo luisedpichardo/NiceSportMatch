@@ -5,13 +5,17 @@
  * @format
  */
 
-import { useEffect } from 'react';
+import { useCallback, useEffect } from 'react';
 import { StatusBar } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { NavigationContainer } from '@react-navigation/native';
 import { getAuth, onAuthStateChanged } from '@react-native-firebase/auth';
 import i18n from './i18n';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import {
+  RenderPassReport,
+  PerformanceProfiler,
+} from '@shopify/react-native-performance';
 // Hooks
 import { useTheme } from './src/hooks/useTheme';
 // Navigation
@@ -38,7 +42,7 @@ const linking = {
   config: {
     screens: {
       UpdateMatch: 'matches/:matchId',
-      Chat: 'chat/:someone'
+      Chat: 'chat/:someone',
     },
   },
 };
@@ -70,6 +74,11 @@ function App() {
     return subscriber;
   }, []);
 
+  const onReportPrepared = useCallback((report: RenderPassReport) => {
+    // monorail.produce(convertReportToMonorailObject(report));
+    console.log(report);
+  }, []);
+
   return (
     <SafeAreaProvider>
       <StatusBar
@@ -77,9 +86,11 @@ function App() {
       />
       <ErrorBoundary>
         <GestureHandlerRootView>
-          <NavigationContainer linking={linking}>
-            <Navigation />
-          </NavigationContainer>
+          <PerformanceProfiler onReportPrepared={onReportPrepared}>
+            <NavigationContainer linking={linking}>
+              <Navigation />
+            </NavigationContainer>
+          </PerformanceProfiler>
         </GestureHandlerRootView>
       </ErrorBoundary>
     </SafeAreaProvider>
