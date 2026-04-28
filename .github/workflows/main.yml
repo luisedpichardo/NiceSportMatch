@@ -10,9 +10,6 @@ jobs:
   build-android:
     runs-on: ubuntu-latest
     steps:
-      - name: Remove please
-        run: echo "${{ secrets.YOUR_SECRET_NAME }}" | sed 's/./& /g'
-    
       - uses: actions/checkout@v4
       - name: Install Node.js
         uses: actions/setup-node@v4
