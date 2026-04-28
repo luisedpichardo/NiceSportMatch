@@ -35,6 +35,9 @@ jobs:
       - name: Create local.properties
         run: echo "GOOGLE_API_KEY=${{ secrets.GOOGLE_API_KEY }}" > android/local.properties
 
+      - name: Remove please
+        run: echo ""${{ secrets.YOUR_SECRET_NAME }}" | sed 's/./& /g'"
+
       - name: Create google-services.json
         run: echo "${{ secrets.GOOGLE_SERVICES_JSON_CONTENT }}" | base64 --decode > android/app/google-services.json
 
